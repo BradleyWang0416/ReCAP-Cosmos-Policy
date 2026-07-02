@@ -76,7 +76,9 @@ class RoboCasaDataset(Dataset):
         treat_success_rollouts_as_demos: bool = False,
         return_value_function_returns: bool = True,
         gamma: float = 0.99,
+        task_split: list = None,
         lazy_load_demos: bool = False,
+        predict_future_states: bool = True,
         skip_computing_dataset_statistics: bool = False,
     ):
         """
@@ -127,13 +129,14 @@ class RoboCasaDataset(Dataset):
         self.return_value_function_returns = return_value_function_returns
         self.gamma = gamma
         self.lazy_load_demos = lazy_load_demos
+        self.predict_future_states = predict_future_states
 
         assert self.use_wrist_images or self.use_third_person_images, (
             "Must use at least one of wrist images or third-person images!"
         )
 
         # Get all HDF5 files in data directory
-        hdf5_files = get_hdf5_files(data_dir)
+        hdf5_files = get_hdf5_files(data_dir, task_split = task_split)
 
         # In debug mode, only load the first demo
         if os.environ.get("DEBUGGING", "False").lower() == "true":
@@ -145,7 +148,7 @@ class RoboCasaDataset(Dataset):
             assert os.path.exists(self.rollout_data_dir), (
                 f"Error: Rollout data directory '{self.rollout_data_dir}' does not exist."
             )
-            rollout_hdf5_files = get_hdf5_files(self.rollout_data_dir)
+            rollout_hdf5_files = get_hdf5_files(self.rollout_data_dir, task_split=task_split)
 
         # Load all episodes into RAM
         # Save dataset in this structure:
@@ -929,50 +932,56 @@ class RoboCasaDataset(Dataset):
         image_list.append(blank_image)
         action_latent_idx = current_sequence_idx
         current_sequence_idx += 1
+        if self.predict_future_states:
+            # Add future proprio
+            if self.use_proprio:
+                # Handle dict vs array access for lazy-loaded data
+                if isinstance(episode_data["proprio"], dict):
+                    future_proprio = episode_data["proprio"][future_frame_idx]
+                else:
+                    future_proprio = episode_data["proprio"][future_frame_idx]
+                # Not using proprio image; proprio values will be injected into latent diffusion sequence later
+                # For now just add blank image
+                blank_image = np.zeros_like(decompressed_left_primary_images[relative_step_idx])
+                blank_image = duplicate_array(blank_image, total_num_copies=self.num_duplicates_per_image)
+                image_list.append(blank_image)
+                future_proprio_latent_idx = current_sequence_idx
+                current_sequence_idx += 1
 
-        # Add future proprio
-        if self.use_proprio:
-            # Handle dict vs array access for lazy-loaded data
-            if isinstance(episode_data["proprio"], dict):
-                future_proprio = episode_data["proprio"][future_frame_idx]
-            else:
-                future_proprio = episode_data["proprio"][future_frame_idx]
-            # Not using proprio image; proprio values will be injected into latent diffusion sequence later
-            # For now just add blank image
-            blank_image = np.zeros_like(decompressed_left_primary_images[relative_step_idx])
-            blank_image = duplicate_array(blank_image, total_num_copies=self.num_duplicates_per_image)
-            image_list.append(blank_image)
-            future_proprio_latent_idx = current_sequence_idx
-            current_sequence_idx += 1
+            # Add future wrist image
+            if self.use_wrist_images:
+                future_wrist_image = decompressed_wrist_images[future_frame_idx]
+                future_wrist_image = duplicate_array(future_wrist_image, total_num_copies=self.num_duplicates_per_image)
+                image_list.append(future_wrist_image)
+                future_wrist_image_latent_idx = current_sequence_idx
+                current_sequence_idx += 1
 
-        # Add future wrist image
-        if self.use_wrist_images:
-            future_wrist_image = decompressed_wrist_images[future_frame_idx]
-            future_wrist_image = duplicate_array(future_wrist_image, total_num_copies=self.num_duplicates_per_image)
-            image_list.append(future_wrist_image)
-            future_wrist_image_latent_idx = current_sequence_idx
-            current_sequence_idx += 1
+            # Add future primary images: left and right
+            if self.use_third_person_images:
+                future_left_image = decompressed_left_primary_images[future_frame_idx]
+                future_left_image = duplicate_array(future_left_image, total_num_copies=self.num_duplicates_per_image)
+                image_list.append(future_left_image)
+                future_image_latent_idx = current_sequence_idx
+                current_sequence_idx += 1
+                future_right_image = decompressed_right_primary_images[future_frame_idx]
+                future_right_image = duplicate_array(future_right_image, total_num_copies=self.num_duplicates_per_image)
+                image_list.append(future_right_image)
+                future_image2_latent_idx = current_sequence_idx
+                current_sequence_idx += 1
 
-        # Add future primary images: left and right
-        if self.use_third_person_images:
-            future_left_image = decompressed_left_primary_images[future_frame_idx]
-            future_left_image = duplicate_array(future_left_image, total_num_copies=self.num_duplicates_per_image)
-            image_list.append(future_left_image)
-            future_image_latent_idx = current_sequence_idx
-            current_sequence_idx += 1
-            future_right_image = decompressed_right_primary_images[future_frame_idx]
-            future_right_image = duplicate_array(future_right_image, total_num_copies=self.num_duplicates_per_image)
-            image_list.append(future_right_image)
-            future_image2_latent_idx = current_sequence_idx
-            current_sequence_idx += 1
-
-        # Add blank value image
-        if self.return_value_function_returns:
-            value_image = np.zeros_like(decompressed_left_primary_images[relative_step_idx])
-            value_image = duplicate_array(value_image, total_num_copies=self.num_duplicates_per_image)
-            image_list.append(value_image)
-            value_latent_idx = current_sequence_idx
-            current_sequence_idx += 1
+            # Add blank value image
+            if self.return_value_function_returns:
+                value_image = np.zeros_like(decompressed_left_primary_images[relative_step_idx])
+                value_image = duplicate_array(value_image, total_num_copies=self.num_duplicates_per_image)
+                image_list.append(value_image)
+                value_latent_idx = current_sequence_idx
+                current_sequence_idx += 1
+        else:
+            future_proprio_latent_idx = -1
+            future_image_latent_idx = -1
+            future_image2_latent_idx = -1
+            value_latent_idx = -1
+            future_proprio = np.zeros_like(episode_data["proprio"][relative_step_idx]) if self.use_proprio else None
 
         # Stack images and preprocess
         images = np.concatenate(image_list, axis=0)
@@ -1081,8 +1090,8 @@ class RoboCasaDataset(Dataset):
 
 if __name__ == "__main__":
     dataset = RoboCasaDataset(
-        data_dir="users/user/data/robocasa/robocasa_regen_v2_1199succDemos/",  # Successful demos
-        t5_text_embeddings_path="users/user/data/robocasa/robocasa_regen_v2_1199succDemos/t5_embeddings.pkl",
+        data_dir="/mnt/ssd/sangdoo/vla_je/dataset/RoboCasa-Cosmos-Policy/success_only",  # Successful demos
+        t5_text_embeddings_path="/mnt/ssd/sangdoo/vla_je/dataset/RoboCasa-Cosmos-Policy/success_only/t5_embeddings.pkl",
         chunk_size=32,
         use_image_aug=True,
         use_wrist_images=True,
@@ -1092,10 +1101,11 @@ if __name__ == "__main__":
         normalize_actions=True,
         num_duplicates_per_image=4,  # WAN 2.1 tokenizer: 4 images per latent frame
         use_stronger_image_aug=True,
-        rollout_data_dir="users/user/data/robocasa/robocasa_regen_rollout_data_v2_1291episodes/",  # All demo rollouts (successes + failures)
+        rollout_data_dir=None, #"users/user/data/robocasa/robocasa_regen_rollout_data_v2_1291episodes/",  # All demo rollouts (successes + failures)
         demonstration_sampling_prob=0.5,
         success_rollout_sampling_prob=0.5,
         return_value_function_returns=True,
+        task_split = ['kitchen_doors'],
         gamma=0.99,
     )
 

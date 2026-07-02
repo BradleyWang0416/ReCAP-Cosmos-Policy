@@ -42,10 +42,11 @@ dependencies = [
   "better-profanity>=0.7.0",
   "boto3>=1.40.58",
   "click>=8.3.0",
-#  "decord>=0.6.0; platform_machine != 'aarch64'",
+  #  "decord>=0.6.0; platform_machine != 'aarch64'",
   "diffusers>=0.35.2",
   "einops>=0.8.1",
   "ftfy>=6.3.1",
+  "ffmpegcv>=0.3.15",
   "fvcore>=0.1.5.post20221221",
   "fastparquet>=2024.11.0",
   "h11>=0.16.0",
@@ -91,6 +92,8 @@ dependencies = [
   "wandb>=0.22.2",
   "webdataset>=1.0.2",
   "h5py",
+  "faiss-cpu>=1.13.2",
+  "numcodecs<0.13",
 ]
 
 [dependency-groups]
@@ -146,6 +149,43 @@ aloha = [
   "torchvision",
   "traitlets",
   "uvicorn",
+]
+pusht = [
+  "draccus",
+  "gymnasium==0.29.1",
+  "pymunk==6.6.0",
+  "shapely",
+  "pygame",
+]
+robotwin = [
+  "draccus",
+  "pyzmq",
+  # robotwin_ret RAG inference: DINO ViT-B/14 query embedding + h5 pool cache.
+  "timm>=1.0",
+  "h5py",
+  "opencv-python-headless",
+  # FFW BG2 real-robot deploy uses the local RealSense color stream directly.
+  "pyrealsense2",
+]
+# FFW BG2 bimanual real-robot deploy.
+# Covers both the non-RAG (deploy_realrobot.py) and RAG (deploy_realrobot_ret.py)
+# servers. RAG side needs the same h5_human pool the offline pair builder
+# uses, so scipy/h5py/pillow/numpy are required at deploy time too.
+ffw = [
+  # ZMQ pub/sub between control notebook and deploy server.
+  "pyzmq",
+  # Local RealSense color stream.
+  "pyrealsense2",
+  # JPEG decode for retrieved pool frames (already in deps but kept here
+  # to document the deploy-side requirement explicitly).
+  "pillow>=11.3.0",
+  # Retrieval pool h5 + KD-tree.
+  "h5py",
+  "scipy>=1.15.3",
+  # Pair builder + delta_stats numerics.
+  "numpy",
+  # Optional: side-by-side / debug video dumps.
+  "opencv-python-headless",
 ]
 
 [project.optional-dependencies]
@@ -208,6 +248,7 @@ cu130 = [
 ]
 
 [tool.uv]
+link-mode = "copy"
 conflicts = [
   [
     {extra = "cu128"},
@@ -230,9 +271,7 @@ override-dependencies = ["numpy>=2.0.0"]
 
 [tool.uv.sources]
 # https://docs.astral.sh/uv/guides/integration/pytorch/#configuring-accelerators-with-optional-dependencies
-decord = [
-  { index = "cosmos-cu128-torch27", extra = "cu128" },
-]
+
 flash-attn = [
   { index = "cosmos-cu128-torch27", extra = "cu128" },
   { index = "cosmos-cu130-torch29", extra = "cu130" },

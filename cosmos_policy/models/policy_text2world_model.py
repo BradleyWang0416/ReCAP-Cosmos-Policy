@@ -23,6 +23,8 @@ from typing import Dict, Optional, Tuple
 
 import attrs
 import torch
+import torch.nn as nn
+import torch.nn.functional as F
 from einops import rearrange
 
 from cosmos_policy._src.imaginaire.lazy_config import LazyCall as L
@@ -42,8 +44,73 @@ from cosmos_policy.modules.cosmos_sampler import CosmosPolicySampler
 from cosmos_policy.modules.hybrid_edm_sde import HybridEDMSDE
 
 
+class LatentProjection(nn.Module):
+    """Encode low-dim vector → latent volume (C, H, W) via factored spatial projection.
+
+    MLP maps input_dim → hidden_dim → latent_c * small_size * small_size,
+    then reshapes to (B, C, small_size, small_size) and bilinearly upsamples
+    to (B, C, latent_h, latent_w).  ~65K params total.
+    """
+
+    def __init__(self, input_dim: int, latent_c: int = 16, latent_h: int = 28, latent_w: int = 28,
+                 hidden_dim: int = 256, small_size: int = 4):
+        super().__init__()
+        self.latent_c = latent_c
+        self.latent_h = latent_h
+        self.latent_w = latent_w
+        self.small_size = small_size
+        out_features = latent_c * small_size * small_size
+        self.mlp = nn.Sequential(
+            nn.Linear(input_dim, hidden_dim),
+            nn.GELU(),
+            nn.Linear(hidden_dim, out_features),
+        )
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """
+        Args:
+            x: (B, input_dim) flat vector.
+        Returns:
+            (B, latent_c, latent_h, latent_w) latent volume.
+        """
+        h = self.mlp(x)  # (B, C * small_size * small_size)
+        h = h.view(x.shape[0], self.latent_c, self.small_size, self.small_size)
+        h = F.interpolate(h, size=(self.latent_h, self.latent_w), mode="bilinear", align_corners=False)
+        return h
+
+
+class LatentExtraction(nn.Module):
+    """Decode latent volume (C, H, W) → low-dim vector via factored spatial projection.
+
+    AdaptiveAvgPool2d to (small_size, small_size), then MLP
+    latent_c * small_size * small_size → hidden_dim → output_dim.  ~65K params total.
+    """
+
+    def __init__(self, output_dim: int, latent_c: int = 16, latent_h: int = 28, latent_w: int = 28,
+                 hidden_dim: int = 256, small_size: int = 4):
+        super().__init__()
+        self.pool = nn.AdaptiveAvgPool2d(small_size)
+        in_features = latent_c * small_size * small_size
+        self.mlp = nn.Sequential(
+            nn.Linear(in_features, hidden_dim),
+            nn.GELU(),
+            nn.Linear(hidden_dim, output_dim),
+        )
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """
+        Args:
+            x: (B, latent_c, latent_h, latent_w) latent volume.
+        Returns:
+            (B, output_dim) flat vector.
+        """
+        h = self.pool(x)  # (B, C, small_size, small_size)
+        h = h.view(x.shape[0], -1)  # (B, C * small_size * small_size)
+        return self.mlp(h)
+
+
 def replace_latent_with_action_chunk(
-    x0: torch.Tensor, action_chunk: torch.Tensor, action_indices: torch.Tensor
+    x0: torch.Tensor, action_chunk: torch.Tensor, action_indices: torch.Tensor, encoder=None
 ) -> torch.Tensor:
     """
     Replaces the image latent (at the specified action index) in clean input image latents x0 with the action chunk.
@@ -57,59 +124,44 @@ def replace_latent_with_action_chunk(
         x0 (torch.Tensor): Clean image latents.
         action_chunk (torch.Tensor): Ground-truth action chunk.
         action_indices (torch.Tensor): Batch indices of the image latents to replace.
+        encoder (LatentProjection, optional): If provided, use MLP encoder instead of tiling.
 
     Returns:
         torch.Tensor: Modified image latents.
     """
-    # Get latent to be replaced
     batch_indices = torch.arange(x0.shape[0], device=x0.device)
+    batch_size = x0.shape[0]
+
+    if encoder is not None:
+        # MLP path: flatten action chunk and project to latent volume
+        flat_action = action_chunk.reshape(batch_size, -1).to(encoder.mlp[0].weight.dtype)
+        result = encoder(flat_action)  # (B, C, H, W)
+        new_x0 = x0
+        new_x0[batch_indices, :, action_indices, :, :] = result.to(x0.dtype)
+        return new_x0
+
+    # Original tiling path
     action_image_latent = x0[batch_indices, :, action_indices, :, :]
-
-    # Create a new tensor with the same shape as action_image_latent, filled with zeros
     result = torch.zeros_like(action_image_latent)
-
-    # Get shapes
-    batch_size, latent_channels, latent_h, latent_w = action_image_latent.shape
-
-    # Flatten action_chunk (preserving batch dimension)
+    _, latent_channels, latent_h, latent_w = action_image_latent.shape
     flat_action = action_chunk.reshape(batch_size, -1)
     num_action_elements = flat_action.shape[1]
-
-    # Calculate total elements in the target tensor (per batch)
     latent_elements = latent_channels * latent_h * latent_w
-
-    # Check that there is enough room in the target tensor for all the action elements
     assert num_action_elements <= latent_elements, (
         f"Not enough room in the latent tensor for the full action chunk: {num_action_elements} action elements > {latent_elements} latent elements!"
     )
-
-    # Calculate how many times we need to repeat the action tensor
-    # The expression below is a concise way of doing ceiling division to get the correct number of repeats
     num_repeats = (latent_elements + num_action_elements - 1) // num_action_elements
-
-    # Repeat the action tensor along dimension 1
     repeated_action = flat_action.repeat(1, num_repeats)
-
-    # Take only what we need to fill the result tensor
     repeated_action = repeated_action[:, :latent_elements]
-
-    # Reshape the target tensor to put all channel and spatial dimensions together
     flat_result = result.reshape(batch_size, -1)
-
-    # Place the action chunk values into the beginning of the flattened result
     flat_result[:, :] = repeated_action
-
-    # Reshape back to original shape
     result = flat_result.reshape(batch_size, latent_channels, latent_h, latent_w)
-
-    # Get final latents tensor
     new_x0 = x0
     new_x0[batch_indices, :, action_indices, :, :] = result
-
     return new_x0
 
 
-def replace_latent_with_proprio(x0: torch.Tensor, proprio: torch.Tensor, proprio_indices: torch.Tensor) -> torch.Tensor:
+def replace_latent_with_proprio(x0: torch.Tensor, proprio: torch.Tensor, proprio_indices: torch.Tensor, encoder=None) -> torch.Tensor:
     """
     Replaces the image latent (at the specified proprio index) in clean input image latents x0 with the proprio.
 
@@ -122,55 +174,106 @@ def replace_latent_with_proprio(x0: torch.Tensor, proprio: torch.Tensor, proprio
         x0 (torch.Tensor): Clean image latents.
         proprio (torch.Tensor): Ground-truth proprio.
         proprio_indices (torch.Tensor): Batch indices of the image latents to replace.
+        encoder (LatentProjection, optional): If provided, use MLP encoder instead of tiling.
 
     Returns:
         torch.Tensor: Modified image latents.
     """
-    # Get latent to be replaced
     batch_indices = torch.arange(x0.shape[0], device=x0.device)
+    batch_size = x0.shape[0]
+
+    if encoder is not None:
+        # MLP path: project proprio to latent volume
+        flat_proprio = proprio.reshape(batch_size, -1).to(encoder.mlp[0].weight.dtype)
+        result = encoder(flat_proprio)  # (B, C, H, W)
+        new_x0 = x0
+        new_x0[batch_indices, :, proprio_indices, :, :] = result.to(x0.dtype)
+        return new_x0
+
+    # Original tiling path
     proprio_image_latent = x0[batch_indices, :, proprio_indices, :, :]
-
-    # Create a new tensor with the same shape as proprio_image_latent, filled with zeros
     result = torch.zeros_like(proprio_image_latent)
-
-    # Get shapes
-    batch_size, latent_channels, latent_h, latent_w = proprio_image_latent.shape
-
-    # Get number of proprio elements
+    _, latent_channels, latent_h, latent_w = proprio_image_latent.shape
     num_proprio_elements = proprio.shape[1]
-
-    # Calculate total elements in the target tensor (per batch)
     latent_elements = latent_channels * latent_h * latent_w
-
-    # Check that there is enough room in the target tensor for all the proprio elements
     assert num_proprio_elements <= latent_elements, (
         f"Not enough room in the latent tensor for the full proprio: {num_proprio_elements} proprio elements > {latent_elements} latent elements!"
     )
-
-    # Calculate how many times we need to repeat the proprio tensor
-    # The expression below is a concise way of doing ceiling division to get the correct number of repeats
     num_repeats = (latent_elements + num_proprio_elements - 1) // num_proprio_elements
-
-    # Repeat the proprio tensor along dimension 1
     repeated_proprio = proprio.repeat(1, num_repeats)
-
-    # Take only what we need to fill the result tensor
     repeated_proprio = repeated_proprio[:, :latent_elements]
-
-    # Reshape the target tensor to put all channel and spatial dimensions together
     flat_result = result.reshape(batch_size, -1)
-
-    # Place the proprio values into the beginning of the flattened result
     flat_result[:, :] = repeated_proprio
-
-    # Reshape latent back to original shape
     result = flat_result.reshape(batch_size, latent_channels, latent_h, latent_w)
-
-    # Get final latents tensor
     new_x0 = x0
     new_x0[batch_indices, :, proprio_indices, :, :] = result
-
     return new_x0
+
+
+def extract_action_chunk_from_latent(latent_frame: torch.Tensor, action_shape: tuple, decoder=None) -> torch.Tensor:
+    """Extract action chunk from a single latent frame, optionally using an MLP decoder.
+
+    Args:
+        latent_frame: (B, C, H, W) latent volume for the action slot.
+        action_shape: (chunk_size, action_dim) target shape.
+        decoder (LatentExtraction, optional): If provided, use MLP decoder instead of tile-averaging.
+
+    Returns:
+        (B, chunk_size, action_dim) extracted action chunk.
+    """
+    batch_size = latent_frame.shape[0]
+    num_action_elements = action_shape[0] * action_shape[1]
+
+    if decoder is not None:
+        flat_action = decoder(latent_frame.to(decoder.mlp[0].weight.dtype))  # (B, num_action_elements)
+        return flat_action.reshape(batch_size, action_shape[0], action_shape[1])
+
+    # Original tile-averaging path
+    flat = latent_frame.reshape(batch_size, -1)
+    num_latent_elements = flat.shape[1]
+    num_chunks = num_latent_elements // num_action_elements
+    all_chunks = flat[:, :num_chunks * num_action_elements].reshape(batch_size, num_chunks, num_action_elements)
+    all_chunks = all_chunks.reshape(batch_size, num_chunks, action_shape[0], action_shape[1])
+    return torch.mean(all_chunks, dim=1)
+
+
+def inject_action_noise_into_epsilon(
+    epsilon: torch.Tensor,
+    action_indices: torch.Tensor,
+    action_dim: int,
+    chunk_size: int,
+    encoder: "LatentProjection",
+) -> torch.Tensor:
+    """Replace action slots in the noise tensor with encoder(action-space noise).
+
+    When use_action_projection is enabled, diffusion noise for action slots should
+    come from the encoder's output manifold (encoder(N(0,I))) rather than raw
+    Gaussian in latent space.  This ensures both endpoints of the rectified-flow
+    (or EDM) interpolation are encoder outputs, so the backbone only ever sees
+    latent vectors on the encoder manifold.
+
+    Args:
+        epsilon: (B, C, T, H, W) full noise tensor.
+        action_indices: (B,) per-sample action frame index in the T dimension.
+        action_dim: Per-step action dimensionality (e.g. 2 for PushT).
+        chunk_size: Number of action steps per chunk.
+        encoder: LatentProjection module that maps flat action vectors to latent volumes.
+
+    Returns:
+        Modified epsilon tensor (in-place) with encoded action noise at action slots.
+    """
+    batch_size = epsilon.shape[0]
+    batch_indices = torch.arange(batch_size, device=epsilon.device)
+
+    # Sample noise in *action* space, then project to latent space via the encoder
+    action_noise = torch.randn(
+        batch_size, chunk_size * action_dim,
+        device=epsilon.device, dtype=encoder.mlp[0].weight.dtype,
+    )
+    encoded_noise = encoder(action_noise)  # (B, C, H, W)
+
+    epsilon[batch_indices, :, action_indices, :, :] = encoded_noise.to(epsilon.dtype)
+    return epsilon
 
 
 @attrs.define(slots=False)
@@ -208,6 +311,14 @@ class CosmosPolicyModelConfig(BaseText2WorldModelConfig):
     # (Must be an integer - or will be cast to an integer later!)
     action_loss_multiplier: int = 1
 
+    # Latent projection settings — replace tiling with learned MLP encoder/decoder
+    use_action_projection: bool = False
+    use_proprio_projection: bool = False
+    projection_hidden_dim: int = 256
+    action_dim: int = 7  # Per-step action dimensionality (e.g., 2 for PushT, 7 for LIBERO)
+    proprio_dim: int = 2  # Proprioception dimensionality
+    chunk_size: int = 8  # Action chunk size (number of action steps per chunk)
+
     def __attrs_post_init__(self):
         super().__attrs_post_init__()
         assert not (
@@ -236,6 +347,20 @@ class CosmosPolicyDiffusionModel(BaseDiffusionModel):
         # Cosmos Policy SDE and Sampler
         self.sde = lazy_instantiate(config.sde)
         self.sampler = CosmosPolicySampler()
+
+        # Optional MLP encoder/decoder for action/proprio latent injection
+        if config.use_action_projection:
+            action_input_dim = config.chunk_size * config.action_dim
+            self.action_encoder = LatentProjection(
+                action_input_dim, hidden_dim=config.projection_hidden_dim,
+            )
+            self.action_decoder = LatentExtraction(
+                action_input_dim, hidden_dim=config.projection_hidden_dim,
+            )
+        if config.use_proprio_projection:
+            self.proprio_encoder = LatentProjection(
+                config.proprio_dim, hidden_dim=config.projection_hidden_dim,
+            )
 
     def training_step(
         self, data_batch: dict[str, torch.Tensor], iteration: int
@@ -382,6 +507,7 @@ class CosmosPolicyDiffusionModel(BaseDiffusionModel):
             x0_B_C_T_H_W,
             action_chunk,
             action_indices=action_indices,
+            encoder=getattr(self, 'action_encoder', None),
         )
         # Proprio
         if torch.all(current_proprio_indices != -1):  # -1 indicates proprio is not used
@@ -389,6 +515,7 @@ class CosmosPolicyDiffusionModel(BaseDiffusionModel):
                 x0_B_C_T_H_W,
                 proprio,
                 proprio_indices=current_proprio_indices,
+                encoder=getattr(self, 'proprio_encoder', None),
             )
         # Future proprio
         if torch.all(future_proprio_indices != -1):  # -1 indicates future proprio is not used
@@ -396,11 +523,21 @@ class CosmosPolicyDiffusionModel(BaseDiffusionModel):
                 x0_B_C_T_H_W,
                 future_proprio,
                 proprio_indices=future_proprio_indices,
+                encoder=getattr(self, 'proprio_encoder', None),
             )
         # Value
-        x0_B_C_T_H_W[batch_indices, :, value_indices, :, :] = (
-            value_function_return.reshape(-1, 1, 1, 1).expand(-1, C_latent, H_latent, W_latent).to(x0_B_C_T_H_W.dtype)
-        )
+        if torch.all(value_indices != -1):  # -1 indicates value function return is not used
+            x0_B_C_T_H_W[batch_indices, :, value_indices, :, :] = (
+                value_function_return.reshape(-1, 1, 1, 1).expand(-1, C_latent, H_latent, W_latent).to(x0_B_C_T_H_W.dtype)
+            )
+
+        # Action noise in action space: replace epsilon's action slots with encoder(action_noise)
+        action_encoder = getattr(self, 'action_encoder', None)
+        if action_encoder is not None:
+            epsilon_B_C_T_H_W = inject_action_noise_into_epsilon(
+                epsilon_B_C_T_H_W, action_indices,
+                self.config.action_dim, self.config.chunk_size, action_encoder,
+            )
 
         # Get the mean and stand deviation of the marginal probability distribution.
         mean_B_C_T_H_W, std_B_T = self.sde.marginal_prob(x0_B_C_T_H_W, sigma_B_T)
@@ -554,6 +691,7 @@ class CosmosPolicyDiffusionModel(BaseDiffusionModel):
         # Apply the loss mask to the loss
         if (
             self.config.mask_loss_for_action_future_state_prediction
+            or self.config.mask_value_prediction_loss_for_policy_prediction
             or self.config.mask_current_state_action_for_value_prediction
             or self.config.mask_future_state_for_qvalue_prediction
             or self.config.action_loss_multiplier != 1
@@ -648,20 +786,31 @@ class CosmosPolicyDiffusionModel(BaseDiffusionModel):
         all_samples_action_l1_loss = torch.abs(action_diff).mean()
 
         # Get losses for value function prediction
-        value_diff = (
-            x0_B_C_T_H_W[batch_indices, :, value_indices, :, :] - model_pred.x0[batch_indices, :, value_indices, :, :]
-        )
-        value_diff_demo = value_diff[rollout_data_mask == 0]
-        value_diff_world_model = value_diff[world_model_sample_mask == 1]
-        value_diff_value_function = value_diff[value_function_sample_mask == 1]
-        demo_sample_value_mse_loss = (value_diff_demo**2).mean()
-        demo_sample_value_l1_loss = torch.abs(value_diff_demo).mean()
-        world_model_sample_value_mse_loss = (value_diff_world_model**2).mean()
-        world_model_sample_value_l1_loss = torch.abs(value_diff_world_model).mean()
-        value_function_sample_value_mse_loss = (value_diff_value_function**2).mean()
-        value_function_sample_value_l1_loss = torch.abs(value_diff_value_function).mean()
-        all_samples_value_mse_loss = (value_diff**2).mean()
-        all_samples_value_l1_loss = torch.abs(value_diff).mean()
+        if torch.all(value_indices != -1):  # -1 indicates value prediction is not used
+            value_diff = (
+                x0_B_C_T_H_W[batch_indices, :, value_indices, :, :] - model_pred.x0[batch_indices, :, value_indices, :, :]
+            )
+            value_diff_demo = value_diff[rollout_data_mask == 0]
+            value_diff_world_model = value_diff[world_model_sample_mask == 1]
+            value_diff_value_function = value_diff[value_function_sample_mask == 1]
+            demo_sample_value_mse_loss = (value_diff_demo**2).mean()
+            demo_sample_value_l1_loss = torch.abs(value_diff_demo).mean()
+            world_model_sample_value_mse_loss = (value_diff_world_model**2).mean()
+            world_model_sample_value_l1_loss = torch.abs(value_diff_world_model).mean()
+            value_function_sample_value_mse_loss = (value_diff_value_function**2).mean()
+            value_function_sample_value_l1_loss = torch.abs(value_diff_value_function).mean()
+            all_samples_value_mse_loss = (value_diff**2).mean()
+            all_samples_value_l1_loss = torch.abs(value_diff).mean()
+        else:
+            # If not generating value predictions, set all value prediction losses to nan
+            demo_sample_value_mse_loss = torch.tensor(float("nan"), device=x0_B_C_T_H_W.device)
+            demo_sample_value_l1_loss = torch.tensor(float("nan"), device=x0_B_C_T_H_W.device)
+            world_model_sample_value_mse_loss = torch.tensor(float("nan"), device=x0_B_C_T_H_W.device)
+            world_model_sample_value_l1_loss = torch.tensor(float("nan"), device=x0_B_C_T_H_W.device)
+            value_function_sample_value_mse_loss = torch.tensor(float("nan"), device=x0_B_C_T_H_W.device)
+            value_function_sample_value_l1_loss = torch.tensor(float("nan"), device=x0_B_C_T_H_W.device)
+            all_samples_value_mse_loss = torch.tensor(float("nan"), device=x0_B_C_T_H_W.device)
+            all_samples_value_l1_loss = torch.tensor(float("nan"), device=x0_B_C_T_H_W.device)
 
         output_batch = {
             "x0": x0_B_C_T_H_W,
@@ -811,6 +960,22 @@ class CosmosPolicyDiffusionModel(BaseDiffusionModel):
                 * self.sde.sigma_max
                 * sigma_max_variance_scale
             )
+
+        # Action noise in action space: replace action slots in initial noise
+        # with encoder(action_space_noise) * sigma_max to match training distribution
+        action_encoder = getattr(self, 'action_encoder', None)
+        if action_encoder is not None and "action_latent_idx" in data_batch:
+            action_indices = data_batch["action_latent_idx"]
+            if torch.all(action_indices != -1):
+                x_sigma_max = inject_action_noise_into_epsilon(
+                    x_sigma_max, action_indices,
+                    self.config.action_dim, self.config.chunk_size, action_encoder,
+                )
+                # Scale to match the sigma_max scaling applied to the rest of the noise
+                batch_indices = torch.arange(x_sigma_max.shape[0], device=x_sigma_max.device)
+                x_sigma_max[batch_indices, :, action_indices, :, :] *= (
+                    self.sde.sigma_max * sigma_max_variance_scale
+                )
 
         if self.net.is_context_parallel_enabled:
             x_sigma_max = broadcast_split_tensor(

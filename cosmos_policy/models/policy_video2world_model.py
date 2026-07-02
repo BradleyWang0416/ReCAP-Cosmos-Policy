@@ -39,6 +39,8 @@ from cosmos_policy.config.conditioner.video2world_conditioner import Video2World
 from cosmos_policy.models.policy_text2world_model import (
     CosmosPolicyDiffusionModel,
     CosmosPolicyModelConfig,
+    LatentExtraction,
+    LatentProjection,
     replace_latent_with_action_chunk,
     replace_latent_with_proprio,
 )
@@ -355,7 +357,8 @@ class CosmosPolicyVideo2WorldModel(CosmosPolicyDiffusionModel):
             # No need to do this for the other frames; actions are special because they are manually injected
             condition.orig_gt_frames = condition.gt_frames.clone()  # Keep a backup of the original gt_frames
             condition.gt_frames = replace_latent_with_action_chunk(
-                condition.gt_frames, data_batch["actions"], action_indices=data_batch["action_latent_idx"]
+                condition.gt_frames, data_batch["actions"], action_indices=data_batch["action_latent_idx"],
+                encoder=getattr(self, 'action_encoder', None),
             )
 
         # Manually add in the current and future proprio to the condition.gt_frames as well
@@ -366,6 +369,7 @@ class CosmosPolicyVideo2WorldModel(CosmosPolicyDiffusionModel):
                 condition.gt_frames,
                 data_batch["proprio"],
                 proprio_indices=data_batch["current_proprio_latent_idx"],
+                encoder=getattr(self, 'proprio_encoder', None),
             )
         if "future_proprio" in data_batch and torch.all(
             data_batch["future_proprio_latent_idx"] != -1
@@ -374,6 +378,7 @@ class CosmosPolicyVideo2WorldModel(CosmosPolicyDiffusionModel):
                 condition.gt_frames,
                 data_batch["future_proprio"],
                 proprio_indices=data_batch["future_proprio_latent_idx"],
+                encoder=getattr(self, 'proprio_encoder', None),
             )
 
         # Manually add in value to the condition.gt_frames as well
@@ -658,7 +663,8 @@ class CosmosPolicyVideo2WorldModel(CosmosPolicyDiffusionModel):
             condition.condition_video_input_mask_B_C_T_H_W[batch_indices, :, current_proprio_latent_idx, :, :] = 1
             # Additionally, add the proprio to the gt_frames so that the proprio is added in later based on the mask
             condition.gt_frames = replace_latent_with_proprio(
-                condition.gt_frames, proprio, proprio_indices=current_proprio_latent_idx
+                condition.gt_frames, proprio, proprio_indices=current_proprio_latent_idx,
+                encoder=getattr(self, 'proprio_encoder', None),
             )
 
         if (

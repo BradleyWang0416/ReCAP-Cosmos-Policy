@@ -103,6 +103,12 @@ class Text2WorldModelRectifiedFlowConfig:
     use_dynamic_shift: bool = False
     train_time_distribution: str = "logitnormal"
     train_time_weight: str = "uniform"
+    # Logitnormal distribution parameters for training time sampling.
+    # Equivalent to EDM's p_mean/p_std for the RF noise schedule.
+    # With shift=5, mean=0/std=1 concentrates training at sigma≈0.83 (high noise).
+    # Decrease mean (e.g. -1.0) to shift more signal toward lower noise levels.
+    train_time_logitnormal_mean: float = 0.0
+    train_time_logitnormal_std: float = 1.0
 
     use_high_sigma_strategy: bool = False  # Whether to use high sigma strategy
     high_sigma_ratio: float = 0.05  # Ratio of high sigma frames
@@ -184,6 +190,8 @@ class Text2WorldModelRectifiedFlow(ImaginaireModel):
             use_dynamic_shift=config.use_dynamic_shift,
             shift=config.shift,
             train_time_weight_method=config.train_time_weight,
+            logitnormal_mean=config.train_time_logitnormal_mean,
+            logitnormal_std=config.train_time_logitnormal_std,
             device=torch.device("cuda"),
             dtype=self.tensor_kwargs_fp32["dtype"],
         )
@@ -860,17 +868,17 @@ class Text2WorldModelRectifiedFlow(ImaginaireModel):
         timesteps = self.rectified_flow.get_discrete_timestamp(t_B, self.tensor_kwargs_fp32)
 
         if self.config.use_high_sigma_strategy:
-            # Use high sigma strategy
+            # Use high sigma strategy: randomly replace some timesteps with high-noise values
             mask = torch.rand(timesteps.shape, device=timesteps.device) < self.config.high_sigma_ratio
 
-            candidate_timesteps = self.rectified_flow.noise_scheduler.timesteps.to(device=timesteps.device)
-            candidate_timesteps = candidate_timesteps[
-                (candidate_timesteps >= self.config.high_sigma_timesteps_min)
-                & (candidate_timesteps <= self.config.high_sigma_timesteps_max)
+            num_train_timesteps = self.rectified_flow.num_train_timesteps
+            all_timesteps = torch.arange(num_train_timesteps, 0, -1, dtype=timesteps.dtype, device=timesteps.device)
+            candidate_timesteps = all_timesteps[
+                (all_timesteps >= self.config.high_sigma_timesteps_min)
+                & (all_timesteps <= self.config.high_sigma_timesteps_max)
             ]
 
             if len(candidate_timesteps) > 0:
-                # Sample timesteps.shape values from candidate_timesteps with replacement
                 new_timesteps = candidate_timesteps[torch.randint(0, len(candidate_timesteps), timesteps.shape)]
                 timesteps = torch.where(mask, new_timesteps, timesteps)
             else:

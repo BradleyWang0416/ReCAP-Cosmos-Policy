@@ -312,6 +312,7 @@ class EveryNDrawSample(EveryN):
                 n_sample=x0.shape[0],
                 num_steps=self.num_sampling_step,
                 is_negative_prompt=True if self.use_negative_prompt else False,
+                shift=getattr(model.config, "shift", 1.0),  # use model's configured shift (e.g. 5.0 for predict2.5)
             )
             if hasattr(model, "decode"):
                 sample = model.decode(sample)

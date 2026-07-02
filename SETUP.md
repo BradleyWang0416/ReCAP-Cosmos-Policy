@@ -1,7 +1,5 @@
 # Setup Guide
 
-This guide walks you through setting up Cosmos Policy using Docker.
-
 ## System Requirements
 
 * NVIDIA GPU with CUDA support

@@ -139,6 +139,11 @@ class CosmosPolicyTrainer(ImaginaireTrainer):
                     iteration += 1
                     # Save checkpoint.
                     if iteration % self.config.checkpoint.save_iter == 0:
+                        # Free fragmented allocator pages before DCP gather_object —
+                        # the SavePlan pickle on rank 0 spikes GPU memory and we've
+                        # seen NCCL Error 1 ("unhandled cuda error") here when one
+                        # rank silently OOMs. Costs ~ms; reduces intermittent fail.
+                        torch.cuda.empty_cache()
                         self.checkpointer.save(model, optimizer, scheduler, grad_scaler, iteration=iteration)
                     self.callbacks.on_training_step_end(model, data_batch, output_batch, loss, iteration=iteration)
                     # Validation.
@@ -156,6 +161,7 @@ class CosmosPolicyTrainer(ImaginaireTrainer):
                     break
         log.success("Done with training.")
         if iteration % self.config.checkpoint.save_iter != 0:
+            torch.cuda.empty_cache()
             self.checkpointer.save(model, optimizer, scheduler, grad_scaler, iteration=iteration)
         self.callbacks.on_train_end(model, iteration=iteration)
         self.checkpointer.finalize()

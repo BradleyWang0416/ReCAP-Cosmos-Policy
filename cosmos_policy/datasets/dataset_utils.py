@@ -24,7 +24,7 @@ from torchvision.transforms import functional as F
 from tqdm import tqdm
 
 
-def get_hdf5_files(data_dir: str, is_train: bool | None = None) -> list:
+def get_hdf5_files(data_dir: str, is_train: bool | None = None, task_split: list = None) -> list:
     """
     Recursively get a list of all HDF5 files in the specified directory and its subdirectories,
     including those reached via symbolic links.
@@ -49,7 +49,13 @@ def get_hdf5_files(data_dir: str, is_train: bool | None = None) -> list:
         for file in files:
             if file.lower().endswith((".h5", ".hdf5", ".he5")):
                 filepath = os.path.join(root, file)
-
+                pass_flag = True
+                if type(task_split) is not type(None):
+                    for task in task_split:
+                        if task in filepath:
+                            pass_flag = False
+                            break
+                    if pass_flag: continue
                 # Filter by train/val if requested
                 if is_train is not None:
                     # Check if the file is in a 'train' or 'val' subdirectory
@@ -109,6 +115,19 @@ def decode_single_jpeg_frame(jpeg_bytes: np.ndarray) -> np.ndarray:
     img = Image.open(io.BytesIO(jpeg_bytes.tobytes()))
     return np.array(img).astype(np.uint8)
 
+def decode_jpeg_bytes_chunk(raw):
+    # [T, K, H] -> [T, K, H, H, W, C]
+    # return all images in the chunk
+    T, K, H = raw.shape
+    outputs = np.zeros((T, K, H, 224, 224, 3), dtype=np.uint8)  # Assuming final image size is 224x224
+    for t in range(T):
+        for k in range(K):
+            for h in range(H):
+                img = Image.open(io.BytesIO(raw[t, k, h].tobytes()))
+                img_array = np.array(img).astype(np.uint8)
+                outputs[t, k, h] = img_array
+    return outputs
+
 
 def decode_jpeg_bytes_dataset(jpeg_ds) -> np.ndarray:
     """Decode a variable-length JPEG byte dataset (T,) → (T, H, W, 3) uint8."""
@@ -118,6 +137,63 @@ def decode_jpeg_bytes_dataset(jpeg_ds) -> np.ndarray:
         frames.append(np.array(img))
     return np.stack(frames, axis=0).astype(np.uint8)
 
+
+
+def calculate_dataset_statistics(data):
+    """
+    Calculate statistics over all actions and proprio in the dataset.
+
+    Args:
+        data (dict): Dataset dictionary
+
+    Returns:
+        dict: Dataset statistics dictionary
+    """
+    # First, collect all actions and proprio from all episodes into lists
+    all_actions = []
+    all_proprio = []
+    print("Collecting all actions and proprio...")
+    for episode_idx, episode_data in tqdm(data.items()):
+        actions = episode_data["actions"]  # Shape: (T, D)
+        proprio = episode_data["proprio"]  # Shape: (T, D)
+        all_actions.append(actions)
+        all_proprio.append(proprio)
+
+    # Concatenate all actions and proprio along the timestep dimension
+    # This will give numpy arrays of shape (total_timesteps, D)
+    all_actions_array = np.concatenate(all_actions, axis=0)
+    all_proprio_array = np.concatenate(all_proprio, axis=0)
+
+    # Calculate statistics along the timestep dimension (axis=0)
+    # Each statistic will have shape (D,)
+    print("Computing dataset statistics...")
+    actions_min = np.min(all_actions_array, axis=0)
+    actions_max = np.max(all_actions_array, axis=0)
+    actions_mean = np.mean(all_actions_array, axis=0)
+    actions_std = np.std(all_actions_array, axis=0)
+    actions_median = np.median(all_actions_array, axis=0)
+
+    proprio_min = np.min(all_proprio_array, axis=0)
+    proprio_max = np.max(all_proprio_array, axis=0)
+    proprio_mean = np.mean(all_proprio_array, axis=0)
+    proprio_std = np.std(all_proprio_array, axis=0)
+    proprio_median = np.median(all_proprio_array, axis=0)
+
+    # Package all statistics into a dictionary
+    stats = {
+        "actions_min": actions_min,
+        "actions_max": actions_max,
+        "actions_mean": actions_mean,
+        "actions_std": actions_std,
+        "actions_median": actions_median,
+        "proprio_min": proprio_min,
+        "proprio_max": proprio_max,
+        "proprio_mean": proprio_mean,
+        "proprio_std": proprio_std,
+        "proprio_median": proprio_median,
+    }
+
+    return stats
 
 def calculate_dataset_statistics(data):
     """

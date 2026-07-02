@@ -26,6 +26,14 @@ from cosmos_policy.models.policy_video2world_model import (
     CosmosPolicyVideo2WorldConfig,
     CosmosPolicyVideo2WorldModel,
 )
+from cosmos_policy.models.policy_video2world_model_rectified_flow import (
+    CosmosPolicyVideo2WorldConfigRectifiedFlow,
+    CosmosPolicyVideo2WorldModelRectifiedFlow,
+)
+from cosmos_policy.models.policy_video2world_model_ret import (
+    CosmosPolicyRetVideo2WorldConfig,
+    CosmosPolicyRetVideo2WorldModel,
+)
 
 # Use policy-specific models with the same config structure
 POLICY_DDP_CONFIG = dict(
@@ -51,8 +59,61 @@ POLICY_FSDP_CONFIG = dict(
 )
 
 
+POLICY_RET_DDP_CONFIG = dict(
+    trainer=dict(
+        distributed_parallelism="ddp",
+    ),
+    model=L(CosmosPolicyRetVideo2WorldModel)(
+        config=CosmosPolicyRetVideo2WorldConfig(),
+        _recursive_=False,
+    ),
+)
+
+POLICY_RET_FSDP_CONFIG = dict(
+    trainer=dict(
+        distributed_parallelism="fsdp",
+    ),
+    model=L(CosmosPolicyRetVideo2WorldModel)(
+        config=CosmosPolicyRetVideo2WorldConfig(
+            fsdp_shard_size=8,
+        ),
+        _recursive_=False,
+    ),
+)
+
+
+POLICY_RECTIFIED_FLOW_DDP_CONFIG = dict(
+    trainer=dict(
+        distributed_parallelism="ddp",
+    ),
+    model=L(CosmosPolicyVideo2WorldModelRectifiedFlow)(
+        config=CosmosPolicyVideo2WorldConfigRectifiedFlow(),
+        _recursive_=False,
+    ),
+)
+
+POLICY_RECTIFIED_FLOW_FSDP_CONFIG = dict(
+    trainer=dict(
+        distributed_parallelism="fsdp",
+    ),
+    model=L(CosmosPolicyVideo2WorldModelRectifiedFlow)(
+        config=CosmosPolicyVideo2WorldConfigRectifiedFlow(
+            fsdp_shard_size=8,
+        ),
+        _recursive_=False,
+    ),
+)
+
+
 def register_policy_model():
     """Register Cosmos Policy model configurations."""
     cs = ConfigStore.instance()
     cs.store(group="model", package="_global_", name="policy_ddp", node=POLICY_DDP_CONFIG)
     cs.store(group="model", package="_global_", name="policy_fsdp", node=POLICY_FSDP_CONFIG)
+    cs.store(group="model", package="_global_", name="policy_ret_ddp", node=POLICY_RET_DDP_CONFIG)
+    cs.store(group="model", package="_global_", name="policy_ret_fsdp", node=POLICY_RET_FSDP_CONFIG)
+    # Rectified Flow models (T2V backbone)
+    cs.store(group="model", package="_global_", name="policy_rectified_flow_ddp", node=POLICY_RECTIFIED_FLOW_DDP_CONFIG)
+    cs.store(
+        group="model", package="_global_", name="policy_rectified_flow_fsdp", node=POLICY_RECTIFIED_FLOW_FSDP_CONFIG
+    )

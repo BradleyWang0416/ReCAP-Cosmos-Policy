@@ -340,6 +340,7 @@ class WandbCallback(WandBCallbackImage):
                         f"train{self.wandb_extra_tag}/train_video_unstable_count": self.train_video_unstable_count.item(),
                         "iteration": iteration,
                         "sample_counter": getattr(self.trainer, "sample_counter", iteration),
+                        "epoch": iteration / max(1, len(getattr(self.trainer, "dataloader_train", [None]))),
                     }
                 )
                 if self.save_s3:
@@ -609,6 +610,7 @@ class WandbCallback(WandBCallbackImage):
                             f"s3://rundir/{self.name}/Val_Iter{iteration:09d}.json",
                         )
 
+                info["epoch"] = iteration / max(1, len(getattr(self.trainer, "dataloader_train", [None])))
                 if wandb:
                     wandb.log(info, step=iteration)
 

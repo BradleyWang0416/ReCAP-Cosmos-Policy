@@ -865,7 +865,7 @@ class Timesteps(nn.Module):
     def forward(self, timesteps_B_T):
         assert timesteps_B_T.ndim == 2, f"Expected 2D input, got {timesteps_B_T.ndim}"
         # wan need emb to be in fp32
-        in_dype = timesteps_B_T.dtype
+        in_dtype = timesteps_B_T.dtype
         timesteps = timesteps_B_T.flatten().float()
         half_dim = self.num_channels // 2
         exponent = -math.log(10000) * torch.arange(half_dim, dtype=torch.float32, device=timesteps.device)
@@ -878,7 +878,7 @@ class Timesteps(nn.Module):
         cos_emb = torch.cos(emb)
         emb = torch.cat([cos_emb, sin_emb], dim=-1)
 
-        return rearrange(emb.to(dtype=in_dype), "(b t) d -> b t d", b=timesteps_B_T.shape[0], t=timesteps_B_T.shape[1])
+        return rearrange(emb.to(dtype=in_dtype), "(b t) d -> b t d", b=timesteps_B_T.shape[0], t=timesteps_B_T.shape[1])
 
 
 class TimestepEmbedding(nn.Module):

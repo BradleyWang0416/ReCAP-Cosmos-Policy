@@ -598,12 +598,40 @@ class DistributedCheckpointer(AbstractCheckpointer):
                 self.callbacks.on_load_checkpoint(model, state_dict=_state_dict)
             log.critical(f"Loaded checkpoint from {checkpoint_path} in iteration {iteration}")
         else:
-            log.info("Training from scratch.")
+            if self.load_path and str(self.load_path).endswith(".pt") and not self.load_training_state:
+                self._load_pretrained_from_pt(model)
+            else:
+                log.info("Training from scratch.")
         torch.cuda.empty_cache()
 
         if self.callbacks is not None:
             self.callbacks.on_load_checkpoint_end(model, iteration=iteration, checkpoint_path=checkpoint_path)
         return iteration
+
+    def _load_pretrained_from_pt(self, model: ImaginaireModel) -> None:
+        """Load pretrained weights from a .pt file into an (optionally FSDP-wrapped) model.
+
+        DistributedCheckpointer only handles DCP-format (directory) checkpoints.
+        This method handles the initial pretrained-weight loading from a flat .pt file,
+        which is needed for Predict2.5 / distilled checkpoints from HuggingFace.
+
+        HuggingFace *_ema_bf16.pt files store EMA weights directly under net.* keys,
+        so no key remapping is needed regardless of load_ema_to_reg.
+        """
+        log.info(f"Loading pretrained weights from .pt file: {self.load_path}")
+
+        if distributed.is_rank0():
+            pt_state_dict = easy_io.load(self.load_path, weights_only=False)
+            log.info(f"Read .pt file ({len(pt_state_dict)} keys), distributing into model...")
+        else:
+            pt_state_dict = {}
+
+        set_model_state_dict(
+            model,
+            model_state_dict=pt_state_dict,
+            options=StateDictOptions(strict=False, full_state_dict=True, broadcast_from_rank0=True),
+        )
+        log.critical(f"Loaded pretrained weights from {self.load_path}")
 
     def _async_with_pinned_memory(self, checkpoint_file: str, state_dict: Dict[str, Tuple[Any, str]]) -> None:
         try:
