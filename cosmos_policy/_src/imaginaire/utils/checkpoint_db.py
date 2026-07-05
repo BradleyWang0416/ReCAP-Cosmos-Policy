@@ -28,6 +28,22 @@ from cosmos_policy._src.imaginaire.flags import EXPERIMENTAL_CHECKPOINTS, INTERN
 from cosmos_policy._src.imaginaire.utils import log
 
 
+def _local_hf_checkpoint_path(repo_id: str, filename: str) -> str | None:
+    local_root = os.environ.get("COSMOS_HF_CHECKPOINT_ROOT")
+    if not local_root:
+        return None
+
+    local_path = os.path.join(local_root, repo_id, filename)
+    if os.path.exists(local_path):
+        log.info(f"Using local Hugging Face checkpoint mirror: {local_path}")
+        return local_path
+    return None
+
+
+def _skip_hf_auto_download() -> bool:
+    return os.environ.get("COSMOS_SKIP_HF_AUTO_DOWNLOAD", "").lower() in {"1", "true", "yes"}
+
+
 class _CheckpointUri(pydantic.BaseModel):
     """Config for checkpoint file/directory."""
 
@@ -90,6 +106,12 @@ class CheckpointFileHf(_CheckpointHf):
     @override
     def _download(self) -> str:
         """Download checkpoint and return the local path."""
+        local_path = _local_hf_checkpoint_path(self.repository, self.filename)
+        if local_path is not None:
+            return local_path
+        if _skip_hf_auto_download():
+            return f"hf://{self.repository}/{self.filename}"
+
         download_kwargs = dict(
             repo_id=self.repository, repo_type="model", revision=self.revision, filename=self.filename
         )
@@ -118,6 +140,9 @@ class CheckpointDirHf(_CheckpointHf):
     @override
     def _download(self) -> str:
         """Download checkpoint and return the local path."""
+        if _skip_hf_auto_download():
+            return f"hf://{self.repository}/{self.subdirectory}".rstrip("/")
+
         patterns: dict[str, list[str]] = {}
         if self.include:
             patterns["allow_patterns"] = list(self.include)
@@ -924,6 +949,12 @@ def get_checkpoint_by_hf(checkpoint_hf: str) -> str:
         )
     repo_id = "/".join(parts[:2])  # org/repo
     filename = "/".join(parts[2:])  # path/to/file.pth
+    local_path = _local_hf_checkpoint_path(repo_id, filename)
+    if local_path is not None:
+        return local_path
+    if _skip_hf_auto_download():
+        return checkpoint_hf
+
     log.info(f"Downloading checkpoint from HuggingFace: {repo_id}/{filename}")
     path = hf_hub_download(
         repo_id=repo_id,

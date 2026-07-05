@@ -13,13 +13,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM nvidia/cuda:12.8.1-cudnn-devel-ubuntu24.04
+ARG CUDA_IMAGE=nvidia/cuda:12.8.1-cudnn-devel-ubuntu24.04
+ARG UV_IMAGE=ghcr.io/astral-sh/uv:0.8.12
+
+FROM ${UV_IMAGE} AS uv-bin
+FROM ${CUDA_IMAGE}
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN --mount=type=cache,target=/var/cache/apt \
-    --mount=type=cache,target=/var/lib/apt \
-    apt-get update && \
+RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         build-essential \
         cmake \
@@ -39,12 +41,14 @@ RUN --mount=type=cache,target=/var/cache/apt \
     && rm -rf /var/lib/apt/lists/*
 
 # Install uv: https://docs.astral.sh/uv/getting-started/installation/
-COPY --from=ghcr.io/astral-sh/uv:0.8.12 /uv /uvx /usr/local/bin/
+COPY --from=uv-bin /uv /uvx /usr/local/bin/
 
 # Install just: https://just.systems/man/en/pre-built-binaries.html
 RUN curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to /usr/local/bin --tag 1.42.4
 
-COPY --chown=root:root --chmod=0755 entrypoint.sh /usr/local/bin/cosmos-policy-entrypoint
+COPY entrypoint.sh /usr/local/bin/cosmos-policy-entrypoint
+RUN chown root:root /usr/local/bin/cosmos-policy-entrypoint && \
+    chmod 0755 /usr/local/bin/cosmos-policy-entrypoint
 ENTRYPOINT ["/usr/local/bin/cosmos-policy-entrypoint"]
 
 CMD ["/bin/bash"]
