@@ -19,6 +19,7 @@ import json
 import os
 import pickle
 import queue
+import errno
 import secrets
 import shutil
 import time
@@ -371,22 +372,34 @@ def init_t5_text_embeddings_cache(t5_text_embeddings_path: str = None, worker_id
         and os.path.exists(t5_text_embeddings_path)
         and t5_text_embeddings_cache == {}
     ):
+        def load_embeddings_cache():
+            with open(t5_text_embeddings_path, "rb") as file:
+                data = pickle.load(file)
+            device = torch.device(f"cuda:{worker_id}" if torch.cuda.is_available() else "cpu")
+            for key, value in data.items():
+                if isinstance(value, torch.Tensor):
+                    data[key] = value.to(device)
+            t5_text_embeddings_cache.update(data)
+            return device
+
         # Use file lock to prevent reading while another process is writing
         lock_path = t5_text_embeddings_path + ".lock"
-        lock = FileLock(lock_path, timeout=30)
         try:
+            lock = FileLock(lock_path, timeout=30)
             with lock:
-                with open(t5_text_embeddings_path, "rb") as file:
-                    data = pickle.load(file)
-                    # Move embeddings to the appropriate device
-                    device = torch.device(f"cuda:{worker_id}" if torch.cuda.is_available() else "cpu")
-                    for key, value in data.items():
-                        if isinstance(value, torch.Tensor):
-                            data[key] = value.to(device)
-                    t5_text_embeddings_cache.update(data)
+                device = load_embeddings_cache()
 
             print(f"Loaded T5 text embeddings from {t5_text_embeddings_path} onto device {device}")
             # Store the path for later saving
+            t5_text_embeddings_path_global = t5_text_embeddings_path
+            t5_text_embeddings_newly_computed = False
+        except OSError as e:
+            if e.errno not in {errno.EROFS, errno.EACCES, errno.EPERM}:
+                raise
+            device = load_embeddings_cache()
+            print(
+                f"Loaded T5 text embeddings from read-only path {t5_text_embeddings_path} onto device {device}"
+            )
             t5_text_embeddings_path_global = t5_text_embeddings_path
             t5_text_embeddings_newly_computed = False
         except FileLockTimeout:

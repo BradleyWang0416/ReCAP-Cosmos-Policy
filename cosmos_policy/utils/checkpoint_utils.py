@@ -17,9 +17,27 @@
 Checkpoint utilities for Cosmos Policy, including HuggingFace checkpoint loading.
 """
 
+import os
+
 from huggingface_hub import hf_hub_download
 
 from cosmos_policy._src.imaginaire.utils import log
+
+
+def _local_hf_checkpoint_path(repo_id: str, filename: str) -> str | None:
+    local_root = os.environ.get("COSMOS_HF_CHECKPOINT_ROOT")
+    if not local_root:
+        return None
+
+    local_path = os.path.join(local_root, repo_id, filename)
+    if os.path.exists(local_path):
+        log.info(f"Using local HuggingFace checkpoint mirror: {local_path}")
+        return local_path
+    return None
+
+
+def _skip_hf_auto_download() -> bool:
+    return os.environ.get("COSMOS_SKIP_HF_AUTO_DOWNLOAD", "").lower() in {"1", "true", "yes"}
 
 
 def resolve_checkpoint_path(checkpoint_path: str, cache_dir: str | None = None) -> str:
@@ -60,6 +78,11 @@ def resolve_checkpoint_path(checkpoint_path: str, cache_dir: str | None = None) 
 
         org, repo_name, filename = parts
         repo_id = f"{org}/{repo_name}"
+        local_path = _local_hf_checkpoint_path(repo_id, filename)
+        if local_path is not None:
+            return local_path
+        if _skip_hf_auto_download():
+            return checkpoint_path
 
         log.info(f"Downloading checkpoint from HuggingFace: {repo_id}/{filename}")
         local_path = hf_hub_download(

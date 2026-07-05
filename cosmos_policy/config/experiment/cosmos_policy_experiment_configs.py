@@ -37,6 +37,14 @@ val_sampling_size_override = dict(
     video_width=1280,
 )
 BASE_DATASETS_DIR = os.environ.get("BASE_DATASETS_DIR", ".")
+PREDICT2P5_TOKENIZER_CKPT = os.environ.get(
+    "COSMOS_PREDICT2P5_TOKENIZER_CKPT",
+    "hf://nvidia/Cosmos-Predict2.5-2B/tokenizer.pth",
+)
+PREDICT2P5_POSTTRAINED_CKPT = os.environ.get(
+    "COSMOS_PREDICT2P5_POSTTRAINED_CKPT",
+    "hf://nvidia/Cosmos-Predict2.5-2B/base/post-trained/81edfebe-bd6a-4039-8c1d-737df1a790bf_ema_bf16.pt",
+)
 
 
 # *** Main checkpoint ***
@@ -291,7 +299,7 @@ cosmos_predict2p5_2b_480p_libero = LazyDict(
                 conditioning_strategy="frame_replace",
                 denoise_replace_gt_frames=True,
                 tokenizer=dict(
-                    vae_pth = "hf://nvidia/Cosmos-Predict2.5-2B/tokenizer.pth",
+                    vae_pth=PREDICT2P5_TOKENIZER_CKPT,
                     chunk_duration=33,  # 1 blank + 32 images (4 proprio, 4 wrist image, 4 primary image, 4 action, 4 future proprio, 4 future wrist, 4 future primary, 4 value)
                 ),
                 ema=dict(
@@ -312,7 +320,7 @@ cosmos_predict2p5_2b_480p_libero = LazyDict(
             context_parallel_size=1,
         ),
         checkpoint=dict(
-            load_path=get_checkpoint_path("hf://nvidia/Cosmos-Predict2.5-2B/base/post-trained/81edfebe-bd6a-4039-8c1d-737df1a790bf_ema_bf16.pt"),
+            load_path=get_checkpoint_path(PREDICT2P5_POSTTRAINED_CKPT),
             load_training_state=False,
             strict_resume=False,
             save_iter=1000,
