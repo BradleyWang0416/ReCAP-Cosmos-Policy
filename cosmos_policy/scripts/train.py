@@ -61,12 +61,13 @@ def launch(config: Config, args: argparse.Namespace) -> None:
         # since it is difficult to set up the DistributedSampler without creating two duplicates of the dataset.
         # We intentionally instantiate the dataloader on every process (rather than the rank 0 process only) to work with the DistributedSampler.
         dataset = instantiate(config.dataloader_train.dataset)
+        sampler_seed = int(getattr(config.dataloader_train.sampler, "seed", config.trainer.seed))
         sampler = DistributedSampler(
             dataset=dataset,
             num_replicas=parallel_state.get_data_parallel_world_size(),
             rank=parallel_state.get_data_parallel_rank(),
             shuffle=True,
-            seed=0,
+            seed=sampler_seed,
         )
         dataloader_train = DataLoader(
             dataset=dataset,
@@ -84,12 +85,13 @@ def launch(config: Config, args: argparse.Namespace) -> None:
         if config.trainer.run_validation:
             # NOTE (user): Manually instantiate the val dataloader as well
             dataset_val = instantiate(config.dataloader_val.dataset)
+            sampler_val_seed = int(getattr(config.dataloader_val.sampler, "seed", config.trainer.seed))
             sampler_val = DistributedSampler(
                 dataset=dataset_val,
                 num_replicas=parallel_state.get_data_parallel_world_size(),
                 rank=parallel_state.get_data_parallel_rank(),
                 shuffle=False,  # Do not shuffle the validation set
-                seed=0,
+                seed=sampler_val_seed,
             )
             dataloader_val = DataLoader(
                 dataset=dataset_val,

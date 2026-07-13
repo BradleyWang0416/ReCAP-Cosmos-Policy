@@ -1,0 +1,47 @@
+{
+  "locked_at_utc": "2026-07-11T08:00:53.777051+00:00",
+  "schema_version": "human2robot-m5b-formal-acceptance-protocol-v1",
+  "protocol_id": "m5b_v03_preregistered_3seed_formal_v1",
+  "validation_status": "passed",
+  "protocol_file_sha256": "7598dfa2ac2e129f5d21a295dad23b90f63c3c8e68811da73cbcc20eb95d5ce4",
+  "validator_file_sha256": "a4aa5f263295ad661129a7338a36f3b7960b5e031fa5c61d0f60fff2cdbc77ea",
+  "checks": {
+    "schema_frozen": true,
+    "exactly_three_frozen_seeds": true,
+    "formal_model_frozen": true,
+    "optimization_frozen": true,
+    "checkpoint_selection_frozen": true,
+    "required_methods_complete": true,
+    "required_experiments_complete": true,
+    "required_gates_complete": true,
+    "primary_metric_frozen": true,
+    "statistics_prevent_pseudoreplication": true,
+    "bootstrap_and_multiplicity_frozen": true,
+    "independent_pool_requirement_frozen": true,
+    "deployment_boundary_preserved": true,
+    "negative_controls_not_main": true,
+    "all_experiments_preregistered": true,
+    "m5_decision_requires_every_gate": true,
+    "execution_readiness_not_overclaimed": true
+  },
+  "parent_artifact_checks": {
+    "M3 passed contract": true,
+    "M4 smoke launch": true,
+    "M4 frozen bindings": true,
+    "M5-A passed data-contract stress": true
+  },
+  "seed_count": 3,
+  "seeds": [
+    20260711,
+    20260712,
+    20260713
+  ],
+  "execution_readiness": {
+    "status": "NOT_READY",
+    "blocking_prerequisites": [
+      "NEEDS_IMPLEMENTATION: formal 2B Human2Robot dataset/model adapter and configs",
+      "NEEDS_DATA: 10 independent heldout human demonstrations per task",
+      "RUN_BOUND_REQUIRED: resolved pretrained checkpoint SHA256 and fixed data-parallel world size"
+    ]
+  }
+}

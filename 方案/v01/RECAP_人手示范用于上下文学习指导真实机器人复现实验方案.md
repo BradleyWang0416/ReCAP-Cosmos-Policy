@@ -62,7 +62,7 @@
 
 M1 验收标准：
 
-- 明确每个数据集的下载位置、许可、体量、所需磁盘空间。
+- 明确每个数据集的下载位置、体量、所需磁盘空间。
 - 成功打开至少一个 MIME 任务的数据样本。
 - 成功打开至少一个 RH20T episode 的 robot low-dim、human video、camera calibration。
 - 产出 `data_inventory.md`，记录每个候选数据源是否可用、是否需要授权、是否进入后续处理。
@@ -70,6 +70,8 @@ M1 验收标准：
 ### M2：统一预处理与 canonical HDF5
 
 目标：把 public paired 数据转换成当前 RECAP/Cosmos Policy 代码容易接入的 episode 格式。
+
+执行数据源决策（2026-07-10）：M2 当前只使用已经通过 M1 验收的 **Human2Robot v1**，不执行下文原计划的 MIME/RH20T pilot。Human2Robot 的 paired human/robot RGB、robot state/action、human hand trajectory 在同一 frame axis 上转换；MIME/RH20T 预处理条目保留为未来扩展，不计入本次 M2 验收。
 
 统一 schema：
 
@@ -117,6 +119,8 @@ M2 验收标准：
 - 无 NaN、时间戳单调、帧率统一到 10 Hz 或 16 Hz。
 - action/proprio 维度一致，gripper 范围、workspace 范围、速度范围全部有校验。
 - 随机抽样 10 条 episode 生成 human/robot/action 可视化视频。
+
+Human2Robot M2 的实际 schema、转换假设与验收结果分别见 `human2robot_canonical_hdf5_contract.md` 和 `M2_Human2Robot_canonical_HDF5_验收报告.md`。
 
 ### M3：检索索引与离线 sanity check
 

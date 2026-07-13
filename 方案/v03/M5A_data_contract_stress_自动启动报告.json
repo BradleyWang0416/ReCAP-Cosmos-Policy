@@ -1,0 +1,425 @@
+{
+  "schema_version": "human2robot-m5a-data-contract-stress-v03",
+  "created_at_utc": "2026-07-11T07:32:01.861282+00:00",
+  "status": "launched",
+  "decision": "M5-A-v03 已启动并完成首轮数据/契约压力测试；M5-B 与 Gate C 保持 pending",
+  "phase_scope": "M5-A data/contract stress only",
+  "prerequisites": {
+    "m3_status": "passed",
+    "m3_gate_b": "passed",
+    "m3_report_path": "data/Human2Robot/derived/m3_v03/m3_validation_report.json",
+    "m3_report_file_sha256": "a4b9f9d1abcefdb678f53da5bdf77f04d95829f4c027e8b7dfdb0971082f8e10",
+    "m4_status": "launched",
+    "m4_gate_c": "pending",
+    "m4_report_path": "data/Human2Robot/derived/m4_v03/m4_launch_report.json",
+    "m4_report_file_sha256": "865f6be66b928f62156244fa8c839e5865e5557512411779f8ba98d714b5ca96",
+    "m4_config_path": "data/Human2Robot/derived/m4_v03/paired_bridge_config.json",
+    "m4_config_file_sha256": "b35475b1f659d8c2f8299ac9026d6485f9fa0542fe0672d82e464304ba932f53",
+    "frozen_bindings": {
+      "canonical_schema": "human2robot-canonical-hdf5-v3",
+      "canonical_manifest_sha256": "52988de59862ffab51882e9734ae30c3b56d092c64f2b47dcd20bb1607f3fdc7",
+      "source_evidence_manifest_sha256": "bc7e0af72e310df0dba6c51f19d774644365f6501f86ece84ca0447fa4f98ff8",
+      "split_sha256": "1d3ef2377aa19938b06646f6d5fc31ec9f275fc9f37e253e1e9aa5eecdc5a968",
+      "time_view_id": "nominal_camera_30hz_segmented",
+      "pool_action_view_id": "human_hand_robot_frame_raw",
+      "query_action_view_id": "robot_ee_observed_t_plus_1_bc_proxy",
+      "action_alignment_id": "train_only_tplus1_query_anchor_se3_identity_scale_v1",
+      "pool_action_role": "pool_side_human_plan_in_robot_frame",
+      "query_action_role": "dataset_card_approved_bc_proxy",
+      "query_command_status": "unverified",
+      "policy_coordinate": {
+        "policy_dt": 0.03333333333333333
+      },
+      "H_steps": 8,
+      "H_seconds": 0.26666666666666666,
+      "K_steps": 8,
+      "K_seconds": 0.26666666666666666,
+      "gap_policy": "never_cross_segment",
+      "alignment_version": "9c3a592f78a5fe722825f5d3dd5cb3e56d690f0e820c03f2ab9feb8a1081120b",
+      "view_id": "e73604700bb079ff2397fe951c9c60915060f8aafb80d170753b539c739ad8a5",
+      "retrieval_index_sha256": "362bc28cfb96174208a37e63366b6c157e08e0de8e124066ca9d6057ec36c305"
+    },
+    "m6_rollout_approved": false
+  },
+  "split_sha256": "1d3ef2377aa19938b06646f6d5fc31ec9f275fc9f37e253e1e9aa5eecdc5a968",
+  "protocol_sha256": "ec18f9acc0568d630197bf117f9a839ca35499477dd5996f761caa4539f13df9",
+  "action_role_stress": {
+    "schema_version": "human2robot-m5a-data-contract-stress-v03",
+    "created_at_utc": "2026-07-11T07:32:01.503482+00:00",
+    "scope": "train split only; held-out robot trajectories are not used",
+    "data_scope": {
+      "train_episode_count": 16,
+      "heldout_episode_count": 4,
+      "heldout_robot_trajectory_used": false
+    },
+    "checks": {
+      "wrong_role": {
+        "injection": "swap frozen pool/query role identifiers",
+        "primary_metric": "role_contract_violation_rate",
+        "baseline": 0.0,
+        "perturbed": 1.0,
+        "expected_bindings": {
+          "pool_action_view_id": "human_hand_robot_frame_raw",
+          "query_action_view_id": "robot_ee_observed_t_plus_1_bc_proxy"
+        },
+        "injected_bindings": {
+          "pool_action_view_id": "robot_ee_observed_t_plus_1_bc_proxy",
+          "query_action_view_id": "human_hand_robot_frame_raw"
+        },
+        "detector_triggered": true
+      },
+      "same_frame_copy": {
+        "injection": "replace strictly-future query label with observed state at t",
+        "primary_metric": "temporal_leakage_rate",
+        "baseline": 0.0,
+        "perturbed": 1.0,
+        "expected_future_offset_view_steps": 1,
+        "injected_future_offset_view_steps": 0,
+        "strict_future_target_rate": 0.0,
+        "misleading_position_error_median_canonical": 0.005421468220289801,
+        "misleading_residual_norm_median": 0.006987939580973591,
+        "detector_triggered": true
+      },
+      "wrong_lag": {
+        "injection": "use robot observed t+30 instead of t+1",
+        "primary_metric": "paired_position_error_median_canonical",
+        "baseline": 0.007382313865449027,
+        "perturbed": 0.062440029442744245,
+        "ratio": 8.45805672595124,
+        "baseline_residual_norm_median": 0.009233622297172454,
+        "perturbed_residual_norm_median": 0.1007504890487224,
+        "threshold_ratio": 1.5,
+        "detector_triggered": true
+      },
+      "scale_x2": {
+        "injection": "multiply pool xyz by 2",
+        "primary_metric": "paired_position_error_median_canonical",
+        "baseline": 0.007382313865449027,
+        "perturbed": 0.4942420550713205,
+        "ratio": 66.94947736975666,
+        "baseline_residual_norm_median": 0.009233622297172454,
+        "perturbed_residual_norm_median": 0.4993245016629934,
+        "threshold_ratio": 1.5,
+        "detector_triggered": true
+      }
+    },
+    "status": "passed"
+  },
+  "time_view_matrix": {
+    "schema_version": "human2robot-m5a-data-contract-stress-v03",
+    "created_at_utc": "2026-07-11T07:32:01.627808+00:00",
+    "status": "passed",
+    "required_time_views": [
+      "native_row_index",
+      "nominal_camera_30hz_segmented",
+      "paper_v2_stride4_nominal7p5",
+      "legacy_v01_stride3_nominal10",
+      "policy_clock_10hz",
+      "phase_or_dtw"
+    ],
+    "required_views_present": true,
+    "gap_crossing_zero": true,
+    "all_views_nonempty": true,
+    "interpretation": "descriptive data-level comparison; no model robustness claim",
+    "results": [
+      {
+        "time_view_id": "native_row_index",
+        "paper_version": null,
+        "nominal_hz": null,
+        "pool_action_role": "pool_side_human_plan_in_robot_frame",
+        "query_action_role": "dataset_card_approved_strict_future_bc_proxy",
+        "query_action_view_id": "robot_ee_observed_t_plus_1_bc_proxy",
+        "sample_count": 7785,
+        "gap_crossing_count": 0,
+        "residual_norm_median": 0.009233622297172454,
+        "absolute_target_norm_median": 1.7688611850141736,
+        "position_error_median_canonical": 0.007382313865449027,
+        "orientation_error_median_rad": 5.949278109573551e-07,
+        "gripper_error_median": 0.0
+      },
+      {
+        "time_view_id": "nominal_camera_30hz_segmented",
+        "paper_version": null,
+        "nominal_hz": 30.0,
+        "pool_action_role": "pool_side_human_plan_in_robot_frame",
+        "query_action_role": "dataset_card_approved_strict_future_bc_proxy",
+        "query_action_view_id": "robot_ee_observed_t_plus_1_bc_proxy",
+        "sample_count": 7785,
+        "gap_crossing_count": 0,
+        "residual_norm_median": 0.009233622297172454,
+        "absolute_target_norm_median": 1.7688611850141736,
+        "position_error_median_canonical": 0.007382313865449027,
+        "orientation_error_median_rad": 5.949278109573551e-07,
+        "gripper_error_median": 0.0
+      },
+      {
+        "time_view_id": "paper_v2_stride4_nominal7p5",
+        "paper_version": "v2",
+        "nominal_hz": 7.5,
+        "pool_action_role": "pool_side_human_plan_in_robot_frame",
+        "query_action_role": "dataset_card_approved_strict_future_bc_proxy",
+        "query_action_view_id": "robot_ee_observed_t_plus_1_bc_proxy",
+        "sample_count": 1940,
+        "gap_crossing_count": 0,
+        "residual_norm_median": 0.01746057409228445,
+        "absolute_target_norm_median": 1.7688511601311054,
+        "position_error_median_canonical": 0.013989541615430482,
+        "orientation_error_median_rad": 5.949278109573551e-07,
+        "gripper_error_median": 0.0
+      },
+      {
+        "time_view_id": "legacy_v01_stride3_nominal10",
+        "paper_version": "M2-v01",
+        "nominal_hz": 10.0,
+        "pool_action_role": "pool_side_human_plan_in_robot_frame",
+        "query_action_role": "dataset_card_approved_strict_future_bc_proxy",
+        "query_action_view_id": "robot_ee_observed_t_plus_1_bc_proxy",
+        "sample_count": 2590,
+        "gap_crossing_count": 0,
+        "residual_norm_median": 0.014617556418381406,
+        "absolute_target_norm_median": 1.7688099749062554,
+        "position_error_median_canonical": 0.011761526563397628,
+        "orientation_error_median_rad": 5.949278109573551e-07,
+        "gripper_error_median": 0.0
+      },
+      {
+        "time_view_id": "policy_clock_10hz",
+        "paper_version": null,
+        "nominal_hz": 10.0,
+        "pool_action_role": "pool_side_human_plan_in_robot_frame",
+        "query_action_role": "dataset_card_approved_strict_future_bc_proxy",
+        "query_action_view_id": "robot_ee_observed_t_plus_1_bc_proxy",
+        "sample_count": 2590,
+        "gap_crossing_count": 0,
+        "residual_norm_median": 0.014617556418381406,
+        "absolute_target_norm_median": 1.7688099749062554,
+        "position_error_median_canonical": 0.011761526563397628,
+        "orientation_error_median_rad": 5.949278109573551e-07,
+        "gripper_error_median": 0.0
+      },
+      {
+        "time_view_id": "phase_or_dtw",
+        "paper_version": null,
+        "nominal_hz": null,
+        "pool_action_role": "pool_side_human_plan_in_robot_frame",
+        "query_action_role": "dataset_card_approved_strict_future_bc_proxy",
+        "query_action_view_id": "robot_ee_observed_t_plus_1_bc_proxy",
+        "sample_count": 1008,
+        "gap_crossing_count": 0,
+        "residual_norm_median": 0.026996962747360943,
+        "absolute_target_norm_median": 1.7695635926751971,
+        "position_error_median_canonical": 0.02255472873842984,
+        "orientation_error_median_rad": 5.949278109573551e-07,
+        "gripper_error_median": 0.0
+      }
+    ]
+  },
+  "temporal_stress": {
+    "schema_version": "human2robot-m5a-data-contract-stress-v03",
+    "created_at_utc": "2026-07-11T07:32:01.650095+00:00",
+    "injection_config": {
+      "nominal_hz": 30.0,
+      "frame_drop_every": 10,
+      "timestamp_jitter_std_seconds": 0.008,
+      "timestamp_jitter_threshold_seconds": 0.005,
+      "pause_seconds": 0.5,
+      "pause_threshold_seconds": 0.2,
+      "step_jump": 20,
+      "random_seed": 20260711
+    },
+    "baseline": {
+      "stress": "baseline",
+      "pair_count": 7785,
+      "gap_crossing_count": 0,
+      "source_row_delta_median": 1.0,
+      "source_row_delta_p95": 1.0,
+      "dt_median_seconds": 0.033333333333333215,
+      "dt_absolute_error_p95_seconds": 1.8943180357666733e-15,
+      "residual_norm_median": 0.009233622297172454,
+      "position_error_median_canonical": 0.007382313865449027,
+      "source_row_jump_count": 0,
+      "timestamp_jitter_exceed_count": 0,
+      "pause_count": 0,
+      "logical_step_jump_count": 0,
+      "nonmonotonic_timestamp_count": 0,
+      "expected_detector": null,
+      "detector_triggered": false,
+      "safe_without_rejection_or_mask": true
+    },
+    "stresses": {
+      "frame_drop": {
+        "stress": "frame_drop",
+        "pair_count": 7013,
+        "gap_crossing_count": 0,
+        "source_row_delta_median": 1.0,
+        "source_row_delta_p95": 2.0,
+        "dt_median_seconds": 0.033333333333333215,
+        "dt_absolute_error_p95_seconds": 1.8943180357666733e-15,
+        "residual_norm_median": 0.00943042415108261,
+        "position_error_median_canonical": 0.007585579087667539,
+        "source_row_jump_count": 771,
+        "timestamp_jitter_exceed_count": 0,
+        "pause_count": 0,
+        "logical_step_jump_count": 0,
+        "nonmonotonic_timestamp_count": 0,
+        "expected_detector": "source_row_jump_count",
+        "detector_triggered": true,
+        "safe_without_rejection_or_mask": false
+      },
+      "timestamp_jitter": {
+        "stress": "timestamp_jitter",
+        "pair_count": 7785,
+        "gap_crossing_count": 0,
+        "source_row_delta_median": 1.0,
+        "source_row_delta_p95": 1.0,
+        "dt_median_seconds": 0.03336403816624056,
+        "dt_absolute_error_p95_seconds": 0.022170933604439922,
+        "residual_norm_median": 0.009233622297172454,
+        "position_error_median_canonical": 0.007382313865449027,
+        "source_row_jump_count": 0,
+        "timestamp_jitter_exceed_count": 5155,
+        "pause_count": 0,
+        "logical_step_jump_count": 0,
+        "nonmonotonic_timestamp_count": 8,
+        "expected_detector": "timestamp_jitter_exceed_count",
+        "detector_triggered": true,
+        "safe_without_rejection_or_mask": false
+      },
+      "pause": {
+        "stress": "pause",
+        "pair_count": 7785,
+        "gap_crossing_count": 0,
+        "source_row_delta_median": 1.0,
+        "source_row_delta_p95": 1.0,
+        "dt_median_seconds": 0.033333333333333215,
+        "dt_absolute_error_p95_seconds": 1.8943180357666733e-15,
+        "residual_norm_median": 0.009233622297172454,
+        "position_error_median_canonical": 0.007382313865449027,
+        "source_row_jump_count": 0,
+        "timestamp_jitter_exceed_count": 16,
+        "pause_count": 16,
+        "logical_step_jump_count": 0,
+        "nonmonotonic_timestamp_count": 0,
+        "expected_detector": "pause_count",
+        "detector_triggered": true,
+        "safe_without_rejection_or_mask": false
+      },
+      "step_jump": {
+        "stress": "step_jump",
+        "pair_count": 7785,
+        "gap_crossing_count": 0,
+        "source_row_delta_median": 1.0,
+        "source_row_delta_p95": 1.0,
+        "dt_median_seconds": 0.033333333333333215,
+        "dt_absolute_error_p95_seconds": 1.8943180357666733e-15,
+        "residual_norm_median": 0.009233622297172454,
+        "position_error_median_canonical": 0.007382313865449027,
+        "source_row_jump_count": 0,
+        "timestamp_jitter_exceed_count": 0,
+        "pause_count": 0,
+        "logical_step_jump_count": 16,
+        "nonmonotonic_timestamp_count": 0,
+        "expected_detector": "logical_step_jump_count",
+        "detector_triggered": true,
+        "safe_without_rejection_or_mask": false
+      }
+    },
+    "baseline_detector_clear": true,
+    "all_required_detectors_triggered": true,
+    "gap_crossing_zero": true,
+    "status": "passed"
+  },
+  "resolution_stress": {
+    "schema_version": "human2robot-m5a-data-contract-stress-v03",
+    "created_at_utc": "2026-07-11T07:32:01.860394+00:00",
+    "status": "passed",
+    "source_stream_shapes": {
+      "human/images": [
+        [
+          240,
+          426,
+          3
+        ]
+      ],
+      "robot_images": [
+        [
+          240,
+          426,
+          3
+        ]
+      ]
+    },
+    "samples_checked": 120,
+    "strategies": {
+      "paper_comparison_main": {
+        "id": "center_crop_width_426_to_424_v1",
+        "operation": "remove one column from each horizontal edge; no resize",
+        "output_shape": [
+          240,
+          424,
+          3
+        ]
+      },
+      "canonical_compatibility": {
+        "id": "edge_pad_width_424_to_426_v1",
+        "operation": "replicate one horizontal edge column on each side; no resize",
+        "output_shape": [
+          240,
+          426,
+          3
+        ]
+      }
+    },
+    "retrieval_feature_schema": [
+      "normalized_segment_phase",
+      "task_pool_membership"
+    ],
+    "action_contract_sha256_before": "cb670c8462645d08bbe5bf00b6d93fe8219b7ffe49e59aa25600d940e8892279",
+    "action_contract_sha256_after": "cb670c8462645d08bbe5bf00b6d93fe8219b7ffe49e59aa25600d940e8892279",
+    "roundtrip_border_change_fraction_median": 0.0016562336984872197,
+    "checks": {
+      "all_source_shapes_are_240x426": true,
+      "center_crop_426_to_424_shape_valid": true,
+      "edge_pad_424_to_426_shape_valid": true,
+      "crop_then_pad_inner_pixels_exact": true,
+      "action_contract_sha256_unchanged": true,
+      "current_phase_retrieval_exactly_image_independent": true
+    },
+    "claim_boundary": {
+      "current_action_conclusion": "exactly invariant because image preprocessing never mutates action arrays",
+      "current_phase_retrieval_conclusion": "exactly invariant because retrieval features contain no image/visual field",
+      "visual_retrieval_conclusion": "NEEDS_EXPERIMENT in M5-B with the frozen visual encoder"
+    }
+  },
+  "launch_checks": {
+    "m3_gate_b_passed": true,
+    "m4_launched_gate_c_pending": true,
+    "action_role_detectors_passed": true,
+    "all_time_views_ran_without_gap_crossing": true,
+    "temporal_mismatch_detectors_passed": true,
+    "resolution_contract_passed": true,
+    "heldout_robot_not_used_for_action_calibration": true,
+    "m5b_kept_pending": true,
+    "m6_rollout_forbidden": true
+  },
+  "artifacts": {
+    "experiment_protocol": "data/Human2Robot/derived/m5a_v03/experiment_protocol.json",
+    "action_role_stress": "data/Human2Robot/derived/m5a_v03/action_role_stress.json",
+    "time_view_matrix": "data/Human2Robot/derived/m5a_v03/time_view_matrix.json",
+    "temporal_stress": "data/Human2Robot/derived/m5a_v03/temporal_stress.json",
+    "resolution_stress": "data/Human2Robot/derived/m5a_v03/resolution_stress.json",
+    "automatic_report": "data/Human2Robot/derived/m5a_v03/m5a_launch_report.json"
+  },
+  "m5b_status": "pending_formal_m4_multiseed_checkpoints",
+  "gate_c": "pending",
+  "deployment_command_adapter_id": null,
+  "m6_rollout_approved": false,
+  "limitations": [
+    "formal Cosmos/RECAP M4 multi-seed checkpoints",
+    "independent or expanded human-only held-out pool",
+    "residual/absolute and future-state model ablations",
+    "retrieval modality, geometry/visual, top-k and pool-growth model ablations",
+    "visual encoder crop/pad feature-stability experiment"
+  ],
+  "report_sha256": "b9c04fb1825870c87a5ed573b91526ddb2fecd24eee965b611765e917d40ab02"
+}

@@ -1,0 +1,162 @@
+{
+  "status": "frozen",
+  "created_at_utc": "2026-07-10T16:59:47.769702+00:00",
+  "assignment_policy": "task-level SHA-256 ranking of '<seed>:<task>'; first N tasks held out",
+  "selection_provenance": {
+    "policy": "frozen source episode list from selection manifest",
+    "manifest": "/home/wxs/ReCAP-Cosmos-Policy/data/Human2Robot/canonical/v1/preprocessing_manifest.json",
+    "manifest_sha256": "ab3f90d788681057db978fe2208f7bb3887ce66c420769392b1d168f57ca513d"
+  },
+  "split_sha256": "ee32fd5a222024f9ff370d1cad223ecafeca88594ae840171f20c0f499346cac",
+  "schema_version": "human2robot-canonical-hdf5-v2",
+  "split_seed": 20260711,
+  "heldout_task_count": 4,
+  "tasks": {
+    "cloth/cloth12": "train",
+    "cloth/cloth13": "train",
+    "cloth/cloth21": "train",
+    "cloth/cloth31": "train",
+    "grab_both_cubes_v1": "train",
+    "grab_cube2_v1": "heldout",
+    "grab_cup_v1": "train",
+    "grab_pencil1_v1": "heldout",
+    "grab_pencil2_v1": "train",
+    "grab_pencil_v1": "train",
+    "grab_to_plate1_and_back_v1": "train",
+    "grab_to_plate1_v1": "heldout",
+    "grab_to_plate2_and_back_v1": "train",
+    "grab_to_plate2_and_pull_v1": "train",
+    "grab_to_plate2_v1": "train",
+    "grab_two_cubes2_v1": "train",
+    "pull_plate_grab_cube": "train",
+    "pull_plate_v1": "train",
+    "push_box_common_v1": "train",
+    "push_box_random_v1": "heldout"
+  },
+  "episodes": [
+    {
+      "source_relative_path": "cloth/cloth12/episode_0.hdf5",
+      "task": "cloth/cloth12",
+      "split": "train"
+    },
+    {
+      "source_relative_path": "cloth/cloth13/episode_0.hdf5",
+      "task": "cloth/cloth13",
+      "split": "train"
+    },
+    {
+      "source_relative_path": "cloth/cloth21/episode_0.hdf5",
+      "task": "cloth/cloth21",
+      "split": "train"
+    },
+    {
+      "source_relative_path": "cloth/cloth31/episode_0.hdf5",
+      "task": "cloth/cloth31",
+      "split": "train"
+    },
+    {
+      "source_relative_path": "grab_both_cubes_v1/episode_0.hdf5",
+      "task": "grab_both_cubes_v1",
+      "split": "train"
+    },
+    {
+      "source_relative_path": "grab_cube2_v1/episode_0.hdf5",
+      "task": "grab_cube2_v1",
+      "split": "heldout"
+    },
+    {
+      "source_relative_path": "grab_cup_v1/episode_0.hdf5",
+      "task": "grab_cup_v1",
+      "split": "train"
+    },
+    {
+      "source_relative_path": "grab_pencil1_v1/episode_0.hdf5",
+      "task": "grab_pencil1_v1",
+      "split": "heldout"
+    },
+    {
+      "source_relative_path": "grab_pencil2_v1/episode_1.hdf5",
+      "task": "grab_pencil2_v1",
+      "split": "train"
+    },
+    {
+      "source_relative_path": "grab_pencil_v1/episode_0.hdf5",
+      "task": "grab_pencil_v1",
+      "split": "train"
+    },
+    {
+      "source_relative_path": "grab_to_plate1_and_back_v1/episode_0.hdf5",
+      "task": "grab_to_plate1_and_back_v1",
+      "split": "train"
+    },
+    {
+      "source_relative_path": "grab_to_plate1_v1/episode_0.hdf5",
+      "task": "grab_to_plate1_v1",
+      "split": "heldout"
+    },
+    {
+      "source_relative_path": "grab_to_plate2_and_back_v1/episode_1.hdf5",
+      "task": "grab_to_plate2_and_back_v1",
+      "split": "train"
+    },
+    {
+      "source_relative_path": "grab_to_plate2_and_pull_v1/episode_0.hdf5",
+      "task": "grab_to_plate2_and_pull_v1",
+      "split": "train"
+    },
+    {
+      "source_relative_path": "grab_to_plate2_v1/episode_0.hdf5",
+      "task": "grab_to_plate2_v1",
+      "split": "train"
+    },
+    {
+      "source_relative_path": "grab_two_cubes2_v1/episode_2.hdf5",
+      "task": "grab_two_cubes2_v1",
+      "split": "train"
+    },
+    {
+      "source_relative_path": "pull_plate_grab_cube/episode_0.hdf5",
+      "task": "pull_plate_grab_cube",
+      "split": "train"
+    },
+    {
+      "source_relative_path": "pull_plate_v1/episode_0.hdf5",
+      "task": "pull_plate_v1",
+      "split": "train"
+    },
+    {
+      "source_relative_path": "push_box_common_v1/episode_0.hdf5",
+      "task": "push_box_common_v1",
+      "split": "train"
+    },
+    {
+      "source_relative_path": "push_box_random_v1/episode_0.hdf5",
+      "task": "push_box_random_v1",
+      "split": "heldout"
+    }
+  ],
+  "train_tasks": [
+    "cloth/cloth12",
+    "cloth/cloth13",
+    "cloth/cloth21",
+    "cloth/cloth31",
+    "grab_both_cubes_v1",
+    "grab_cup_v1",
+    "grab_pencil2_v1",
+    "grab_pencil_v1",
+    "grab_to_plate1_and_back_v1",
+    "grab_to_plate2_and_back_v1",
+    "grab_to_plate2_and_pull_v1",
+    "grab_to_plate2_v1",
+    "grab_two_cubes2_v1",
+    "pull_plate_grab_cube",
+    "pull_plate_v1",
+    "push_box_common_v1"
+  ],
+  "heldout_tasks": [
+    "grab_cube2_v1",
+    "grab_pencil1_v1",
+    "grab_to_plate1_v1",
+    "push_box_random_v1"
+  ]
+}

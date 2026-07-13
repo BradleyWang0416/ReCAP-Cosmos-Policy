@@ -1,0 +1,47 @@
+{
+  "schema": "human2robot-source-evidence-v3",
+  "created_at": "2026-07-11",
+  "accessed_at": "2026-07-11",
+  "nominal_camera_fps": 30.0,
+  "nominal_camera_fps_status": "verified_upstream",
+  "nominal_camera_fps_source": "arxiv:2502.16587v4 Appendix A",
+  "nominal_camera_fps_source_url": "https://arxiv.org/pdf/2502.16587v4",
+  "euler_unit": "degree",
+  "euler_order": "XYZ",
+  "euler_evidence_status": "verified_upstream",
+  "gripper_open_value": 1,
+  "gripper_closed_value": 0,
+  "gripper_evidence_status": "verified_upstream",
+  "source_action_role": "human_hand_pose_in_robot_frame",
+  "source_action_role_status": "verified_upstream",
+  "source_action_as_robot_command_status": "unknown",
+  "xyz_source_unit_status": "unknown",
+  "record_timestamp_semantics_status": "partially_unknown",
+  "sources": [
+    {
+      "name": "Human2Robot paper",
+      "url": "https://arxiv.org/pdf/2502.16587v4",
+      "version": "arXiv v4, Appendix A",
+      "accessed_at": "2026-07-11",
+      "supports": ["nominal_camera_fps=30", "paired D435 camera capture configuration"]
+    },
+    {
+      "name": "HumanAndRobot dataset card",
+      "url": "https://huggingface.co/datasets/dannyXSC/HumanAndRobot",
+      "version": "dataset card accessed 2026-07-11",
+      "accessed_at": "2026-07-11",
+      "supports": [
+        "/action is human hand pose in robot frame",
+        "/end_position is observed robot end-effector pose",
+        "Euler angles are degree XYZ",
+        "gripper 1=open and 0=close"
+      ]
+    }
+  ],
+  "unresolved": [
+    "source xyz physical unit",
+    "whether /action is the actual retarget command sent to the robot",
+    "source timestamp unit and per-row clock semantics",
+    "explanation for local width 426 versus paper width 424"
+  ]
+}

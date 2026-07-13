@@ -1,0 +1,413 @@
+{
+  "schema_version": "human2robot-m5b-formal-acceptance-protocol-v1",
+  "protocol_id": "m5b_v03_preregistered_3seed_formal_v1",
+  "status": "frozen_pre_registration",
+  "frozen_at_utc": "2026-07-11T08:00:00+00:00",
+  "scope": "Formal M4 multi-seed comparison and M5-B model-dependent ablations required before the M5-v03 and Gate C decisions",
+  "normalized_research_claim": "Under the frozen Human2Robot v03 split and semantic contract, the RECAP residual bridge improves held-out robot trajectory prediction over No Retrieval and Retrieval Only, and the gain is supported by representation, retrieval, temporal, sensitivity, and resolution ablations.",
+  "claim_boundary": "This protocol freezes future experiments; it is not evidence that any proposed experiment has passed.",
+  "parent_artifacts": [
+    {
+      "role": "M3 passed contract",
+      "path": "data/Human2Robot/derived/m3_v03/m3_validation_report.json",
+      "file_sha256": "a4b9f9d1abcefdb678f53da5bdf77f04d95829f4c027e8b7dfdb0971082f8e10"
+    },
+    {
+      "role": "M4 smoke launch",
+      "path": "data/Human2Robot/derived/m4_v03/m4_launch_report.json",
+      "file_sha256": "865f6be66b928f62156244fa8c839e5865e5557512411779f8ba98d714b5ca96"
+    },
+    {
+      "role": "M4 frozen bindings",
+      "path": "data/Human2Robot/derived/m4_v03/paired_bridge_config.json",
+      "file_sha256": "b35475b1f659d8c2f8299ac9026d6485f9fa0542fe0672d82e464304ba932f53"
+    },
+    {
+      "role": "M5-A passed data-contract stress",
+      "path": "data/Human2Robot/derived/m5a_v03/m5a_launch_report.json",
+      "file_sha256": "38b9a3b617154c123dcb829ae3c3893d7acb99bfaf090c119d5c743a645581f8"
+    }
+  ],
+  "frozen_data_contract": {
+    "canonical_schema": "human2robot-canonical-hdf5-v3",
+    "split_sha256": "1d3ef2377aa19938b06646f6d5fc31ec9f275fc9f37e253e1e9aa5eecdc5a968",
+    "time_view_id": "nominal_camera_30hz_segmented",
+    "pool_action_view_id": "human_hand_robot_frame_raw",
+    "query_action_view_id": "robot_ee_observed_t_plus_1_bc_proxy",
+    "action_alignment_id": "train_only_tplus1_query_anchor_se3_identity_scale_v1",
+    "view_id": "e73604700bb079ff2397fe951c9c60915060f8aafb80d170753b539c739ad8a5",
+    "retrieval_index_sha256": "362bc28cfb96174208a37e63366b6c157e08e0de8e124066ca9d6057ec36c305",
+    "gap_policy": "never_cross_segment",
+    "query_command_status": "unverified",
+    "deployment_command_adapter_id": null,
+    "train_task_count": 16,
+    "heldout_task_count": 4,
+    "current_pilot_episode_count": 20,
+    "current_heldout_independent_human_demos_per_task": 1,
+    "required_heldout_independent_human_demos_per_task": 10,
+    "independence_unit": "source episode, not a window or chunk from the same episode",
+    "heldout_robot_usage": "offline target evaluation only; forbidden in retrieval features, normalization, alignment, lag calibration, checkpoint selection, or training",
+    "data_readiness": "NEEDS_DATA"
+  },
+  "frozen_training_protocol": {
+    "model": {
+      "family": "Cosmos-Predict2.5 retrieval-conditioned rectified-flow policy",
+      "class": "cosmos_policy.models.policy_video2world_model_pusht_ret.CosmosPolicyPushTRetModelRectifiedFlow",
+      "base_config": "cosmos_predict2p5_2b_480p_pusht_ret_100",
+      "parameter_scale": "2B",
+      "initialization_checkpoint_id": "PREDICT2P5_POSTTRAINED_CKPT",
+      "initialization_checkpoint_sha256": "RUN_BOUND_REQUIRED",
+      "load_training_state": false,
+      "load_ema_to_reg": true,
+      "precision": "bf16",
+      "resolution": 224,
+      "state_t": 10,
+      "min_num_conditional_frames": 7,
+      "max_num_conditional_frames": 7,
+      "action_dim": 10,
+      "proprio_dim": 10,
+      "action_loss_multiplier": 16,
+      "H_steps": 8,
+      "K_steps": 8,
+      "image_preprocessing_main": "center_crop_width_426_to_424_v1_then_resize_224_square",
+      "human2robot_adapter_status": "NEEDS_IMPLEMENTATION"
+    },
+    "optimization": {
+      "seeds": [20260711, 20260712, 20260713],
+      "seed_count": 3,
+      "seed_application": [
+        "python random",
+        "numpy",
+        "torch CPU",
+        "torch CUDA",
+        "distributed sampler",
+        "retrieval tie-breaking",
+        "augmentation"
+      ],
+      "sampler_seed_rule": "equal_to_run_seed",
+      "max_optimizer_steps": 7000,
+      "early_stopping": false,
+      "optimizer": "AdamW",
+      "learning_rate": 0.0001,
+      "weight_decay": 0.1,
+      "betas": [0.9, 0.999],
+      "gradient_accumulation_steps": 1,
+      "batch_size_per_data_parallel_rank": 25,
+      "data_parallel_world_size_rule": "record and keep identical across every method and seed",
+      "scheduler": {
+        "cycle_lengths": [20000, 100000000000000],
+        "warm_up_steps": [500, 0],
+        "f_start": [0.000001, 0.06],
+        "f_max": [1.0, 0.06],
+        "f_min": [0.06, 0.06]
+      },
+      "training_budget_equality": "same optimizer steps, per-rank batch, data-parallel world size, augmentation count, model parameter budget, and train samples for learned methods"
+    },
+    "checkpoint": {
+      "save_every_steps": 1000,
+      "saved_steps": [1000, 2000, 3000, 4000, 5000, 6000, 7000],
+      "primary_checkpoint_step": 7000,
+      "selection_rule": "fixed final checkpoint; no early stopping and no heldout-based checkpoint selection",
+      "intermediate_checkpoint_usage": "diagnostics and learning curves only",
+      "failed_or_incomplete_run_rule": "a run without step-7000 checkpoint is invalid and must be rerun, not imputed",
+      "required_manifest_bindings": [
+        "protocol_file_sha256",
+        "code_sha256",
+        "resolved_initialization_checkpoint_sha256",
+        "canonical_schema",
+        "split_sha256",
+        "time_view_id",
+        "pool_action_view_id",
+        "query_action_view_id",
+        "action_alignment_id",
+        "view_id",
+        "retrieval_index_sha256",
+        "method_id",
+        "experiment_id",
+        "seed",
+        "optimizer_steps",
+        "batch_size_per_data_parallel_rank",
+        "data_parallel_world_size",
+        "H_steps",
+        "K_steps"
+      ]
+    }
+  },
+  "required_methods": [
+    {
+      "method_id": "no_retrieval",
+      "learned": true,
+      "definition": "same formal model and absolute query target, with retrieval conditioning masked during train and evaluation"
+    },
+    {
+      "method_id": "retrieval_only",
+      "learned": false,
+      "definition": "aligned retrieved human plan projected into the canonical query representation without a learned bridge"
+    },
+    {
+      "method_id": "co_training",
+      "learned": true,
+      "definition": "same formal model conditioned on the retrieved human plan and trained to predict the absolute query target"
+    },
+    {
+      "method_id": "recap_hand_ret",
+      "learned": true,
+      "definition": "same formal model conditioned on the retrieved human plan and trained to predict the residual from aligned pool plan to query target"
+    }
+  ],
+  "metric_registry": {
+    "primary": {
+      "metric_id": "position_error_median_canonical",
+      "direction": "lower_is_better",
+      "aggregation": "first compute one median per heldout task per seed; inference windows are not independent replicates"
+    },
+    "secondary": [
+      "orientation_error_median_rad",
+      "gripper_error_median",
+      "final_position_error_median_canonical",
+      "canonical_error_median",
+      "residual_norm_median",
+      "pool_growth_primary_metric_slope"
+    ],
+    "guardrails": {
+      "nonfinite_prediction_count": {"pass_value": 0},
+      "gap_crossing_count": {"pass_value": 0},
+      "workspace_clipping_count": {"pass_value": 0},
+      "long_term_residual_saturation_count": {
+        "pass_value": 0,
+        "definition": "at least 5 consecutive predicted residual steps above the train-only residual-norm 99th percentile"
+      },
+      "heldout_target_retrieval_feature_count": {"pass_value": 0}
+    },
+    "efficiency_reporting_only": [
+      "train_gpu_hours",
+      "peak_gpu_memory_gib",
+      "parameter_count",
+      "inference_latency_ms_per_query"
+    ],
+    "efficiency_claim_status": "NOT_CLAIMED"
+  },
+  "statistical_protocol": {
+    "experimental_seed_count": 3,
+    "statistical_unit": "heldout_task_x_seed",
+    "expected_primary_units_per_method": 12,
+    "forbidden_unit": "individual windows or chunks",
+    "paired_comparison": true,
+    "confidence_level": 0.95,
+    "bootstrap": {
+      "method": "hierarchical paired bootstrap over heldout tasks then seeds within task",
+      "resamples": 10000,
+      "random_seed": 20260711
+    },
+    "hypothesis_test": {
+      "method": "paired randomization test over task_x_seed differences",
+      "alpha": 0.05,
+      "multiple_comparison_correction": "Holm for the two primary baseline comparisons"
+    },
+    "missing_run_policy": "no imputation; rerun the failed seed-method cell",
+    "reporting": "report all task-level and seed-level values, paired differences, 95% CI, raw p, Holm-adjusted p, median, and IQR"
+  },
+  "experiment_matrix": [
+    {
+      "experiment_id": "M5B-MAIN-01",
+      "type": "main comparison",
+      "required": true,
+      "status": "PROPOSED",
+      "variants": ["no_retrieval", "retrieval_only", "co_training", "recap_hand_ret"],
+      "pool_sizes_independent_demos_per_task": [0, 1, 2, 4, 8, 10],
+      "supports_claims": ["overall_effectiveness", "pool_growth"]
+    },
+    {
+      "experiment_id": "M5B-REP-01",
+      "type": "output representation ablation",
+      "required": true,
+      "status": "PROPOSED",
+      "variants": ["residual", "absolute", "future_state"],
+      "frozen_main_variant": "residual",
+      "supports_claims": ["residual_mechanism"]
+    },
+    {
+      "experiment_id": "M5B-ACTION-01",
+      "type": "query/pool action-view ablation",
+      "required": true,
+      "status": "PROPOSED",
+      "variants": [
+        "raw_human_plan_plus_tplus1_query_main",
+        "phase_aligned_human_plan_plus_tplus1_query",
+        "raw_human_plan_plus_lag_calibrated_query_diagnostic",
+        "same_frame_query_negative_control",
+        "swapped_role_negative_control",
+        "scale_x2_negative_control"
+      ],
+      "frozen_main_variant": "raw_human_plan_plus_tplus1_query_main",
+      "negative_controls_forbidden_as_main": true,
+      "supports_claims": ["action_role_and_alignment_validity"]
+    },
+    {
+      "experiment_id": "M5B-RET-01",
+      "type": "retrieval modality ablation",
+      "required": true,
+      "status": "PROPOSED",
+      "variants": ["random", "phase", "geometry", "visual", "geometry_plus_visual"],
+      "frozen_main_variant": "phase",
+      "supports_claims": ["retrieval_content_matters", "modality_analysis"]
+    },
+    {
+      "experiment_id": "M5B-SENS-01",
+      "type": "top-k and H/K sensitivity",
+      "required": true,
+      "status": "PROPOSED",
+      "top_k": [1, 3, 5, 10],
+      "h_k_pairs": [[4, 4], [8, 8], [16, 8]],
+      "frozen_main_top_k": 3,
+      "frozen_main_h_k": [8, 8],
+      "supports_claims": ["hyperparameter_stability"]
+    },
+    {
+      "experiment_id": "M5B-TIME-01",
+      "type": "model-level FPS/version and temporal robustness",
+      "required": true,
+      "status": "PROPOSED",
+      "time_views": [
+        "nominal_camera_30hz_segmented",
+        "paper_v2_stride4_nominal7p5",
+        "legacy_v01_stride3_nominal10",
+        "policy_clock_10hz",
+        "phase_or_dtw"
+      ],
+      "frame_drop_rates": [0.05, 0.1, 0.2],
+      "timestamp_jitter_std_ms": [5, 10, 20],
+      "pause_seconds": [0.2, 0.5, 1.0],
+      "step_jump_sizes": [1, 5, 20],
+      "frozen_main_time_view": "nominal_camera_30hz_segmented",
+      "supports_claims": ["temporal_robustness", "main_time_view_choice"]
+    },
+    {
+      "experiment_id": "M5B-RES-01",
+      "type": "visual resolution non-inferiority",
+      "required": true,
+      "status": "PROPOSED",
+      "variants": [
+        "source_240x426_then_resize_224",
+        "center_crop_240x424_then_resize_224",
+        "center_crop_240x424_edge_pad_240x426_then_resize_224"
+      ],
+      "frozen_main_variant": "center_crop_240x424_then_resize_224",
+      "visual_encoder_rule": "same frozen encoder checkpoint for every variant",
+      "supports_claims": ["resolution_processing_non_inferiority"]
+    },
+    {
+      "experiment_id": "M5B-QUAL-01",
+      "type": "qualitative and failure-case analysis",
+      "required": true,
+      "status": "PROPOSED",
+      "selection_rule": "for every heldout task, show the 3 best and 3 worst task-seed cases by preregistered primary metric",
+      "failure_categories": [
+        "wrong retrieval phase",
+        "role/alignment mismatch",
+        "gripper mismatch",
+        "residual saturation",
+        "workspace violation",
+        "temporal discontinuity"
+      ],
+      "supports_claims": ["failure_boundary_and_interpretability"]
+    }
+  ],
+  "claim_to_experiment_mapping": {
+    "overall_effectiveness": ["M5B-MAIN-01"],
+    "pool_growth": ["M5B-MAIN-01"],
+    "residual_mechanism": ["M5B-REP-01"],
+    "action_role_and_alignment_validity": ["M5B-ACTION-01"],
+    "retrieval_content_matters": ["M5B-RET-01"],
+    "hyperparameter_stability": ["M5B-SENS-01"],
+    "temporal_robustness": ["M5B-TIME-01"],
+    "resolution_processing_non_inferiority": ["M5B-RES-01"],
+    "failure_boundary_and_interpretability": ["M5B-QUAL-01"]
+  },
+  "acceptance_gates": [
+    {
+      "gate_id": "M5B-P0-IMPLEMENTATION",
+      "pass_rule": "Human2Robot formal dataset/model adapter exists, loads the locked parent artifacts, emits every checkpoint binding, and passes unit plus one-batch overfit tests"
+    },
+    {
+      "gate_id": "M5B-P1-DATA",
+      "pass_rule": "every heldout task has at least 10 independent human demonstrations and all leakage audits pass"
+    },
+    {
+      "gate_id": "M5B-P2-RUN-COMPLETENESS",
+      "pass_rule": "all required method-experiment-seed cells have valid step-7000 checkpoints and manifests; no missing cell is imputed"
+    },
+    {
+      "gate_id": "M5B-G1-MAIN",
+      "pass_rule": "for primary error, RECAP minus No Retrieval and RECAP minus Retrieval Only both have hierarchical-bootstrap 95% CI upper bound below 0, Holm-adjusted p below 0.05, and RECAP improves at least 3 of 4 heldout tasks"
+    },
+    {
+      "gate_id": "M5B-G2-POOL-GROWTH",
+      "pass_rule": "pool-10 minus pool-0 primary error and fitted primary-error slope versus pool size both have 95% CI upper bound below 0; at most one adjacent pool-size step may worsen"
+    },
+    {
+      "gate_id": "M5B-G3-MECHANISM",
+      "pass_rule": "residual representation beats both absolute and future-state on the primary metric with 95% CI upper bound below 0; phase retrieval beats random retrieval; all negative action controls are detected and excluded from main results"
+    },
+    {
+      "gate_id": "M5B-G4-SENSITIVITY",
+      "pass_rule": "the frozen main top-k and H/K setting is not worse than the best tested alternative by more than a preregistered 5% relative non-inferiority margin"
+    },
+    {
+      "gate_id": "M5B-G5-TEMPORAL",
+      "pass_rule": "all injected temporal discontinuities remain segment-safe; mild frame-drop/jitter settings degrade the primary metric by no more than 10% relative to clean; severe invalid inputs are detected and rejected or masked before inference"
+    },
+    {
+      "gate_id": "M5B-G6-RESOLUTION",
+      "pass_rule": "the 240x424 main preprocessing has visual top-k Jaccard overlap at least 0.90 and primary-metric degradation no more than the 5% relative non-inferiority margin versus source-426 processing"
+    },
+    {
+      "gate_id": "M5B-G7-GUARDRAILS",
+      "pass_rule": "all registered guardrail counts equal their pass values for every method, seed, heldout task, and pool size"
+    },
+    {
+      "gate_id": "M5B-G8-REPORTING",
+      "pass_rule": "all machine-readable results, task-seed tables, confidence intervals, corrected tests, learning curves, qualitative cases, failure cases, code/config/checkpoint hashes, and limitations are present"
+    }
+  ],
+  "full_m5_decision_rule": "M5-v03 is passed only if every M5B-P* and M5B-G* gate passes. Any failed or missing gate keeps M5 and Gate C pending.",
+  "claim_downgrade_rules": [
+    "If M5B-G1 fails, do not claim RECAP outperforms either required baseline.",
+    "If M5B-G2 fails, do not claim pool growth improves performance.",
+    "If M5B-G3 fails, do not attribute gains to the residual or retrieval mechanism.",
+    "If M5B-G4 fails, do not claim hyperparameter stability.",
+    "If M5B-G5 fails, do not claim temporal robustness.",
+    "If M5B-G6 fails, do not claim visual resolution invariance.",
+    "M5 passage never implies executable command semantics, physical safety, or M6 rollout approval."
+  ],
+  "fairness_and_validity_risks": [
+    "Only four heldout tasks are available; report task-level results and do not generalize beyond the frozen split.",
+    "Three seeds estimate optimization variance but do not replace independent task or demonstration replication.",
+    "Windows from one episode are correlated and cannot increase the statistical sample size.",
+    "The 2B Human2Robot adapter is not implemented yet; protocol passage is not execution readiness.",
+    "XYZ physical units and executable command semantics remain unresolved and are outside M5."
+  ],
+  "required_outputs": [
+    "data/Human2Robot/derived/m5b_v03/run_manifest.json",
+    "data/Human2Robot/derived/m5b_v03/main_comparison_task_seed.json",
+    "data/Human2Robot/derived/m5b_v03/pool_growth.json",
+    "data/Human2Robot/derived/m5b_v03/representation_ablation.json",
+    "data/Human2Robot/derived/m5b_v03/retrieval_modality_ablation.json",
+    "data/Human2Robot/derived/m5b_v03/sensitivity.json",
+    "data/Human2Robot/derived/m5b_v03/temporal_robustness.json",
+    "data/Human2Robot/derived/m5b_v03/resolution_visual_ablation.json",
+    "data/Human2Robot/derived/m5b_v03/guardrails.json",
+    "方案/v03/M5B_failure_cases.md",
+    "方案/v03/M5_v03_自动验收报告.json",
+    "方案/v03/M5_v03_验收报告.md"
+  ],
+  "current_execution_readiness": {
+    "status": "NOT_READY",
+    "blocking_prerequisites": [
+      "NEEDS_IMPLEMENTATION: formal 2B Human2Robot dataset/model adapter and configs",
+      "NEEDS_DATA: 10 independent heldout human demonstrations per task",
+      "RUN_BOUND_REQUIRED: resolved pretrained checkpoint SHA256 and fixed data-parallel world size"
+    ]
+  },
+  "recommended_next_stage": "Implement and validate M5B-P0 formal Human2Robot adapter, while expanding the independent heldout human-only pool required by M5B-P1."
+}

@@ -1,0 +1,20 @@
+{
+  "status": "frozen_before_m2_v03_edit",
+  "frozen_at": "2026-07-11",
+  "baseline_test": {
+    "command": "python -m pytest -q tools/human2robot_m2_test.py",
+    "result": "8 passed in 0.51s"
+  },
+  "cli_entrypoint": "python tools/convert_human2robot_m2.py --help",
+  "v02_default_output": "data/Human2Robot/canonical/v2",
+  "v02_default_report": "方案/v02",
+  "sha256": {
+    "tools/human2robot_m2.py": "c55a673b668539340744b82655aa0bde7c1a3d1f884c9c4a7e06884d58617f71",
+    "tools/convert_human2robot_m2.py": "2f12ee61a1e04e23d8451a6130b4bce2b3b759f34cbf85e62c3a73f27926a407",
+    "tools/validate_canonical_hdf5.py": "cc6a806da4f6d93ed355131fa982ced70bfdd580b689f3bfe5255a3eaed1448c",
+    "tools/human2robot_m2_test.py": "cb56f2fe6af1f4ba769d747776cd1e24aa0d3652c74a2870cc7d661ec78e053e",
+    "data/Human2Robot/canonical/v2/task_split_manifest.json": "d16b0da6267b2bc1c5a7234d14cdbefa9b8ba49fd6e8495c1b83f154cf367871",
+    "data/Human2Robot/canonical/v2/preprocessing_manifest.json": "b0e6fe89186692f4815993709f881624c800a122b9dd69d4d431fe202ba4f6e9",
+    "方案/v02/M2_Human2Robot_native_time_验收报告.md": "9b4074331bbb212e95b3f406867dab0759a3ef6b4e2f80c5d8a088924460b882"
+  }
+}
