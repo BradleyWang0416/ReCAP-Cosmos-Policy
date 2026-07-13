@@ -1,0 +1,117 @@
+{
+  "schema_version": "human2robot-m5b-p1-data-acceptance-v1",
+  "gate_id": "M5B-P1-DATA",
+  "status": "passed",
+  "completed_at_utc": "2026-07-13T07:13:58.642976+00:00",
+  "environment": {
+    "inside_docker": true,
+    "workspace": "/workspace",
+    "python": "3.10.18",
+    "torch": "2.7.0+cu128",
+    "torch_cuda": "12.8",
+    "cuda_available": true,
+    "downloads_performed": false,
+    "environment_sync_performed": false
+  },
+  "protocol_file_sha256": "7598dfa2ac2e129f5d21a295dad23b90f63c3c8e68811da73cbcc20eb95d5ce4",
+  "conversion_code_sha256": "b1753ad4c873f7f8615fd40072a133a65137644ef3e2966d4d95379aa97ca67b",
+  "split_sha256": "1d3ef2377aa19938b06646f6d5fc31ec9f275fc9f37e253e1e9aa5eecdc5a968",
+  "selection_id": "48e0c0f5c283a5a7b9f3de8eb6535f13f5f760cc325a81413053015fd6299afd",
+  "pool_manifest_path": "/workspace/data/Human2Robot/derived/m5b_v03/p1_human_only_pool/pool_manifest.json",
+  "pool_manifest_sha256": "47e87be5800194de6e0ac99b47dbe23ef96a91298edbff3e9996b1484b489299",
+  "validation": {
+    "per_task_independent_source_episode_count": {
+      "grab_cube2_v1": 10,
+      "grab_pencil1_v1": 10,
+      "grab_to_plate1_v1": 10,
+      "push_box_random_v1": 10
+    },
+    "required_per_task": 10,
+    "every_task_meets_requirement": true,
+    "source_episode_identity_unique_count": 40,
+    "source_file_sha256_unique_count": 40,
+    "human_content_sha256_unique_count": 40,
+    "derived_file_sha256_unique_count": 40,
+    "pool_sizes_are_nested_prefixes": [
+      0,
+      1,
+      2,
+      4,
+      8,
+      10
+    ],
+    "heldout_train_task_overlap": [],
+    "heldout_robot_dataset_read_count": 0,
+    "forbidden_source_datasets_read": [],
+    "derived_dataset_allowlist": [
+      "data/demo_0/human/hand_coords",
+      "data/demo_0/human/hand_frames",
+      "data/demo_0/human/hand_plan_10d",
+      "data/demo_0/human/images",
+      "data/demo_0/time/gap_mask",
+      "data/demo_0/time/segment_id",
+      "data/demo_0/time/source_step",
+      "data/demo_0/time/source_timestamp"
+    ],
+    "gap_safe_H_steps": 8
+  },
+  "leakage_audit": {
+    "human_only_source_dataset_allowlist_enforced": true,
+    "heldout_robot_dataset_read_count": 0,
+    "heldout_robot_target_used_for_retrieval_features": false,
+    "heldout_robot_target_used_for_normalization": false,
+    "heldout_robot_target_used_for_alignment_or_lag": false,
+    "heldout_robot_target_used_for_checkpoint_selection": false,
+    "derived_files_contain_robot_observation_or_target": false,
+    "train_statistics_recomputed": false,
+    "frozen_train_action_statistics_sha256": "b318962a31b8ac52f237a06163010910c35c50ef06b72c1dc5a33971c1b81562",
+    "source_containers_are_paired_but_only_human_allowlist_was_read": true
+  },
+  "independence_audit": {
+    "unit": "source episode",
+    "windows_or_chunks_count_as_independent": false,
+    "per_task_independent_source_episode_count": {
+      "grab_cube2_v1": 10,
+      "grab_pencil1_v1": 10,
+      "grab_to_plate1_v1": 10,
+      "push_box_random_v1": 10
+    },
+    "required_per_task": 10,
+    "every_task_meets_requirement": true,
+    "source_episode_identity_unique_count": 40,
+    "source_file_sha256_unique_count": 40,
+    "human_content_sha256_unique_count": 40,
+    "derived_file_sha256_unique_count": 40,
+    "pool_sizes_are_nested_prefixes": [
+      0,
+      1,
+      2,
+      4,
+      8,
+      10
+    ],
+    "heldout_train_task_overlap": [],
+    "heldout_robot_dataset_read_count": 0,
+    "forbidden_source_datasets_read": [],
+    "derived_dataset_allowlist": [
+      "data/demo_0/human/hand_coords",
+      "data/demo_0/human/hand_frames",
+      "data/demo_0/human/hand_plan_10d",
+      "data/demo_0/human/images",
+      "data/demo_0/time/gap_mask",
+      "data/demo_0/time/segment_id",
+      "data/demo_0/time/source_step",
+      "data/demo_0/time/source_timestamp"
+    ],
+    "gap_safe_H_steps": 8
+  },
+  "claim_boundary": {
+    "m5b_p1_data": "passed",
+    "m5b_p2_run_completeness": "pending",
+    "m5_v03": "pending",
+    "gate_c": "pending",
+    "m6_rollout_approved": false,
+    "query_command_status": "unverified",
+    "deployment_command_adapter_id": null
+  }
+}

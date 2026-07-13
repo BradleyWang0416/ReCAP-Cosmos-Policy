@@ -38,7 +38,7 @@ v03 不覆盖 v1 或 v2。新主线写入 `canonical/v3`；v1 继续作为固定
 | M3-v02 | 暂停 | 未生成正式主索引；由 M3-v03 替代 |
 | M3-v03：action/time view sanity | 已完成，通过 Gate B | 分离 pool/query action view；批准严格 future `t+1` BC proxy，lag-calibrated proxy 因弱相关仅作诊断 |
 | M4-v03：paired bridge | 已启动，Gate C pending | 已完成 ridge smoke 闭环；正式 Cosmos/RECAP、多 seed 与扩充 human pool 待执行 |
-| M5-v03：机制与压力测试 | M5-A 首轮通过；M5B-P0 通过，P1/P2 pending | 正式 2B Human2Robot adapter、9 个 3-seed 配置与 Docker/CUDA 单批契约测试已通过；独立 human pool 与正式训练运行仍待完成 |
+| M5-v03：机制与压力测试 | M5-A 首轮通过；M5B-P0/P1 通过，P2 pending | 正式 2B adapter 与 3-seed 配置通过；4 个 held-out tasks 均已具备 10 条独立 human-only demos，正式训练运行仍待完成 |
 | M6-v03：真实机器人 | 待执行 | 真实 clock 独立标定，不继承 public 30 Hz |
 
 ### 0.2 硬性门禁
@@ -452,13 +452,15 @@ M4 验收标准继续要求 RECAP 优于 `No retrieval` 和 `Retrieval Only`，p
 
 ### M5-v03：机制消融与压力测试
 
-状态：**M5-A 已完成首轮数据/契约压力测试；M5B-P0-IMPLEMENTATION 已通过，M5B-P1/P2 与后续模型门禁 pending**。M5-A 启动报告为 `M5A_data_contract_stress_启动报告.md`，P0 报告为 `M5B_P0_IMPLEMENTATION_验收报告.md`。
+状态：**M5-A 已完成首轮数据/契约压力测试；M5B-P0-IMPLEMENTATION 与 M5B-P1-DATA 已通过，M5B-P2 与后续模型门禁 pending**。M5-A 启动报告为 `M5A_data_contract_stress_启动报告.md`，P0 报告为 `M5B_P0_IMPLEMENTATION_验收报告.md`，P1 报告为 `M5B_P1_DATA_验收报告.md`。
 
 M5-A 绑定 M3 Gate B 与 M4 冻结契约，只验证错误 role、lag、scale、时间和分辨率处理能否被数据/契约检测器发现。首轮结果中四类 action stress、六种 time view、frame drop/jitter/pause/step jump 检测和 426↔424 crop/pad 契约均通过；所有 time view 和 temporal stress 的 gap crossing 均为 0。
 
 M5-A 不证明最终模型收益或鲁棒性。M5-B 仍需正式 M4 多 seed checkpoint、独立或扩充 human-only pool，才能执行 residual/absolute、future-state、retrieval modality、geometry/visual、top-k 和正式 pool-growth 消融。Gate C 继续保持 pending。
 
-M5-B 正式验收协议 v1 已冻结为 `M5B_formal_acceptance_protocol_v1.json`，人类可读版本为 `M5B_formal_acceptance_protocol_v1.md`，锁文件记录协议与 validator SHA256。协议固定使用 seeds `20260711/20260712/20260713`，统计单位为 held-out task×seed，并预注册四方法主比较、全部模型消融、统计检验、非劣界限、guardrails 和 M5 完全通过规则。P0 已在完整项目 Docker/CUDA 环境中通过：formal dataset/model adapter、3 learned methods×3 seeds 配置、Hydra 加载、15 项 pytest、本地初始化 checkpoint SHA256 绑定，以及真实 2B 同批固定噪声 50-step overfit 均通过；真实 2B loss 从 0.3335 降至 0.0039。该诊断不替代 2B 正式训练；每个 held-out task 的 10 条独立 human demonstrations、正式运行统一 data-parallel world size、step-7000 checkpoint 与全部统计门禁仍是硬前置。
+M5-B 正式验收协议 v1 已冻结为 `M5B_formal_acceptance_protocol_v1.json`，人类可读版本为 `M5B_formal_acceptance_protocol_v1.md`，锁文件记录协议与 validator SHA256。协议固定使用 seeds `20260711/20260712/20260713`，统计单位为 held-out task×seed，并预注册四方法主比较、全部模型消融、统计检验、非劣界限、guardrails 和 M5 完全通过规则。P0 已在完整项目 Docker/CUDA 环境中通过：formal dataset/model adapter、3 learned methods×3 seeds 配置、Hydra 加载、15 项 pytest、本地初始化 checkpoint SHA256 绑定，以及真实 2B 同批固定噪声 50-step overfit 均通过；真实 2B loss 从 0.3335 降至 0.0039。该诊断不替代 2B 正式训练；正式运行统一 data-parallel world size、step-7000 checkpoint 与全部统计门禁仍是硬前置。
+
+P1 已在完整 Docker 环境中通过：`grab_cube2_v1`、`grab_pencil1_v1`、`grab_to_plate1_v1` 与 `push_box_random_v1` 各冻结 10 条不同 source episode，共 40 条；source path、source SHA256 与 human-content SHA256 均为 40/40 唯一。派生 HDF5 只包含 human camera、human hand plan、hand coords/frames 与时间分段；源容器虽为 paired 数据，`robot_camera/end_position/qpos/qvel/gripper_state` 读取计数为 0，held-out robot target 未进入 retrieval、normalization、alignment、lag 或 checkpoint selection。冻结 selection ID 为 `48e0c0f5c283a5a7b9f3de8eb6535f13f5f760cc325a81413053015fd6299afd`。
 
 保留 residual/absolute、future-state、retrieval modality、geometry/visual、top-k、pool-growth 和 temporal mismatch 消融。
 
@@ -687,6 +689,7 @@ v02 MP4 可用于 paired RGB、native frame、source step/timestamp 和 segment 
 - M5-A 启动报告与自动 JSON 报告
 - M5-B（已冻结）：3-seed 正式验收 JSON/Markdown 协议、validator 与 lock
 - M5-B P0（已通过）：formal 2B Human2Robot adapter、9 个 learned-method×seed 配置、本地 checkpoint 绑定、15 项 contract tests 与真实 2B 同批 50-step overfit
+- M5-B P1（已通过）：4 个 held-out tasks × 10 条独立 source episodes 的 human-only pool、三层唯一哈希与零 robot-target 读取泄漏审计
 - M5-B（待执行）：retrieval modality、geometry/visual、top-k、pool-growth 与 residual/future-state 模型消融
 
 ### M6-v03
@@ -710,7 +713,7 @@ v02 MP4 可用于 paired RGB、native frame、source step/timestamp 和 segment 
 9. Gate A2b 通过后构建各 time/pool/query/alignment view 和 retrieval index。
 10. residual sanity gate 通过后进入 M4；完成 ridge smoke 闭环并保持 Gate C pending。
 11. 启动 M5-A 数据/契约压力测试，冻结扰动、检测器、crop/pad 策略和 claim boundary。
-12. 冻结 M5-B 3-seed 正式验收协议；完成 P0 formal adapter 与本地 checkpoint SHA 绑定；下一步将每个 held-out task 的独立 human pool 从 1 条扩充到 10 条，并在正式 launch 时冻结统一 data-parallel world size。
+12. 冻结 M5-B 3-seed 正式验收协议；完成 P0 formal adapter、本地 checkpoint SHA 绑定和 P1 每个 held-out task 10 条独立 human-only pool；下一步执行 P2，并在正式 launch 时冻结统一 data-parallel world size。
 13. 按冻结协议完成正式 M4 训练和 M5-B 模型依赖型消融。
 14. M4/M5 证据满足 Gate C 后，实现并标定 M6 deployment command adapter。
 15. Gate C 与 Gate D 均通过后执行真实 rollout。
