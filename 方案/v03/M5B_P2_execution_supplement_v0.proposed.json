@@ -1,0 +1,279 @@
+{
+  "schema_version": "human2robot-m5b-p2-execution-supplement-proposal-v0",
+  "status": "PROPOSED_UNAPPROVED_NOT_FORMAL_EVIDENCE",
+  "formal_queue_allowed": false,
+  "p2_acceptance_allowed": false,
+  "parent_protocol": {
+    "protocol_id": "m5b_v03_preregistered_3seed_formal_v1",
+    "path": "方案/v03/M5B_formal_acceptance_protocol_v1.json",
+    "file_sha256": "7598dfa2ac2e129f5d21a295dad23b90f63c3c8e68811da73cbcc20eb95d5ce4",
+    "mutation_allowed": false
+  },
+  "purpose": "Resolve artifact and cell-scope ambiguities before any formal result exists; this proposal does not change or pass the frozen parent protocol.",
+  "frozen_seed_candidates": [
+    20260711,
+    20260712,
+    20260713
+  ],
+  "integrity_rules": {
+    "missing_cell_imputation": false,
+    "heldout_based_checkpoint_selection": false,
+    "step_7000_required_for_learned_training_artifact": true,
+    "same_code_and_initialization_binding_required": true,
+    "same_data_parallel_world_size_required": true,
+    "result_generated_before_freeze_is_formal_evidence": false,
+    "docker_full_environment_required": true,
+    "downloads_or_environment_sync_allowed": false
+  },
+  "proposed_artifact_taxonomy": [
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "applies_to": "A learned variant that changes the supervised target, training retrieval conditioning, H/K layout, or training time view.",
+      "required_primary_artifact": "complete model/optim/scheduler/trainer DCP at optimizer step 7000",
+      "required_intermediate_steps": [
+        1000,
+        2000,
+        3000,
+        4000,
+        5000,
+        6000,
+        7000
+      ]
+    },
+    {
+      "artifact_kind": "nonlearned_method_artifact",
+      "applies_to": "retrieval_only, which has no optimizer by frozen definition",
+      "required_primary_artifact": "immutable method manifest binding pool, index, alignment, projection, seed-controlled tie-breaking, code, and output hashes",
+      "step_7000_checkpoint": "NOT_APPLICABLE_REQUIRES_PARENT_PROTOCOL_ERRATUM_OR_APPROVED_SUPPLEMENT"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "applies_to": "Pool-size, top-k, corruption severity, resolution preprocessing, and other variants that do not update model parameters under the approved scope rule.",
+      "required_primary_artifact": "immutable evaluation manifest binding the exact parent checkpoint payload SHA256 and all evaluator/data/index hashes",
+      "step_7000_checkpoint": "REFERENCED_PARENT_REQUIRED"
+    },
+    {
+      "artifact_kind": "aggregate_report",
+      "applies_to": "Hierarchical statistics, qualitative best/worst selection, and failure taxonomy",
+      "required_primary_artifact": "report manifest binding every contributing task-seed evaluation artifact; no missing-cell imputation"
+    }
+  ],
+  "proposed_minimum_claim_centered_scope": {
+    "status": "CANDIDATE_NOT_FROZEN",
+    "learned_training_checkpoint_rules": [
+      {
+        "experiment_id": "M5B-MAIN-01",
+        "methods": [
+          "no_retrieval",
+          "co_training",
+          "recap_hand_ret"
+        ],
+        "variants": [
+          "frozen_main"
+        ],
+        "seed_count": 3,
+        "candidate_new_checkpoint_count": 9
+      },
+      {
+        "experiment_id": "M5B-REP-01",
+        "methods": [
+          "recap_hand_ret"
+        ],
+        "variants_reusing_main_checkpoint": [
+          "residual",
+          "absolute"
+        ],
+        "new_checkpoint_variants": [
+          "future_state"
+        ],
+        "seed_count": 3,
+        "candidate_new_checkpoint_count": 3,
+        "blocking_definition": "future_state target/loss/reconstruction is not yet approved"
+      },
+      {
+        "experiment_id": "M5B-ACTION-01",
+        "methods": [
+          "recap_hand_ret"
+        ],
+        "variants_reusing_main_checkpoint": [
+          "raw_human_plan_plus_tplus1_query_main"
+        ],
+        "new_checkpoint_variants": [
+          "phase_aligned_human_plan_plus_tplus1_query",
+          "raw_human_plan_plus_lag_calibrated_query_diagnostic"
+        ],
+        "evaluation_only_negative_controls": [
+          "same_frame_query_negative_control",
+          "swapped_role_negative_control",
+          "scale_x2_negative_control"
+        ],
+        "seed_count": 3,
+        "candidate_new_checkpoint_count": 6
+      },
+      {
+        "experiment_id": "M5B-RET-01",
+        "methods": [
+          "recap_hand_ret"
+        ],
+        "variants_reusing_main_checkpoint": [
+          "phase"
+        ],
+        "new_checkpoint_variants": [
+          "random",
+          "geometry",
+          "visual",
+          "geometry_plus_visual"
+        ],
+        "seed_count": 3,
+        "candidate_new_checkpoint_count": 12,
+        "blocking_definition": "feature, encoder, index, aggregation, and tie-break contracts are not yet approved"
+      },
+      {
+        "experiment_id": "M5B-SENS-01",
+        "methods": [
+          "recap_hand_ret"
+        ],
+        "evaluation_only_top_k": [
+          1,
+          3,
+          5,
+          10
+        ],
+        "h_k_reusing_main_checkpoint": [
+          [
+            8,
+            8
+          ]
+        ],
+        "new_checkpoint_h_k": [
+          [
+            4,
+            4
+          ],
+          [
+            16,
+            8
+          ]
+        ],
+        "seed_count": 3,
+        "candidate_new_checkpoint_count": 6
+      },
+      {
+        "experiment_id": "M5B-TIME-01",
+        "methods": [
+          "recap_hand_ret"
+        ],
+        "time_views_reusing_main_checkpoint": [
+          "nominal_camera_30hz_segmented"
+        ],
+        "new_checkpoint_time_views": [
+          "paper_v2_stride4_nominal7p5",
+          "legacy_v01_stride3_nominal10",
+          "policy_clock_10hz",
+          "phase_or_dtw"
+        ],
+        "evaluation_only_corruptions": {
+          "frame_drop_rates": [
+            0.05,
+            0.1,
+            0.2
+          ],
+          "timestamp_jitter_std_ms": [
+            5,
+            10,
+            20
+          ],
+          "pause_seconds": [
+            0.2,
+            0.5,
+            1.0
+          ],
+          "step_jump_sizes": [
+            1,
+            5,
+            20
+          ]
+        },
+        "seed_count": 3,
+        "candidate_new_checkpoint_count": 12
+      },
+      {
+        "experiment_id": "M5B-RES-01",
+        "methods": [
+          "recap_hand_ret"
+        ],
+        "evaluation_only_variants": [
+          "source_240x426_then_resize_224",
+          "center_crop_240x424_then_resize_224",
+          "center_crop_240x424_edge_pad_240x426_then_resize_224"
+        ],
+        "candidate_new_checkpoint_count": 0,
+        "blocking_definition": "frozen visual encoder checkpoint and exact feature extraction are not yet approved"
+      },
+      {
+        "experiment_id": "M5B-QUAL-01",
+        "artifact_kind": "aggregate_report",
+        "candidate_new_checkpoint_count": 0
+      }
+    ],
+    "candidate_unique_learned_checkpoint_count": 48,
+    "count_interpretation": "Minimum claim-centered proposal, not the literal full method-by-every-variant cross-product. Approval is required before registry generation."
+  },
+  "proposed_evaluation_scope": {
+    "main_comparison": "Four methods at pool size 10 for every seed and held-out task.",
+    "pool_growth": "recap_hand_ret at nested pool sizes 0/1/2/4/8/10 for every seed and held-out task; baseline handling at pool0 must be approved.",
+    "statistical_unit": "heldout_task_x_seed",
+    "window_aggregation": "one preregistered median per heldout task and seed before inference testing",
+    "inference_seed_rule": "formal run seed controls sampler noise, retrieval tie-breaking, and all stochastic preprocessing",
+    "checkpoint_selection": "fixed step 7000 only",
+    "qualitative_selection": "3 best and 3 worst task-seed cases per heldout task using the preregistered primary metric"
+  },
+  "blocking_open_decisions": [
+    {
+      "decision_id": "P2-SCOPE-01",
+      "required_choice": "Approve the minimum claim-centered applicability rules above or require a literal method-by-every-variant cross-product.",
+      "impact": "Changes the learned checkpoint count and total GPU time by a large factor."
+    },
+    {
+      "decision_id": "P2-NONLEARNED-01",
+      "required_choice": "Approve a nonlearned method manifest as the retrieval_only primary artifact instead of a logically impossible optimizer checkpoint.",
+      "impact": "Required to make the frozen nonlearned definition and P2 completeness condition jointly executable."
+    },
+    {
+      "decision_id": "P2-REP-01",
+      "required_choice": "Freeze a future_state representation distinct from both direct absolute future trajectory and aligned-plan residual.",
+      "recommended_candidate": "Predict per-step state transitions relative to the preceding state and reconstruct the canonical future trajectory by cumulative composition from the current robot state.",
+      "impact": "Defines the supervised target, inverse transform, metrics, and checkpoint compatibility."
+    },
+    {
+      "decision_id": "P2-RET-01",
+      "required_choice": "Freeze leakage-safe query/pool features for random, phase, geometry, visual, and geometry_plus_visual retrieval.",
+      "impact": "No geometry or visual result is valid without exact feature and encoder hashes."
+    },
+    {
+      "decision_id": "P2-VARIANTS-01",
+      "required_choice": "Freeze executable materialization and train-versus-evaluate rules for action views, H/K layouts, time views/corruptions, and resolution preprocessors.",
+      "impact": "Determines dataset schemas, checkpoint compatibility, and whether an artifact is a learned checkpoint or checkpoint-linked evaluation."
+    },
+    {
+      "decision_id": "P2-EVAL-01",
+      "required_choice": "Freeze the formal held-out inference sampler, action extraction/inverse normalization, top-k prediction aggregation, guardrail, and output schemas.",
+      "impact": "Training checkpoints alone cannot support any registered P2 metric or claim."
+    }
+  ],
+  "claim_status_until_approved_and_executed": {
+    "overall_effectiveness": "UNSUPPORTED_NEEDS_EXPERIMENT",
+    "pool_growth": "UNSUPPORTED_NEEDS_EXPERIMENT",
+    "residual_mechanism": "UNSUPPORTED_NEEDS_EXPERIMENT",
+    "retrieval_content_matters": "UNSUPPORTED_NEEDS_EXPERIMENT",
+    "hyperparameter_stability": "UNSUPPORTED_NEEDS_EXPERIMENT",
+    "temporal_robustness": "UNSUPPORTED_NEEDS_EXPERIMENT",
+    "resolution_non_inferiority": "UNSUPPORTED_NEEDS_EXPERIMENT",
+    "failure_boundary": "UNSUPPORTED_NEEDS_EXPERIMENT",
+    "efficiency_or_deployability": "NOT_CLAIMED"
+  },
+  "next_state_transition": {
+    "required_user_approval": true,
+    "after_approval": "Create a v1 frozen supplement, lock its SHA256, generate the exact full cell registry, implement registry contract tests, and only then permit formal queue preparation."
+  }
+}

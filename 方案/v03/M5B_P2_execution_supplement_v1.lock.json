@@ -1,0 +1,16 @@
+{
+  "schema_version": "human2robot-m5b-p2-execution-supplement-lock-v1",
+  "status": "locked",
+  "locked_at_local_date": "2026-07-13",
+  "supplement_id": "m5b_p2_claim_centered_execution_v1",
+  "supplement_path": "方案/v03/M5B_P2_execution_supplement_v1.json",
+  "supplement_file_sha256": "be6ca3cdeb7d725221cbefa4664a44f33531edea1b66a74ea2405bff54dfc4ba",
+  "parent_protocol_path": "方案/v03/M5B_formal_acceptance_protocol_v1.json",
+  "parent_protocol_file_sha256": "7598dfa2ac2e129f5d21a295dad23b90f63c3c8e68811da73cbcc20eb95d5ce4",
+  "approved_proposal_path": "方案/v03/M5B_P2_execution_supplement_v0.proposed.json",
+  "approved_proposal_file_sha256": "edf692ea17242458e0e133d1dcc25685d4b02e7964845d2c2ee8fbb2a66ad733",
+  "candidate_registry_generator_path": "tools/human2robot_m5b_p2_registry.py",
+  "candidate_registry_generator_file_sha256": "8765d24606db00a8b875195c760092f2a1f7b4c28dda8db6564ad52b1ca6c0bd",
+  "contains_experiment_results": false,
+  "passes_p2": false
+}

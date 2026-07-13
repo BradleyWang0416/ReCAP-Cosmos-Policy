@@ -1,0 +1,260 @@
+{
+  "schema_version": "human2robot-m5b-p2-execution-supplement-v1",
+  "supplement_id": "m5b_p2_claim_centered_execution_v1",
+  "status": "frozen_approved_execution_spec",
+  "frozen_at_local_date": "2026-07-13",
+  "authorization_evidence": "The user explicitly replied '我授权' after being shown the proposed minimum claim-centered scope, Docker test permission, and nonlearned retrieval_only artifact rule.",
+  "claim_boundary": "This supplement freezes how future P2 artifacts are produced and audited. It contains no experiment result and does not pass P2, M5-v03, Gate C, or M6.",
+  "parent_protocol": {
+    "protocol_id": "m5b_v03_preregistered_3seed_formal_v1",
+    "path": "方案/v03/M5B_formal_acceptance_protocol_v1.json",
+    "file_sha256": "7598dfa2ac2e129f5d21a295dad23b90f63c3c8e68811da73cbcc20eb95d5ce4",
+    "mutation_allowed": false
+  },
+  "approved_proposal": {
+    "path": "方案/v03/M5B_P2_execution_supplement_v0.proposed.json",
+    "file_sha256": "edf692ea17242458e0e133d1dcc25685d4b02e7964845d2c2ee8fbb2a66ad733",
+    "scope_interpretation": "minimum_claim_centered_not_literal_method_by_every_variant_cross_product"
+  },
+  "frozen_seeds": [
+    20260711,
+    20260712,
+    20260713
+  ],
+  "artifact_taxonomy": {
+    "learned_training_checkpoint": {
+      "applies_when": "The variant changes the supervised target, training retrieval conditioning, H/K tensor layout, or training time view.",
+      "optimizer_steps": 7000,
+      "save_every_steps": 1000,
+      "primary_step": 7000,
+      "missing_primary_policy": "invalid_and_rerun_no_imputation"
+    },
+    "nonlearned_method_artifact": {
+      "applies_when": "method_id is retrieval_only",
+      "optimizer_checkpoint": "not_applicable_by_frozen_nonlearned_definition",
+      "required_artifact": "immutable manifest binding code, pool, feature/index, alignment, projection, seed-controlled tie breaking, per-window outputs, and output hashes"
+    },
+    "checkpoint_linked_evaluation": {
+      "applies_when": "The variant changes only pool size, inference top-k, corruption severity, or resolution preprocessing.",
+      "required_artifact": "immutable evaluation manifest binding the exact step-7000 parent model payload SHA256 and every evaluator/data/index/preprocessor hash"
+    },
+    "aggregate_report": {
+      "applies_when": "The artifact performs registered statistics or qualitative/failure-case selection.",
+      "required_artifact": "manifest binding every contributing task-seed evaluation artifact with no missing-cell imputation"
+    }
+  },
+  "frozen_registry_contract": {
+    "generator_path": "tools/human2robot_m5b_p2_registry.py",
+    "generator_code_sha256": "8765d24606db00a8b875195c760092f2a1f7b4c28dda8db6564ad52b1ca6c0bd",
+    "learned_training_checkpoint_count": 48,
+    "nonlearned_method_artifact_count": 3,
+    "checkpoint_linked_evaluation_count": 147,
+    "aggregate_report_count": 4,
+    "total_cell_count": 202,
+    "registry_materialization": "A separate lock must bind the exact generated registry payload SHA256 before any formal launch."
+  },
+  "learned_checkpoint_applicability": {
+    "M5B-MAIN-01": {
+      "new_checkpoints": "no_retrieval/co_training/recap_hand_ret x 3 seeds",
+      "count": 9,
+      "pool_growth": "checkpoint-linked evaluation only"
+    },
+    "M5B-REP-01": {
+      "residual_parent": "M5B-MAIN-01 recap_hand_ret",
+      "absolute_parent": "M5B-MAIN-01 co_training",
+      "new_checkpoints": "future_state x 3 seeds",
+      "count": 3
+    },
+    "M5B-ACTION-01": {
+      "main_parent": "M5B-MAIN-01 recap_hand_ret",
+      "new_checkpoints": "phase-aligned view and lag-calibrated diagnostic x 3 seeds",
+      "negative_controls": "checkpoint-linked evaluation only",
+      "count": 6
+    },
+    "M5B-RET-01": {
+      "phase_parent": "M5B-MAIN-01 recap_hand_ret",
+      "new_checkpoints": "random/geometry/visual/geometry_plus_visual x 3 seeds",
+      "count": 12
+    },
+    "M5B-SENS-01": {
+      "top_k": "checkpoint-linked evaluation only at H/K=8/8",
+      "main_h_k_parent": "M5B-MAIN-01 recap_hand_ret",
+      "new_checkpoints": "H/K=4/4 and H/K=16/8 at top-k=3 x 3 seeds",
+      "count": 6
+    },
+    "M5B-TIME-01": {
+      "nominal30_parent": "M5B-MAIN-01 recap_hand_ret",
+      "new_checkpoints": "stride4/stride3/policy10/phase_or_dtw x 3 seeds",
+      "temporal_corruptions": "checkpoint-linked evaluation only on the nominal30 parent",
+      "count": 12
+    },
+    "M5B-RES-01": {
+      "new_checkpoints": "none",
+      "variants": "checkpoint-linked evaluation using the same parent and frozen visual encoder",
+      "count": 0
+    },
+    "M5B-QUAL-01": {
+      "new_checkpoints": "none",
+      "artifacts": "three seed-level case manifests plus one all-seed aggregate report",
+      "count": 0
+    }
+  },
+  "training_retrieval_contract": {
+    "train_scope": "canonical/v3 train tasks only",
+    "candidate_scope": "segment-safe windows from the same train task; the query window and every row overlapping its target horizon are excluded",
+    "heldout_data_used": false,
+    "main_top_k": 3,
+    "candidate_shortage_policy": "use all available candidates when 1 <= available < k; reject the sample when available is 0",
+    "conditioning_aggregation": "one training example is emitted per retrieved plan and receives weight 1/effective_k so every original query has total weight one",
+    "fairness": "all learned methods see the same original query set, total query weight, augmentation count, optimizer steps, per-rank batch, DP world size, and initialization"
+  },
+  "heldout_retrieval_contract": {
+    "pool_path": "data/Human2Robot/derived/m5b_v03/p1_human_only_pool",
+    "pool_manifest_sha256": "47e87be5800194de6e0ac99b47dbe23ef96a91298edbff3e9996b1484b489299",
+    "selection_id": "48e0c0f5c283a5a7b9f3de8eb6535f13f5f760cc325a81413053015fd6299afd",
+    "pool_sizes": [
+      0,
+      1,
+      2,
+      4,
+      8,
+      10
+    ],
+    "nested_pool_rule": "the first N pool_rank episodes for the heldout task",
+    "heldout_robot_target_in_retrieval_features": false,
+    "heldout_robot_observation_history_allowed": true,
+    "same_task_membership_filter": true,
+    "tie_break": "ascending SHA256 of '<run_seed>:<query_id>:<candidate_human_content_sha256>'"
+  },
+  "retrieval_modalities": {
+    "random": {
+      "distance": "none",
+      "ranking": "ascending seeded tie-break hash over the leakage-safe same-task candidate set"
+    },
+    "phase": {
+      "query_feature": "normalized segment phase computed from rows at or before the current observation",
+      "pool_feature": "normalized segment phase of the human-only candidate window",
+      "distance": "absolute scalar phase difference"
+    },
+    "geometry": {
+      "query_feature": "the last H segment-safe observed robot states ending at the current row, expressed as per-step 10D differences relative to the current state and standardized with train-only statistics",
+      "pool_feature": "the H human-plan states ending at the candidate anchor, expressed as per-step 10D differences relative to the anchor state and standardized with the same train-only statistics",
+      "distance": "L2 distance after flattening and per-vector L2 normalization",
+      "insufficient_history_policy": "reject the query or candidate before ranking; never pad across a segment"
+    },
+    "visual": {
+      "encoder": "the frozen local Cosmos-Predict2.5 WAN tokenizer encoder used by the formal model",
+      "encoder_checkpoint_path": "/DATA1/wxs/_HUGGINGFACE/nvidia/Cosmos-Predict2.5-2B/tokenizer.pth",
+      "encoder_checkpoint_sha256": "38071ab59bd94681c686fa51d75a1968f64e470262043be31f7a094e442fd981",
+      "feature": "encode four identical copies of the preprocessed anchor RGB frame, take the anchor latent frame, spatially mean-pool every channel, then L2 normalize",
+      "query_image": "current robot image only",
+      "pool_image": "human-only image at the candidate anchor",
+      "distance": "cosine distance"
+    },
+    "geometry_plus_visual": {
+      "feature": "concatenate independently L2-normalized geometry and visual vectors with weights 1/sqrt(2) each",
+      "distance": "L2 distance"
+    }
+  },
+  "top_k_inference_contract": {
+    "values": [
+      1,
+      3,
+      5,
+      10
+    ],
+    "main_value": 3,
+    "execution": "run one deterministic model inference for each ranked retrieved plan",
+    "aggregation": "inverse-normalize and reconstruct each canonical trajectory first, average canonical 10D predictions equally, project rotation 6D to a valid rotation, and clip gripper to [0,1]",
+    "pool0": "mask retrieval conditioning and run the no-retrieval-compatible path; retrieval_only at pool0 is not a primary comparison unit"
+  },
+  "representation_contract": {
+    "residual": "predict query_target_10d minus aligned_human_plan_10d and reconstruct by addition",
+    "absolute": "predict the future query_target_10d directly",
+    "future_state": "predict per-step 10D state transitions: step 0 is query[0]-current_state and step i is query[i]-query[i-1]; reconstruct by cumulative addition from current_state, then project rotation 6D and clip gripper",
+    "normalization": "separate train-only min/max statistics for every representation; heldout targets never enter statistics"
+  },
+  "variant_materialization": {
+    "action": "Every variant binds an immutable derived-view manifest. Negative controls are inference-time injections and must trigger the registered detector before metric acceptance.",
+    "h_k": "H controls retrieved history/plan length and K controls predicted query length; incomplete or segment-crossing windows are rejected.",
+    "time": "Every training time view binds its existing view manifest SHA. Corruptions are deterministic inference-time transforms and severe invalid inputs must be rejected or masked before model invocation.",
+    "resolution": "source426, crop424, and crop424-edge-pad426 all end at 224 model input and use the exact same frozen visual encoder checkpoint."
+  },
+  "formal_inference_contract": {
+    "checkpoint": "fixed step-7000 retained model DCP only",
+    "load_training_state": false,
+    "guidance": 1.5,
+    "sampler_steps": 35,
+    "solver": "2ab",
+    "variance_scale": false,
+    "sample_count_per_query_retrieval_rank": 1,
+    "inference_seed": "lower 31 bits of SHA256('<run_seed>:<experiment_id>:<variant_id>:<task>:<episode_id>:<current_row>:<retrieval_rank>')",
+    "action_extraction": "extract_action_chunk_from_latent_sequence using the checkpoint-bound action decoder and action latent index",
+    "rotation_projection": "Gram-Schmidt projection of the two 3D rotation columns followed by right-handed cross product",
+    "nonfinite_policy": "count and invalidate the task-seed artifact; never replace with a finite value"
+  },
+  "metric_and_statistics_contract": {
+    "primary_unit": "one position_error_median_canonical per heldout_task x seed",
+    "window_replication_forbidden": true,
+    "paired_difference": "recap_hand_ret minus baseline; negative favors RECAP",
+    "effect_estimator": "median of the 12 task-seed paired differences",
+    "bootstrap": "10,000 hierarchical paired resamples; sample four tasks with replacement, then three seeds with replacement within each sampled task; report percentile 2.5/97.5 bounds; RNG seed 20260711",
+    "randomization_test": "exact one-sided sign-flip test over all 2^12 task-seed differences using the arithmetic mean paired difference as test statistic; raw p is the fraction of permutations <= the observed statistic",
+    "multiple_comparison": "Holm step-down adjustment across the two primary comparisons",
+    "task_improvement_rule": "a task improves only when its median across the three seed-level paired differences is < 0",
+    "missing_unit_policy": "invalidate the comparison and rerun; no imputation"
+  },
+  "guardrail_contract": {
+    "nonfinite_prediction_count": 0,
+    "gap_crossing_count": 0,
+    "workspace_clipping_count": 0,
+    "heldout_target_retrieval_feature_count": 0,
+    "long_term_residual_saturation_count": 0,
+    "saturation_definition": "at least five consecutive predicted residual steps above the train-only residual-norm P99"
+  },
+  "checkpoint_storage_contract": {
+    "measured_capacity_probe": {
+      "model_gib_approx": 3.7,
+      "optimizer_gib_approx": 7.4,
+      "scheduler_kib_approx": 16,
+      "trainer_kib_approx": 12,
+      "full_checkpoint_gib_approx": 11,
+      "probe_is_formal_evidence": false
+    },
+    "formal_output_root": "/DATA1/wxs/ReCAP_M5B_P2_RUNS",
+    "available_gib_observed_before_freeze": 535,
+    "intermediate_steps": [
+      1000,
+      2000,
+      3000,
+      4000,
+      5000,
+      6000
+    ],
+    "intermediate_policy": "Each full DCP must be component/rank validated and fully hashed before pruning. Persist its audit manifest, payload hash, byte counts, loss/log pointers, creation time, validation time, and prune time. Keep the newest full resumable DCP until its successor is validated.",
+    "primary_step_7000_policy": "Validate and hash the complete DCP, then permanently retain the model component, metadata, resolved config, runtime binding, logs, and audit manifest. The optimizer component may be pruned only after the retained model loads successfully for a fixed heldout-free contract inference smoke.",
+    "pruning_is_imputation": false,
+    "pruning_without_prior_full_audit": "forbidden",
+    "estimated_retained_primary_model_gib": 177.6,
+    "minimum_free_space_before_each_launch_gib": 35,
+    "stop_before_launch_if_below_minimum": true
+  },
+  "formal_launch_preconditions": [
+    "supplement and registry lock SHA256 values verify",
+    "all implementation and contract tests pass in the existing full Docker environment",
+    "all 202 registry cells have executable handlers or report builders",
+    "P1 pool and all frozen view/index/weight hashes verify",
+    "eight GPUs are available and DP world size is eight",
+    "free storage is at least the frozen minimum",
+    "offline/no-download environment variables are true",
+    "source snapshot is immutable and code SHA256 is bound"
+  ],
+  "current_state": {
+    "formal_queue_allowed": false,
+    "reason": "The execution semantics are frozen, but the complete 202-cell implementation and locked registry are not yet complete.",
+    "p2_status": "pending",
+    "m5_v03_status": "pending",
+    "gate_c_status": "pending",
+    "m6_rollout_approved": false
+  }
+}

@@ -475,6 +475,24 @@ class CosmosPolicyDiffusionModelRectifiedFlow(Text2WorldModelRectifiedFlow):
                 final_mask_B_T, "b t -> b 1 t 1 1"
             )
 
+        # P2 emits one example per retrieved plan. Weighting every rank by
+        # 1/effective_k makes each original query contribute total weight one,
+        # including the registered candidate-shortage case. Other datasets do
+        # not provide this optional field and retain their original loss.
+        if data_batch is not None and "sample_weight" in data_batch:
+            sample_weight = torch.as_tensor(
+                data_batch["sample_weight"],
+                device=weighted_velocity_loss_B_C_T_H_W.device,
+                dtype=weighted_velocity_loss_B_C_T_H_W.dtype,
+            ).reshape(-1)
+            if sample_weight.shape != (B,) or torch.any(sample_weight <= 0):
+                raise RuntimeError(
+                    f"Invalid sample_weight contract: shape={tuple(sample_weight.shape)}, batch={B}"
+                )
+            weighted_velocity_loss_B_C_T_H_W = weighted_velocity_loss_B_C_T_H_W * rearrange(
+                sample_weight, "b -> b 1 1 1 1"
+            )
+
         # Per-component losses for logging
         if torch.all(future_image_indices != -1):
             future_image_diff = (

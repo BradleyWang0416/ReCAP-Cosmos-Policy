@@ -1,0 +1,2792 @@
+{
+  "approved_proposal_file_sha256": "edf692ea17242458e0e133d1dcc25685d4b02e7964845d2c2ee8fbb2a66ad733",
+  "candidate_generator_file_sha256": "8765d24606db00a8b875195c760092f2a1f7b4c28dda8db6564ad52b1ca6c0bd",
+  "cell_count": 202,
+  "cells": [
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-MAIN-01__frozen_main__no_retrieval__seed20260711",
+      "experiment_id": "M5B-MAIN-01",
+      "formal_result": false,
+      "method_id": "no_retrieval",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "frozen_main"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-MAIN-01__frozen_main__no_retrieval__seed20260712",
+      "experiment_id": "M5B-MAIN-01",
+      "formal_result": false,
+      "method_id": "no_retrieval",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "frozen_main"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-MAIN-01__frozen_main__no_retrieval__seed20260713",
+      "experiment_id": "M5B-MAIN-01",
+      "formal_result": false,
+      "method_id": "no_retrieval",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "frozen_main"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-MAIN-01__frozen_main__co_training__seed20260711",
+      "experiment_id": "M5B-MAIN-01",
+      "formal_result": false,
+      "method_id": "co_training",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "frozen_main"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-MAIN-01__frozen_main__co_training__seed20260712",
+      "experiment_id": "M5B-MAIN-01",
+      "formal_result": false,
+      "method_id": "co_training",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "frozen_main"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-MAIN-01__frozen_main__co_training__seed20260713",
+      "experiment_id": "M5B-MAIN-01",
+      "formal_result": false,
+      "method_id": "co_training",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "frozen_main"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-MAIN-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "frozen_main"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-MAIN-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "frozen_main"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-MAIN-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "frozen_main"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-REP-01__future_state__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-REP-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "future_state"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-REP-01__future_state__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-REP-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "future_state"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-REP-01__future_state__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-REP-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "future_state"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-ACTION-01__phase_aligned_human_plan_plus_tplus1_query__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-ACTION-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "phase_aligned_human_plan_plus_tplus1_query"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-ACTION-01__phase_aligned_human_plan_plus_tplus1_query__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-ACTION-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "phase_aligned_human_plan_plus_tplus1_query"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-ACTION-01__phase_aligned_human_plan_plus_tplus1_query__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-ACTION-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "phase_aligned_human_plan_plus_tplus1_query"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-ACTION-01__raw_human_plan_plus_lag_calibrated_query_diagnostic__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-ACTION-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "raw_human_plan_plus_lag_calibrated_query_diagnostic"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-ACTION-01__raw_human_plan_plus_lag_calibrated_query_diagnostic__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-ACTION-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "raw_human_plan_plus_lag_calibrated_query_diagnostic"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-ACTION-01__raw_human_plan_plus_lag_calibrated_query_diagnostic__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-ACTION-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "raw_human_plan_plus_lag_calibrated_query_diagnostic"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-RET-01__random__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-RET-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "random"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-RET-01__random__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-RET-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "random"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-RET-01__random__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-RET-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "random"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-RET-01__geometry__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-RET-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "geometry"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-RET-01__geometry__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-RET-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "geometry"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-RET-01__geometry__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-RET-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "geometry"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-RET-01__visual__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-RET-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "visual"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-RET-01__visual__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-RET-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "visual"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-RET-01__visual__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-RET-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "visual"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-RET-01__geometry_plus_visual__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-RET-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "geometry_plus_visual"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-RET-01__geometry_plus_visual__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-RET-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "geometry_plus_visual"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-RET-01__geometry_plus_visual__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-RET-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "geometry_plus_visual"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-SENS-01__topk3_h4_k4__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-SENS-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "topk3_h4_k4"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-SENS-01__topk3_h4_k4__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-SENS-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "topk3_h4_k4"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-SENS-01__topk3_h4_k4__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-SENS-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "topk3_h4_k4"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-SENS-01__topk3_h16_k8__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-SENS-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "topk3_h16_k8"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-SENS-01__topk3_h16_k8__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-SENS-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "topk3_h16_k8"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-SENS-01__topk3_h16_k8__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-SENS-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "topk3_h16_k8"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-TIME-01__paper_v2_stride4_nominal7p5__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "paper_v2_stride4_nominal7p5"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-TIME-01__paper_v2_stride4_nominal7p5__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "paper_v2_stride4_nominal7p5"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-TIME-01__paper_v2_stride4_nominal7p5__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "paper_v2_stride4_nominal7p5"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-TIME-01__legacy_v01_stride3_nominal10__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "legacy_v01_stride3_nominal10"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-TIME-01__legacy_v01_stride3_nominal10__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "legacy_v01_stride3_nominal10"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-TIME-01__legacy_v01_stride3_nominal10__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "legacy_v01_stride3_nominal10"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-TIME-01__policy_clock_10hz__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "policy_clock_10hz"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-TIME-01__policy_clock_10hz__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "policy_clock_10hz"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-TIME-01__policy_clock_10hz__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "policy_clock_10hz"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-TIME-01__phase_or_dtw__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "phase_or_dtw"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-TIME-01__phase_or_dtw__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "phase_or_dtw"
+    },
+    {
+      "artifact_kind": "learned_training_checkpoint",
+      "cell_id": "learned_training_checkpoint__M5B-TIME-01__phase_or_dtw__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": 7000,
+      "parent_artifact_ids": [],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "phase_or_dtw"
+    },
+    {
+      "artifact_kind": "nonlearned_method_artifact",
+      "cell_id": "nonlearned_method_artifact__M5B-MAIN-01__retrieval_only_projection__retrieval_only__seed20260711",
+      "experiment_id": "M5B-MAIN-01",
+      "formal_result": false,
+      "method_id": "retrieval_only",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "retrieval_only_projection"
+    },
+    {
+      "artifact_kind": "nonlearned_method_artifact",
+      "cell_id": "nonlearned_method_artifact__M5B-MAIN-01__retrieval_only_projection__retrieval_only__seed20260712",
+      "experiment_id": "M5B-MAIN-01",
+      "formal_result": false,
+      "method_id": "retrieval_only",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "retrieval_only_projection"
+    },
+    {
+      "artifact_kind": "nonlearned_method_artifact",
+      "cell_id": "nonlearned_method_artifact__M5B-MAIN-01__retrieval_only_projection__retrieval_only__seed20260713",
+      "experiment_id": "M5B-MAIN-01",
+      "formal_result": false,
+      "method_id": "retrieval_only",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "retrieval_only_projection"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-MAIN-01__main_comparison_pool10__no_retrieval__seed20260711",
+      "experiment_id": "M5B-MAIN-01",
+      "formal_result": false,
+      "method_id": "no_retrieval",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__no_retrieval__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "main_comparison_pool10"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-MAIN-01__main_comparison_pool10__co_training__seed20260711",
+      "experiment_id": "M5B-MAIN-01",
+      "formal_result": false,
+      "method_id": "co_training",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__co_training__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "main_comparison_pool10"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-MAIN-01__main_comparison_pool10__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-MAIN-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "main_comparison_pool10"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-MAIN-01__main_comparison_pool10__retrieval_only__seed20260711",
+      "experiment_id": "M5B-MAIN-01",
+      "formal_result": false,
+      "method_id": "retrieval_only",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "nonlearned_method_artifact__M5B-MAIN-01__retrieval_only_projection__retrieval_only__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "main_comparison_pool10"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-MAIN-01__pool_growth_pool0__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-MAIN-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "pool_growth_pool0"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-MAIN-01__pool_growth_pool1__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-MAIN-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "pool_growth_pool1"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-MAIN-01__pool_growth_pool2__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-MAIN-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "pool_growth_pool2"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-MAIN-01__pool_growth_pool4__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-MAIN-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "pool_growth_pool4"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-MAIN-01__pool_growth_pool8__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-MAIN-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "pool_growth_pool8"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-MAIN-01__main_comparison_pool10__no_retrieval__seed20260712",
+      "experiment_id": "M5B-MAIN-01",
+      "formal_result": false,
+      "method_id": "no_retrieval",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__no_retrieval__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "main_comparison_pool10"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-MAIN-01__main_comparison_pool10__co_training__seed20260712",
+      "experiment_id": "M5B-MAIN-01",
+      "formal_result": false,
+      "method_id": "co_training",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__co_training__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "main_comparison_pool10"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-MAIN-01__main_comparison_pool10__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-MAIN-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "main_comparison_pool10"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-MAIN-01__main_comparison_pool10__retrieval_only__seed20260712",
+      "experiment_id": "M5B-MAIN-01",
+      "formal_result": false,
+      "method_id": "retrieval_only",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "nonlearned_method_artifact__M5B-MAIN-01__retrieval_only_projection__retrieval_only__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "main_comparison_pool10"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-MAIN-01__pool_growth_pool0__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-MAIN-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "pool_growth_pool0"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-MAIN-01__pool_growth_pool1__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-MAIN-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "pool_growth_pool1"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-MAIN-01__pool_growth_pool2__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-MAIN-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "pool_growth_pool2"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-MAIN-01__pool_growth_pool4__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-MAIN-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "pool_growth_pool4"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-MAIN-01__pool_growth_pool8__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-MAIN-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "pool_growth_pool8"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-MAIN-01__main_comparison_pool10__no_retrieval__seed20260713",
+      "experiment_id": "M5B-MAIN-01",
+      "formal_result": false,
+      "method_id": "no_retrieval",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__no_retrieval__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "main_comparison_pool10"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-MAIN-01__main_comparison_pool10__co_training__seed20260713",
+      "experiment_id": "M5B-MAIN-01",
+      "formal_result": false,
+      "method_id": "co_training",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__co_training__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "main_comparison_pool10"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-MAIN-01__main_comparison_pool10__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-MAIN-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "main_comparison_pool10"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-MAIN-01__main_comparison_pool10__retrieval_only__seed20260713",
+      "experiment_id": "M5B-MAIN-01",
+      "formal_result": false,
+      "method_id": "retrieval_only",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "nonlearned_method_artifact__M5B-MAIN-01__retrieval_only_projection__retrieval_only__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "main_comparison_pool10"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-MAIN-01__pool_growth_pool0__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-MAIN-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "pool_growth_pool0"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-MAIN-01__pool_growth_pool1__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-MAIN-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "pool_growth_pool1"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-MAIN-01__pool_growth_pool2__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-MAIN-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "pool_growth_pool2"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-MAIN-01__pool_growth_pool4__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-MAIN-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "pool_growth_pool4"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-MAIN-01__pool_growth_pool8__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-MAIN-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "pool_growth_pool8"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-REP-01__residual__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-REP-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "residual"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-REP-01__residual__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-REP-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "residual"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-REP-01__residual__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-REP-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "residual"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-REP-01__absolute__co_training__seed20260711",
+      "experiment_id": "M5B-REP-01",
+      "formal_result": false,
+      "method_id": "co_training",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__co_training__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "absolute"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-REP-01__absolute__co_training__seed20260712",
+      "experiment_id": "M5B-REP-01",
+      "formal_result": false,
+      "method_id": "co_training",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__co_training__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "absolute"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-REP-01__absolute__co_training__seed20260713",
+      "experiment_id": "M5B-REP-01",
+      "formal_result": false,
+      "method_id": "co_training",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__co_training__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "absolute"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-REP-01__future_state__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-REP-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-REP-01__future_state__recap_hand_ret__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "future_state"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-REP-01__future_state__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-REP-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-REP-01__future_state__recap_hand_ret__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "future_state"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-REP-01__future_state__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-REP-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-REP-01__future_state__recap_hand_ret__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "future_state"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-ACTION-01__raw_human_plan_plus_tplus1_query_main__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-ACTION-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "raw_human_plan_plus_tplus1_query_main"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-ACTION-01__raw_human_plan_plus_tplus1_query_main__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-ACTION-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "raw_human_plan_plus_tplus1_query_main"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-ACTION-01__raw_human_plan_plus_tplus1_query_main__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-ACTION-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "raw_human_plan_plus_tplus1_query_main"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-ACTION-01__phase_aligned_human_plan_plus_tplus1_query__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-ACTION-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-ACTION-01__phase_aligned_human_plan_plus_tplus1_query__recap_hand_ret__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "phase_aligned_human_plan_plus_tplus1_query"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-ACTION-01__phase_aligned_human_plan_plus_tplus1_query__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-ACTION-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-ACTION-01__phase_aligned_human_plan_plus_tplus1_query__recap_hand_ret__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "phase_aligned_human_plan_plus_tplus1_query"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-ACTION-01__phase_aligned_human_plan_plus_tplus1_query__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-ACTION-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-ACTION-01__phase_aligned_human_plan_plus_tplus1_query__recap_hand_ret__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "phase_aligned_human_plan_plus_tplus1_query"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-ACTION-01__raw_human_plan_plus_lag_calibrated_query_diagnostic__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-ACTION-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-ACTION-01__raw_human_plan_plus_lag_calibrated_query_diagnostic__recap_hand_ret__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "raw_human_plan_plus_lag_calibrated_query_diagnostic"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-ACTION-01__raw_human_plan_plus_lag_calibrated_query_diagnostic__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-ACTION-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-ACTION-01__raw_human_plan_plus_lag_calibrated_query_diagnostic__recap_hand_ret__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "raw_human_plan_plus_lag_calibrated_query_diagnostic"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-ACTION-01__raw_human_plan_plus_lag_calibrated_query_diagnostic__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-ACTION-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-ACTION-01__raw_human_plan_plus_lag_calibrated_query_diagnostic__recap_hand_ret__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "raw_human_plan_plus_lag_calibrated_query_diagnostic"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-ACTION-01__same_frame_query_negative_control__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-ACTION-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "same_frame_query_negative_control"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-ACTION-01__same_frame_query_negative_control__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-ACTION-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "same_frame_query_negative_control"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-ACTION-01__same_frame_query_negative_control__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-ACTION-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "same_frame_query_negative_control"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-ACTION-01__swapped_role_negative_control__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-ACTION-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "swapped_role_negative_control"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-ACTION-01__swapped_role_negative_control__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-ACTION-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "swapped_role_negative_control"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-ACTION-01__swapped_role_negative_control__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-ACTION-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "swapped_role_negative_control"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-ACTION-01__scale_x2_negative_control__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-ACTION-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "scale_x2_negative_control"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-ACTION-01__scale_x2_negative_control__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-ACTION-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "scale_x2_negative_control"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-ACTION-01__scale_x2_negative_control__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-ACTION-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "scale_x2_negative_control"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-RET-01__random__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-RET-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-RET-01__random__recap_hand_ret__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "random"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-RET-01__random__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-RET-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-RET-01__random__recap_hand_ret__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "random"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-RET-01__random__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-RET-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-RET-01__random__recap_hand_ret__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "random"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-RET-01__phase__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-RET-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "phase"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-RET-01__phase__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-RET-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "phase"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-RET-01__phase__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-RET-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "phase"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-RET-01__geometry__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-RET-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-RET-01__geometry__recap_hand_ret__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "geometry"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-RET-01__geometry__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-RET-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-RET-01__geometry__recap_hand_ret__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "geometry"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-RET-01__geometry__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-RET-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-RET-01__geometry__recap_hand_ret__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "geometry"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-RET-01__visual__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-RET-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-RET-01__visual__recap_hand_ret__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "visual"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-RET-01__visual__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-RET-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-RET-01__visual__recap_hand_ret__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "visual"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-RET-01__visual__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-RET-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-RET-01__visual__recap_hand_ret__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "visual"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-RET-01__geometry_plus_visual__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-RET-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-RET-01__geometry_plus_visual__recap_hand_ret__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "geometry_plus_visual"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-RET-01__geometry_plus_visual__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-RET-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-RET-01__geometry_plus_visual__recap_hand_ret__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "geometry_plus_visual"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-RET-01__geometry_plus_visual__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-RET-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-RET-01__geometry_plus_visual__recap_hand_ret__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "geometry_plus_visual"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-SENS-01__topk1_h8_k8__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-SENS-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "topk1_h8_k8"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-SENS-01__topk1_h8_k8__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-SENS-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "topk1_h8_k8"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-SENS-01__topk1_h8_k8__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-SENS-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "topk1_h8_k8"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-SENS-01__topk3_h8_k8__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-SENS-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "topk3_h8_k8"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-SENS-01__topk3_h8_k8__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-SENS-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "topk3_h8_k8"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-SENS-01__topk3_h8_k8__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-SENS-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "topk3_h8_k8"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-SENS-01__topk5_h8_k8__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-SENS-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "topk5_h8_k8"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-SENS-01__topk5_h8_k8__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-SENS-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "topk5_h8_k8"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-SENS-01__topk5_h8_k8__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-SENS-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "topk5_h8_k8"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-SENS-01__topk10_h8_k8__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-SENS-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "topk10_h8_k8"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-SENS-01__topk10_h8_k8__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-SENS-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "topk10_h8_k8"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-SENS-01__topk10_h8_k8__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-SENS-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "topk10_h8_k8"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-SENS-01__topk3_h4_k4__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-SENS-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-SENS-01__topk3_h4_k4__recap_hand_ret__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "topk3_h4_k4"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-SENS-01__topk3_h4_k4__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-SENS-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-SENS-01__topk3_h4_k4__recap_hand_ret__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "topk3_h4_k4"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-SENS-01__topk3_h4_k4__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-SENS-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-SENS-01__topk3_h4_k4__recap_hand_ret__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "topk3_h4_k4"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-SENS-01__topk3_h16_k8__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-SENS-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-SENS-01__topk3_h16_k8__recap_hand_ret__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "topk3_h16_k8"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-SENS-01__topk3_h16_k8__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-SENS-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-SENS-01__topk3_h16_k8__recap_hand_ret__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "topk3_h16_k8"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-SENS-01__topk3_h16_k8__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-SENS-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-SENS-01__topk3_h16_k8__recap_hand_ret__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "topk3_h16_k8"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__time_view_nominal_camera_30hz_segmented__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "time_view_nominal_camera_30hz_segmented"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__time_view_nominal_camera_30hz_segmented__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "time_view_nominal_camera_30hz_segmented"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__time_view_nominal_camera_30hz_segmented__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "time_view_nominal_camera_30hz_segmented"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__time_view_paper_v2_stride4_nominal7p5__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-TIME-01__paper_v2_stride4_nominal7p5__recap_hand_ret__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "time_view_paper_v2_stride4_nominal7p5"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__time_view_paper_v2_stride4_nominal7p5__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-TIME-01__paper_v2_stride4_nominal7p5__recap_hand_ret__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "time_view_paper_v2_stride4_nominal7p5"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__time_view_paper_v2_stride4_nominal7p5__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-TIME-01__paper_v2_stride4_nominal7p5__recap_hand_ret__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "time_view_paper_v2_stride4_nominal7p5"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__time_view_legacy_v01_stride3_nominal10__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-TIME-01__legacy_v01_stride3_nominal10__recap_hand_ret__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "time_view_legacy_v01_stride3_nominal10"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__time_view_legacy_v01_stride3_nominal10__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-TIME-01__legacy_v01_stride3_nominal10__recap_hand_ret__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "time_view_legacy_v01_stride3_nominal10"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__time_view_legacy_v01_stride3_nominal10__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-TIME-01__legacy_v01_stride3_nominal10__recap_hand_ret__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "time_view_legacy_v01_stride3_nominal10"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__time_view_policy_clock_10hz__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-TIME-01__policy_clock_10hz__recap_hand_ret__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "time_view_policy_clock_10hz"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__time_view_policy_clock_10hz__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-TIME-01__policy_clock_10hz__recap_hand_ret__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "time_view_policy_clock_10hz"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__time_view_policy_clock_10hz__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-TIME-01__policy_clock_10hz__recap_hand_ret__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "time_view_policy_clock_10hz"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__time_view_phase_or_dtw__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-TIME-01__phase_or_dtw__recap_hand_ret__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "time_view_phase_or_dtw"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__time_view_phase_or_dtw__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-TIME-01__phase_or_dtw__recap_hand_ret__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "time_view_phase_or_dtw"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__time_view_phase_or_dtw__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-TIME-01__phase_or_dtw__recap_hand_ret__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "time_view_phase_or_dtw"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__frame_drop_5pct__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "frame_drop_5pct"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__frame_drop_5pct__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "frame_drop_5pct"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__frame_drop_5pct__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "frame_drop_5pct"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__frame_drop_10pct__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "frame_drop_10pct"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__frame_drop_10pct__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "frame_drop_10pct"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__frame_drop_10pct__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "frame_drop_10pct"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__frame_drop_20pct__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "frame_drop_20pct"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__frame_drop_20pct__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "frame_drop_20pct"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__frame_drop_20pct__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "frame_drop_20pct"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__timestamp_jitter_5ms__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "timestamp_jitter_5ms"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__timestamp_jitter_5ms__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "timestamp_jitter_5ms"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__timestamp_jitter_5ms__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "timestamp_jitter_5ms"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__timestamp_jitter_10ms__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "timestamp_jitter_10ms"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__timestamp_jitter_10ms__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "timestamp_jitter_10ms"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__timestamp_jitter_10ms__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "timestamp_jitter_10ms"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__timestamp_jitter_20ms__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "timestamp_jitter_20ms"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__timestamp_jitter_20ms__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "timestamp_jitter_20ms"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__timestamp_jitter_20ms__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "timestamp_jitter_20ms"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__pause_0p2s__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "pause_0p2s"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__pause_0p2s__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "pause_0p2s"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__pause_0p2s__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "pause_0p2s"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__pause_0p5s__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "pause_0p5s"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__pause_0p5s__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "pause_0p5s"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__pause_0p5s__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "pause_0p5s"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__pause_1p0s__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "pause_1p0s"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__pause_1p0s__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "pause_1p0s"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__pause_1p0s__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "pause_1p0s"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__step_jump_1__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "step_jump_1"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__step_jump_1__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "step_jump_1"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__step_jump_1__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "step_jump_1"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__step_jump_5__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "step_jump_5"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__step_jump_5__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "step_jump_5"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__step_jump_5__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "step_jump_5"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__step_jump_20__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "step_jump_20"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__step_jump_20__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "step_jump_20"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-TIME-01__step_jump_20__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-TIME-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "step_jump_20"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-RES-01__source_240x426_then_resize_224__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-RES-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "source_240x426_then_resize_224"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-RES-01__source_240x426_then_resize_224__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-RES-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "source_240x426_then_resize_224"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-RES-01__source_240x426_then_resize_224__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-RES-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "source_240x426_then_resize_224"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-RES-01__center_crop_240x424_then_resize_224__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-RES-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "center_crop_240x424_then_resize_224"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-RES-01__center_crop_240x424_then_resize_224__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-RES-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "center_crop_240x424_then_resize_224"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-RES-01__center_crop_240x424_then_resize_224__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-RES-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "center_crop_240x424_then_resize_224"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-RES-01__center_crop_240x424_edge_pad_240x426_then_resize_224__recap_hand_ret__seed20260711",
+      "experiment_id": "M5B-RES-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "center_crop_240x424_edge_pad_240x426_then_resize_224"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-RES-01__center_crop_240x424_edge_pad_240x426_then_resize_224__recap_hand_ret__seed20260712",
+      "experiment_id": "M5B-RES-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "center_crop_240x424_edge_pad_240x426_then_resize_224"
+    },
+    {
+      "artifact_kind": "checkpoint_linked_evaluation",
+      "cell_id": "checkpoint_linked_evaluation__M5B-RES-01__center_crop_240x424_edge_pad_240x426_then_resize_224__recap_hand_ret__seed20260713",
+      "experiment_id": "M5B-RES-01",
+      "formal_result": false,
+      "method_id": "recap_hand_ret",
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "center_crop_240x424_edge_pad_240x426_then_resize_224"
+    },
+    {
+      "artifact_kind": "aggregate_report",
+      "cell_id": "aggregate_report__M5B-QUAL-01__seed_level_case_manifest__seed20260711",
+      "experiment_id": "M5B-QUAL-01",
+      "formal_result": false,
+      "method_id": null,
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "checkpoint_linked_evaluation__M5B-MAIN-01__main_comparison_pool10__no_retrieval__seed20260711",
+        "checkpoint_linked_evaluation__M5B-MAIN-01__main_comparison_pool10__co_training__seed20260711",
+        "checkpoint_linked_evaluation__M5B-MAIN-01__main_comparison_pool10__recap_hand_ret__seed20260711",
+        "checkpoint_linked_evaluation__M5B-MAIN-01__main_comparison_pool10__retrieval_only__seed20260711",
+        "checkpoint_linked_evaluation__M5B-MAIN-01__pool_growth_pool0__recap_hand_ret__seed20260711",
+        "checkpoint_linked_evaluation__M5B-MAIN-01__pool_growth_pool1__recap_hand_ret__seed20260711",
+        "checkpoint_linked_evaluation__M5B-MAIN-01__pool_growth_pool2__recap_hand_ret__seed20260711",
+        "checkpoint_linked_evaluation__M5B-MAIN-01__pool_growth_pool4__recap_hand_ret__seed20260711",
+        "checkpoint_linked_evaluation__M5B-MAIN-01__pool_growth_pool8__recap_hand_ret__seed20260711"
+      ],
+      "seed": 20260711,
+      "status": "pending",
+      "variant_id": "seed_level_case_manifest"
+    },
+    {
+      "artifact_kind": "aggregate_report",
+      "cell_id": "aggregate_report__M5B-QUAL-01__seed_level_case_manifest__seed20260712",
+      "experiment_id": "M5B-QUAL-01",
+      "formal_result": false,
+      "method_id": null,
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "checkpoint_linked_evaluation__M5B-MAIN-01__main_comparison_pool10__no_retrieval__seed20260712",
+        "checkpoint_linked_evaluation__M5B-MAIN-01__main_comparison_pool10__co_training__seed20260712",
+        "checkpoint_linked_evaluation__M5B-MAIN-01__main_comparison_pool10__recap_hand_ret__seed20260712",
+        "checkpoint_linked_evaluation__M5B-MAIN-01__main_comparison_pool10__retrieval_only__seed20260712",
+        "checkpoint_linked_evaluation__M5B-MAIN-01__pool_growth_pool0__recap_hand_ret__seed20260712",
+        "checkpoint_linked_evaluation__M5B-MAIN-01__pool_growth_pool1__recap_hand_ret__seed20260712",
+        "checkpoint_linked_evaluation__M5B-MAIN-01__pool_growth_pool2__recap_hand_ret__seed20260712",
+        "checkpoint_linked_evaluation__M5B-MAIN-01__pool_growth_pool4__recap_hand_ret__seed20260712",
+        "checkpoint_linked_evaluation__M5B-MAIN-01__pool_growth_pool8__recap_hand_ret__seed20260712"
+      ],
+      "seed": 20260712,
+      "status": "pending",
+      "variant_id": "seed_level_case_manifest"
+    },
+    {
+      "artifact_kind": "aggregate_report",
+      "cell_id": "aggregate_report__M5B-QUAL-01__seed_level_case_manifest__seed20260713",
+      "experiment_id": "M5B-QUAL-01",
+      "formal_result": false,
+      "method_id": null,
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "checkpoint_linked_evaluation__M5B-MAIN-01__main_comparison_pool10__no_retrieval__seed20260713",
+        "checkpoint_linked_evaluation__M5B-MAIN-01__main_comparison_pool10__co_training__seed20260713",
+        "checkpoint_linked_evaluation__M5B-MAIN-01__main_comparison_pool10__recap_hand_ret__seed20260713",
+        "checkpoint_linked_evaluation__M5B-MAIN-01__main_comparison_pool10__retrieval_only__seed20260713",
+        "checkpoint_linked_evaluation__M5B-MAIN-01__pool_growth_pool0__recap_hand_ret__seed20260713",
+        "checkpoint_linked_evaluation__M5B-MAIN-01__pool_growth_pool1__recap_hand_ret__seed20260713",
+        "checkpoint_linked_evaluation__M5B-MAIN-01__pool_growth_pool2__recap_hand_ret__seed20260713",
+        "checkpoint_linked_evaluation__M5B-MAIN-01__pool_growth_pool4__recap_hand_ret__seed20260713",
+        "checkpoint_linked_evaluation__M5B-MAIN-01__pool_growth_pool8__recap_hand_ret__seed20260713"
+      ],
+      "seed": 20260713,
+      "status": "pending",
+      "variant_id": "seed_level_case_manifest"
+    },
+    {
+      "artifact_kind": "aggregate_report",
+      "cell_id": "aggregate_report__M5B-QUAL-01__all_seed_best_worst_failure_report",
+      "experiment_id": "M5B-QUAL-01",
+      "formal_result": false,
+      "method_id": null,
+      "optimizer_steps": null,
+      "parent_artifact_ids": [
+        "aggregate_report__M5B-QUAL-01__seed_level_case_manifest__seed20260711",
+        "aggregate_report__M5B-QUAL-01__seed_level_case_manifest__seed20260712",
+        "aggregate_report__M5B-QUAL-01__seed_level_case_manifest__seed20260713"
+      ],
+      "seed": null,
+      "status": "pending",
+      "variant_id": "all_seed_best_worst_failure_report"
+    }
+  ],
+  "cells_payload_sha256": "6945695513ecf2bacbebf3f7af8cb476d0c89e073f32533098eb065c9ce486bf",
+  "counts": {
+    "aggregate_report": 4,
+    "checkpoint_linked_evaluation": 147,
+    "learned_training_checkpoint": 48,
+    "nonlearned_method_artifact": 3
+  },
+  "current_blocker": "All cell handlers and Docker contract tests must pass before queue activation.",
+  "formal_queue_allowed": false,
+  "p2_acceptance_allowed": false,
+  "registry_id": "m5b_p2_claim_centered_202_cells_v1",
+  "required_experiment_ids": [
+    "M5B-MAIN-01",
+    "M5B-REP-01",
+    "M5B-ACTION-01",
+    "M5B-RET-01",
+    "M5B-SENS-01",
+    "M5B-TIME-01",
+    "M5B-RES-01",
+    "M5B-QUAL-01"
+  ],
+  "schema_version": "human2robot-m5b-p2-cell-registry-v1",
+  "scope_interpretation": "minimum_claim_centered_candidate_not_literal_full_cross_product",
+  "seeds": [
+    20260711,
+    20260712,
+    20260713
+  ],
+  "status": "frozen_pending_execution",
+  "supplement_file_sha256": "be6ca3cdeb7d725221cbefa4664a44f33531edea1b66a74ea2405bff54dfc4ba",
+  "supplement_id": "m5b_p2_claim_centered_execution_v1",
+  "supplement_lock_path": "\u65b9\u6848/v03/M5B_P2_execution_supplement_v1.lock.json",
+  "supplement_path": "\u65b9\u6848/v03/M5B_P2_execution_supplement_v1.json"
+}

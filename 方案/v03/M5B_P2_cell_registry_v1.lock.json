@@ -1,0 +1,27 @@
+{
+  "schema_version": "human2robot-m5b-p2-cell-registry-lock-v1",
+  "status": "locked_pending_execution",
+  "locked_at_local_date": "2026-07-13",
+  "registry_id": "m5b_p2_claim_centered_202_cells_v1",
+  "registry_path": "方案/v03/M5B_P2_cell_registry_v1.json",
+  "registry_file_sha256": "4664d036bcf6bc41e8a44fac2afe04ff6de62c2a180a29d3433bd83e46604df5",
+  "registry_materializer_path": "tools/human2robot_m5b_p2_freeze_registry.py",
+  "registry_materializer_file_sha256": "ac15c5b748e06771fee9b7247672c03c0b34ded5110c5c686bc55e11183ab313",
+  "candidate_registry_generator_path": "tools/human2robot_m5b_p2_registry.py",
+  "candidate_registry_generator_file_sha256": "8765d24606db00a8b875195c760092f2a1f7b4c28dda8db6564ad52b1ca6c0bd",
+  "execution_supplement_path": "方案/v03/M5B_P2_execution_supplement_v1.json",
+  "execution_supplement_file_sha256": "be6ca3cdeb7d725221cbefa4664a44f33531edea1b66a74ea2405bff54dfc4ba",
+  "execution_supplement_lock_path": "方案/v03/M5B_P2_execution_supplement_v1.lock.json",
+  "execution_supplement_lock_file_sha256": "bdea172ada310f421c2398c57eb9536a8636ca3ba51302932de2e7b589fcff77",
+  "counts": {
+    "learned_training_checkpoint": 48,
+    "nonlearned_method_artifact": 3,
+    "checkpoint_linked_evaluation": 147,
+    "aggregate_report": 4
+  },
+  "cell_count": 202,
+  "formal_queue_allowed": false,
+  "reason": "The registry is frozen, but every cell handler and Docker contract test must pass before queue activation.",
+  "contains_experiment_results": false,
+  "passes_p2": false
+}
