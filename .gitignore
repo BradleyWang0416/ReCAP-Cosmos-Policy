@@ -1,4 +1,6 @@
 *.mp4
+*.hdf5
+*.distcp
 
 # ── Python build / cache ───────────────────────────────────────────────────
 __pycache__/
@@ -93,6 +95,13 @@ home_poses__backup_*/
 .env
 .env.local
 .env.*.local
+论文阅读
+checkpoints/ReCAP-Cosmos2.5-pusht
+.venv/lib64
+.venv/bin/python3
+.venv/bin/python
+.venv/bin/python3.10
+data/PushT-Cosmos-Policy
 论文阅读
 checkpoints/ReCAP-Cosmos2.5-pusht
 .venv/lib64
