@@ -1,0 +1,1297 @@
+{
+  "status": "passed",
+  "checked_at_utc": "2026-07-10T17:02:30.884192+00:00",
+  "schema_version": "human2robot-canonical-hdf5-v2",
+  "minimum_episodes": 20,
+  "minimum_tasks": 20,
+  "limits": {
+    "workspace_min_m": [
+      -1.0,
+      -1.0,
+      -0.25
+    ],
+    "workspace_max_m": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "gripper_min": 0.0,
+    "gripper_max": 1.0
+  },
+  "errors": [],
+  "aggregate": {
+    "episode_count": 20,
+    "passed_episode_count": 20,
+    "failed_episode_count": 0,
+    "task_count": 20,
+    "frame_count": 9039,
+    "source_one_to_one_verified_count": 20,
+    "timebase_status_counts": {
+      "coarse": 17,
+      "discontinuous": 3,
+      "trusted": 0,
+      "unknown": 0
+    },
+    "gap_count": 3,
+    "segment_count": 23
+  },
+  "split_validation": {
+    "status": "passed",
+    "errors": [],
+    "split_sha256": "ee32fd5a222024f9ff370d1cad223ecafeca88594ae840171f20c0f499346cac",
+    "train_task_count": 16,
+    "heldout_task_count": 4
+  },
+  "episodes": [
+    {
+      "path": "data/Human2Robot/canonical/v2/pilot/demo_00000.hdf5",
+      "status": "passed",
+      "structure_validation": {
+        "status": "passed",
+        "errors": []
+      },
+      "time_truth_validation": {
+        "status": "passed",
+        "errors": []
+      },
+      "errors": [],
+      "warnings": [
+        "Gripper open/close polarity is unverified",
+        "Timestamp semantics and source FPS remain unverified; no m/s metric was computed"
+      ],
+      "metrics": {
+        "frame_count": 676,
+        "obs/images_sample_min": 0,
+        "obs/images_sample_max": 170,
+        "metadata/human/images_sample_min": 0,
+        "metadata/human/images_sample_max": 164,
+        "obs/states_workspace_min_m": [
+          0.10301293432712555,
+          0.3324376046657562,
+          -3.9700000797893154e-07
+        ],
+        "obs/states_workspace_max_m": [
+          0.34609365463256836,
+          0.5392075777053833,
+          0.15171048045158386
+        ],
+        "obs/states_gripper_min": 0.0,
+        "obs/states_gripper_max": 1.0,
+        "obs/states_max_linear_displacement_m_per_source_step": 0.01255220014998636,
+        "obs/states_max_angular_displacement_rad_per_source_step": 0.03468779680190634,
+        "actions_workspace_min_m": [
+          0.10301242768764496,
+          0.3324373960494995,
+          0.0
+        ],
+        "actions_workspace_max_m": [
+          0.34609344601631165,
+          0.5392077565193176,
+          0.15171058475971222
+        ],
+        "actions_gripper_min": 0.0,
+        "actions_gripper_max": 1.0,
+        "actions_max_linear_displacement_m_per_source_step": 0.08539174105971273,
+        "actions_max_angular_displacement_rad_per_source_step": 0.13701845439816807,
+        "task": "cloth/cloth12",
+        "task_split": "train",
+        "split_manifest_sha256": "ee32fd5a222024f9ff370d1cad223ecafeca88594ae840171f20c0f499346cac",
+        "source_relative_path": "cloth/cloth12/episode_0.hdf5",
+        "source_frames": 676,
+        "canonical_frames": 676,
+        "source_one_to_one_verified": true,
+        "timebase_status": "coarse",
+        "gap_count": 0,
+        "segment_count": 1
+      }
+    },
+    {
+      "path": "data/Human2Robot/canonical/v2/pilot/demo_00001.hdf5",
+      "status": "passed",
+      "structure_validation": {
+        "status": "passed",
+        "errors": []
+      },
+      "time_truth_validation": {
+        "status": "passed",
+        "errors": []
+      },
+      "errors": [],
+      "warnings": [
+        "Gripper open/close polarity is unverified",
+        "Timestamp semantics and source FPS remain unverified; no m/s metric was computed"
+      ],
+      "metrics": {
+        "frame_count": 715,
+        "obs/images_sample_min": 0,
+        "obs/images_sample_max": 164,
+        "metadata/human/images_sample_min": 0,
+        "metadata/human/images_sample_max": 168,
+        "obs/states_workspace_min_m": [
+          0.07029838114976883,
+          0.3619534373283386,
+          -7.600000344609725e-07
+        ],
+        "obs/states_workspace_max_m": [
+          0.33932191133499146,
+          0.5749770998954773,
+          0.12767238914966583
+        ],
+        "obs/states_gripper_min": 0.0,
+        "obs/states_gripper_max": 1.0,
+        "obs/states_max_linear_displacement_m_per_source_step": 0.011139414875534385,
+        "obs/states_max_angular_displacement_rad_per_source_step": 8.13304448324224e-06,
+        "actions_workspace_min_m": [
+          0.07029785215854645,
+          0.36195334792137146,
+          0.0
+        ],
+        "actions_workspace_max_m": [
+          0.3393222689628601,
+          0.5749770998954773,
+          0.1276724487543106
+        ],
+        "actions_gripper_min": 0.0,
+        "actions_gripper_max": 1.0,
+        "actions_max_linear_displacement_m_per_source_step": 0.10197530864379142,
+        "actions_max_angular_displacement_rad_per_source_step": 0.0,
+        "task": "cloth/cloth13",
+        "task_split": "train",
+        "split_manifest_sha256": "ee32fd5a222024f9ff370d1cad223ecafeca88594ae840171f20c0f499346cac",
+        "source_relative_path": "cloth/cloth13/episode_0.hdf5",
+        "source_frames": 715,
+        "canonical_frames": 715,
+        "source_one_to_one_verified": true,
+        "timebase_status": "coarse",
+        "gap_count": 0,
+        "segment_count": 1
+      }
+    },
+    {
+      "path": "data/Human2Robot/canonical/v2/pilot/demo_00002.hdf5",
+      "status": "passed",
+      "structure_validation": {
+        "status": "passed",
+        "errors": []
+      },
+      "time_truth_validation": {
+        "status": "passed",
+        "errors": []
+      },
+      "errors": [],
+      "warnings": [
+        "Gripper open/close polarity is unverified",
+        "Timestamp semantics and source FPS remain unverified; no m/s metric was computed"
+      ],
+      "metrics": {
+        "frame_count": 618,
+        "obs/images_sample_min": 0,
+        "obs/images_sample_max": 164,
+        "metadata/human/images_sample_min": 0,
+        "metadata/human/images_sample_max": 166,
+        "obs/states_workspace_min_m": [
+          0.12635253369808197,
+          0.33723706007003784,
+          -5.760000476584537e-07
+        ],
+        "obs/states_workspace_max_m": [
+          0.32007694244384766,
+          0.566074788570404,
+          0.11699870973825455
+        ],
+        "obs/states_gripper_min": 0.0,
+        "obs/states_gripper_max": 1.0,
+        "obs/states_max_linear_displacement_m_per_source_step": 0.012459348946394309,
+        "obs/states_max_angular_displacement_rad_per_source_step": 5.50186801908188e-06,
+        "actions_workspace_min_m": [
+          0.12608423829078674,
+          0.3372368812561035,
+          0.0
+        ],
+        "actions_workspace_max_m": [
+          0.320077508687973,
+          0.5660752654075623,
+          0.1169988140463829
+        ],
+        "actions_gripper_min": 0.0,
+        "actions_gripper_max": 1.0,
+        "actions_max_linear_displacement_m_per_source_step": 0.1317914305891437,
+        "actions_max_angular_displacement_rad_per_source_step": 0.0,
+        "task": "cloth/cloth21",
+        "task_split": "train",
+        "split_manifest_sha256": "ee32fd5a222024f9ff370d1cad223ecafeca88594ae840171f20c0f499346cac",
+        "source_relative_path": "cloth/cloth21/episode_0.hdf5",
+        "source_frames": 618,
+        "canonical_frames": 618,
+        "source_one_to_one_verified": true,
+        "timebase_status": "discontinuous",
+        "gap_count": 1,
+        "segment_count": 2
+      }
+    },
+    {
+      "path": "data/Human2Robot/canonical/v2/pilot/demo_00003.hdf5",
+      "status": "passed",
+      "structure_validation": {
+        "status": "passed",
+        "errors": []
+      },
+      "time_truth_validation": {
+        "status": "passed",
+        "errors": []
+      },
+      "errors": [],
+      "warnings": [
+        "Gripper open/close polarity is unverified",
+        "Timestamp semantics and source FPS remain unverified; no m/s metric was computed"
+      ],
+      "metrics": {
+        "frame_count": 639,
+        "obs/images_sample_min": 0,
+        "obs/images_sample_max": 162,
+        "metadata/human/images_sample_min": 0,
+        "metadata/human/images_sample_max": 164,
+        "obs/states_workspace_min_m": [
+          0.08901629596948624,
+          0.3738386034965515,
+          -6.989999974393868e-07
+        ],
+        "obs/states_workspace_max_m": [
+          0.3182680606842041,
+          0.5792165994644165,
+          0.09896881133317947
+        ],
+        "obs/states_gripper_min": 0.0,
+        "obs/states_gripper_max": 1.0,
+        "obs/states_max_linear_displacement_m_per_source_step": 0.011396197595332972,
+        "obs/states_max_angular_displacement_rad_per_source_step": 5.604044835167669e-06,
+        "actions_workspace_min_m": [
+          0.08901499211788177,
+          0.3732168674468994,
+          0.0
+        ],
+        "actions_workspace_max_m": [
+          0.3182682991027832,
+          0.5792170166969299,
+          0.09896890074014664
+        ],
+        "actions_gripper_min": 0.0,
+        "actions_gripper_max": 1.0,
+        "actions_max_linear_displacement_m_per_source_step": 0.11531232748546758,
+        "actions_max_angular_displacement_rad_per_source_step": 0.0,
+        "task": "cloth/cloth31",
+        "task_split": "train",
+        "split_manifest_sha256": "ee32fd5a222024f9ff370d1cad223ecafeca88594ae840171f20c0f499346cac",
+        "source_relative_path": "cloth/cloth31/episode_0.hdf5",
+        "source_frames": 639,
+        "canonical_frames": 639,
+        "source_one_to_one_verified": true,
+        "timebase_status": "coarse",
+        "gap_count": 0,
+        "segment_count": 1
+      }
+    },
+    {
+      "path": "data/Human2Robot/canonical/v2/pilot/demo_00004.hdf5",
+      "status": "passed",
+      "structure_validation": {
+        "status": "passed",
+        "errors": []
+      },
+      "time_truth_validation": {
+        "status": "passed",
+        "errors": []
+      },
+      "errors": [],
+      "warnings": [
+        "Gripper open/close polarity is unverified",
+        "Timestamp semantics and source FPS remain unverified; no m/s metric was computed"
+      ],
+      "metrics": {
+        "frame_count": 418,
+        "obs/images_sample_min": 0,
+        "obs/images_sample_max": 177,
+        "metadata/human/images_sample_min": 0,
+        "metadata/human/images_sample_max": 201,
+        "obs/states_workspace_min_m": [
+          0.17795707285404205,
+          0.2532790005207062,
+          -5.310000119607139e-07
+        ],
+        "obs/states_workspace_max_m": [
+          0.37445953488349915,
+          0.5124703049659729,
+          0.16995097696781158
+        ],
+        "obs/states_gripper_min": 0.0,
+        "obs/states_gripper_max": 1.0,
+        "obs/states_max_linear_displacement_m_per_source_step": 0.04801160821960579,
+        "obs/states_max_angular_displacement_rad_per_source_step": 5.486679909791692e-06,
+        "actions_workspace_min_m": [
+          0.17792575061321259,
+          0.2532030940055847,
+          0.0
+        ],
+        "actions_workspace_max_m": [
+          0.37481874227523804,
+          0.5124701857566833,
+          0.1699516326189041
+        ],
+        "actions_gripper_min": 0.0,
+        "actions_gripper_max": 1.0,
+        "actions_max_linear_displacement_m_per_source_step": 0.16369159796197655,
+        "actions_max_angular_displacement_rad_per_source_step": 0.0,
+        "task": "grab_both_cubes_v1",
+        "task_split": "train",
+        "split_manifest_sha256": "ee32fd5a222024f9ff370d1cad223ecafeca88594ae840171f20c0f499346cac",
+        "source_relative_path": "grab_both_cubes_v1/episode_0.hdf5",
+        "source_frames": 418,
+        "canonical_frames": 418,
+        "source_one_to_one_verified": true,
+        "timebase_status": "coarse",
+        "gap_count": 0,
+        "segment_count": 1
+      }
+    },
+    {
+      "path": "data/Human2Robot/canonical/v2/pilot/demo_00005.hdf5",
+      "status": "passed",
+      "structure_validation": {
+        "status": "passed",
+        "errors": []
+      },
+      "time_truth_validation": {
+        "status": "passed",
+        "errors": []
+      },
+      "errors": [],
+      "warnings": [
+        "Gripper open/close polarity is unverified",
+        "Timestamp semantics and source FPS remain unverified; no m/s metric was computed"
+      ],
+      "metrics": {
+        "frame_count": 180,
+        "obs/images_sample_min": 0,
+        "obs/images_sample_max": 170,
+        "metadata/human/images_sample_min": 0,
+        "metadata/human/images_sample_max": 238,
+        "obs/states_workspace_min_m": [
+          0.14404116570949554,
+          0.2849259674549103,
+          -5.0199997758682e-07
+        ],
+        "obs/states_workspace_max_m": [
+          0.3317260146141052,
+          0.5219285488128662,
+          0.11945600062608719
+        ],
+        "obs/states_gripper_min": 0.0,
+        "obs/states_gripper_max": 1.0,
+        "obs/states_max_linear_displacement_m_per_source_step": 0.06715364087226751,
+        "obs/states_max_angular_displacement_rad_per_source_step": 6.458100964657364e-06,
+        "actions_workspace_min_m": [
+          0.14554555714130402,
+          0.2835584580898285,
+          0.0
+        ],
+        "actions_workspace_max_m": [
+          0.33186063170433044,
+          0.5219289064407349,
+          0.11945654451847076
+        ],
+        "actions_gripper_min": 0.0,
+        "actions_gripper_max": 1.0,
+        "actions_max_linear_displacement_m_per_source_step": 0.14770702912720357,
+        "actions_max_angular_displacement_rad_per_source_step": 0.0,
+        "task": "grab_cube2_v1",
+        "task_split": "heldout",
+        "split_manifest_sha256": "ee32fd5a222024f9ff370d1cad223ecafeca88594ae840171f20c0f499346cac",
+        "source_relative_path": "grab_cube2_v1/episode_0.hdf5",
+        "source_frames": 180,
+        "canonical_frames": 180,
+        "source_one_to_one_verified": true,
+        "timebase_status": "coarse",
+        "gap_count": 0,
+        "segment_count": 1
+      }
+    },
+    {
+      "path": "data/Human2Robot/canonical/v2/pilot/demo_00006.hdf5",
+      "status": "passed",
+      "structure_validation": {
+        "status": "passed",
+        "errors": []
+      },
+      "time_truth_validation": {
+        "status": "passed",
+        "errors": []
+      },
+      "errors": [],
+      "warnings": [
+        "Gripper open/close polarity is unverified",
+        "Timestamp semantics and source FPS remain unverified; no m/s metric was computed"
+      ],
+      "metrics": {
+        "frame_count": 242,
+        "obs/images_sample_min": 0,
+        "obs/images_sample_max": 214,
+        "metadata/human/images_sample_min": 0,
+        "metadata/human/images_sample_max": 204,
+        "obs/states_workspace_min_m": [
+          0.19886237382888794,
+          0.2600487470626831,
+          0.037688449025154114
+        ],
+        "obs/states_workspace_max_m": [
+          0.31786587834358215,
+          0.5505428910255432,
+          0.1490187644958496
+        ],
+        "obs/states_gripper_min": 0.0,
+        "obs/states_gripper_max": 1.0,
+        "obs/states_max_linear_displacement_m_per_source_step": 0.03917751133013859,
+        "obs/states_max_angular_displacement_rad_per_source_step": 7.331200280429429e-06,
+        "actions_workspace_min_m": [
+          0.192548468708992,
+          0.26004859805107117,
+          0.037687771022319794
+        ],
+        "actions_workspace_max_m": [
+          0.3179047405719757,
+          0.5505592226982117,
+          0.14902298152446747
+        ],
+        "actions_gripper_min": 0.0,
+        "actions_gripper_max": 1.0,
+        "actions_max_linear_displacement_m_per_source_step": 0.08189361675706959,
+        "actions_max_angular_displacement_rad_per_source_step": 0.0,
+        "task": "grab_cup_v1",
+        "task_split": "train",
+        "split_manifest_sha256": "ee32fd5a222024f9ff370d1cad223ecafeca88594ae840171f20c0f499346cac",
+        "source_relative_path": "grab_cup_v1/episode_0.hdf5",
+        "source_frames": 242,
+        "canonical_frames": 242,
+        "source_one_to_one_verified": true,
+        "timebase_status": "coarse",
+        "gap_count": 0,
+        "segment_count": 1
+      }
+    },
+    {
+      "path": "data/Human2Robot/canonical/v2/pilot/demo_00007.hdf5",
+      "status": "passed",
+      "structure_validation": {
+        "status": "passed",
+        "errors": []
+      },
+      "time_truth_validation": {
+        "status": "passed",
+        "errors": []
+      },
+      "errors": [],
+      "warnings": [
+        "Gripper open/close polarity is unverified",
+        "Timestamp semantics and source FPS remain unverified; no m/s metric was computed"
+      ],
+      "metrics": {
+        "frame_count": 394,
+        "obs/images_sample_min": 0,
+        "obs/images_sample_max": 181,
+        "metadata/human/images_sample_min": 0,
+        "metadata/human/images_sample_max": 206,
+        "obs/states_workspace_min_m": [
+          0.12749141454696655,
+          0.2892337441444397,
+          -4.1699999542288424e-07
+        ],
+        "obs/states_workspace_max_m": [
+          0.32325971126556396,
+          0.5129753947257996,
+          0.09288548678159714
+        ],
+        "obs/states_gripper_min": 0.0,
+        "obs/states_gripper_max": 1.0,
+        "obs/states_max_linear_displacement_m_per_source_step": 0.011629782231122512,
+        "obs/states_max_angular_displacement_rad_per_source_step": 7.570362965184178e-06,
+        "actions_workspace_min_m": [
+          0.12749116122722626,
+          0.28923338651657104,
+          0.0
+        ],
+        "actions_workspace_max_m": [
+          0.32326018810272217,
+          0.51297527551651,
+          0.09288552403450012
+        ],
+        "actions_gripper_min": 0.0,
+        "actions_gripper_max": 1.0,
+        "actions_max_linear_displacement_m_per_source_step": 0.14718514799308932,
+        "actions_max_angular_displacement_rad_per_source_step": 0.0,
+        "task": "grab_pencil1_v1",
+        "task_split": "heldout",
+        "split_manifest_sha256": "ee32fd5a222024f9ff370d1cad223ecafeca88594ae840171f20c0f499346cac",
+        "source_relative_path": "grab_pencil1_v1/episode_0.hdf5",
+        "source_frames": 394,
+        "canonical_frames": 394,
+        "source_one_to_one_verified": true,
+        "timebase_status": "discontinuous",
+        "gap_count": 1,
+        "segment_count": 2
+      }
+    },
+    {
+      "path": "data/Human2Robot/canonical/v2/pilot/demo_00008.hdf5",
+      "status": "passed",
+      "structure_validation": {
+        "status": "passed",
+        "errors": []
+      },
+      "time_truth_validation": {
+        "status": "passed",
+        "errors": []
+      },
+      "errors": [],
+      "warnings": [
+        "Gripper open/close polarity is unverified",
+        "Timestamp semantics and source FPS remain unverified; no m/s metric was computed"
+      ],
+      "metrics": {
+        "frame_count": 438,
+        "obs/images_sample_min": 0,
+        "obs/images_sample_max": 224,
+        "metadata/human/images_sample_min": 0,
+        "metadata/human/images_sample_max": 249,
+        "obs/states_workspace_min_m": [
+          0.14702817797660828,
+          0.2363467663526535,
+          -1.1600000249245568e-07
+        ],
+        "obs/states_workspace_max_m": [
+          0.344381183385849,
+          0.45641395449638367,
+          0.1046549454331398
+        ],
+        "obs/states_gripper_min": 0.0,
+        "obs/states_gripper_max": 1.0,
+        "obs/states_max_linear_displacement_m_per_source_step": 0.01933914121371583,
+        "obs/states_max_angular_displacement_rad_per_source_step": 8.254943687881388e-06,
+        "actions_workspace_min_m": [
+          0.14702822268009186,
+          0.23634666204452515,
+          0.0
+        ],
+        "actions_workspace_max_m": [
+          0.34438177943229675,
+          0.45641422271728516,
+          0.10465555638074875
+        ],
+        "actions_gripper_min": 0.0,
+        "actions_gripper_max": 1.0,
+        "actions_max_linear_displacement_m_per_source_step": 0.15343446758417328,
+        "actions_max_angular_displacement_rad_per_source_step": 0.0,
+        "task": "grab_pencil2_v1",
+        "task_split": "train",
+        "split_manifest_sha256": "ee32fd5a222024f9ff370d1cad223ecafeca88594ae840171f20c0f499346cac",
+        "source_relative_path": "grab_pencil2_v1/episode_1.hdf5",
+        "source_frames": 438,
+        "canonical_frames": 438,
+        "source_one_to_one_verified": true,
+        "timebase_status": "coarse",
+        "gap_count": 0,
+        "segment_count": 1
+      }
+    },
+    {
+      "path": "data/Human2Robot/canonical/v2/pilot/demo_00009.hdf5",
+      "status": "passed",
+      "structure_validation": {
+        "status": "passed",
+        "errors": []
+      },
+      "time_truth_validation": {
+        "status": "passed",
+        "errors": []
+      },
+      "errors": [],
+      "warnings": [
+        "Gripper open/close polarity is unverified",
+        "Timestamp semantics and source FPS remain unverified; no m/s metric was computed"
+      ],
+      "metrics": {
+        "frame_count": 394,
+        "obs/images_sample_min": 0,
+        "obs/images_sample_max": 181,
+        "metadata/human/images_sample_min": 0,
+        "metadata/human/images_sample_max": 206,
+        "obs/states_workspace_min_m": [
+          0.12749141454696655,
+          0.2892337441444397,
+          -4.1699999542288424e-07
+        ],
+        "obs/states_workspace_max_m": [
+          0.32325971126556396,
+          0.5129753947257996,
+          0.09288548678159714
+        ],
+        "obs/states_gripper_min": 0.0,
+        "obs/states_gripper_max": 1.0,
+        "obs/states_max_linear_displacement_m_per_source_step": 0.011629782231122512,
+        "obs/states_max_angular_displacement_rad_per_source_step": 7.570362965184178e-06,
+        "actions_workspace_min_m": [
+          0.12749116122722626,
+          0.28923338651657104,
+          0.0
+        ],
+        "actions_workspace_max_m": [
+          0.32326018810272217,
+          0.51297527551651,
+          0.09288552403450012
+        ],
+        "actions_gripper_min": 0.0,
+        "actions_gripper_max": 1.0,
+        "actions_max_linear_displacement_m_per_source_step": 0.14718514799308932,
+        "actions_max_angular_displacement_rad_per_source_step": 0.0,
+        "task": "grab_pencil_v1",
+        "task_split": "train",
+        "split_manifest_sha256": "ee32fd5a222024f9ff370d1cad223ecafeca88594ae840171f20c0f499346cac",
+        "source_relative_path": "grab_pencil_v1/episode_0.hdf5",
+        "source_frames": 394,
+        "canonical_frames": 394,
+        "source_one_to_one_verified": true,
+        "timebase_status": "discontinuous",
+        "gap_count": 1,
+        "segment_count": 2
+      }
+    },
+    {
+      "path": "data/Human2Robot/canonical/v2/pilot/demo_00010.hdf5",
+      "status": "passed",
+      "structure_validation": {
+        "status": "passed",
+        "errors": []
+      },
+      "time_truth_validation": {
+        "status": "passed",
+        "errors": []
+      },
+      "errors": [],
+      "warnings": [
+        "Gripper open/close polarity is unverified",
+        "Timestamp semantics and source FPS remain unverified; no m/s metric was computed"
+      ],
+      "metrics": {
+        "frame_count": 675,
+        "obs/images_sample_min": 0,
+        "obs/images_sample_max": 173,
+        "metadata/human/images_sample_min": 0,
+        "metadata/human/images_sample_max": 209,
+        "obs/states_workspace_min_m": [
+          0.15575267374515533,
+          0.2760544419288635,
+          -1.5300000200113573e-07
+        ],
+        "obs/states_workspace_max_m": [
+          0.32928669452667236,
+          0.5311324596405029,
+          0.13433897495269775
+        ],
+        "obs/states_gripper_min": 0.0,
+        "obs/states_gripper_max": 1.0,
+        "obs/states_max_linear_displacement_m_per_source_step": 0.013163122281649122,
+        "obs/states_max_angular_displacement_rad_per_source_step": 7.380613943616915e-06,
+        "actions_workspace_min_m": [
+          0.15575213730335236,
+          0.2760539650917053,
+          0.0
+        ],
+        "actions_workspace_max_m": [
+          0.3292871117591858,
+          0.531132698059082,
+          0.13433906435966492
+        ],
+        "actions_gripper_min": 0.0,
+        "actions_gripper_max": 1.0,
+        "actions_max_linear_displacement_m_per_source_step": 0.1096488083092095,
+        "actions_max_angular_displacement_rad_per_source_step": 0.0,
+        "task": "grab_to_plate1_and_back_v1",
+        "task_split": "train",
+        "split_manifest_sha256": "ee32fd5a222024f9ff370d1cad223ecafeca88594ae840171f20c0f499346cac",
+        "source_relative_path": "grab_to_plate1_and_back_v1/episode_0.hdf5",
+        "source_frames": 675,
+        "canonical_frames": 675,
+        "source_one_to_one_verified": true,
+        "timebase_status": "coarse",
+        "gap_count": 0,
+        "segment_count": 1
+      }
+    },
+    {
+      "path": "data/Human2Robot/canonical/v2/pilot/demo_00011.hdf5",
+      "status": "passed",
+      "structure_validation": {
+        "status": "passed",
+        "errors": []
+      },
+      "time_truth_validation": {
+        "status": "passed",
+        "errors": []
+      },
+      "errors": [],
+      "warnings": [
+        "Gripper open/close polarity is unverified",
+        "Timestamp semantics and source FPS remain unverified; no m/s metric was computed"
+      ],
+      "metrics": {
+        "frame_count": 370,
+        "obs/images_sample_min": 0,
+        "obs/images_sample_max": 174,
+        "metadata/human/images_sample_min": 0,
+        "metadata/human/images_sample_max": 213,
+        "obs/states_workspace_min_m": [
+          0.17153418064117432,
+          0.3096905052661896,
+          -4.930000159220072e-07
+        ],
+        "obs/states_workspace_max_m": [
+          0.34087297320365906,
+          0.5271299481391907,
+          0.10467908531427383
+        ],
+        "obs/states_gripper_min": 0.0,
+        "obs/states_gripper_max": 1.0,
+        "obs/states_max_linear_displacement_m_per_source_step": 0.009175871141275504,
+        "obs/states_max_angular_displacement_rad_per_source_step": 6.126453105436382e-06,
+        "actions_workspace_min_m": [
+          0.1715002954006195,
+          0.30969029664993286,
+          0.0
+        ],
+        "actions_workspace_max_m": [
+          0.3408731520175934,
+          0.5271300077438354,
+          0.104679174721241
+        ],
+        "actions_gripper_min": 0.0,
+        "actions_gripper_max": 1.0,
+        "actions_max_linear_displacement_m_per_source_step": 0.0975963666647367,
+        "actions_max_angular_displacement_rad_per_source_step": 0.0,
+        "task": "grab_to_plate1_v1",
+        "task_split": "heldout",
+        "split_manifest_sha256": "ee32fd5a222024f9ff370d1cad223ecafeca88594ae840171f20c0f499346cac",
+        "source_relative_path": "grab_to_plate1_v1/episode_0.hdf5",
+        "source_frames": 370,
+        "canonical_frames": 370,
+        "source_one_to_one_verified": true,
+        "timebase_status": "coarse",
+        "gap_count": 0,
+        "segment_count": 1
+      }
+    },
+    {
+      "path": "data/Human2Robot/canonical/v2/pilot/demo_00012.hdf5",
+      "status": "passed",
+      "structure_validation": {
+        "status": "passed",
+        "errors": []
+      },
+      "time_truth_validation": {
+        "status": "passed",
+        "errors": []
+      },
+      "errors": [],
+      "warnings": [
+        "Gripper open/close polarity is unverified",
+        "Timestamp semantics and source FPS remain unverified; no m/s metric was computed"
+      ],
+      "metrics": {
+        "frame_count": 226,
+        "obs/images_sample_min": 0,
+        "obs/images_sample_max": 185,
+        "metadata/human/images_sample_min": 0,
+        "metadata/human/images_sample_max": 207,
+        "obs/states_workspace_min_m": [
+          0.12366516143083572,
+          0.30500251054763794,
+          -3.9299999343711534e-07
+        ],
+        "obs/states_workspace_max_m": [
+          0.3284219801425934,
+          0.5304308533668518,
+          0.11429598182439804
+        ],
+        "obs/states_gripper_min": 0.0,
+        "obs/states_gripper_max": 1.0,
+        "obs/states_max_linear_displacement_m_per_source_step": 0.04944117002843967,
+        "obs/states_max_angular_displacement_rad_per_source_step": 7.040796963225073e-06,
+        "actions_workspace_min_m": [
+          0.1236625611782074,
+          0.30500245094299316,
+          0.0
+        ],
+        "actions_workspace_max_m": [
+          0.32842257618904114,
+          0.5304306745529175,
+          0.11439024657011032
+        ],
+        "actions_gripper_min": 0.0,
+        "actions_gripper_max": 1.0,
+        "actions_max_linear_displacement_m_per_source_step": 0.12694373816212623,
+        "actions_max_angular_displacement_rad_per_source_step": 0.0,
+        "task": "grab_to_plate2_and_back_v1",
+        "task_split": "train",
+        "split_manifest_sha256": "ee32fd5a222024f9ff370d1cad223ecafeca88594ae840171f20c0f499346cac",
+        "source_relative_path": "grab_to_plate2_and_back_v1/episode_1.hdf5",
+        "source_frames": 226,
+        "canonical_frames": 226,
+        "source_one_to_one_verified": true,
+        "timebase_status": "coarse",
+        "gap_count": 0,
+        "segment_count": 1
+      }
+    },
+    {
+      "path": "data/Human2Robot/canonical/v2/pilot/demo_00013.hdf5",
+      "status": "passed",
+      "structure_validation": {
+        "status": "passed",
+        "errors": []
+      },
+      "time_truth_validation": {
+        "status": "passed",
+        "errors": []
+      },
+      "errors": [],
+      "warnings": [
+        "Gripper open/close polarity is unverified",
+        "Timestamp semantics and source FPS remain unverified; no m/s metric was computed"
+      ],
+      "metrics": {
+        "frame_count": 336,
+        "obs/images_sample_min": 0,
+        "obs/images_sample_max": 182,
+        "metadata/human/images_sample_min": 0,
+        "metadata/human/images_sample_max": 192,
+        "obs/states_workspace_min_m": [
+          0.05726322904229164,
+          0.2965501844882965,
+          -4.830000079891761e-07
+        ],
+        "obs/states_workspace_max_m": [
+          0.3323233723640442,
+          0.533123791217804,
+          0.09438405930995941
+        ],
+        "obs/states_gripper_min": 0.0,
+        "obs/states_gripper_max": 1.0,
+        "obs/states_max_linear_displacement_m_per_source_step": 0.04946472014206126,
+        "obs/states_max_angular_displacement_rad_per_source_step": 8.405008578043559e-06,
+        "actions_workspace_min_m": [
+          0.05726263299584389,
+          0.29654982686042786,
+          0.0
+        ],
+        "actions_workspace_max_m": [
+          0.3323235809803009,
+          0.5331307053565979,
+          0.09438415616750717
+        ],
+        "actions_gripper_min": 0.0,
+        "actions_gripper_max": 1.0,
+        "actions_max_linear_displacement_m_per_source_step": 0.11287156233695222,
+        "actions_max_angular_displacement_rad_per_source_step": 0.0,
+        "task": "grab_to_plate2_and_pull_v1",
+        "task_split": "train",
+        "split_manifest_sha256": "ee32fd5a222024f9ff370d1cad223ecafeca88594ae840171f20c0f499346cac",
+        "source_relative_path": "grab_to_plate2_and_pull_v1/episode_0.hdf5",
+        "source_frames": 336,
+        "canonical_frames": 336,
+        "source_one_to_one_verified": true,
+        "timebase_status": "coarse",
+        "gap_count": 0,
+        "segment_count": 1
+      }
+    },
+    {
+      "path": "data/Human2Robot/canonical/v2/pilot/demo_00014.hdf5",
+      "status": "passed",
+      "structure_validation": {
+        "status": "passed",
+        "errors": []
+      },
+      "time_truth_validation": {
+        "status": "passed",
+        "errors": []
+      },
+      "errors": [],
+      "warnings": [
+        "Gripper open/close polarity is unverified",
+        "Timestamp semantics and source FPS remain unverified; no m/s metric was computed"
+      ],
+      "metrics": {
+        "frame_count": 424,
+        "obs/images_sample_min": 0,
+        "obs/images_sample_max": 186,
+        "metadata/human/images_sample_min": 0,
+        "metadata/human/images_sample_max": 204,
+        "obs/states_workspace_min_m": [
+          0.1246476024389267,
+          0.3113356828689575,
+          -2.310000013494573e-07
+        ],
+        "obs/states_workspace_max_m": [
+          0.31358757615089417,
+          0.5026282072067261,
+          0.08725378662347794
+        ],
+        "obs/states_gripper_min": 0.0,
+        "obs/states_gripper_max": 1.0,
+        "obs/states_max_linear_displacement_m_per_source_step": 0.00624938782673838,
+        "obs/states_max_angular_displacement_rad_per_source_step": 7.102456306853209e-06,
+        "actions_workspace_min_m": [
+          0.12464732676744461,
+          0.31133535504341125,
+          0.0
+        ],
+        "actions_workspace_max_m": [
+          0.31358805298805237,
+          0.5026285648345947,
+          0.08725382387638092
+        ],
+        "actions_gripper_min": 0.0,
+        "actions_gripper_max": 1.0,
+        "actions_max_linear_displacement_m_per_source_step": 0.05714790687402631,
+        "actions_max_angular_displacement_rad_per_source_step": 0.0,
+        "task": "grab_to_plate2_v1",
+        "task_split": "train",
+        "split_manifest_sha256": "ee32fd5a222024f9ff370d1cad223ecafeca88594ae840171f20c0f499346cac",
+        "source_relative_path": "grab_to_plate2_v1/episode_0.hdf5",
+        "source_frames": 424,
+        "canonical_frames": 424,
+        "source_one_to_one_verified": true,
+        "timebase_status": "coarse",
+        "gap_count": 0,
+        "segment_count": 1
+      }
+    },
+    {
+      "path": "data/Human2Robot/canonical/v2/pilot/demo_00015.hdf5",
+      "status": "passed",
+      "structure_validation": {
+        "status": "passed",
+        "errors": []
+      },
+      "time_truth_validation": {
+        "status": "passed",
+        "errors": []
+      },
+      "errors": [],
+      "warnings": [
+        "Gripper open/close polarity is unverified",
+        "Timestamp semantics and source FPS remain unverified; no m/s metric was computed"
+      ],
+      "metrics": {
+        "frame_count": 161,
+        "obs/images_sample_min": 0,
+        "obs/images_sample_max": 172,
+        "metadata/human/images_sample_min": 0,
+        "metadata/human/images_sample_max": 206,
+        "obs/states_workspace_min_m": [
+          0.13907381892204285,
+          0.2411540001630783,
+          -3.010000000358559e-07
+        ],
+        "obs/states_workspace_max_m": [
+          0.31067320704460144,
+          0.5346615314483643,
+          0.12492088973522186
+        ],
+        "obs/states_gripper_min": 0.0,
+        "obs/states_gripper_max": 1.0,
+        "obs/states_max_linear_displacement_m_per_source_step": 0.12852620076733376,
+        "obs/states_max_angular_displacement_rad_per_source_step": 8.187668941799946e-06,
+        "actions_workspace_min_m": [
+          0.1390736699104309,
+          0.24177932739257812,
+          0.0
+        ],
+        "actions_workspace_max_m": [
+          0.31108400225639343,
+          0.5349777936935425,
+          0.12515711784362793
+        ],
+        "actions_gripper_min": 0.0,
+        "actions_gripper_max": 1.0,
+        "actions_max_linear_displacement_m_per_source_step": 0.19997938058774073,
+        "actions_max_angular_displacement_rad_per_source_step": 0.0,
+        "task": "grab_two_cubes2_v1",
+        "task_split": "train",
+        "split_manifest_sha256": "ee32fd5a222024f9ff370d1cad223ecafeca88594ae840171f20c0f499346cac",
+        "source_relative_path": "grab_two_cubes2_v1/episode_2.hdf5",
+        "source_frames": 161,
+        "canonical_frames": 161,
+        "source_one_to_one_verified": true,
+        "timebase_status": "coarse",
+        "gap_count": 0,
+        "segment_count": 1
+      }
+    },
+    {
+      "path": "data/Human2Robot/canonical/v2/pilot/demo_00016.hdf5",
+      "status": "passed",
+      "structure_validation": {
+        "status": "passed",
+        "errors": []
+      },
+      "time_truth_validation": {
+        "status": "passed",
+        "errors": []
+      },
+      "errors": [],
+      "warnings": [
+        "Gripper open/close polarity is unverified",
+        "Timestamp semantics and source FPS remain unverified; no m/s metric was computed"
+      ],
+      "metrics": {
+        "frame_count": 956,
+        "obs/images_sample_min": 0,
+        "obs/images_sample_max": 174,
+        "metadata/human/images_sample_min": 0,
+        "metadata/human/images_sample_max": 195,
+        "obs/states_workspace_min_m": [
+          0.053324103355407715,
+          0.2884625792503357,
+          -6.79999970998324e-07
+        ],
+        "obs/states_workspace_max_m": [
+          0.35048219561576843,
+          0.5491161942481995,
+          0.10860238969326019
+        ],
+        "obs/states_gripper_min": 0.0,
+        "obs/states_gripper_max": 1.0,
+        "obs/states_max_linear_displacement_m_per_source_step": 0.012992645919898583,
+        "obs/states_max_angular_displacement_rad_per_source_step": 8.011333643418677e-06,
+        "actions_workspace_min_m": [
+          0.05332356318831444,
+          0.2884621024131775,
+          0.0
+        ],
+        "actions_workspace_max_m": [
+          0.3504822850227356,
+          0.5491161942481995,
+          0.10860227048397064
+        ],
+        "actions_gripper_min": 0.0,
+        "actions_gripper_max": 1.0,
+        "actions_max_linear_displacement_m_per_source_step": 0.105455006569603,
+        "actions_max_angular_displacement_rad_per_source_step": 0.0,
+        "task": "pull_plate_grab_cube",
+        "task_split": "train",
+        "split_manifest_sha256": "ee32fd5a222024f9ff370d1cad223ecafeca88594ae840171f20c0f499346cac",
+        "source_relative_path": "pull_plate_grab_cube/episode_0.hdf5",
+        "source_frames": 956,
+        "canonical_frames": 956,
+        "source_one_to_one_verified": true,
+        "timebase_status": "coarse",
+        "gap_count": 0,
+        "segment_count": 1
+      }
+    },
+    {
+      "path": "data/Human2Robot/canonical/v2/pilot/demo_00017.hdf5",
+      "status": "passed",
+      "structure_validation": {
+        "status": "passed",
+        "errors": []
+      },
+      "time_truth_validation": {
+        "status": "passed",
+        "errors": []
+      },
+      "errors": [],
+      "warnings": [
+        "Gripper open/close polarity is unverified",
+        "Timestamp semantics and source FPS remain unverified; no m/s metric was computed"
+      ],
+      "metrics": {
+        "frame_count": 620,
+        "obs/images_sample_min": 0,
+        "obs/images_sample_max": 187,
+        "metadata/human/images_sample_min": 0,
+        "metadata/human/images_sample_max": 201,
+        "obs/states_workspace_min_m": [
+          0.004437448922544718,
+          0.3469831347465515,
+          -7.399999617518915e-07
+        ],
+        "obs/states_workspace_max_m": [
+          0.19126012921333313,
+          0.6229187250137329,
+          0.09777885675430298
+        ],
+        "obs/states_gripper_min": 0.0,
+        "obs/states_gripper_max": 1.0,
+        "obs/states_max_linear_displacement_m_per_source_step": 0.011311266081367006,
+        "obs/states_max_angular_displacement_rad_per_source_step": 7.0038355354382e-06,
+        "actions_workspace_min_m": [
+          0.00443734135478735,
+          0.3469829857349396,
+          0.0
+        ],
+        "actions_workspace_max_m": [
+          0.19126030802726746,
+          0.6229187250137329,
+          0.09777899831533432
+        ],
+        "actions_gripper_min": 0.0,
+        "actions_gripper_max": 1.0,
+        "actions_max_linear_displacement_m_per_source_step": 0.11495200250125624,
+        "actions_max_angular_displacement_rad_per_source_step": 0.0,
+        "task": "pull_plate_v1",
+        "task_split": "train",
+        "split_manifest_sha256": "ee32fd5a222024f9ff370d1cad223ecafeca88594ae840171f20c0f499346cac",
+        "source_relative_path": "pull_plate_v1/episode_0.hdf5",
+        "source_frames": 620,
+        "canonical_frames": 620,
+        "source_one_to_one_verified": true,
+        "timebase_status": "coarse",
+        "gap_count": 0,
+        "segment_count": 1
+      }
+    },
+    {
+      "path": "data/Human2Robot/canonical/v2/pilot/demo_00018.hdf5",
+      "status": "passed",
+      "structure_validation": {
+        "status": "passed",
+        "errors": []
+      },
+      "time_truth_validation": {
+        "status": "passed",
+        "errors": []
+      },
+      "errors": [],
+      "warnings": [
+        "Gripper open/close polarity is unverified",
+        "Timestamp semantics and source FPS remain unverified; no m/s metric was computed"
+      ],
+      "metrics": {
+        "frame_count": 265,
+        "obs/images_sample_min": 0,
+        "obs/images_sample_max": 255,
+        "metadata/human/images_sample_min": 0,
+        "metadata/human/images_sample_max": 219,
+        "obs/states_workspace_min_m": [
+          0.17710092663764954,
+          0.29986271262168884,
+          -1.3000000187446403e-08
+        ],
+        "obs/states_workspace_max_m": [
+          0.32425183057785034,
+          0.5319081544876099,
+          0.03138373792171478
+        ],
+        "obs/states_gripper_min": 1.0,
+        "obs/states_gripper_max": 1.0,
+        "obs/states_max_linear_displacement_m_per_source_step": 0.009970084682298517,
+        "obs/states_max_angular_displacement_rad_per_source_step": 4.269796540461558e-06,
+        "actions_workspace_min_m": [
+          0.17710041999816895,
+          0.29986271262168884,
+          0.0
+        ],
+        "actions_workspace_max_m": [
+          0.3242523968219757,
+          0.5319082140922546,
+          0.0313841812312603
+        ],
+        "actions_gripper_min": 1.0,
+        "actions_gripper_max": 1.0,
+        "actions_max_linear_displacement_m_per_source_step": 0.09954348871211575,
+        "actions_max_angular_displacement_rad_per_source_step": 0.0,
+        "task": "push_box_common_v1",
+        "task_split": "train",
+        "split_manifest_sha256": "ee32fd5a222024f9ff370d1cad223ecafeca88594ae840171f20c0f499346cac",
+        "source_relative_path": "push_box_common_v1/episode_0.hdf5",
+        "source_frames": 265,
+        "canonical_frames": 265,
+        "source_one_to_one_verified": true,
+        "timebase_status": "coarse",
+        "gap_count": 0,
+        "segment_count": 1
+      }
+    },
+    {
+      "path": "data/Human2Robot/canonical/v2/pilot/demo_00019.hdf5",
+      "status": "passed",
+      "structure_validation": {
+        "status": "passed",
+        "errors": []
+      },
+      "time_truth_validation": {
+        "status": "passed",
+        "errors": []
+      },
+      "errors": [],
+      "warnings": [
+        "Gripper open/close polarity is unverified",
+        "Timestamp semantics and source FPS remain unverified; no m/s metric was computed"
+      ],
+      "metrics": {
+        "frame_count": 292,
+        "obs/images_sample_min": 0,
+        "obs/images_sample_max": 255,
+        "metadata/human/images_sample_min": 0,
+        "metadata/human/images_sample_max": 211,
+        "obs/states_workspace_min_m": [
+          0.13134385645389557,
+          0.1977228969335556,
+          -6.490000146186503e-07
+        ],
+        "obs/states_workspace_max_m": [
+          0.3300914168357849,
+          0.4915606379508972,
+          4.7399998948094435e-07
+        ],
+        "obs/states_gripper_min": 1.0,
+        "obs/states_gripper_max": 1.0,
+        "obs/states_max_linear_displacement_m_per_source_step": 0.00840123433024721,
+        "obs/states_max_angular_displacement_rad_per_source_step": 3.231154252670124e-06,
+        "actions_workspace_min_m": [
+          0.13134337961673737,
+          0.19772286713123322,
+          0.0
+        ],
+        "actions_workspace_max_m": [
+          0.33009156584739685,
+          0.4915611445903778,
+          0.0
+        ],
+        "actions_gripper_min": 1.0,
+        "actions_gripper_max": 1.0,
+        "actions_max_linear_displacement_m_per_source_step": 0.08606519596246937,
+        "actions_max_angular_displacement_rad_per_source_step": 0.0,
+        "task": "push_box_random_v1",
+        "task_split": "heldout",
+        "split_manifest_sha256": "ee32fd5a222024f9ff370d1cad223ecafeca88594ae840171f20c0f499346cac",
+        "source_relative_path": "push_box_random_v1/episode_0.hdf5",
+        "source_frames": 292,
+        "canonical_frames": 292,
+        "source_one_to_one_verified": true,
+        "timebase_status": "coarse",
+        "gap_count": 0,
+        "segment_count": 1
+      }
+    }
+  ],
+  "statistics_validation": {
+    "status": "passed",
+    "errors": [],
+    "checked_files": [
+      "data/Human2Robot/canonical/v2/dataset_statistics.json",
+      "data/Human2Robot/canonical/v2/dataset_statistics_post_norm.json",
+      "data/Human2Robot/canonical/v2/data_quality_statistics.json"
+    ],
+    "forbidden_delta_statistics_absent": true
+  }
+}

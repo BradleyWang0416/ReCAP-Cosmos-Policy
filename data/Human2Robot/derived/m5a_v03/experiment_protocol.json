@@ -1,0 +1,150 @@
+{
+  "schema_version": "human2robot-m5a-data-contract-stress-v03",
+  "created_at_utc": "2026-07-11T07:32:01.493395+00:00",
+  "normalized_research_claim": "The frozen v03 data contract detects injected action-role and temporal mismatches, and makes the 240x426 versus 240x424 preprocessing choice explicit before model training.",
+  "claim_status": "SUPPORTED only for data/contract detection after all M5-A launch checks pass",
+  "target_task_and_dataset_assumptions": {
+    "dataset": "20-episode Human2Robot canonical/v3 pilot",
+    "split": "frozen task-level train/heldout split",
+    "action_scope": "train-only calibration; held-out robot trajectory excluded",
+    "retrieval_scope": "normalized segment phase + task pool membership",
+    "query_command_status": "unverified"
+  },
+  "minimum_viable_experiment_set": [
+    {
+      "experiment_id": "M5A-AR-01",
+      "type": "action-role robustness",
+      "perturbations": [
+        "wrong_role",
+        "same_frame_copy",
+        "wrong_lag",
+        "scale_x2"
+      ],
+      "required": true,
+      "expected_evidence": "each frozen-contract detector triggers on train-only injected mismatch"
+    },
+    {
+      "experiment_id": "M5A-TV-01",
+      "type": "FPS/version descriptive comparison",
+      "perturbations": [
+        "native_row_index",
+        "nominal_camera_30hz_segmented",
+        "paper_v2_stride4_nominal7p5",
+        "legacy_v01_stride3_nominal10",
+        "policy_clock_10hz",
+        "phase_or_dtw"
+      ],
+      "required": true,
+      "expected_evidence": "all views are nonempty and never cross a canonical segment"
+    },
+    {
+      "experiment_id": "M5A-TM-01",
+      "type": "temporal mismatch robustness",
+      "perturbations": [
+        "frame_drop",
+        "timestamp_jitter",
+        "pause",
+        "step_jump"
+      ],
+      "required": true,
+      "expected_evidence": "frame/clock/step anomaly detector triggers with zero segment crossing"
+    },
+    {
+      "experiment_id": "M5A-RES-01",
+      "type": "resolution contract",
+      "perturbations": [
+        "center_crop_426_to_424",
+        "edge_pad_424_to_426"
+      ],
+      "required": true,
+      "expected_evidence": "shape strategy is explicit; action hash and phase retrieval contract are invariant"
+    }
+  ],
+  "claim_to_experiment_mapping": {
+    "role_semantics_are_guarded": [
+      "M5A-AR-01"
+    ],
+    "temporal_mismatch_is_detectable": [
+      "M5A-TV-01",
+      "M5A-TM-01"
+    ],
+    "resolution_policy_is_reproducible": [
+      "M5A-RES-01"
+    ],
+    "model_mechanism_is_robust": [
+      "NEEDS_EXPERIMENT:M5-B"
+    ]
+  },
+  "required_baselines": [
+    "frozen nominal30/t+1/raw-human-plan contract",
+    "unperturbed temporal detector baseline",
+    "uncropped canonical 240x426 image contract"
+  ],
+  "required_ablations": [
+    "wrong role",
+    "same-frame label",
+    "wrong lag",
+    "scale x2",
+    "nominal30/stride4/stride3/policy-clock/phase-DTW",
+    "frame drop/jitter/pause/step jump",
+    "center crop/edge pad"
+  ],
+  "sensitivity_analysis": {
+    "M5A": "fixed severe perturbations verify detector behavior",
+    "M5B": "NEEDS_EXPERIMENT for graded severity and model performance curves"
+  },
+  "robustness_generalization_check": "contract-level only in M5-A; model robustness NEEDS_EXPERIMENT",
+  "efficiency_complexity_check": "not claimed by M5-A",
+  "qualitative_analysis": "NEEDS_EXPERIMENT in M5-B for visual retrieval/crop examples",
+  "failure_case_analysis": [
+    "a low same-frame numeric error can coexist with 100% temporal leakage",
+    "phase-only retrieval cannot validate visual crop robustness",
+    "single-pilot data cannot support multi-seed model claims"
+  ],
+  "missing_evidence": [
+    "formal Cosmos/RECAP M4 multi-seed checkpoints",
+    "independent or expanded human-only held-out pool",
+    "residual/absolute and future-state model ablations",
+    "retrieval modality, geometry/visual, top-k and pool-growth model ablations",
+    "visual encoder crop/pad feature-stability experiment"
+  ],
+  "risk_of_overclaiming": "M5-A must not be cited as evidence that RECAP outperforms baselines, is model-robust, or is deployable.",
+  "recommended_next_stage": "finish formal M4 training, then run M5-B before Gate C decision",
+  "implementation": "/home/wxs/ReCAP-Cosmos-Policy/tools/human2robot_m5a.py",
+  "implementation_code_sha256": "bed94253bb75d952ab00beb78c5f955c53d86aa1351b7e69aa5e9c672b83fbe5",
+  "fairness_and_validity": [
+    "all action/lag thresholds are evaluated on train tasks only",
+    "all time views use the same canonical episodes and gap policy",
+    "synthetic temporal injections use a fixed recorded seed",
+    "resolution audit is read-only and records exact crop/pad operations"
+  ],
+  "config": {
+    "canonical_root": "data/Human2Robot/canonical/v3",
+    "m3_report_path": "data/Human2Robot/derived/m3_v03/m3_validation_report.json",
+    "m4_report_path": "data/Human2Robot/derived/m4_v03/m4_launch_report.json",
+    "m4_config_path": "data/Human2Robot/derived/m4_v03/paired_bridge_config.json",
+    "output_root": "data/Human2Robot/derived/m5a_v03",
+    "report_root": "方案/v03",
+    "expected_episode_count": 20,
+    "wrong_lag": 30,
+    "scale_perturbation": 2.0,
+    "worsening_ratio_threshold": 1.5,
+    "nominal_hz": 30.0,
+    "frame_drop_every": 10,
+    "timestamp_jitter_std_seconds": 0.008,
+    "timestamp_jitter_threshold_seconds": 0.005,
+    "pause_seconds": 0.5,
+    "pause_threshold_seconds": 0.2,
+    "step_jump": 20,
+    "random_seed": 20260711,
+    "canonical_height": 240,
+    "canonical_width": 426,
+    "paper_width": 424,
+    "sampled_frames_per_stream": 3
+  },
+  "prerequisite_hashes": {
+    "m3_report_file_sha256": "a4b9f9d1abcefdb678f53da5bdf77f04d95829f4c027e8b7dfdb0971082f8e10",
+    "m4_report_file_sha256": "865f6be66b928f62156244fa8c839e5865e5557512411779f8ba98d714b5ca96",
+    "m4_config_file_sha256": "b35475b1f659d8c2f8299ac9026d6485f9fa0542fe0672d82e464304ba932f53"
+  }
+}

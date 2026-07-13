@@ -1,0 +1,18 @@
+{
+  "status": "semantic_acceptance_reopened",
+  "created_at": "2026-07-11",
+  "schema_version": "human2robot-canonical-hdf5-v2",
+  "replacement_schema": "human2robot-canonical-hdf5-v3",
+  "reason": [
+    "arXiv v4 verifies a nominal 30 Hz camera configuration",
+    "the dataset card identifies source /action as human hand pose in robot frame, not a verified robot command",
+    "Euler degree XYZ and gripper polarity now have upstream evidence"
+  ],
+  "affected_fields": ["data/demo_0/actions", "data/demo_0/obs/states", "source_fps evidence attrs"],
+  "original_acceptance_report": "方案/v02/M2_Human2Robot_native_time_验收报告.md",
+  "original_acceptance_report_sha256": "9b4074331bbb212e95b3f406867dab0759a3ef6b4e2f80c5d8a088924460b882",
+  "original_preprocessing_manifest_sha256": "b0e6fe89186692f4815993709f881624c800a122b9dd69d4d431fe202ba4f6e9",
+  "original_task_split_manifest_sha256": "d16b0da6267b2bc1c5a7234d14cdbefa9b8ba49fd6e8495c1b83f154cf367871",
+  "allowed_uses": ["native-frame regression", "RGB regression", "gap/segment regression", "split regression", "historical audit"],
+  "forbidden_uses": ["v03 retrieval index", "v03 dataloader", "generic action statistics", "residual ground truth", "M4 main training"]
+}

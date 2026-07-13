@@ -1,0 +1,91 @@
+{
+  "status": "passed",
+  "created_at_utc": "2026-07-10T17:03:01.265857+00:00",
+  "sampling": "random.Random(seed).sample without replacement",
+  "seed": 20260711,
+  "count": 10,
+  "playback_fps": 10.0,
+  "playback_rate_semantics": "MP4 encoding only; not evidence of source capture frequency",
+  "videos": [
+    {
+      "canonical_episode": "data/Human2Robot/canonical/v2/pilot/demo_00013.hdf5",
+      "video": "data/Human2Robot/canonical/v2/visualizations/sample_00_demo_00013.mp4",
+      "task": "grab_to_plate2_and_pull_v1",
+      "frame_count": 336,
+      "playback_fps": 10.0,
+      "playback_rate_semantics": "MP4 encoding only; not evidence of source capture frequency"
+    },
+    {
+      "canonical_episode": "data/Human2Robot/canonical/v2/pilot/demo_00016.hdf5",
+      "video": "data/Human2Robot/canonical/v2/visualizations/sample_01_demo_00016.mp4",
+      "task": "pull_plate_grab_cube",
+      "frame_count": 956,
+      "playback_fps": 10.0,
+      "playback_rate_semantics": "MP4 encoding only; not evidence of source capture frequency"
+    },
+    {
+      "canonical_episode": "data/Human2Robot/canonical/v2/pilot/demo_00003.hdf5",
+      "video": "data/Human2Robot/canonical/v2/visualizations/sample_02_demo_00003.mp4",
+      "task": "cloth/cloth31",
+      "frame_count": 639,
+      "playback_fps": 10.0,
+      "playback_rate_semantics": "MP4 encoding only; not evidence of source capture frequency"
+    },
+    {
+      "canonical_episode": "data/Human2Robot/canonical/v2/pilot/demo_00015.hdf5",
+      "video": "data/Human2Robot/canonical/v2/visualizations/sample_03_demo_00015.mp4",
+      "task": "grab_two_cubes2_v1",
+      "frame_count": 161,
+      "playback_fps": 10.0,
+      "playback_rate_semantics": "MP4 encoding only; not evidence of source capture frequency"
+    },
+    {
+      "canonical_episode": "data/Human2Robot/canonical/v2/pilot/demo_00019.hdf5",
+      "video": "data/Human2Robot/canonical/v2/visualizations/sample_04_demo_00019.mp4",
+      "task": "push_box_random_v1",
+      "frame_count": 292,
+      "playback_fps": 10.0,
+      "playback_rate_semantics": "MP4 encoding only; not evidence of source capture frequency"
+    },
+    {
+      "canonical_episode": "data/Human2Robot/canonical/v2/pilot/demo_00011.hdf5",
+      "video": "data/Human2Robot/canonical/v2/visualizations/sample_05_demo_00011.mp4",
+      "task": "grab_to_plate1_v1",
+      "frame_count": 370,
+      "playback_fps": 10.0,
+      "playback_rate_semantics": "MP4 encoding only; not evidence of source capture frequency"
+    },
+    {
+      "canonical_episode": "data/Human2Robot/canonical/v2/pilot/demo_00009.hdf5",
+      "video": "data/Human2Robot/canonical/v2/visualizations/sample_06_demo_00009.mp4",
+      "task": "grab_pencil_v1",
+      "frame_count": 394,
+      "playback_fps": 10.0,
+      "playback_rate_semantics": "MP4 encoding only; not evidence of source capture frequency"
+    },
+    {
+      "canonical_episode": "data/Human2Robot/canonical/v2/pilot/demo_00017.hdf5",
+      "video": "data/Human2Robot/canonical/v2/visualizations/sample_07_demo_00017.mp4",
+      "task": "pull_plate_v1",
+      "frame_count": 620,
+      "playback_fps": 10.0,
+      "playback_rate_semantics": "MP4 encoding only; not evidence of source capture frequency"
+    },
+    {
+      "canonical_episode": "data/Human2Robot/canonical/v2/pilot/demo_00005.hdf5",
+      "video": "data/Human2Robot/canonical/v2/visualizations/sample_08_demo_00005.mp4",
+      "task": "grab_cube2_v1",
+      "frame_count": 180,
+      "playback_fps": 10.0,
+      "playback_rate_semantics": "MP4 encoding only; not evidence of source capture frequency"
+    },
+    {
+      "canonical_episode": "data/Human2Robot/canonical/v2/pilot/demo_00006.hdf5",
+      "video": "data/Human2Robot/canonical/v2/visualizations/sample_09_demo_00006.mp4",
+      "task": "grab_cup_v1",
+      "frame_count": 242,
+      "playback_fps": 10.0,
+      "playback_rate_semantics": "MP4 encoding only; not evidence of source capture frequency"
+    }
+  ]
+}

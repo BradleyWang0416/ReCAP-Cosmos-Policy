@@ -1,0 +1,188 @@
+{
+  "status": "converted",
+  "created_at_utc": "2026-07-10T15:38:09.493612+00:00",
+  "schema_version": "human2robot-canonical-hdf5-v1",
+  "config": {
+    "source_root": "/DATA1/wxs/DATASETS/Human2Robot/data/v1",
+    "output_root": "data/Human2Robot/canonical/v1",
+    "split": "pilot",
+    "episode_count": 20,
+    "source_fps": 30.0,
+    "target_fps": 10.0,
+    "position_scale": 0.001,
+    "euler_order": "xyz",
+    "overwrite": true,
+    "image_compression": "gzip",
+    "image_compression_level": 4
+  },
+  "selection_policy": "deterministic task-round-robin, then numeric episode index",
+  "episodes": [
+    {
+      "status": "converted",
+      "source_relative_path": "cloth/cloth12/episode_0.hdf5",
+      "output_path": "data/Human2Robot/canonical/v1/pilot/demo_00000.hdf5",
+      "source_frames": 676,
+      "canonical_frames": 226,
+      "task": "cloth/cloth12"
+    },
+    {
+      "status": "converted",
+      "source_relative_path": "cloth/cloth13/episode_0.hdf5",
+      "output_path": "data/Human2Robot/canonical/v1/pilot/demo_00001.hdf5",
+      "source_frames": 715,
+      "canonical_frames": 239,
+      "task": "cloth/cloth13"
+    },
+    {
+      "status": "converted",
+      "source_relative_path": "cloth/cloth21/episode_0.hdf5",
+      "output_path": "data/Human2Robot/canonical/v1/pilot/demo_00002.hdf5",
+      "source_frames": 618,
+      "canonical_frames": 206,
+      "task": "cloth/cloth21"
+    },
+    {
+      "status": "converted",
+      "source_relative_path": "cloth/cloth31/episode_0.hdf5",
+      "output_path": "data/Human2Robot/canonical/v1/pilot/demo_00003.hdf5",
+      "source_frames": 639,
+      "canonical_frames": 213,
+      "task": "cloth/cloth31"
+    },
+    {
+      "status": "converted",
+      "source_relative_path": "grab_both_cubes_v1/episode_0.hdf5",
+      "output_path": "data/Human2Robot/canonical/v1/pilot/demo_00004.hdf5",
+      "source_frames": 418,
+      "canonical_frames": 140,
+      "task": "grab_both_cubes_v1"
+    },
+    {
+      "status": "converted",
+      "source_relative_path": "grab_cube2_v1/episode_0.hdf5",
+      "output_path": "data/Human2Robot/canonical/v1/pilot/demo_00005.hdf5",
+      "source_frames": 180,
+      "canonical_frames": 60,
+      "task": "grab_cube2_v1"
+    },
+    {
+      "status": "converted",
+      "source_relative_path": "grab_cup_v1/episode_0.hdf5",
+      "output_path": "data/Human2Robot/canonical/v1/pilot/demo_00006.hdf5",
+      "source_frames": 242,
+      "canonical_frames": 81,
+      "task": "grab_cup_v1"
+    },
+    {
+      "status": "converted",
+      "source_relative_path": "grab_pencil1_v1/episode_0.hdf5",
+      "output_path": "data/Human2Robot/canonical/v1/pilot/demo_00007.hdf5",
+      "source_frames": 394,
+      "canonical_frames": 132,
+      "task": "grab_pencil1_v1"
+    },
+    {
+      "status": "converted",
+      "source_relative_path": "grab_pencil2_v1/episode_1.hdf5",
+      "output_path": "data/Human2Robot/canonical/v1/pilot/demo_00008.hdf5",
+      "source_frames": 438,
+      "canonical_frames": 146,
+      "task": "grab_pencil2_v1"
+    },
+    {
+      "status": "converted",
+      "source_relative_path": "grab_pencil_v1/episode_0.hdf5",
+      "output_path": "data/Human2Robot/canonical/v1/pilot/demo_00009.hdf5",
+      "source_frames": 394,
+      "canonical_frames": 132,
+      "task": "grab_pencil_v1"
+    },
+    {
+      "status": "converted",
+      "source_relative_path": "grab_to_plate1_and_back_v1/episode_0.hdf5",
+      "output_path": "data/Human2Robot/canonical/v1/pilot/demo_00010.hdf5",
+      "source_frames": 675,
+      "canonical_frames": 225,
+      "task": "grab_to_plate1_and_back_v1"
+    },
+    {
+      "status": "converted",
+      "source_relative_path": "grab_to_plate1_v1/episode_0.hdf5",
+      "output_path": "data/Human2Robot/canonical/v1/pilot/demo_00011.hdf5",
+      "source_frames": 370,
+      "canonical_frames": 124,
+      "task": "grab_to_plate1_v1"
+    },
+    {
+      "status": "converted",
+      "source_relative_path": "grab_to_plate2_and_back_v1/episode_1.hdf5",
+      "output_path": "data/Human2Robot/canonical/v1/pilot/demo_00012.hdf5",
+      "source_frames": 226,
+      "canonical_frames": 76,
+      "task": "grab_to_plate2_and_back_v1"
+    },
+    {
+      "status": "converted",
+      "source_relative_path": "grab_to_plate2_and_pull_v1/episode_0.hdf5",
+      "output_path": "data/Human2Robot/canonical/v1/pilot/demo_00013.hdf5",
+      "source_frames": 336,
+      "canonical_frames": 112,
+      "task": "grab_to_plate2_and_pull_v1"
+    },
+    {
+      "status": "converted",
+      "source_relative_path": "grab_to_plate2_v1/episode_0.hdf5",
+      "output_path": "data/Human2Robot/canonical/v1/pilot/demo_00014.hdf5",
+      "source_frames": 424,
+      "canonical_frames": 142,
+      "task": "grab_to_plate2_v1"
+    },
+    {
+      "status": "converted",
+      "source_relative_path": "grab_two_cubes2_v1/episode_2.hdf5",
+      "output_path": "data/Human2Robot/canonical/v1/pilot/demo_00015.hdf5",
+      "source_frames": 161,
+      "canonical_frames": 54,
+      "task": "grab_two_cubes2_v1"
+    },
+    {
+      "status": "converted",
+      "source_relative_path": "pull_plate_grab_cube/episode_0.hdf5",
+      "output_path": "data/Human2Robot/canonical/v1/pilot/demo_00016.hdf5",
+      "source_frames": 956,
+      "canonical_frames": 319,
+      "task": "pull_plate_grab_cube"
+    },
+    {
+      "status": "converted",
+      "source_relative_path": "pull_plate_v1/episode_0.hdf5",
+      "output_path": "data/Human2Robot/canonical/v1/pilot/demo_00017.hdf5",
+      "source_frames": 620,
+      "canonical_frames": 207,
+      "task": "pull_plate_v1"
+    },
+    {
+      "status": "converted",
+      "source_relative_path": "push_box_common_v1/episode_0.hdf5",
+      "output_path": "data/Human2Robot/canonical/v1/pilot/demo_00018.hdf5",
+      "source_frames": 265,
+      "canonical_frames": 89,
+      "task": "push_box_common_v1"
+    },
+    {
+      "status": "converted",
+      "source_relative_path": "push_box_random_v1/episode_0.hdf5",
+      "output_path": "data/Human2Robot/canonical/v1/pilot/demo_00019.hdf5",
+      "source_frames": 292,
+      "canonical_frames": 98,
+      "task": "push_box_random_v1"
+    }
+  ],
+  "rejected_candidates": [],
+  "assumptions": [
+    "Source capture rate is 30 Hz; integer-second source timestamps are too coarse for resampling.",
+    "Source xyz is millimetres and source Euler angles are degrees in the configured order.",
+    "Source action is an absolute EE pose target plus normalized/binary gripper command.",
+    "Gripper open/close polarity remains unverified because no upstream README is locally available."
+  ]
+}

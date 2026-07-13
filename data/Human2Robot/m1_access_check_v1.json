@@ -1,0 +1,343 @@
+{
+  "status": "passed",
+  "checked_at_utc": "2026-07-08T02:46:03.535176+00:00",
+  "dataset": "H&R / Human2Robot",
+  "root": "/DATA1/wxs/DATASETS/Human2Robot/data/v1",
+  "layout": "task directories containing episode_*.hdf5 files",
+  "inventory": {
+    "hdf5_episode_count": 1316,
+    "task_count": 33,
+    "task_episode_counts": {
+      "cloth/cloth12": 5,
+      "cloth/cloth13": 5,
+      "cloth/cloth21": 5,
+      "cloth/cloth31": 5,
+      "cloth/eval": 4,
+      "grab_both_cubes_v1": 52,
+      "grab_cube2_v1": 51,
+      "grab_cup_v1": 102,
+      "grab_pencil1_v1": 102,
+      "grab_pencil2_v1": 51,
+      "grab_pencil_v1": 103,
+      "grab_to_plate1_and_back_v1": 51,
+      "grab_to_plate1_v1": 97,
+      "grab_to_plate2_and_back_v1": 52,
+      "grab_to_plate2_and_pull_v1": 55,
+      "grab_to_plate2_v1": 50,
+      "grab_two_cubes2_v1": 50,
+      "pull_plate_grab_cube": 50,
+      "pull_plate_v1": 52,
+      "push_box_common_v1": 49,
+      "push_box_random_v1": 59,
+      "push_box_two_v1": 50,
+      "push_plate_v1": 51,
+      "roll": 30,
+      "writing/writing": 58,
+      "writing/writing_a": 7,
+      "writing/writing_circle": 7,
+      "writing/writing_circle_inv": 6,
+      "writing/writing_cross": 2,
+      "writing/writing_random": 35,
+      "writing/writing_rec": 11,
+      "writing/writing_t": 3,
+      "writing/writing_tri": 6
+    },
+    "total_size_bytes": 120743378270,
+    "total_size_human": "112.5GB",
+    "local_readme_files": [],
+    "local_license_files": []
+  },
+  "selected_episode": {
+    "path": "/DATA1/wxs/DATASETS/Human2Robot/data/v1/roll/episode_0.hdf5",
+    "size_bytes": 151349292,
+    "size_human": "144.3MB",
+    "frame_count": 549,
+    "datasets": {
+      "action": {
+        "shape": [
+          549,
+          7
+        ],
+        "dtype": "float32",
+        "compression": "gzip",
+        "sample_finite": true,
+        "sample_min": -72.30770874023438,
+        "sample_max": 543.5088500976562,
+        "sample_values": [
+          142.7342529296875,
+          343.3553466796875,
+          0.0,
+          178.6433563232422,
+          2.65236234664917,
+          88.74211120605469
+        ]
+      },
+      "qpos": {
+        "shape": [
+          549,
+          7
+        ],
+        "dtype": "float32",
+        "compression": "gzip",
+        "sample_finite": true,
+        "sample_min": -213.33636474609375,
+        "sample_max": 143.34762573242188,
+        "sample_values": [
+          37.74199295043945,
+          36.074928283691406,
+          43.53815841674805,
+          63.241153717041016,
+          140.6964111328125,
+          -45.31563949584961
+        ]
+      },
+      "qvel": {
+        "shape": [
+          549,
+          7
+        ],
+        "dtype": "float32",
+        "compression": "gzip",
+        "sample_finite": true,
+        "sample_min": -47.933815002441406,
+        "sample_max": 73.08840942382812,
+        "sample_values": [
+          -11.535331726074219,
+          -6.171665191650391,
+          5.484851837158203,
+          -8.010210990905762,
+          6.151391983032227,
+          13.65220832824707
+        ]
+      },
+      "end_position": {
+        "shape": [
+          549,
+          6
+        ],
+        "dtype": "float32",
+        "compression": "gzip",
+        "sample_finite": true,
+        "sample_min": -72.29902648925781,
+        "sample_max": 543.510498046875,
+        "sample_values": [
+          142.2338409423828,
+          343.6936340332031,
+          -0.006252999883145094,
+          178.8800048828125,
+          2.275846004486084,
+          88.59434509277344
+        ]
+      },
+      "gripper_state": {
+        "shape": [
+          549
+        ],
+        "dtype": "float32",
+        "compression": "gzip",
+        "sample_finite": true,
+        "sample_min": 0.0,
+        "sample_max": 1.0,
+        "sample_values": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "step": {
+        "shape": [
+          549
+        ],
+        "dtype": "int64",
+        "compression": "gzip",
+        "sample_finite": true,
+        "sample_min": 1204,
+        "sample_max": 1753,
+        "sample_values": [
+          1204,
+          1206,
+          1207,
+          1208,
+          1209,
+          1210
+        ]
+      },
+      "timestamp": {
+        "shape": [
+          549
+        ],
+        "dtype": "int64",
+        "compression": "gzip",
+        "sample_finite": true,
+        "sample_min": 1737609186,
+        "sample_max": 1737609205,
+        "sample_values": [
+          1737609186,
+          1737609186,
+          1737609186,
+          1737609186,
+          1737609186,
+          1737609186
+        ]
+      },
+      "transformed_hand_coords": {
+        "shape": [
+          549,
+          24,
+          3
+        ],
+        "dtype": "float32",
+        "compression": "gzip",
+        "sample_finite": true,
+        "sample_min": -0.05058630555868149,
+        "sample_max": 0.17124314606189728,
+        "sample_values": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "transformed_hand_frames": {
+        "shape": [
+          549,
+          4,
+          3
+        ],
+        "dtype": "float32",
+        "compression": "gzip",
+        "sample_finite": true,
+        "sample_min": -0.957432746887207,
+        "sample_max": 0.9979730844497681,
+        "sample_values": [
+          0.3651658892631531,
+          0.7923570871353149,
+          0.032960448414087296,
+          -0.957432746887207,
+          0.28860360383987427,
+          0.005519228056073189
+        ]
+      },
+      "cam_data/human_camera": {
+        "shape": [
+          549,
+          240,
+          426,
+          3
+        ],
+        "dtype": "uint8",
+        "compression": "gzip",
+        "sample_finite": true,
+        "sample_min": 0,
+        "sample_max": 206,
+        "sample_values": [
+          118,
+          115,
+          117,
+          118,
+          115,
+          117
+        ]
+      },
+      "cam_data/robot_camera": {
+        "shape": [
+          549,
+          240,
+          426,
+          3
+        ],
+        "dtype": "uint8",
+        "compression": "gzip",
+        "sample_finite": true,
+        "sample_min": 0,
+        "sample_max": 164,
+        "sample_values": [
+          121,
+          129,
+          128,
+          120,
+          128,
+          127
+        ]
+      }
+    },
+    "optional_datasets": {
+      "depth_data/human_camera": {
+        "shape": [
+          549,
+          240,
+          426
+        ],
+        "dtype": "uint16",
+        "compression": "gzip",
+        "sample_finite": true,
+        "sample_min": 0,
+        "sample_max": 1640,
+        "sample_values": [
+          583,
+          584,
+          585,
+          586,
+          587,
+          587
+        ]
+      },
+      "depth_data/robot_camera": {
+        "shape": [
+          549,
+          240,
+          426
+        ],
+        "dtype": "uint16",
+        "compression": "gzip",
+        "sample_finite": true,
+        "sample_min": 0,
+        "sample_max": 1452,
+        "sample_values": [
+          583,
+          584,
+          586,
+          587,
+          588,
+          589
+        ]
+      }
+    },
+    "timestamp": {
+      "count": 549,
+      "dtype": "int64",
+      "first": 1737609186,
+      "last": 1737609205,
+      "monotonic_non_decreasing": true,
+      "min_delta": 0,
+      "max_delta": 1
+    },
+    "step": {
+      "count": 549,
+      "dtype": "int64",
+      "first": 1204,
+      "last": 1753,
+      "monotonic_non_decreasing": true,
+      "min_delta": 1,
+      "max_delta": 2
+    }
+  },
+  "acceptance_checks": {
+    "hdf5_tree_found": true,
+    "paired_human_robot_rgb_opened": true,
+    "paired_human_robot_depth_opened": true,
+    "robot_state_action_opened": true,
+    "human_hand_coordinates_opened": true,
+    "timestamp_monotonic": true,
+    "time_axis_consistent": true
+  },
+  "warnings": [
+    "No local LICENSE file was found under the Human2Robot dataset directory; confirm upstream license before using the data beyond access validation.",
+    "No local README file was found under the Human2Robot dataset directory; source/download metadata should be recorded separately."
+  ]
+}

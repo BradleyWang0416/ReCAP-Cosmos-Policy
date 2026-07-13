@@ -1,0 +1,313 @@
+{
+  "schema_version": "human2robot-m3-derived-view-v03",
+  "created_at_utc": "2026-07-11T06:58:19.032590+00:00",
+  "status": "passed",
+  "calibration_scope": "train_tasks_only",
+  "train_tasks": [
+    "cloth/cloth12",
+    "cloth/cloth13",
+    "cloth/cloth21",
+    "cloth/cloth31",
+    "grab_both_cubes_v1",
+    "grab_cup_v1",
+    "grab_pencil2_v1",
+    "grab_pencil_v1",
+    "grab_to_plate1_and_back_v1",
+    "grab_to_plate2_and_back_v1",
+    "grab_to_plate2_and_pull_v1",
+    "grab_to_plate2_v1",
+    "grab_two_cubes2_v1",
+    "pull_plate_grab_cube",
+    "pull_plate_v1",
+    "push_box_common_v1"
+  ],
+  "heldout_tasks_used": false,
+  "split_sha256": "1d3ef2377aa19938b06646f6d5fc31ec9f275fc9f37e253e1e9aa5eecdc5a968",
+  "lag_candidates": [
+    {
+      "lag_source_rows": 1,
+      "pair_count": 7785,
+      "motion_cross_correlation": 0.02138790959855265,
+      "position_error_median_canonical": 0.007382313865449027,
+      "orientation_error_median_rad": 5.949278109573551e-07,
+      "gripper_error_median": 0.0
+    },
+    {
+      "lag_source_rows": 2,
+      "pair_count": 7769,
+      "motion_cross_correlation": 0.04427507336537528,
+      "position_error_median_canonical": 0.009433924700662245,
+      "orientation_error_median_rad": 5.949278109573551e-07,
+      "gripper_error_median": 0.0
+    },
+    {
+      "lag_source_rows": 3,
+      "pair_count": 7753,
+      "motion_cross_correlation": 0.0822829537385123,
+      "position_error_median_canonical": 0.011677111501714493,
+      "orientation_error_median_rad": 5.949278109573551e-07,
+      "gripper_error_median": 0.0
+    },
+    {
+      "lag_source_rows": 4,
+      "pair_count": 7737,
+      "motion_cross_correlation": 0.0873866221510231,
+      "position_error_median_canonical": 0.013824610635149748,
+      "orientation_error_median_rad": 5.949278109573551e-07,
+      "gripper_error_median": 0.0
+    },
+    {
+      "lag_source_rows": 5,
+      "pair_count": 7721,
+      "motion_cross_correlation": 0.11333758143521212,
+      "position_error_median_canonical": 0.016145572041196123,
+      "orientation_error_median_rad": 5.949278109573551e-07,
+      "gripper_error_median": 0.0
+    },
+    {
+      "lag_source_rows": 6,
+      "pair_count": 7705,
+      "motion_cross_correlation": 0.10883904797547031,
+      "position_error_median_canonical": 0.018463011546618727,
+      "orientation_error_median_rad": 5.949278109573551e-07,
+      "gripper_error_median": 0.0
+    },
+    {
+      "lag_source_rows": 7,
+      "pair_count": 7689,
+      "motion_cross_correlation": 0.06375831984754944,
+      "position_error_median_canonical": 0.020767977942893038,
+      "orientation_error_median_rad": 5.949278109573551e-07,
+      "gripper_error_median": 0.0
+    },
+    {
+      "lag_source_rows": 8,
+      "pair_count": 7673,
+      "motion_cross_correlation": 0.07391084777196961,
+      "position_error_median_canonical": 0.023422784895798923,
+      "orientation_error_median_rad": 5.949278109573551e-07,
+      "gripper_error_median": 0.0
+    },
+    {
+      "lag_source_rows": 9,
+      "pair_count": 7657,
+      "motion_cross_correlation": 0.09968489827446819,
+      "position_error_median_canonical": 0.025997645375169024,
+      "orientation_error_median_rad": 5.949278109573551e-07,
+      "gripper_error_median": 0.0
+    },
+    {
+      "lag_source_rows": 10,
+      "pair_count": 7641,
+      "motion_cross_correlation": 0.0735605869886746,
+      "position_error_median_canonical": 0.02797225370623631,
+      "orientation_error_median_rad": 5.949278109573551e-07,
+      "gripper_error_median": 0.0
+    },
+    {
+      "lag_source_rows": 11,
+      "pair_count": 7625,
+      "motion_cross_correlation": 0.06335311896241143,
+      "position_error_median_canonical": 0.0299346639528857,
+      "orientation_error_median_rad": 5.949278109573551e-07,
+      "gripper_error_median": 0.0
+    },
+    {
+      "lag_source_rows": 12,
+      "pair_count": 7609,
+      "motion_cross_correlation": 0.07501702189942788,
+      "position_error_median_canonical": 0.031814616292699875,
+      "orientation_error_median_rad": 5.949278109573551e-07,
+      "gripper_error_median": 0.0
+    },
+    {
+      "lag_source_rows": 13,
+      "pair_count": 7593,
+      "motion_cross_correlation": 0.04413320243913008,
+      "position_error_median_canonical": 0.03350715214187533,
+      "orientation_error_median_rad": 5.949278109573551e-07,
+      "gripper_error_median": 0.0
+    },
+    {
+      "lag_source_rows": 14,
+      "pair_count": 7577,
+      "motion_cross_correlation": 0.05954317476028469,
+      "position_error_median_canonical": 0.034941393721249145,
+      "orientation_error_median_rad": 5.949278109573551e-07,
+      "gripper_error_median": 0.0
+    },
+    {
+      "lag_source_rows": 15,
+      "pair_count": 7561,
+      "motion_cross_correlation": 0.01436834038911835,
+      "position_error_median_canonical": 0.036492181456389404,
+      "orientation_error_median_rad": 5.949278109573551e-07,
+      "gripper_error_median": 0.0
+    },
+    {
+      "lag_source_rows": 16,
+      "pair_count": 7545,
+      "motion_cross_correlation": 0.019544029882517057,
+      "position_error_median_canonical": 0.037543137825322724,
+      "orientation_error_median_rad": 5.949278109573551e-07,
+      "gripper_error_median": 0.0
+    },
+    {
+      "lag_source_rows": 17,
+      "pair_count": 7529,
+      "motion_cross_correlation": 0.012829855503025707,
+      "position_error_median_canonical": 0.0390915092642343,
+      "orientation_error_median_rad": 5.949278109573551e-07,
+      "gripper_error_median": 0.0
+    },
+    {
+      "lag_source_rows": 18,
+      "pair_count": 7513,
+      "motion_cross_correlation": -0.012187209263881033,
+      "position_error_median_canonical": 0.04069999796969092,
+      "orientation_error_median_rad": 5.949278109573551e-07,
+      "gripper_error_median": 0.0
+    },
+    {
+      "lag_source_rows": 19,
+      "pair_count": 7497,
+      "motion_cross_correlation": -0.041893613569175855,
+      "position_error_median_canonical": 0.04235731502036678,
+      "orientation_error_median_rad": 5.949278109573551e-07,
+      "gripper_error_median": 0.0
+    },
+    {
+      "lag_source_rows": 20,
+      "pair_count": 7481,
+      "motion_cross_correlation": -0.020602536083336512,
+      "position_error_median_canonical": 0.04400742448500954,
+      "orientation_error_median_rad": 5.949278109573551e-07,
+      "gripper_error_median": 0.0
+    },
+    {
+      "lag_source_rows": 21,
+      "pair_count": 7465,
+      "motion_cross_correlation": -0.02684873452273276,
+      "position_error_median_canonical": 0.04531536035281204,
+      "orientation_error_median_rad": 5.949278109573551e-07,
+      "gripper_error_median": 0.0
+    },
+    {
+      "lag_source_rows": 22,
+      "pair_count": 7449,
+      "motion_cross_correlation": -0.0298377682735502,
+      "position_error_median_canonical": 0.04777444637258532,
+      "orientation_error_median_rad": 5.949278109573551e-07,
+      "gripper_error_median": 0.0
+    },
+    {
+      "lag_source_rows": 23,
+      "pair_count": 7433,
+      "motion_cross_correlation": -0.018464377766313007,
+      "position_error_median_canonical": 0.05026767474336494,
+      "orientation_error_median_rad": 5.949278109573551e-07,
+      "gripper_error_median": 0.0
+    },
+    {
+      "lag_source_rows": 24,
+      "pair_count": 7417,
+      "motion_cross_correlation": -0.00995086365177786,
+      "position_error_median_canonical": 0.052155528903884835,
+      "orientation_error_median_rad": 5.949278109573551e-07,
+      "gripper_error_median": 0.0
+    },
+    {
+      "lag_source_rows": 25,
+      "pair_count": 7401,
+      "motion_cross_correlation": -0.011909891850705156,
+      "position_error_median_canonical": 0.05354539997219562,
+      "orientation_error_median_rad": 5.949278109573551e-07,
+      "gripper_error_median": 0.0
+    },
+    {
+      "lag_source_rows": 26,
+      "pair_count": 7385,
+      "motion_cross_correlation": -0.0009758389813900055,
+      "position_error_median_canonical": 0.05577530329048127,
+      "orientation_error_median_rad": 5.949278109573551e-07,
+      "gripper_error_median": 0.0
+    },
+    {
+      "lag_source_rows": 27,
+      "pair_count": 7369,
+      "motion_cross_correlation": 0.020942172160569414,
+      "position_error_median_canonical": 0.0576072179812789,
+      "orientation_error_median_rad": 5.949278109573551e-07,
+      "gripper_error_median": 0.0
+    },
+    {
+      "lag_source_rows": 28,
+      "pair_count": 7353,
+      "motion_cross_correlation": 0.01762345298442085,
+      "position_error_median_canonical": 0.05916575290214487,
+      "orientation_error_median_rad": 5.949278109573551e-07,
+      "gripper_error_median": 0.0
+    },
+    {
+      "lag_source_rows": 29,
+      "pair_count": 7337,
+      "motion_cross_correlation": 0.009654794008454762,
+      "position_error_median_canonical": 0.06063239741352489,
+      "orientation_error_median_rad": 5.949278109573551e-07,
+      "gripper_error_median": 0.0
+    },
+    {
+      "lag_source_rows": 30,
+      "pair_count": 7321,
+      "motion_cross_correlation": 0.0069580597792937285,
+      "position_error_median_canonical": 0.062440029442744245,
+      "orientation_error_median_rad": 5.949278109573551e-07,
+      "gripper_error_median": 0.0
+    }
+  ],
+  "best_position_error_lag_source_rows": 1,
+  "best_motion_cross_correlation_lag_source_rows": 5,
+  "best_motion_cross_correlation": 0.11333758143521212,
+  "lag_calibrated_proxy_min_motion_correlation": 0.3,
+  "lag_calibrated_proxy_decision": "diagnostic_only_due_to_weak_motion_correlation",
+  "approved_query_action_view_id": "robot_ee_observed_t_plus_1_bc_proxy",
+  "approved_future_offset_view_steps": 1,
+  "approved_proxy_basis": "lowest train-only paired position error among strictly-future candidates",
+  "same_frame_view": {
+    "query_action_view_id": "robot_ee_observed_t",
+    "approval": "diagnostic_only"
+  },
+  "scale_audit": {
+    "canonical_position_transform": "identity",
+    "pool_position_min": [
+      0.00443734135478735,
+      0.23634666204452515,
+      0.0
+    ],
+    "pool_position_max": [
+      0.37481874227523804,
+      0.6229187250137329,
+      0.1699516326189041
+    ],
+    "query_position_min": [
+      0.004437448922544718,
+      0.2363467663526535,
+      -7.600000344609725e-07
+    ],
+    "query_position_max": [
+      0.37445953488349915,
+      0.6229187250137329,
+      0.16995097696781158
+    ],
+    "same_row_position_error_median_canonical": 0.0053791007326718775,
+    "nonzero_step_scale_ratio_robot_over_human_median": 0.0038212782901878256,
+    "numeric_scale_decision": "shared canonical converter scale; retain identity transform",
+    "physical_xyz_unit_status": "unknown; no velocity in m/s is reported"
+  },
+  "coordinate_representation": "xyz + rotation_6d + gripper (10D)",
+  "gripper_rule": "1=open, 0=close; zero-order hold for resampling",
+  "gap_policy": "never_cross_segment",
+  "terminal_policy": "drop windows without a complete strictly-future target",
+  "deployment_command_adapter_id": null,
+  "query_command_status": "unverified"
+}

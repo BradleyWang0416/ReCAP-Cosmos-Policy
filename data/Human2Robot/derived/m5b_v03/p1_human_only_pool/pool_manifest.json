@@ -1,0 +1,1526 @@
+{
+  "schema_version": "human2robot-m5b-p1-human-only-pool-v1",
+  "status": "passed",
+  "created_at_utc": "2026-07-13T07:13:58.640527+00:00",
+  "source_root": "/DATA1/wxs/DATASETS/Human2Robot/data/v1",
+  "protocol_file_sha256": "7598dfa2ac2e129f5d21a295dad23b90f63c3c8e68811da73cbcc20eb95d5ce4",
+  "conversion_code_sha256": "b1753ad4c873f7f8615fd40072a133a65137644ef3e2966d4d95379aa97ca67b",
+  "split_sha256": "1d3ef2377aa19938b06646f6d5fc31ec9f275fc9f37e253e1e9aa5eecdc5a968",
+  "selection_seed": 20260711,
+  "selection_policy": "frozen pilot source first, then SHA-256 rank of '<seed>:<source_relative_path>'; first valid 10",
+  "selection_id": "48e0c0f5c283a5a7b9f3de8eb6535f13f5f760cc325a81413053015fd6299afd",
+  "heldout_tasks": [
+    "grab_cube2_v1",
+    "grab_pencil1_v1",
+    "grab_to_plate1_v1",
+    "push_box_random_v1"
+  ],
+  "anchors": {
+    "grab_cube2_v1": "grab_cube2_v1/episode_0.hdf5",
+    "grab_pencil1_v1": "grab_pencil1_v1/episode_0.hdf5",
+    "grab_to_plate1_v1": "grab_to_plate1_v1/episode_0.hdf5",
+    "push_box_random_v1": "push_box_random_v1/episode_0.hdf5"
+  },
+  "discovered_source_episode_count": {
+    "grab_cube2_v1": 51,
+    "grab_pencil1_v1": 102,
+    "grab_to_plate1_v1": 97,
+    "push_box_random_v1": 59
+  },
+  "rejected_candidates": [],
+  "allowed_source_datasets": [
+    "cam_data/human_camera",
+    "action",
+    "transformed_hand_coords",
+    "transformed_hand_frames",
+    "step",
+    "timestamp"
+  ],
+  "forbidden_source_datasets": [
+    "cam_data/robot_camera",
+    "end_position",
+    "qpos",
+    "qvel",
+    "gripper_state"
+  ],
+  "episodes": [
+    {
+      "task": "grab_cube2_v1",
+      "pool_rank": 1,
+      "source_relative_path": "grab_cube2_v1/episode_0.hdf5",
+      "source_sha256": "965e596134673102113fbdbe22a095cda142d20df72802cd2387027fc85f44d3",
+      "human_content_sha256": "71be7a4417b2bf769c34afbac68e628634dda82f0407c881a49532bab55776ef"
+    },
+    {
+      "task": "grab_cube2_v1",
+      "pool_rank": 2,
+      "source_relative_path": "grab_cube2_v1/episode_5.hdf5",
+      "source_sha256": "3ff34f81752f50b96d3297d823b699b0e0c2a2903e24ecc3b8abc9d03cff275b",
+      "human_content_sha256": "91378cf198c7a1d5e2d3e0b32165c9df1dd34d488169cec304c4719f09c95217"
+    },
+    {
+      "task": "grab_cube2_v1",
+      "pool_rank": 3,
+      "source_relative_path": "grab_cube2_v1/episode_35.hdf5",
+      "source_sha256": "61b1928a3cbb858174573decc000e536987a89b4c053f2d0e495b9f07cd7e056",
+      "human_content_sha256": "f1d33fa54a146cba819e43e07032ef144a46d63dfb5e9b8e803c778b9c23c9d2"
+    },
+    {
+      "task": "grab_cube2_v1",
+      "pool_rank": 4,
+      "source_relative_path": "grab_cube2_v1/episode_50.hdf5",
+      "source_sha256": "757a46249c3626bdc8af87f5c290a28ec551a56cab77f72af30606f7eb8ea1c5",
+      "human_content_sha256": "5e9a19e62fce9fb89982f387aa2452332660ba923101f2b894c0a8459e4bbd8c"
+    },
+    {
+      "task": "grab_cube2_v1",
+      "pool_rank": 5,
+      "source_relative_path": "grab_cube2_v1/episode_26.hdf5",
+      "source_sha256": "2435766f8f1e44d4262280d61d12838c529a5d37948278813c7e773d0cf2da3a",
+      "human_content_sha256": "237f46eab16df2012e107c1d36d226986b88cbd8ed9496d68531f5cdbff5a065"
+    },
+    {
+      "task": "grab_cube2_v1",
+      "pool_rank": 6,
+      "source_relative_path": "grab_cube2_v1/episode_42.hdf5",
+      "source_sha256": "732d820a1a184ac356a06289c451707ce8ee7eb3245af70a13cf363bcda84cb1",
+      "human_content_sha256": "3e4070b97049ba2184fa0b494a6f400255709298ca8ff6a709cd878d08a8d6e2"
+    },
+    {
+      "task": "grab_cube2_v1",
+      "pool_rank": 7,
+      "source_relative_path": "grab_cube2_v1/episode_32.hdf5",
+      "source_sha256": "e503deb325a58ddd39d9daff8afafd93d7d8fb427909a9a015e4395069d1f3ac",
+      "human_content_sha256": "db28ec49845bc23de4c73b45f3d03a95c48d3a38ad6980d4087720eaf72107cb"
+    },
+    {
+      "task": "grab_cube2_v1",
+      "pool_rank": 8,
+      "source_relative_path": "grab_cube2_v1/episode_52.hdf5",
+      "source_sha256": "b5217bd34eb5a8122338495f27bcb508b077074fbcefe2fb52ecfc14aaddd93d",
+      "human_content_sha256": "541ab4670ea4f8df0d4e95b1fbbbd515ff3c64fb02cbb435ed3c4cf0aa4c9e60"
+    },
+    {
+      "task": "grab_cube2_v1",
+      "pool_rank": 9,
+      "source_relative_path": "grab_cube2_v1/episode_31.hdf5",
+      "source_sha256": "043ed66417ad6b25442236d3aa93a5a991bafc8ebde76a6189bb9813a2067bdd",
+      "human_content_sha256": "7dd62539f3ae771abcfe424d17382c7f193314c7ea772d2d3e455a6f9a13f3b6"
+    },
+    {
+      "task": "grab_cube2_v1",
+      "pool_rank": 10,
+      "source_relative_path": "grab_cube2_v1/episode_25.hdf5",
+      "source_sha256": "b0069851e6f12343147c7f7ec97f88da0ae51430d94f6d2e6efd53c68d2da6cc",
+      "human_content_sha256": "07fe8bc00f9f3f0be13d1292ce0430ea49a61589f3c9af047e0759c8df6861dc"
+    },
+    {
+      "task": "grab_pencil1_v1",
+      "pool_rank": 1,
+      "source_relative_path": "grab_pencil1_v1/episode_0.hdf5",
+      "source_sha256": "156a09101c9bacd229cc6211ea99365df5a43355369b763ffcaffa1caafae6df",
+      "human_content_sha256": "85e57c2a934f9ce3aed84b4aaa79d913787f2b2443243acf279fc0e4390fc5b4"
+    },
+    {
+      "task": "grab_pencil1_v1",
+      "pool_rank": 2,
+      "source_relative_path": "grab_pencil1_v1/episode_96.hdf5",
+      "source_sha256": "f37ed5badcb28eac6d551de78fac26a513c65edc6b4664c68109071e7768dcb8",
+      "human_content_sha256": "03a64a39091d7645fa6c865079f3bc5b08344444aa9e4529b9289f6a63d3ae59"
+    },
+    {
+      "task": "grab_pencil1_v1",
+      "pool_rank": 3,
+      "source_relative_path": "grab_pencil1_v1/episode_54.hdf5",
+      "source_sha256": "705fabe682e8b11f0310c47d89e52e7bf5ccd9d1bf4c0282f2dfe26508d45325",
+      "human_content_sha256": "27d4445c2b5bed951e33f8db1d8eb8c55914411c5f344e52c950e45d90b86873"
+    },
+    {
+      "task": "grab_pencil1_v1",
+      "pool_rank": 4,
+      "source_relative_path": "grab_pencil1_v1/episode_15.hdf5",
+      "source_sha256": "8bce44686e485747dd51f5ee0af9b3a2a5e9e9513f6a78cf671ed5597cc29978",
+      "human_content_sha256": "c99930dd9fa952cc56ac3d8659322457ba909be4b791aef25280747f4977d9c7"
+    },
+    {
+      "task": "grab_pencil1_v1",
+      "pool_rank": 5,
+      "source_relative_path": "grab_pencil1_v1/episode_62.hdf5",
+      "source_sha256": "8fd3ddef05522718e2a3f694db80363f341b5256ac30e0337d6109ec3413182e",
+      "human_content_sha256": "eab811e1e4b9865f242ab2c20e15ee1e282954adc702bdb76a74b8251875b2dd"
+    },
+    {
+      "task": "grab_pencil1_v1",
+      "pool_rank": 6,
+      "source_relative_path": "grab_pencil1_v1/episode_102.hdf5",
+      "source_sha256": "e8d525840efc67a2854071d7f332d9968c0095c757f6a759a3de114da0848cc5",
+      "human_content_sha256": "53a45a1a8b3f9dc0b77b63b4ab264e9f61a9a6479be4b680aeb007cf50b4e2a5"
+    },
+    {
+      "task": "grab_pencil1_v1",
+      "pool_rank": 7,
+      "source_relative_path": "grab_pencil1_v1/episode_14.hdf5",
+      "source_sha256": "8b0e1a8a5fbf94189ac55b5bc99425f1091e0d14a21e410c9fc9db962d4e8b09",
+      "human_content_sha256": "030783ea2f807335b394715f459c5dd9c6c30774162a355e9795d678a78d9ce9"
+    },
+    {
+      "task": "grab_pencil1_v1",
+      "pool_rank": 8,
+      "source_relative_path": "grab_pencil1_v1/episode_71.hdf5",
+      "source_sha256": "b2c2dd2dd5de600edf079d29a7a9eab0f540c0343b8854223fc4b09d05aafa55",
+      "human_content_sha256": "5e94fa43c467cec54021bfaf391f90107f340099e218f5960e42b432d6b4f911"
+    },
+    {
+      "task": "grab_pencil1_v1",
+      "pool_rank": 9,
+      "source_relative_path": "grab_pencil1_v1/episode_80.hdf5",
+      "source_sha256": "33c7cbf349b581a18d733232f3e6e707b24d114d1b9060fd00fdc19460f7a931",
+      "human_content_sha256": "b00120a17b9bdac6d9b0493e72916c40b26e1b992f6a8f52e36fc2f8bd7f899d"
+    },
+    {
+      "task": "grab_pencil1_v1",
+      "pool_rank": 10,
+      "source_relative_path": "grab_pencil1_v1/episode_78.hdf5",
+      "source_sha256": "495e0873ba8cbbd2e2db8a808fda743d2251b7bf203aa7ab682cc7a356ba401a",
+      "human_content_sha256": "aa90e84953605cdea555a66278a0e37271a56d8f9164580376524e2c7556df0a"
+    },
+    {
+      "task": "grab_to_plate1_v1",
+      "pool_rank": 1,
+      "source_relative_path": "grab_to_plate1_v1/episode_0.hdf5",
+      "source_sha256": "039d4bdca2885f6345aeed0a1a5fcbd2abce43c906e4f4e3b788e204efaa5a7e",
+      "human_content_sha256": "ed2200113d6ab5d49a5c30bfb99fc53ed17652cbaad411c2ddaaa9e2a6412c6c"
+    },
+    {
+      "task": "grab_to_plate1_v1",
+      "pool_rank": 2,
+      "source_relative_path": "grab_to_plate1_v1/episode_82.hdf5",
+      "source_sha256": "de304227f6b74fbdc4f258b8d9521347121c68667cc6fb825fe10eaa341f30e9",
+      "human_content_sha256": "d6c7034fae929557f4d60c2f1bc826a4d88d8fa7149c86c047e97e7bef09e2f8"
+    },
+    {
+      "task": "grab_to_plate1_v1",
+      "pool_rank": 3,
+      "source_relative_path": "grab_to_plate1_v1/episode_89.hdf5",
+      "source_sha256": "dd8bac209869c0e35465e1d9277f30054893118014a555920cd4fb9db86f1dd8",
+      "human_content_sha256": "1c8c39051a7d0b1956d4bd56ed7b132d391b60304ada6552c64f59d90a3b7428"
+    },
+    {
+      "task": "grab_to_plate1_v1",
+      "pool_rank": 4,
+      "source_relative_path": "grab_to_plate1_v1/episode_4.hdf5",
+      "source_sha256": "c3fb3ff98be2b8333bcdc24ab6c230e802e2e2589a80c7af80a46f7424a4228c",
+      "human_content_sha256": "2399c317983b33df8a7997ce39b4c08e16b8920bebdcccc8195e0a1f878b6680"
+    },
+    {
+      "task": "grab_to_plate1_v1",
+      "pool_rank": 5,
+      "source_relative_path": "grab_to_plate1_v1/episode_30.hdf5",
+      "source_sha256": "65e3078ec2e10bce3adc292b1dd7b5f571f4b96c8ca584aff312d6e55e01b560",
+      "human_content_sha256": "46610fcc8dbbd7ae161c2d0ebc4d2c6bedc646a8db09885baea0ac6bce33354a"
+    },
+    {
+      "task": "grab_to_plate1_v1",
+      "pool_rank": 6,
+      "source_relative_path": "grab_to_plate1_v1/episode_39.hdf5",
+      "source_sha256": "b00bd14ae8befbf1e51dc0da55bd73c57298df0d2fc509d995d3b6f6c8184e6e",
+      "human_content_sha256": "cc9fc9b5694e16aa3ca6bb545c04518632a3571d7f040bde92cab4ed133083c7"
+    },
+    {
+      "task": "grab_to_plate1_v1",
+      "pool_rank": 7,
+      "source_relative_path": "grab_to_plate1_v1/episode_88.hdf5",
+      "source_sha256": "084138b9ddacf02e325bc54a21106170418a79b9f23211b8a956849a6a1936d8",
+      "human_content_sha256": "d4f14c0e40a71ab663dd5fc5d77b674250dd057e3828e6e70f5b2f7e1b6867df"
+    },
+    {
+      "task": "grab_to_plate1_v1",
+      "pool_rank": 8,
+      "source_relative_path": "grab_to_plate1_v1/episode_25.hdf5",
+      "source_sha256": "178dfd478f25a8837ce84cf062fd017d13b3e9bf2046af3f5cfe7754d3e5622c",
+      "human_content_sha256": "657aca88db4ac30b29858f31132f6cf529f9d681863a1cf8e36e8e13f3c3eb8f"
+    },
+    {
+      "task": "grab_to_plate1_v1",
+      "pool_rank": 9,
+      "source_relative_path": "grab_to_plate1_v1/episode_7.hdf5",
+      "source_sha256": "d798fc6838901fc9e4862bd6356c8555980361d4664fd6a899dd091a1550bfc8",
+      "human_content_sha256": "4c4f564b229b1c10ff1c2b15aca1a39348d96d68797de9876d6788f6da74e943"
+    },
+    {
+      "task": "grab_to_plate1_v1",
+      "pool_rank": 10,
+      "source_relative_path": "grab_to_plate1_v1/episode_96.hdf5",
+      "source_sha256": "3ea8ab26bfbbb7b72251360998bec8d2c678be2e872f04f1a40799cb3c09553a",
+      "human_content_sha256": "8866a5d75e651317de0a996fceff64dfe5f35d139e55da452f6765b2d0147bbd"
+    },
+    {
+      "task": "push_box_random_v1",
+      "pool_rank": 1,
+      "source_relative_path": "push_box_random_v1/episode_0.hdf5",
+      "source_sha256": "027077cf420ebd716667969a3798b330cddc5b44e7f4f8e787fe1f8ccba01e28",
+      "human_content_sha256": "2ed86c76e72afd77f832458218a448736c02be64ac57c77de6c310814d1d3485"
+    },
+    {
+      "task": "push_box_random_v1",
+      "pool_rank": 2,
+      "source_relative_path": "push_box_random_v1/episode_2.hdf5",
+      "source_sha256": "1f3bbbdc0f59ca06ae996daf19c34160e2aa4c7e2036e60dce89c9a5cf4de646",
+      "human_content_sha256": "d93efc2dd4a7792d49412b5f22c5dd77437b217aedfea61b276512cce755bfdb"
+    },
+    {
+      "task": "push_box_random_v1",
+      "pool_rank": 3,
+      "source_relative_path": "push_box_random_v1/episode_15.hdf5",
+      "source_sha256": "8766dd6b7aae13e054791c99200446615ac42281572e7adc33865fafc7e90eaf",
+      "human_content_sha256": "6bf19c064bd651acdf0e3f5a833029869877fcc728d3fdb71b395ff58b2e6e2d"
+    },
+    {
+      "task": "push_box_random_v1",
+      "pool_rank": 4,
+      "source_relative_path": "push_box_random_v1/episode_53.hdf5",
+      "source_sha256": "430f1cb7483f2703119711237c6a74d95c1033cf711b6cd051080c938f775de7",
+      "human_content_sha256": "dc9603379dfc7b2c6a96cb4ab56d1dada63c10c3c8340564378dff9566e926f3"
+    },
+    {
+      "task": "push_box_random_v1",
+      "pool_rank": 5,
+      "source_relative_path": "push_box_random_v1/episode_11.hdf5",
+      "source_sha256": "34b761ac1e2f37af200d5d23b55eac1ba747ee44ff45fe56e603e7a52cfe2973",
+      "human_content_sha256": "39fb8d25ff146bc4d25e79d228171de65024dde6ac6edd708026d8eb755a624f"
+    },
+    {
+      "task": "push_box_random_v1",
+      "pool_rank": 6,
+      "source_relative_path": "push_box_random_v1/episode_8.hdf5",
+      "source_sha256": "33e0e6f5c090c25c90403b7fccc6e14c3604a5d8ee3292600bea349e63a1db43",
+      "human_content_sha256": "dc56f4a8bac955a789e0ee3a1058be3e574a0cb3f50e35a96609ac21de308b1d"
+    },
+    {
+      "task": "push_box_random_v1",
+      "pool_rank": 7,
+      "source_relative_path": "push_box_random_v1/episode_58.hdf5",
+      "source_sha256": "a9d45ed6b7f85aca2e6a232aba08266c1fdf43404b6894d2c8083d749f6cec1b",
+      "human_content_sha256": "232b4e0940552c125d77c4830019fac227489903e8460d5a1e7668adbf47632e"
+    },
+    {
+      "task": "push_box_random_v1",
+      "pool_rank": 8,
+      "source_relative_path": "push_box_random_v1/episode_21.hdf5",
+      "source_sha256": "2d42fb003719355c8186515740bdde122eb4a67f9053b205c29f9ee9389d61d5",
+      "human_content_sha256": "281ea352159aaa3aad6daf655c6dafa623c16d65f4240e3108a0b38d4a3c9eb0"
+    },
+    {
+      "task": "push_box_random_v1",
+      "pool_rank": 9,
+      "source_relative_path": "push_box_random_v1/episode_42.hdf5",
+      "source_sha256": "878ee1c14ddf942138c40491507dbe9af9a7226e104c60da1bc7f1f0d4f276c4",
+      "human_content_sha256": "fa3fecb52c17ac332e2ba79a2cab65559bd55b6a3645c4347e997068f9fb1ac9"
+    },
+    {
+      "task": "push_box_random_v1",
+      "pool_rank": 10,
+      "source_relative_path": "push_box_random_v1/episode_44.hdf5",
+      "source_sha256": "a416b737e0f04e73e2ab49e82feee9dbe2a26837d6a470d7a0d4361904b84767",
+      "human_content_sha256": "66bd14c8bea029748a6340d79126e3fd5476542c18e9a9c095acd9c37985aa01"
+    }
+  ],
+  "records": [
+    {
+      "frame_count": 180,
+      "source_image_shape": [
+        240,
+        426,
+        3
+      ],
+      "source_image_dtype": "uint16",
+      "max_gap_safe_segment_frames": 180,
+      "gap_count": 0,
+      "source_datasets_read": [
+        "cam_data/human_camera",
+        "action",
+        "transformed_hand_coords",
+        "transformed_hand_frames",
+        "step",
+        "timestamp"
+      ],
+      "forbidden_source_datasets_read": [],
+      "status": "reused",
+      "task": "grab_cube2_v1",
+      "pool_rank": 1,
+      "source_relative_path": "grab_cube2_v1/episode_0.hdf5",
+      "source_sha256": "965e596134673102113fbdbe22a095cda142d20df72802cd2387027fc85f44d3",
+      "conversion_code_sha256": "b1753ad4c873f7f8615fd40072a133a65137644ef3e2966d4d95379aa97ca67b",
+      "human_content_sha256": "71be7a4417b2bf769c34afbac68e628634dda82f0407c881a49532bab55776ef",
+      "output_path": "/workspace/data/Human2Robot/derived/m5b_v03/p1_human_only_pool/episodes/grab_cube2_v1/pool_01_episode_0.hdf5",
+      "output_sha256": "5d4b4417aba850796e16299413587204d7304b371db7c5540cd764cbd8184aa8"
+    },
+    {
+      "frame_count": 256,
+      "source_image_shape": [
+        240,
+        426,
+        3
+      ],
+      "source_image_dtype": "uint16",
+      "max_gap_safe_segment_frames": 256,
+      "gap_count": 0,
+      "source_datasets_read": [
+        "cam_data/human_camera",
+        "action",
+        "transformed_hand_coords",
+        "transformed_hand_frames",
+        "step",
+        "timestamp"
+      ],
+      "forbidden_source_datasets_read": [],
+      "status": "reused",
+      "task": "grab_cube2_v1",
+      "pool_rank": 2,
+      "source_relative_path": "grab_cube2_v1/episode_5.hdf5",
+      "source_sha256": "3ff34f81752f50b96d3297d823b699b0e0c2a2903e24ecc3b8abc9d03cff275b",
+      "conversion_code_sha256": "b1753ad4c873f7f8615fd40072a133a65137644ef3e2966d4d95379aa97ca67b",
+      "human_content_sha256": "91378cf198c7a1d5e2d3e0b32165c9df1dd34d488169cec304c4719f09c95217",
+      "output_path": "/workspace/data/Human2Robot/derived/m5b_v03/p1_human_only_pool/episodes/grab_cube2_v1/pool_02_episode_5.hdf5",
+      "output_sha256": "50c76ee4c247068eee870631dbb17ff226248894ae19a2c882ccbd6ec527810b"
+    },
+    {
+      "frame_count": 249,
+      "source_image_shape": [
+        240,
+        426,
+        3
+      ],
+      "source_image_dtype": "uint16",
+      "max_gap_safe_segment_frames": 249,
+      "gap_count": 0,
+      "source_datasets_read": [
+        "cam_data/human_camera",
+        "action",
+        "transformed_hand_coords",
+        "transformed_hand_frames",
+        "step",
+        "timestamp"
+      ],
+      "forbidden_source_datasets_read": [],
+      "status": "reused",
+      "task": "grab_cube2_v1",
+      "pool_rank": 3,
+      "source_relative_path": "grab_cube2_v1/episode_35.hdf5",
+      "source_sha256": "61b1928a3cbb858174573decc000e536987a89b4c053f2d0e495b9f07cd7e056",
+      "conversion_code_sha256": "b1753ad4c873f7f8615fd40072a133a65137644ef3e2966d4d95379aa97ca67b",
+      "human_content_sha256": "f1d33fa54a146cba819e43e07032ef144a46d63dfb5e9b8e803c778b9c23c9d2",
+      "output_path": "/workspace/data/Human2Robot/derived/m5b_v03/p1_human_only_pool/episodes/grab_cube2_v1/pool_03_episode_35.hdf5",
+      "output_sha256": "bf63b65c015c953e316a905ca81cd038eea25dd8921737a9c80a9fa272cb55eb"
+    },
+    {
+      "frame_count": 200,
+      "source_image_shape": [
+        240,
+        426,
+        3
+      ],
+      "source_image_dtype": "uint16",
+      "max_gap_safe_segment_frames": 200,
+      "gap_count": 0,
+      "source_datasets_read": [
+        "cam_data/human_camera",
+        "action",
+        "transformed_hand_coords",
+        "transformed_hand_frames",
+        "step",
+        "timestamp"
+      ],
+      "forbidden_source_datasets_read": [],
+      "status": "reused",
+      "task": "grab_cube2_v1",
+      "pool_rank": 4,
+      "source_relative_path": "grab_cube2_v1/episode_50.hdf5",
+      "source_sha256": "757a46249c3626bdc8af87f5c290a28ec551a56cab77f72af30606f7eb8ea1c5",
+      "conversion_code_sha256": "b1753ad4c873f7f8615fd40072a133a65137644ef3e2966d4d95379aa97ca67b",
+      "human_content_sha256": "5e9a19e62fce9fb89982f387aa2452332660ba923101f2b894c0a8459e4bbd8c",
+      "output_path": "/workspace/data/Human2Robot/derived/m5b_v03/p1_human_only_pool/episodes/grab_cube2_v1/pool_04_episode_50.hdf5",
+      "output_sha256": "58daba538d6a6dcac26c9afcf0488401dd15f2346d7040b98cd061a385ee5864"
+    },
+    {
+      "frame_count": 265,
+      "source_image_shape": [
+        240,
+        426,
+        3
+      ],
+      "source_image_dtype": "uint16",
+      "max_gap_safe_segment_frames": 265,
+      "gap_count": 0,
+      "source_datasets_read": [
+        "cam_data/human_camera",
+        "action",
+        "transformed_hand_coords",
+        "transformed_hand_frames",
+        "step",
+        "timestamp"
+      ],
+      "forbidden_source_datasets_read": [],
+      "status": "reused",
+      "task": "grab_cube2_v1",
+      "pool_rank": 5,
+      "source_relative_path": "grab_cube2_v1/episode_26.hdf5",
+      "source_sha256": "2435766f8f1e44d4262280d61d12838c529a5d37948278813c7e773d0cf2da3a",
+      "conversion_code_sha256": "b1753ad4c873f7f8615fd40072a133a65137644ef3e2966d4d95379aa97ca67b",
+      "human_content_sha256": "237f46eab16df2012e107c1d36d226986b88cbd8ed9496d68531f5cdbff5a065",
+      "output_path": "/workspace/data/Human2Robot/derived/m5b_v03/p1_human_only_pool/episodes/grab_cube2_v1/pool_05_episode_26.hdf5",
+      "output_sha256": "048a41e2c1c52f1d7e7946f0fb465887a439c1c8e7cbfb719f5125110a6b7add"
+    },
+    {
+      "frame_count": 232,
+      "source_image_shape": [
+        240,
+        426,
+        3
+      ],
+      "source_image_dtype": "uint16",
+      "max_gap_safe_segment_frames": 232,
+      "gap_count": 0,
+      "source_datasets_read": [
+        "cam_data/human_camera",
+        "action",
+        "transformed_hand_coords",
+        "transformed_hand_frames",
+        "step",
+        "timestamp"
+      ],
+      "forbidden_source_datasets_read": [],
+      "status": "reused",
+      "task": "grab_cube2_v1",
+      "pool_rank": 6,
+      "source_relative_path": "grab_cube2_v1/episode_42.hdf5",
+      "source_sha256": "732d820a1a184ac356a06289c451707ce8ee7eb3245af70a13cf363bcda84cb1",
+      "conversion_code_sha256": "b1753ad4c873f7f8615fd40072a133a65137644ef3e2966d4d95379aa97ca67b",
+      "human_content_sha256": "3e4070b97049ba2184fa0b494a6f400255709298ca8ff6a709cd878d08a8d6e2",
+      "output_path": "/workspace/data/Human2Robot/derived/m5b_v03/p1_human_only_pool/episodes/grab_cube2_v1/pool_06_episode_42.hdf5",
+      "output_sha256": "e5c94c0ec2fa61958869267f74d60473e8a221c85f4937377231765f9ca69df3"
+    },
+    {
+      "frame_count": 236,
+      "source_image_shape": [
+        240,
+        426,
+        3
+      ],
+      "source_image_dtype": "uint16",
+      "max_gap_safe_segment_frames": 236,
+      "gap_count": 0,
+      "source_datasets_read": [
+        "cam_data/human_camera",
+        "action",
+        "transformed_hand_coords",
+        "transformed_hand_frames",
+        "step",
+        "timestamp"
+      ],
+      "forbidden_source_datasets_read": [],
+      "status": "reused",
+      "task": "grab_cube2_v1",
+      "pool_rank": 7,
+      "source_relative_path": "grab_cube2_v1/episode_32.hdf5",
+      "source_sha256": "e503deb325a58ddd39d9daff8afafd93d7d8fb427909a9a015e4395069d1f3ac",
+      "conversion_code_sha256": "b1753ad4c873f7f8615fd40072a133a65137644ef3e2966d4d95379aa97ca67b",
+      "human_content_sha256": "db28ec49845bc23de4c73b45f3d03a95c48d3a38ad6980d4087720eaf72107cb",
+      "output_path": "/workspace/data/Human2Robot/derived/m5b_v03/p1_human_only_pool/episodes/grab_cube2_v1/pool_07_episode_32.hdf5",
+      "output_sha256": "98f7f913bd95709b481ef6454f5f908c0acf16ed602d2e317f0c4827063a9344"
+    },
+    {
+      "frame_count": 167,
+      "source_image_shape": [
+        240,
+        426,
+        3
+      ],
+      "source_image_dtype": "uint16",
+      "max_gap_safe_segment_frames": 167,
+      "gap_count": 0,
+      "source_datasets_read": [
+        "cam_data/human_camera",
+        "action",
+        "transformed_hand_coords",
+        "transformed_hand_frames",
+        "step",
+        "timestamp"
+      ],
+      "forbidden_source_datasets_read": [],
+      "status": "reused",
+      "task": "grab_cube2_v1",
+      "pool_rank": 8,
+      "source_relative_path": "grab_cube2_v1/episode_52.hdf5",
+      "source_sha256": "b5217bd34eb5a8122338495f27bcb508b077074fbcefe2fb52ecfc14aaddd93d",
+      "conversion_code_sha256": "b1753ad4c873f7f8615fd40072a133a65137644ef3e2966d4d95379aa97ca67b",
+      "human_content_sha256": "541ab4670ea4f8df0d4e95b1fbbbd515ff3c64fb02cbb435ed3c4cf0aa4c9e60",
+      "output_path": "/workspace/data/Human2Robot/derived/m5b_v03/p1_human_only_pool/episodes/grab_cube2_v1/pool_08_episode_52.hdf5",
+      "output_sha256": "ff9d9d693fe3ae97a3ef7cc46e139cb9448d7e5cfcefdd8271db641ff7b104c1"
+    },
+    {
+      "frame_count": 255,
+      "source_image_shape": [
+        240,
+        426,
+        3
+      ],
+      "source_image_dtype": "uint16",
+      "max_gap_safe_segment_frames": 254,
+      "gap_count": 1,
+      "source_datasets_read": [
+        "cam_data/human_camera",
+        "action",
+        "transformed_hand_coords",
+        "transformed_hand_frames",
+        "step",
+        "timestamp"
+      ],
+      "forbidden_source_datasets_read": [],
+      "status": "reused",
+      "task": "grab_cube2_v1",
+      "pool_rank": 9,
+      "source_relative_path": "grab_cube2_v1/episode_31.hdf5",
+      "source_sha256": "043ed66417ad6b25442236d3aa93a5a991bafc8ebde76a6189bb9813a2067bdd",
+      "conversion_code_sha256": "b1753ad4c873f7f8615fd40072a133a65137644ef3e2966d4d95379aa97ca67b",
+      "human_content_sha256": "7dd62539f3ae771abcfe424d17382c7f193314c7ea772d2d3e455a6f9a13f3b6",
+      "output_path": "/workspace/data/Human2Robot/derived/m5b_v03/p1_human_only_pool/episodes/grab_cube2_v1/pool_09_episode_31.hdf5",
+      "output_sha256": "fbb9bc3b7ae1e3f7941d6e92b4d53395a880d8a84b98aa2bd79ba32f97b574a9"
+    },
+    {
+      "frame_count": 274,
+      "source_image_shape": [
+        240,
+        426,
+        3
+      ],
+      "source_image_dtype": "uint16",
+      "max_gap_safe_segment_frames": 274,
+      "gap_count": 0,
+      "source_datasets_read": [
+        "cam_data/human_camera",
+        "action",
+        "transformed_hand_coords",
+        "transformed_hand_frames",
+        "step",
+        "timestamp"
+      ],
+      "forbidden_source_datasets_read": [],
+      "status": "reused",
+      "task": "grab_cube2_v1",
+      "pool_rank": 10,
+      "source_relative_path": "grab_cube2_v1/episode_25.hdf5",
+      "source_sha256": "b0069851e6f12343147c7f7ec97f88da0ae51430d94f6d2e6efd53c68d2da6cc",
+      "conversion_code_sha256": "b1753ad4c873f7f8615fd40072a133a65137644ef3e2966d4d95379aa97ca67b",
+      "human_content_sha256": "07fe8bc00f9f3f0be13d1292ce0430ea49a61589f3c9af047e0759c8df6861dc",
+      "output_path": "/workspace/data/Human2Robot/derived/m5b_v03/p1_human_only_pool/episodes/grab_cube2_v1/pool_10_episode_25.hdf5",
+      "output_sha256": "d6c2d14b49de7fa78d9a4105bd66d01f9ec90664c419bf4bec117544d993cc18"
+    },
+    {
+      "frame_count": 394,
+      "source_image_shape": [
+        240,
+        426,
+        3
+      ],
+      "source_image_dtype": "uint16",
+      "max_gap_safe_segment_frames": 393,
+      "gap_count": 1,
+      "source_datasets_read": [
+        "cam_data/human_camera",
+        "action",
+        "transformed_hand_coords",
+        "transformed_hand_frames",
+        "step",
+        "timestamp"
+      ],
+      "forbidden_source_datasets_read": [],
+      "status": "reused",
+      "task": "grab_pencil1_v1",
+      "pool_rank": 1,
+      "source_relative_path": "grab_pencil1_v1/episode_0.hdf5",
+      "source_sha256": "156a09101c9bacd229cc6211ea99365df5a43355369b763ffcaffa1caafae6df",
+      "conversion_code_sha256": "b1753ad4c873f7f8615fd40072a133a65137644ef3e2966d4d95379aa97ca67b",
+      "human_content_sha256": "85e57c2a934f9ce3aed84b4aaa79d913787f2b2443243acf279fc0e4390fc5b4",
+      "output_path": "/workspace/data/Human2Robot/derived/m5b_v03/p1_human_only_pool/episodes/grab_pencil1_v1/pool_01_episode_0.hdf5",
+      "output_sha256": "5a16960347ac90c8a2a6a174cc6667dcaaaca19e444e9e5bfa709c9a31571f12"
+    },
+    {
+      "frame_count": 424,
+      "source_image_shape": [
+        240,
+        426,
+        3
+      ],
+      "source_image_dtype": "uint16",
+      "max_gap_safe_segment_frames": 424,
+      "gap_count": 0,
+      "source_datasets_read": [
+        "cam_data/human_camera",
+        "action",
+        "transformed_hand_coords",
+        "transformed_hand_frames",
+        "step",
+        "timestamp"
+      ],
+      "forbidden_source_datasets_read": [],
+      "status": "reused",
+      "task": "grab_pencil1_v1",
+      "pool_rank": 2,
+      "source_relative_path": "grab_pencil1_v1/episode_96.hdf5",
+      "source_sha256": "f37ed5badcb28eac6d551de78fac26a513c65edc6b4664c68109071e7768dcb8",
+      "conversion_code_sha256": "b1753ad4c873f7f8615fd40072a133a65137644ef3e2966d4d95379aa97ca67b",
+      "human_content_sha256": "03a64a39091d7645fa6c865079f3bc5b08344444aa9e4529b9289f6a63d3ae59",
+      "output_path": "/workspace/data/Human2Robot/derived/m5b_v03/p1_human_only_pool/episodes/grab_pencil1_v1/pool_02_episode_96.hdf5",
+      "output_sha256": "2729a306e5d367523c09d5432b899eecb370185bd6c33ac376ffcacba256392f"
+    },
+    {
+      "frame_count": 457,
+      "source_image_shape": [
+        240,
+        426,
+        3
+      ],
+      "source_image_dtype": "uint16",
+      "max_gap_safe_segment_frames": 457,
+      "gap_count": 0,
+      "source_datasets_read": [
+        "cam_data/human_camera",
+        "action",
+        "transformed_hand_coords",
+        "transformed_hand_frames",
+        "step",
+        "timestamp"
+      ],
+      "forbidden_source_datasets_read": [],
+      "status": "reused",
+      "task": "grab_pencil1_v1",
+      "pool_rank": 3,
+      "source_relative_path": "grab_pencil1_v1/episode_54.hdf5",
+      "source_sha256": "705fabe682e8b11f0310c47d89e52e7bf5ccd9d1bf4c0282f2dfe26508d45325",
+      "conversion_code_sha256": "b1753ad4c873f7f8615fd40072a133a65137644ef3e2966d4d95379aa97ca67b",
+      "human_content_sha256": "27d4445c2b5bed951e33f8db1d8eb8c55914411c5f344e52c950e45d90b86873",
+      "output_path": "/workspace/data/Human2Robot/derived/m5b_v03/p1_human_only_pool/episodes/grab_pencil1_v1/pool_03_episode_54.hdf5",
+      "output_sha256": "79cebb8126b6dd4a21a34d7369e3ee157b1d4abd5255c201846c8ac18a2ac22c"
+    },
+    {
+      "frame_count": 507,
+      "source_image_shape": [
+        240,
+        426,
+        3
+      ],
+      "source_image_dtype": "uint16",
+      "max_gap_safe_segment_frames": 506,
+      "gap_count": 1,
+      "source_datasets_read": [
+        "cam_data/human_camera",
+        "action",
+        "transformed_hand_coords",
+        "transformed_hand_frames",
+        "step",
+        "timestamp"
+      ],
+      "forbidden_source_datasets_read": [],
+      "status": "reused",
+      "task": "grab_pencil1_v1",
+      "pool_rank": 4,
+      "source_relative_path": "grab_pencil1_v1/episode_15.hdf5",
+      "source_sha256": "8bce44686e485747dd51f5ee0af9b3a2a5e9e9513f6a78cf671ed5597cc29978",
+      "conversion_code_sha256": "b1753ad4c873f7f8615fd40072a133a65137644ef3e2966d4d95379aa97ca67b",
+      "human_content_sha256": "c99930dd9fa952cc56ac3d8659322457ba909be4b791aef25280747f4977d9c7",
+      "output_path": "/workspace/data/Human2Robot/derived/m5b_v03/p1_human_only_pool/episodes/grab_pencil1_v1/pool_04_episode_15.hdf5",
+      "output_sha256": "29dd47b545374525b39123878970776a47067dbd55321410c0819664526230c0"
+    },
+    {
+      "frame_count": 412,
+      "source_image_shape": [
+        240,
+        426,
+        3
+      ],
+      "source_image_dtype": "uint16",
+      "max_gap_safe_segment_frames": 412,
+      "gap_count": 0,
+      "source_datasets_read": [
+        "cam_data/human_camera",
+        "action",
+        "transformed_hand_coords",
+        "transformed_hand_frames",
+        "step",
+        "timestamp"
+      ],
+      "forbidden_source_datasets_read": [],
+      "status": "reused",
+      "task": "grab_pencil1_v1",
+      "pool_rank": 5,
+      "source_relative_path": "grab_pencil1_v1/episode_62.hdf5",
+      "source_sha256": "8fd3ddef05522718e2a3f694db80363f341b5256ac30e0337d6109ec3413182e",
+      "conversion_code_sha256": "b1753ad4c873f7f8615fd40072a133a65137644ef3e2966d4d95379aa97ca67b",
+      "human_content_sha256": "eab811e1e4b9865f242ab2c20e15ee1e282954adc702bdb76a74b8251875b2dd",
+      "output_path": "/workspace/data/Human2Robot/derived/m5b_v03/p1_human_only_pool/episodes/grab_pencil1_v1/pool_05_episode_62.hdf5",
+      "output_sha256": "39bbd7e48f662487a259f984cce4ded7aa9c3440e75ce2626a1a0af3fd535e16"
+    },
+    {
+      "frame_count": 1218,
+      "source_image_shape": [
+        240,
+        426,
+        3
+      ],
+      "source_image_dtype": "uint16",
+      "max_gap_safe_segment_frames": 1218,
+      "gap_count": 0,
+      "source_datasets_read": [
+        "cam_data/human_camera",
+        "action",
+        "transformed_hand_coords",
+        "transformed_hand_frames",
+        "step",
+        "timestamp"
+      ],
+      "forbidden_source_datasets_read": [],
+      "status": "reused",
+      "task": "grab_pencil1_v1",
+      "pool_rank": 6,
+      "source_relative_path": "grab_pencil1_v1/episode_102.hdf5",
+      "source_sha256": "e8d525840efc67a2854071d7f332d9968c0095c757f6a759a3de114da0848cc5",
+      "conversion_code_sha256": "b1753ad4c873f7f8615fd40072a133a65137644ef3e2966d4d95379aa97ca67b",
+      "human_content_sha256": "53a45a1a8b3f9dc0b77b63b4ab264e9f61a9a6479be4b680aeb007cf50b4e2a5",
+      "output_path": "/workspace/data/Human2Robot/derived/m5b_v03/p1_human_only_pool/episodes/grab_pencil1_v1/pool_06_episode_102.hdf5",
+      "output_sha256": "e25143b155ba79532a6934a087ecb2199ee784e0eee3fcba0f48be559abc9414"
+    },
+    {
+      "frame_count": 528,
+      "source_image_shape": [
+        240,
+        426,
+        3
+      ],
+      "source_image_dtype": "uint16",
+      "max_gap_safe_segment_frames": 528,
+      "gap_count": 0,
+      "source_datasets_read": [
+        "cam_data/human_camera",
+        "action",
+        "transformed_hand_coords",
+        "transformed_hand_frames",
+        "step",
+        "timestamp"
+      ],
+      "forbidden_source_datasets_read": [],
+      "status": "reused",
+      "task": "grab_pencil1_v1",
+      "pool_rank": 7,
+      "source_relative_path": "grab_pencil1_v1/episode_14.hdf5",
+      "source_sha256": "8b0e1a8a5fbf94189ac55b5bc99425f1091e0d14a21e410c9fc9db962d4e8b09",
+      "conversion_code_sha256": "b1753ad4c873f7f8615fd40072a133a65137644ef3e2966d4d95379aa97ca67b",
+      "human_content_sha256": "030783ea2f807335b394715f459c5dd9c6c30774162a355e9795d678a78d9ce9",
+      "output_path": "/workspace/data/Human2Robot/derived/m5b_v03/p1_human_only_pool/episodes/grab_pencil1_v1/pool_07_episode_14.hdf5",
+      "output_sha256": "41783a490314f08616e2f7a8eeedf33aeef73cf4dfe0ccad18e9105c9793724d"
+    },
+    {
+      "frame_count": 446,
+      "source_image_shape": [
+        240,
+        426,
+        3
+      ],
+      "source_image_dtype": "uint16",
+      "max_gap_safe_segment_frames": 446,
+      "gap_count": 0,
+      "source_datasets_read": [
+        "cam_data/human_camera",
+        "action",
+        "transformed_hand_coords",
+        "transformed_hand_frames",
+        "step",
+        "timestamp"
+      ],
+      "forbidden_source_datasets_read": [],
+      "status": "reused",
+      "task": "grab_pencil1_v1",
+      "pool_rank": 8,
+      "source_relative_path": "grab_pencil1_v1/episode_71.hdf5",
+      "source_sha256": "b2c2dd2dd5de600edf079d29a7a9eab0f540c0343b8854223fc4b09d05aafa55",
+      "conversion_code_sha256": "b1753ad4c873f7f8615fd40072a133a65137644ef3e2966d4d95379aa97ca67b",
+      "human_content_sha256": "5e94fa43c467cec54021bfaf391f90107f340099e218f5960e42b432d6b4f911",
+      "output_path": "/workspace/data/Human2Robot/derived/m5b_v03/p1_human_only_pool/episodes/grab_pencil1_v1/pool_08_episode_71.hdf5",
+      "output_sha256": "be72590a65e20834a1185d73e208d8b08ed3323f3205768e31652cae0dcc015b"
+    },
+    {
+      "frame_count": 411,
+      "source_image_shape": [
+        240,
+        426,
+        3
+      ],
+      "source_image_dtype": "uint16",
+      "max_gap_safe_segment_frames": 411,
+      "gap_count": 0,
+      "source_datasets_read": [
+        "cam_data/human_camera",
+        "action",
+        "transformed_hand_coords",
+        "transformed_hand_frames",
+        "step",
+        "timestamp"
+      ],
+      "forbidden_source_datasets_read": [],
+      "status": "reused",
+      "task": "grab_pencil1_v1",
+      "pool_rank": 9,
+      "source_relative_path": "grab_pencil1_v1/episode_80.hdf5",
+      "source_sha256": "33c7cbf349b581a18d733232f3e6e707b24d114d1b9060fd00fdc19460f7a931",
+      "conversion_code_sha256": "b1753ad4c873f7f8615fd40072a133a65137644ef3e2966d4d95379aa97ca67b",
+      "human_content_sha256": "b00120a17b9bdac6d9b0493e72916c40b26e1b992f6a8f52e36fc2f8bd7f899d",
+      "output_path": "/workspace/data/Human2Robot/derived/m5b_v03/p1_human_only_pool/episodes/grab_pencil1_v1/pool_09_episode_80.hdf5",
+      "output_sha256": "d700c1080c157953537b9dba777c540f20a3fc487667c3cbe4854b38caed4a3e"
+    },
+    {
+      "frame_count": 407,
+      "source_image_shape": [
+        240,
+        426,
+        3
+      ],
+      "source_image_dtype": "uint16",
+      "max_gap_safe_segment_frames": 406,
+      "gap_count": 1,
+      "source_datasets_read": [
+        "cam_data/human_camera",
+        "action",
+        "transformed_hand_coords",
+        "transformed_hand_frames",
+        "step",
+        "timestamp"
+      ],
+      "forbidden_source_datasets_read": [],
+      "status": "reused",
+      "task": "grab_pencil1_v1",
+      "pool_rank": 10,
+      "source_relative_path": "grab_pencil1_v1/episode_78.hdf5",
+      "source_sha256": "495e0873ba8cbbd2e2db8a808fda743d2251b7bf203aa7ab682cc7a356ba401a",
+      "conversion_code_sha256": "b1753ad4c873f7f8615fd40072a133a65137644ef3e2966d4d95379aa97ca67b",
+      "human_content_sha256": "aa90e84953605cdea555a66278a0e37271a56d8f9164580376524e2c7556df0a",
+      "output_path": "/workspace/data/Human2Robot/derived/m5b_v03/p1_human_only_pool/episodes/grab_pencil1_v1/pool_10_episode_78.hdf5",
+      "output_sha256": "32222272f17b5f69baed3a62ede3e62b4880b0fcfe9e2ddb64b52642dc752ea1"
+    },
+    {
+      "frame_count": 370,
+      "source_image_shape": [
+        240,
+        426,
+        3
+      ],
+      "source_image_dtype": "uint16",
+      "max_gap_safe_segment_frames": 370,
+      "gap_count": 0,
+      "source_datasets_read": [
+        "cam_data/human_camera",
+        "action",
+        "transformed_hand_coords",
+        "transformed_hand_frames",
+        "step",
+        "timestamp"
+      ],
+      "forbidden_source_datasets_read": [],
+      "status": "reused",
+      "task": "grab_to_plate1_v1",
+      "pool_rank": 1,
+      "source_relative_path": "grab_to_plate1_v1/episode_0.hdf5",
+      "source_sha256": "039d4bdca2885f6345aeed0a1a5fcbd2abce43c906e4f4e3b788e204efaa5a7e",
+      "conversion_code_sha256": "b1753ad4c873f7f8615fd40072a133a65137644ef3e2966d4d95379aa97ca67b",
+      "human_content_sha256": "ed2200113d6ab5d49a5c30bfb99fc53ed17652cbaad411c2ddaaa9e2a6412c6c",
+      "output_path": "/workspace/data/Human2Robot/derived/m5b_v03/p1_human_only_pool/episodes/grab_to_plate1_v1/pool_01_episode_0.hdf5",
+      "output_sha256": "83bd0a32b32ea2c651eefdd3e6a0b850ae76f87309a390b492ccea7382fe41da"
+    },
+    {
+      "frame_count": 285,
+      "source_image_shape": [
+        240,
+        426,
+        3
+      ],
+      "source_image_dtype": "uint16",
+      "max_gap_safe_segment_frames": 285,
+      "gap_count": 0,
+      "source_datasets_read": [
+        "cam_data/human_camera",
+        "action",
+        "transformed_hand_coords",
+        "transformed_hand_frames",
+        "step",
+        "timestamp"
+      ],
+      "forbidden_source_datasets_read": [],
+      "status": "reused",
+      "task": "grab_to_plate1_v1",
+      "pool_rank": 2,
+      "source_relative_path": "grab_to_plate1_v1/episode_82.hdf5",
+      "source_sha256": "de304227f6b74fbdc4f258b8d9521347121c68667cc6fb825fe10eaa341f30e9",
+      "conversion_code_sha256": "b1753ad4c873f7f8615fd40072a133a65137644ef3e2966d4d95379aa97ca67b",
+      "human_content_sha256": "d6c7034fae929557f4d60c2f1bc826a4d88d8fa7149c86c047e97e7bef09e2f8",
+      "output_path": "/workspace/data/Human2Robot/derived/m5b_v03/p1_human_only_pool/episodes/grab_to_plate1_v1/pool_02_episode_82.hdf5",
+      "output_sha256": "959bd4ce55a47569da8b11970adaa9d37b198b7d3a0582e571fa8f104448224d"
+    },
+    {
+      "frame_count": 360,
+      "source_image_shape": [
+        240,
+        426,
+        3
+      ],
+      "source_image_dtype": "uint16",
+      "max_gap_safe_segment_frames": 360,
+      "gap_count": 0,
+      "source_datasets_read": [
+        "cam_data/human_camera",
+        "action",
+        "transformed_hand_coords",
+        "transformed_hand_frames",
+        "step",
+        "timestamp"
+      ],
+      "forbidden_source_datasets_read": [],
+      "status": "reused",
+      "task": "grab_to_plate1_v1",
+      "pool_rank": 3,
+      "source_relative_path": "grab_to_plate1_v1/episode_89.hdf5",
+      "source_sha256": "dd8bac209869c0e35465e1d9277f30054893118014a555920cd4fb9db86f1dd8",
+      "conversion_code_sha256": "b1753ad4c873f7f8615fd40072a133a65137644ef3e2966d4d95379aa97ca67b",
+      "human_content_sha256": "1c8c39051a7d0b1956d4bd56ed7b132d391b60304ada6552c64f59d90a3b7428",
+      "output_path": "/workspace/data/Human2Robot/derived/m5b_v03/p1_human_only_pool/episodes/grab_to_plate1_v1/pool_03_episode_89.hdf5",
+      "output_sha256": "96625b3ef255ba42eedb52af9507461ded77e1d52190bc6ae2210643fb446230"
+    },
+    {
+      "frame_count": 456,
+      "source_image_shape": [
+        240,
+        426,
+        3
+      ],
+      "source_image_dtype": "uint16",
+      "max_gap_safe_segment_frames": 456,
+      "gap_count": 0,
+      "source_datasets_read": [
+        "cam_data/human_camera",
+        "action",
+        "transformed_hand_coords",
+        "transformed_hand_frames",
+        "step",
+        "timestamp"
+      ],
+      "forbidden_source_datasets_read": [],
+      "status": "reused",
+      "task": "grab_to_plate1_v1",
+      "pool_rank": 4,
+      "source_relative_path": "grab_to_plate1_v1/episode_4.hdf5",
+      "source_sha256": "c3fb3ff98be2b8333bcdc24ab6c230e802e2e2589a80c7af80a46f7424a4228c",
+      "conversion_code_sha256": "b1753ad4c873f7f8615fd40072a133a65137644ef3e2966d4d95379aa97ca67b",
+      "human_content_sha256": "2399c317983b33df8a7997ce39b4c08e16b8920bebdcccc8195e0a1f878b6680",
+      "output_path": "/workspace/data/Human2Robot/derived/m5b_v03/p1_human_only_pool/episodes/grab_to_plate1_v1/pool_04_episode_4.hdf5",
+      "output_sha256": "b6a2e812b9dc6f459094107beb87350cf9c188802849fdbc989be0d3f51faece"
+    },
+    {
+      "frame_count": 419,
+      "source_image_shape": [
+        240,
+        426,
+        3
+      ],
+      "source_image_dtype": "uint16",
+      "max_gap_safe_segment_frames": 419,
+      "gap_count": 0,
+      "source_datasets_read": [
+        "cam_data/human_camera",
+        "action",
+        "transformed_hand_coords",
+        "transformed_hand_frames",
+        "step",
+        "timestamp"
+      ],
+      "forbidden_source_datasets_read": [],
+      "status": "reused",
+      "task": "grab_to_plate1_v1",
+      "pool_rank": 5,
+      "source_relative_path": "grab_to_plate1_v1/episode_30.hdf5",
+      "source_sha256": "65e3078ec2e10bce3adc292b1dd7b5f571f4b96c8ca584aff312d6e55e01b560",
+      "conversion_code_sha256": "b1753ad4c873f7f8615fd40072a133a65137644ef3e2966d4d95379aa97ca67b",
+      "human_content_sha256": "46610fcc8dbbd7ae161c2d0ebc4d2c6bedc646a8db09885baea0ac6bce33354a",
+      "output_path": "/workspace/data/Human2Robot/derived/m5b_v03/p1_human_only_pool/episodes/grab_to_plate1_v1/pool_05_episode_30.hdf5",
+      "output_sha256": "4dc1051b8e7fd09ed0a9fa06898b69d9811085202df31714e69f7cd16a91e80d"
+    },
+    {
+      "frame_count": 406,
+      "source_image_shape": [
+        240,
+        426,
+        3
+      ],
+      "source_image_dtype": "uint16",
+      "max_gap_safe_segment_frames": 285,
+      "gap_count": 1,
+      "source_datasets_read": [
+        "cam_data/human_camera",
+        "action",
+        "transformed_hand_coords",
+        "transformed_hand_frames",
+        "step",
+        "timestamp"
+      ],
+      "forbidden_source_datasets_read": [],
+      "status": "reused",
+      "task": "grab_to_plate1_v1",
+      "pool_rank": 6,
+      "source_relative_path": "grab_to_plate1_v1/episode_39.hdf5",
+      "source_sha256": "b00bd14ae8befbf1e51dc0da55bd73c57298df0d2fc509d995d3b6f6c8184e6e",
+      "conversion_code_sha256": "b1753ad4c873f7f8615fd40072a133a65137644ef3e2966d4d95379aa97ca67b",
+      "human_content_sha256": "cc9fc9b5694e16aa3ca6bb545c04518632a3571d7f040bde92cab4ed133083c7",
+      "output_path": "/workspace/data/Human2Robot/derived/m5b_v03/p1_human_only_pool/episodes/grab_to_plate1_v1/pool_06_episode_39.hdf5",
+      "output_sha256": "4e3b52964cb8bd7a03410edaecfefb19f6caf468a978b129ffe2af01aea1c7d3"
+    },
+    {
+      "frame_count": 305,
+      "source_image_shape": [
+        240,
+        426,
+        3
+      ],
+      "source_image_dtype": "uint16",
+      "max_gap_safe_segment_frames": 305,
+      "gap_count": 0,
+      "source_datasets_read": [
+        "cam_data/human_camera",
+        "action",
+        "transformed_hand_coords",
+        "transformed_hand_frames",
+        "step",
+        "timestamp"
+      ],
+      "forbidden_source_datasets_read": [],
+      "status": "reused",
+      "task": "grab_to_plate1_v1",
+      "pool_rank": 7,
+      "source_relative_path": "grab_to_plate1_v1/episode_88.hdf5",
+      "source_sha256": "084138b9ddacf02e325bc54a21106170418a79b9f23211b8a956849a6a1936d8",
+      "conversion_code_sha256": "b1753ad4c873f7f8615fd40072a133a65137644ef3e2966d4d95379aa97ca67b",
+      "human_content_sha256": "d4f14c0e40a71ab663dd5fc5d77b674250dd057e3828e6e70f5b2f7e1b6867df",
+      "output_path": "/workspace/data/Human2Robot/derived/m5b_v03/p1_human_only_pool/episodes/grab_to_plate1_v1/pool_07_episode_88.hdf5",
+      "output_sha256": "bb3a210f0983ddc905fac201da4ce4b6322691b4ec6ad6fbdd8c51267e0ea74a"
+    },
+    {
+      "frame_count": 445,
+      "source_image_shape": [
+        240,
+        426,
+        3
+      ],
+      "source_image_dtype": "uint16",
+      "max_gap_safe_segment_frames": 445,
+      "gap_count": 0,
+      "source_datasets_read": [
+        "cam_data/human_camera",
+        "action",
+        "transformed_hand_coords",
+        "transformed_hand_frames",
+        "step",
+        "timestamp"
+      ],
+      "forbidden_source_datasets_read": [],
+      "status": "reused",
+      "task": "grab_to_plate1_v1",
+      "pool_rank": 8,
+      "source_relative_path": "grab_to_plate1_v1/episode_25.hdf5",
+      "source_sha256": "178dfd478f25a8837ce84cf062fd017d13b3e9bf2046af3f5cfe7754d3e5622c",
+      "conversion_code_sha256": "b1753ad4c873f7f8615fd40072a133a65137644ef3e2966d4d95379aa97ca67b",
+      "human_content_sha256": "657aca88db4ac30b29858f31132f6cf529f9d681863a1cf8e36e8e13f3c3eb8f",
+      "output_path": "/workspace/data/Human2Robot/derived/m5b_v03/p1_human_only_pool/episodes/grab_to_plate1_v1/pool_08_episode_25.hdf5",
+      "output_sha256": "9bbffe4ece7aeb837da0378c37609c1924a4e4a15651b0e655cc8abe8601d25a"
+    },
+    {
+      "frame_count": 428,
+      "source_image_shape": [
+        240,
+        426,
+        3
+      ],
+      "source_image_dtype": "uint16",
+      "max_gap_safe_segment_frames": 428,
+      "gap_count": 0,
+      "source_datasets_read": [
+        "cam_data/human_camera",
+        "action",
+        "transformed_hand_coords",
+        "transformed_hand_frames",
+        "step",
+        "timestamp"
+      ],
+      "forbidden_source_datasets_read": [],
+      "status": "reused",
+      "task": "grab_to_plate1_v1",
+      "pool_rank": 9,
+      "source_relative_path": "grab_to_plate1_v1/episode_7.hdf5",
+      "source_sha256": "d798fc6838901fc9e4862bd6356c8555980361d4664fd6a899dd091a1550bfc8",
+      "conversion_code_sha256": "b1753ad4c873f7f8615fd40072a133a65137644ef3e2966d4d95379aa97ca67b",
+      "human_content_sha256": "4c4f564b229b1c10ff1c2b15aca1a39348d96d68797de9876d6788f6da74e943",
+      "output_path": "/workspace/data/Human2Robot/derived/m5b_v03/p1_human_only_pool/episodes/grab_to_plate1_v1/pool_09_episode_7.hdf5",
+      "output_sha256": "83afb25f4d1d288fcb0eecc64a6a799354ce94c5f1922c01c201b4d7a608adfd"
+    },
+    {
+      "frame_count": 354,
+      "source_image_shape": [
+        240,
+        426,
+        3
+      ],
+      "source_image_dtype": "uint16",
+      "max_gap_safe_segment_frames": 354,
+      "gap_count": 0,
+      "source_datasets_read": [
+        "cam_data/human_camera",
+        "action",
+        "transformed_hand_coords",
+        "transformed_hand_frames",
+        "step",
+        "timestamp"
+      ],
+      "forbidden_source_datasets_read": [],
+      "status": "reused",
+      "task": "grab_to_plate1_v1",
+      "pool_rank": 10,
+      "source_relative_path": "grab_to_plate1_v1/episode_96.hdf5",
+      "source_sha256": "3ea8ab26bfbbb7b72251360998bec8d2c678be2e872f04f1a40799cb3c09553a",
+      "conversion_code_sha256": "b1753ad4c873f7f8615fd40072a133a65137644ef3e2966d4d95379aa97ca67b",
+      "human_content_sha256": "8866a5d75e651317de0a996fceff64dfe5f35d139e55da452f6765b2d0147bbd",
+      "output_path": "/workspace/data/Human2Robot/derived/m5b_v03/p1_human_only_pool/episodes/grab_to_plate1_v1/pool_10_episode_96.hdf5",
+      "output_sha256": "7dfa1c52d0c065ef2e5fe813573abed2f9a8b7f8679f59d199326d006f1ce391"
+    },
+    {
+      "frame_count": 292,
+      "source_image_shape": [
+        240,
+        426,
+        3
+      ],
+      "source_image_dtype": "uint16",
+      "max_gap_safe_segment_frames": 292,
+      "gap_count": 0,
+      "source_datasets_read": [
+        "cam_data/human_camera",
+        "action",
+        "transformed_hand_coords",
+        "transformed_hand_frames",
+        "step",
+        "timestamp"
+      ],
+      "forbidden_source_datasets_read": [],
+      "status": "reused",
+      "task": "push_box_random_v1",
+      "pool_rank": 1,
+      "source_relative_path": "push_box_random_v1/episode_0.hdf5",
+      "source_sha256": "027077cf420ebd716667969a3798b330cddc5b44e7f4f8e787fe1f8ccba01e28",
+      "conversion_code_sha256": "b1753ad4c873f7f8615fd40072a133a65137644ef3e2966d4d95379aa97ca67b",
+      "human_content_sha256": "2ed86c76e72afd77f832458218a448736c02be64ac57c77de6c310814d1d3485",
+      "output_path": "/workspace/data/Human2Robot/derived/m5b_v03/p1_human_only_pool/episodes/push_box_random_v1/pool_01_episode_0.hdf5",
+      "output_sha256": "9d3b5c56c42daeba515d0c7ad73ea1c6994791918596d4789ba96c5abcc1092e"
+    },
+    {
+      "frame_count": 230,
+      "source_image_shape": [
+        240,
+        426,
+        3
+      ],
+      "source_image_dtype": "uint16",
+      "max_gap_safe_segment_frames": 230,
+      "gap_count": 0,
+      "source_datasets_read": [
+        "cam_data/human_camera",
+        "action",
+        "transformed_hand_coords",
+        "transformed_hand_frames",
+        "step",
+        "timestamp"
+      ],
+      "forbidden_source_datasets_read": [],
+      "status": "reused",
+      "task": "push_box_random_v1",
+      "pool_rank": 2,
+      "source_relative_path": "push_box_random_v1/episode_2.hdf5",
+      "source_sha256": "1f3bbbdc0f59ca06ae996daf19c34160e2aa4c7e2036e60dce89c9a5cf4de646",
+      "conversion_code_sha256": "b1753ad4c873f7f8615fd40072a133a65137644ef3e2966d4d95379aa97ca67b",
+      "human_content_sha256": "d93efc2dd4a7792d49412b5f22c5dd77437b217aedfea61b276512cce755bfdb",
+      "output_path": "/workspace/data/Human2Robot/derived/m5b_v03/p1_human_only_pool/episodes/push_box_random_v1/pool_02_episode_2.hdf5",
+      "output_sha256": "96cbdaeec752a65f70c8008ecb0ab21c9961101d4b35922ddad50df2ffe45ac8"
+    },
+    {
+      "frame_count": 172,
+      "source_image_shape": [
+        240,
+        426,
+        3
+      ],
+      "source_image_dtype": "uint16",
+      "max_gap_safe_segment_frames": 172,
+      "gap_count": 0,
+      "source_datasets_read": [
+        "cam_data/human_camera",
+        "action",
+        "transformed_hand_coords",
+        "transformed_hand_frames",
+        "step",
+        "timestamp"
+      ],
+      "forbidden_source_datasets_read": [],
+      "status": "reused",
+      "task": "push_box_random_v1",
+      "pool_rank": 3,
+      "source_relative_path": "push_box_random_v1/episode_15.hdf5",
+      "source_sha256": "8766dd6b7aae13e054791c99200446615ac42281572e7adc33865fafc7e90eaf",
+      "conversion_code_sha256": "b1753ad4c873f7f8615fd40072a133a65137644ef3e2966d4d95379aa97ca67b",
+      "human_content_sha256": "6bf19c064bd651acdf0e3f5a833029869877fcc728d3fdb71b395ff58b2e6e2d",
+      "output_path": "/workspace/data/Human2Robot/derived/m5b_v03/p1_human_only_pool/episodes/push_box_random_v1/pool_03_episode_15.hdf5",
+      "output_sha256": "426bddf6c3a3e0a93b36d4f341d3f2b778d20330211fdaef61bbc4480486ad06"
+    },
+    {
+      "frame_count": 193,
+      "source_image_shape": [
+        240,
+        426,
+        3
+      ],
+      "source_image_dtype": "uint16",
+      "max_gap_safe_segment_frames": 193,
+      "gap_count": 0,
+      "source_datasets_read": [
+        "cam_data/human_camera",
+        "action",
+        "transformed_hand_coords",
+        "transformed_hand_frames",
+        "step",
+        "timestamp"
+      ],
+      "forbidden_source_datasets_read": [],
+      "status": "reused",
+      "task": "push_box_random_v1",
+      "pool_rank": 4,
+      "source_relative_path": "push_box_random_v1/episode_53.hdf5",
+      "source_sha256": "430f1cb7483f2703119711237c6a74d95c1033cf711b6cd051080c938f775de7",
+      "conversion_code_sha256": "b1753ad4c873f7f8615fd40072a133a65137644ef3e2966d4d95379aa97ca67b",
+      "human_content_sha256": "dc9603379dfc7b2c6a96cb4ab56d1dada63c10c3c8340564378dff9566e926f3",
+      "output_path": "/workspace/data/Human2Robot/derived/m5b_v03/p1_human_only_pool/episodes/push_box_random_v1/pool_04_episode_53.hdf5",
+      "output_sha256": "6f37ceab5eb8b72bb042396e5aa0b236d734b9aa31667464676b4eda7112bc20"
+    },
+    {
+      "frame_count": 252,
+      "source_image_shape": [
+        240,
+        426,
+        3
+      ],
+      "source_image_dtype": "uint16",
+      "max_gap_safe_segment_frames": 252,
+      "gap_count": 0,
+      "source_datasets_read": [
+        "cam_data/human_camera",
+        "action",
+        "transformed_hand_coords",
+        "transformed_hand_frames",
+        "step",
+        "timestamp"
+      ],
+      "forbidden_source_datasets_read": [],
+      "status": "reused",
+      "task": "push_box_random_v1",
+      "pool_rank": 5,
+      "source_relative_path": "push_box_random_v1/episode_11.hdf5",
+      "source_sha256": "34b761ac1e2f37af200d5d23b55eac1ba747ee44ff45fe56e603e7a52cfe2973",
+      "conversion_code_sha256": "b1753ad4c873f7f8615fd40072a133a65137644ef3e2966d4d95379aa97ca67b",
+      "human_content_sha256": "39fb8d25ff146bc4d25e79d228171de65024dde6ac6edd708026d8eb755a624f",
+      "output_path": "/workspace/data/Human2Robot/derived/m5b_v03/p1_human_only_pool/episodes/push_box_random_v1/pool_05_episode_11.hdf5",
+      "output_sha256": "7790a342ac9efe6e0662bdabe31ad83388af663af6e8253412f06b46b8f6599e"
+    },
+    {
+      "frame_count": 176,
+      "source_image_shape": [
+        240,
+        426,
+        3
+      ],
+      "source_image_dtype": "uint16",
+      "max_gap_safe_segment_frames": 176,
+      "gap_count": 0,
+      "source_datasets_read": [
+        "cam_data/human_camera",
+        "action",
+        "transformed_hand_coords",
+        "transformed_hand_frames",
+        "step",
+        "timestamp"
+      ],
+      "forbidden_source_datasets_read": [],
+      "status": "reused",
+      "task": "push_box_random_v1",
+      "pool_rank": 6,
+      "source_relative_path": "push_box_random_v1/episode_8.hdf5",
+      "source_sha256": "33e0e6f5c090c25c90403b7fccc6e14c3604a5d8ee3292600bea349e63a1db43",
+      "conversion_code_sha256": "b1753ad4c873f7f8615fd40072a133a65137644ef3e2966d4d95379aa97ca67b",
+      "human_content_sha256": "dc56f4a8bac955a789e0ee3a1058be3e574a0cb3f50e35a96609ac21de308b1d",
+      "output_path": "/workspace/data/Human2Robot/derived/m5b_v03/p1_human_only_pool/episodes/push_box_random_v1/pool_06_episode_8.hdf5",
+      "output_sha256": "7c76079ae518685c0e08c1d81b24d8f72922af5e39411ac1795ae2ee01ad8469"
+    },
+    {
+      "frame_count": 330,
+      "source_image_shape": [
+        240,
+        426,
+        3
+      ],
+      "source_image_dtype": "uint16",
+      "max_gap_safe_segment_frames": 329,
+      "gap_count": 1,
+      "source_datasets_read": [
+        "cam_data/human_camera",
+        "action",
+        "transformed_hand_coords",
+        "transformed_hand_frames",
+        "step",
+        "timestamp"
+      ],
+      "forbidden_source_datasets_read": [],
+      "status": "reused",
+      "task": "push_box_random_v1",
+      "pool_rank": 7,
+      "source_relative_path": "push_box_random_v1/episode_58.hdf5",
+      "source_sha256": "a9d45ed6b7f85aca2e6a232aba08266c1fdf43404b6894d2c8083d749f6cec1b",
+      "conversion_code_sha256": "b1753ad4c873f7f8615fd40072a133a65137644ef3e2966d4d95379aa97ca67b",
+      "human_content_sha256": "232b4e0940552c125d77c4830019fac227489903e8460d5a1e7668adbf47632e",
+      "output_path": "/workspace/data/Human2Robot/derived/m5b_v03/p1_human_only_pool/episodes/push_box_random_v1/pool_07_episode_58.hdf5",
+      "output_sha256": "759f5261a079091310c4aa92743d31ced26c9c3f626a429b04b62ca5465c36db"
+    },
+    {
+      "frame_count": 106,
+      "source_image_shape": [
+        240,
+        426,
+        3
+      ],
+      "source_image_dtype": "uint16",
+      "max_gap_safe_segment_frames": 106,
+      "gap_count": 0,
+      "source_datasets_read": [
+        "cam_data/human_camera",
+        "action",
+        "transformed_hand_coords",
+        "transformed_hand_frames",
+        "step",
+        "timestamp"
+      ],
+      "forbidden_source_datasets_read": [],
+      "status": "reused",
+      "task": "push_box_random_v1",
+      "pool_rank": 8,
+      "source_relative_path": "push_box_random_v1/episode_21.hdf5",
+      "source_sha256": "2d42fb003719355c8186515740bdde122eb4a67f9053b205c29f9ee9389d61d5",
+      "conversion_code_sha256": "b1753ad4c873f7f8615fd40072a133a65137644ef3e2966d4d95379aa97ca67b",
+      "human_content_sha256": "281ea352159aaa3aad6daf655c6dafa623c16d65f4240e3108a0b38d4a3c9eb0",
+      "output_path": "/workspace/data/Human2Robot/derived/m5b_v03/p1_human_only_pool/episodes/push_box_random_v1/pool_08_episode_21.hdf5",
+      "output_sha256": "b508b13b91b83d7dfc81928fded142f67436cb1adc1460272325ac2a169d7dde"
+    },
+    {
+      "frame_count": 206,
+      "source_image_shape": [
+        240,
+        426,
+        3
+      ],
+      "source_image_dtype": "uint16",
+      "max_gap_safe_segment_frames": 206,
+      "gap_count": 0,
+      "source_datasets_read": [
+        "cam_data/human_camera",
+        "action",
+        "transformed_hand_coords",
+        "transformed_hand_frames",
+        "step",
+        "timestamp"
+      ],
+      "forbidden_source_datasets_read": [],
+      "status": "reused",
+      "task": "push_box_random_v1",
+      "pool_rank": 9,
+      "source_relative_path": "push_box_random_v1/episode_42.hdf5",
+      "source_sha256": "878ee1c14ddf942138c40491507dbe9af9a7226e104c60da1bc7f1f0d4f276c4",
+      "conversion_code_sha256": "b1753ad4c873f7f8615fd40072a133a65137644ef3e2966d4d95379aa97ca67b",
+      "human_content_sha256": "fa3fecb52c17ac332e2ba79a2cab65559bd55b6a3645c4347e997068f9fb1ac9",
+      "output_path": "/workspace/data/Human2Robot/derived/m5b_v03/p1_human_only_pool/episodes/push_box_random_v1/pool_09_episode_42.hdf5",
+      "output_sha256": "66233d505e4c4d1fa8900cede894b6686802617a8fb37c2fe0f99586451b7409"
+    },
+    {
+      "frame_count": 204,
+      "source_image_shape": [
+        240,
+        426,
+        3
+      ],
+      "source_image_dtype": "uint16",
+      "max_gap_safe_segment_frames": 204,
+      "gap_count": 0,
+      "source_datasets_read": [
+        "cam_data/human_camera",
+        "action",
+        "transformed_hand_coords",
+        "transformed_hand_frames",
+        "step",
+        "timestamp"
+      ],
+      "forbidden_source_datasets_read": [],
+      "status": "reused",
+      "task": "push_box_random_v1",
+      "pool_rank": 10,
+      "source_relative_path": "push_box_random_v1/episode_44.hdf5",
+      "source_sha256": "a416b737e0f04e73e2ab49e82feee9dbe2a26837d6a470d7a0d4361904b84767",
+      "conversion_code_sha256": "b1753ad4c873f7f8615fd40072a133a65137644ef3e2966d4d95379aa97ca67b",
+      "human_content_sha256": "66bd14c8bea029748a6340d79126e3fd5476542c18e9a9c095acd9c37985aa01",
+      "output_path": "/workspace/data/Human2Robot/derived/m5b_v03/p1_human_only_pool/episodes/push_box_random_v1/pool_10_episode_44.hdf5",
+      "output_sha256": "cb82e9d994853fac98e4a46792209a77b26ccc9f1a84037f129bbb673acbf56d"
+    }
+  ],
+  "validation": {
+    "per_task_independent_source_episode_count": {
+      "grab_cube2_v1": 10,
+      "grab_pencil1_v1": 10,
+      "grab_to_plate1_v1": 10,
+      "push_box_random_v1": 10
+    },
+    "required_per_task": 10,
+    "every_task_meets_requirement": true,
+    "source_episode_identity_unique_count": 40,
+    "source_file_sha256_unique_count": 40,
+    "human_content_sha256_unique_count": 40,
+    "derived_file_sha256_unique_count": 40,
+    "pool_sizes_are_nested_prefixes": [
+      0,
+      1,
+      2,
+      4,
+      8,
+      10
+    ],
+    "heldout_train_task_overlap": [],
+    "heldout_robot_dataset_read_count": 0,
+    "forbidden_source_datasets_read": [],
+    "derived_dataset_allowlist": [
+      "data/demo_0/human/hand_coords",
+      "data/demo_0/human/hand_frames",
+      "data/demo_0/human/hand_plan_10d",
+      "data/demo_0/human/images",
+      "data/demo_0/time/gap_mask",
+      "data/demo_0/time/segment_id",
+      "data/demo_0/time/source_step",
+      "data/demo_0/time/source_timestamp"
+    ],
+    "gap_safe_H_steps": 8
+  }
+}

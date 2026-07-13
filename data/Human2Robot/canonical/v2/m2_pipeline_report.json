@@ -1,0 +1,73 @@
+{
+  "status": "passed",
+  "completed_at_utc": "2026-07-10T17:03:01.266598+00:00",
+  "schema_version": "human2robot-canonical-hdf5-v2",
+  "output_root": "data/Human2Robot/canonical/v2",
+  "conversion": {
+    "episode_count": 20,
+    "task_count": 20,
+    "canonical_frames": 9039,
+    "source_frames": 9039,
+    "timebase_policy": "preserve_native",
+    "frame_selection": "all_source_frames",
+    "source_fps": null,
+    "split_sha256": "ee32fd5a222024f9ff370d1cad223ecafeca88594ae840171f20c0f499346cac",
+    "train_task_count": 16,
+    "heldout_task_count": 4
+  },
+  "statistics": {
+    "episode_count": 16,
+    "frame_count": 7803,
+    "action_dim": 10,
+    "proprio_dim": 10,
+    "source_split": "train",
+    "split_manifest_sha256": "ee32fd5a222024f9ff370d1cad223ecafeca88594ae840171f20c0f499346cac",
+    "normalization": "per-dimension min-max to [-1, 1]; constant dimensions map to 0",
+    "files": [
+      "dataset_statistics.json",
+      "dataset_statistics_post_norm.json",
+      "data_quality_statistics.json"
+    ]
+  },
+  "statistics_validation": {
+    "status": "passed",
+    "errors": [],
+    "checked_files": [
+      "data/Human2Robot/canonical/v2/dataset_statistics.json",
+      "data/Human2Robot/canonical/v2/dataset_statistics_post_norm.json",
+      "data/Human2Robot/canonical/v2/data_quality_statistics.json"
+    ],
+    "forbidden_delta_statistics_absent": true
+  },
+  "validation": {
+    "episode_count": 20,
+    "passed_episode_count": 20,
+    "failed_episode_count": 0,
+    "task_count": 20,
+    "frame_count": 9039,
+    "source_one_to_one_verified_count": 20,
+    "timebase_status_counts": {
+      "coarse": 17,
+      "discontinuous": 3,
+      "trusted": 0,
+      "unknown": 0
+    },
+    "gap_count": 3,
+    "segment_count": 23
+  },
+  "visualizations": {
+    "count": 10,
+    "seed": 20260711,
+    "playback_fps": 10.0,
+    "manual_review_status": "passed"
+  },
+  "artifacts": {
+    "preprocessing_manifest": "data/Human2Robot/canonical/v2/preprocessing_manifest.json",
+    "validation_report": "data/Human2Robot/canonical/v2/m2_validation_report.json",
+    "task_split_manifest": "data/Human2Robot/canonical/v2/task_split_manifest.json",
+    "timebase_audit_report": "data/Human2Robot/canonical/v2/timebase_audit_report.json",
+    "visualization_manifest": "data/Human2Robot/canonical/v2/visualizations/visualization_manifest.json",
+    "manual_review_manifest": "data/Human2Robot/canonical/v2/visualizations/manual_review/manual_review_manifest.json",
+    "v1_deprecation_marker": "data/Human2Robot/canonical/v1/DEPRECATED_M2_V01.json"
+  }
+}

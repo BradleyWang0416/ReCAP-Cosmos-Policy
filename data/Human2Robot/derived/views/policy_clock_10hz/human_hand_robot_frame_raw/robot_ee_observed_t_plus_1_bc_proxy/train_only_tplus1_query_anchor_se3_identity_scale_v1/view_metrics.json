@@ -1,0 +1,15 @@
+{
+  "time_view_id": "policy_clock_10hz",
+  "paper_version": null,
+  "nominal_hz": 10.0,
+  "pool_action_role": "pool_side_human_plan_in_robot_frame",
+  "query_action_role": "dataset_card_approved_strict_future_bc_proxy",
+  "query_action_view_id": "robot_ee_observed_t_plus_1_bc_proxy",
+  "sample_count": 2590,
+  "gap_crossing_count": 0,
+  "residual_norm_median": 0.014617556418381406,
+  "absolute_target_norm_median": 1.7688099749062554,
+  "position_error_median_canonical": 0.011761526563397628,
+  "orientation_error_median_rad": 5.949278109573551e-07,
+  "gripper_error_median": 0.0
+}

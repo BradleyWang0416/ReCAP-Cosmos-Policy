@@ -1,0 +1,295 @@
+{
+  "schema_version": "human2robot-m4-offline-bridge-v03",
+  "created_at_utc": "2026-07-11T07:09:22.639855+00:00",
+  "status": "launched",
+  "decision": "M4-v03 离线 bridge 已启动；Gate C 保持 pending",
+  "gate_c": "pending",
+  "launch_checks": {
+    "m3_gate_b_passed": true,
+    "contract_bound": true,
+    "four_fixed_baselines_ran": true,
+    "gap_crossing_zero": true,
+    "heldout_target_not_in_retrieval_feature": true,
+    "checkpoint_reload_hard_binding_passed": true,
+    "deployment_command_adapter_absent": true
+  },
+  "bindings": {
+    "canonical_schema": "human2robot-canonical-hdf5-v3",
+    "canonical_manifest_sha256": "52988de59862ffab51882e9734ae30c3b56d092c64f2b47dcd20bb1607f3fdc7",
+    "source_evidence_manifest_sha256": "bc7e0af72e310df0dba6c51f19d774644365f6501f86ece84ca0447fa4f98ff8",
+    "split_sha256": "1d3ef2377aa19938b06646f6d5fc31ec9f275fc9f37e253e1e9aa5eecdc5a968",
+    "time_view_id": "nominal_camera_30hz_segmented",
+    "pool_action_view_id": "human_hand_robot_frame_raw",
+    "query_action_view_id": "robot_ee_observed_t_plus_1_bc_proxy",
+    "action_alignment_id": "train_only_tplus1_query_anchor_se3_identity_scale_v1",
+    "pool_action_role": "pool_side_human_plan_in_robot_frame",
+    "query_action_role": "dataset_card_approved_bc_proxy",
+    "query_command_status": "unverified",
+    "policy_coordinate": {
+      "policy_dt": 0.03333333333333333
+    },
+    "H_steps": 8,
+    "H_seconds": 0.26666666666666666,
+    "K_steps": 8,
+    "K_seconds": 0.26666666666666666,
+    "gap_policy": "never_cross_segment",
+    "alignment_version": "9c3a592f78a5fe722825f5d3dd5cb3e56d690f0e820c03f2ab9feb8a1081120b",
+    "view_id": "e73604700bb079ff2397fe951c9c60915060f8aafb80d170753b539c739ad8a5",
+    "retrieval_index_sha256": "362bc28cfb96174208a37e63366b6c157e08e0de8e124066ca9d6057ec36c305"
+  },
+  "dataset": {
+    "sample_count": 1121,
+    "train_sample_count": 968,
+    "heldout_sample_count": 153,
+    "heldout_task_count": 4,
+    "gap_crossing_count": 0,
+    "strict_future_offset_view_steps": 1,
+    "retrieval_feature_schema": [
+      "normalized_segment_phase",
+      "task_pool_membership"
+    ],
+    "heldout_robot_trajectory_used_in_retrieval_feature": false,
+    "heldout_robot_trajectory_usage": "offline target evaluation only"
+  },
+  "pool_growth": [
+    {
+      "requested_pool_size_per_task": "1",
+      "effective_pool_size_per_task_median": 1.0,
+      "retrieval_phase_error_median": 0.4897959183673469,
+      "methods": {
+        "no_retrieval": {
+          "sample_count": 153,
+          "canonical_error_median": 0.026190590614577625,
+          "position_error_median_canonical": 0.006333833318125322,
+          "orientation_error_median_rad": 0.0006093438286466678,
+          "gripper_error_median": 0.0207902918020349,
+          "final_position_error_median_canonical": 0.0124852336332147,
+          "rotation_projection_fallback_count": 0
+        },
+        "retrieval_only": {
+          "sample_count": 153,
+          "canonical_error_median": 0.013482340013406622,
+          "position_error_median_canonical": 0.004556015843416128,
+          "orientation_error_median_rad": 5.318691819183516e-07,
+          "gripper_error_median": 0.0,
+          "final_position_error_median_canonical": 0.009031386460891414,
+          "rotation_projection_fallback_count": 0
+        },
+        "co_training": {
+          "sample_count": 153,
+          "canonical_error_median": 0.02007731599998354,
+          "position_error_median_canonical": 0.0059750373230079284,
+          "orientation_error_median_rad": 0.0006682905412458358,
+          "gripper_error_median": 0.011169598586813045,
+          "final_position_error_median_canonical": 0.011927325357644172,
+          "rotation_projection_fallback_count": 0
+        },
+        "recap_hand_ret": {
+          "sample_count": 153,
+          "canonical_error_median": 0.02007849786020907,
+          "position_error_median_canonical": 0.00597770066622114,
+          "orientation_error_median_rad": 0.0006697645604179164,
+          "gripper_error_median": 0.011166537416211653,
+          "final_position_error_median_canonical": 0.011927066622167574,
+          "rotation_projection_fallback_count": 0
+        }
+      }
+    },
+    {
+      "requested_pool_size_per_task": "2",
+      "effective_pool_size_per_task_median": 2.0,
+      "retrieval_phase_error_median": 0.4897959183673469,
+      "methods": {
+        "no_retrieval": {
+          "sample_count": 153,
+          "canonical_error_median": 0.026190590614577625,
+          "position_error_median_canonical": 0.006333833318125322,
+          "orientation_error_median_rad": 0.0006093438286466678,
+          "gripper_error_median": 0.020790291802034788,
+          "final_position_error_median_canonical": 0.0124852336332147,
+          "rotation_projection_fallback_count": 0
+        },
+        "retrieval_only": {
+          "sample_count": 153,
+          "canonical_error_median": 0.012879885882940388,
+          "position_error_median_canonical": 0.004397229215910745,
+          "orientation_error_median_rad": 5.318691819183516e-07,
+          "gripper_error_median": 0.0,
+          "final_position_error_median_canonical": 0.008856894062647239,
+          "rotation_projection_fallback_count": 0
+        },
+        "co_training": {
+          "sample_count": 153,
+          "canonical_error_median": 0.02033886561830088,
+          "position_error_median_canonical": 0.006005405335454284,
+          "orientation_error_median_rad": 0.0006693793508375348,
+          "gripper_error_median": 0.011171705287531197,
+          "final_position_error_median_canonical": 0.01179435595637383,
+          "rotation_projection_fallback_count": 0
+        },
+        "recap_hand_ret": {
+          "sample_count": 153,
+          "canonical_error_median": 0.020338256769542686,
+          "position_error_median_canonical": 0.00600527502243197,
+          "orientation_error_median_rad": 0.0006696565896063964,
+          "gripper_error_median": 0.011173816367133771,
+          "final_position_error_median_canonical": 0.011793447158383456,
+          "rotation_projection_fallback_count": 0
+        }
+      }
+    },
+    {
+      "requested_pool_size_per_task": "4",
+      "effective_pool_size_per_task_median": 4.0,
+      "retrieval_phase_error_median": 0.24489795918367346,
+      "methods": {
+        "no_retrieval": {
+          "sample_count": 153,
+          "canonical_error_median": 0.026190590614577625,
+          "position_error_median_canonical": 0.006333833318125322,
+          "orientation_error_median_rad": 0.0006093438286466678,
+          "gripper_error_median": 0.020790291802034788,
+          "final_position_error_median_canonical": 0.0124852336332147,
+          "rotation_projection_fallback_count": 0
+        },
+        "retrieval_only": {
+          "sample_count": 153,
+          "canonical_error_median": 0.33465385253670576,
+          "position_error_median_canonical": 0.010715814111462439,
+          "orientation_error_median_rad": 5.322864979354132e-07,
+          "gripper_error_median": 0.33333333333333337,
+          "final_position_error_median_canonical": 0.028500976723300417,
+          "rotation_projection_fallback_count": 0
+        },
+        "co_training": {
+          "sample_count": 153,
+          "canonical_error_median": 0.1169748028351072,
+          "position_error_median_canonical": 0.006643698649922391,
+          "orientation_error_median_rad": 0.0012336888778330182,
+          "gripper_error_median": 0.11478324109623106,
+          "final_position_error_median_canonical": 0.01534641104221832,
+          "rotation_projection_fallback_count": 0
+        },
+        "recap_hand_ret": {
+          "sample_count": 153,
+          "canonical_error_median": 0.11696791142370333,
+          "position_error_median_canonical": 0.006641873303425402,
+          "orientation_error_median_rad": 0.0012347763111202593,
+          "gripper_error_median": 0.11479211317536347,
+          "final_position_error_median_canonical": 0.015346352063642795,
+          "rotation_projection_fallback_count": 0
+        }
+      }
+    },
+    {
+      "requested_pool_size_per_task": "8",
+      "effective_pool_size_per_task_median": 8.0,
+      "retrieval_phase_error_median": 0.10840108401084003,
+      "methods": {
+        "no_retrieval": {
+          "sample_count": 153,
+          "canonical_error_median": 0.026190590614577625,
+          "position_error_median_canonical": 0.006333833318125322,
+          "orientation_error_median_rad": 0.0006093438286466678,
+          "gripper_error_median": 0.020790291802034788,
+          "final_position_error_median_canonical": 0.0124852336332147,
+          "rotation_projection_fallback_count": 0
+        },
+        "retrieval_only": {
+          "sample_count": 153,
+          "canonical_error_median": 0.029753873043900245,
+          "position_error_median_canonical": 0.005488385132758939,
+          "orientation_error_median_rad": 5.322864979354132e-07,
+          "gripper_error_median": 0.0,
+          "final_position_error_median_canonical": 0.01564798590169524,
+          "rotation_projection_fallback_count": 0
+        },
+        "co_training": {
+          "sample_count": 153,
+          "canonical_error_median": 0.026421620128653303,
+          "position_error_median_canonical": 0.0068312941938866506,
+          "orientation_error_median_rad": 0.0006906575821920322,
+          "gripper_error_median": 0.011166841801757421,
+          "final_position_error_median_canonical": 0.012482647733947937,
+          "rotation_projection_fallback_count": 0
+        },
+        "recap_hand_ret": {
+          "sample_count": 153,
+          "canonical_error_median": 0.026452906200126157,
+          "position_error_median_canonical": 0.006833068911662819,
+          "orientation_error_median_rad": 0.0006927219293289405,
+          "gripper_error_median": 0.011163330391760762,
+          "final_position_error_median_canonical": 0.012482674886244702,
+          "rotation_projection_fallback_count": 0
+        }
+      }
+    },
+    {
+      "requested_pool_size_per_task": "all",
+      "effective_pool_size_per_task_median": 46.0,
+      "retrieval_phase_error_median": 0.020408163265306145,
+      "methods": {
+        "no_retrieval": {
+          "sample_count": 153,
+          "canonical_error_median": 0.026190590614577625,
+          "position_error_median_canonical": 0.006333833318125322,
+          "orientation_error_median_rad": 0.0006093438286466678,
+          "gripper_error_median": 0.020790291802034788,
+          "final_position_error_median_canonical": 0.0124852336332147,
+          "rotation_projection_fallback_count": 0
+        },
+        "retrieval_only": {
+          "sample_count": 153,
+          "canonical_error_median": 0.006689850681263255,
+          "position_error_median_canonical": 0.005113608019489095,
+          "orientation_error_median_rad": 5.322864979354132e-07,
+          "gripper_error_median": 0.0,
+          "final_position_error_median_canonical": 0.011711509207663845,
+          "rotation_projection_fallback_count": 0
+        },
+        "co_training": {
+          "sample_count": 153,
+          "canonical_error_median": 0.01137855871682244,
+          "position_error_median_canonical": 0.006075460059859827,
+          "orientation_error_median_rad": 0.0005034100384882754,
+          "gripper_error_median": 0.005719087580114968,
+          "final_position_error_median_canonical": 0.011911753321926241,
+          "rotation_projection_fallback_count": 0
+        },
+        "recap_hand_ret": {
+          "sample_count": 153,
+          "canonical_error_median": 0.011377472791679548,
+          "position_error_median_canonical": 0.006076247668677534,
+          "orientation_error_median_rad": 0.0005043497829087555,
+          "gripper_error_median": 0.005718926743626562,
+          "final_position_error_median_canonical": 0.011910844738993155,
+          "rotation_projection_fallback_count": 0
+        }
+      }
+    }
+  ],
+  "checkpoint_path": "data/Human2Robot/derived/m4_v03/checkpoints/offline_bridge_ridge_v0.npz",
+  "checkpoint_manifest_path": "data/Human2Robot/derived/m4_v03/checkpoints/offline_bridge_ridge_v0.manifest.json",
+  "safety_smoke": {
+    "schema_version": "human2robot-m4-offline-bridge-v03",
+    "created_at_utc": "2026-07-11T07:09:22.639705+00:00",
+    "prediction_metrics_finite": true,
+    "rotation_projection_fallback_count": 0,
+    "gap_crossing_count": 0,
+    "gripper_postprocess": "clip_to_[0,1]",
+    "workspace_clipping": "disabled_in_smoke; report prediction error in canonical coordinates",
+    "query_command_status": "unverified",
+    "deployment_command_adapter_id": null,
+    "m6_rollout_approved": false
+  },
+  "m3_report_sha256": "09976159567e8ce8b88e82da2e07d649134644398963c061c8baeb02a5be8b4e",
+  "limitations": [
+    "ridge smoke bridge is not the final Cosmos/RECAP training model",
+    "one paired episode per heldout task; independent human-pool replication is pending",
+    "multi-seed training and formal Gate C comparisons are pending",
+    "query command status is unverified; M6 rollout is forbidden"
+  ],
+  "deployment_command_adapter_id": null,
+  "m6_rollout_approved": false,
+  "report_sha256": "99809e04ff6e4811f551ea8d6c99caf5f125855f175ed67f35c977670c3f067c"
+}

@@ -1,0 +1,86 @@
+{
+  "schema_version": "human2robot-m5b-p0-real-2b-one-batch-overfit-v1",
+  "status": "passed",
+  "gate_component": "M5B-P0-IMPLEMENTATION/full_2b_one_batch_overfit",
+  "executed_at_utc": "2026-07-11T09:32:58Z",
+  "environment": {
+    "container": "vigorous_bartik",
+    "workspace": "/workspace",
+    "torch": "2.7.0+cu128",
+    "cuda": "12.8",
+    "gpu": "NVIDIA GeForce RTX 4090",
+    "visible_gpu_count": 1,
+    "downloads_performed": false,
+    "environment_sync_performed": false
+  },
+  "model": {
+    "parameter_scale": "2B",
+    "class": "cosmos_policy.models.policy_video2world_model_human2robot_ret.CosmosPolicyHuman2RobotRetModelRectifiedFlow",
+    "distributed_parallelism": "fsdp_single_rank_diagnostic",
+    "initialization_checkpoint_path": "/DATA1/wxs/_HUGGINGFACE/nvidia/Cosmos-Predict2.5-2B/base/post-trained/81edfebe-bd6a-4039-8c1d-737df1a790bf_ema_bf16.pt",
+    "initialization_checkpoint_sha256": "565bbb2c9645737327983f4461e4d32627bba465b0a8dc26447edea144e1ff47"
+  },
+  "diagnostic_contract": {
+    "method_id": "recap_hand_ret",
+    "seed": 20260711,
+    "batch_size": 1,
+    "same_train_window_repeated": true,
+    "diagnostic_overfit_window_index": 0,
+    "rectified_flow_noise_and_time_seed_fixed_each_step": true,
+    "optimizer": "AdamW",
+    "learning_rate": 0.0001,
+    "warmup_disabled_for_diagnostic": true,
+    "tokenizer_compile_disabled_for_diagnostic": true,
+    "external_logging_disabled": true,
+    "fresh_job_path": true,
+    "resume_checkpoint": null,
+    "optimizer_steps": 50,
+    "formal_config_unchanged": true
+  },
+  "result": {
+    "training_completed": true,
+    "initial_logged_loss": 0.3335,
+    "final_logged_loss": 0.0039,
+    "final_to_initial_ratio": 0.011694152923538231,
+    "loss_reduction_percent": 98.83058470764618,
+    "minimum_logged_loss": 0.0039,
+    "peak_pytorch_gpu_memory_gib": 15.398665,
+    "pass_rule": "training completes, final loss < 0.01, and final/initial < 0.02",
+    "passed": true
+  },
+  "selected_loss_trace": {
+    "1": 0.3335,
+    "10": 0.1926,
+    "20": 0.0708,
+    "30": 0.018,
+    "40": 0.0087,
+    "50": 0.0039
+  },
+  "bindings": {
+    "protocol_file_sha256": "7598dfa2ac2e129f5d21a295dad23b90f63c3c8e68811da73cbcc20eb95d5ce4",
+    "source_log_sha256": "4e7e93cf330851bae0960f1335169f194a69bfe4f1fa75bda41c56368029891f",
+    "code_files": [
+      {
+        "path": "cosmos_policy/datasets/human2robot_dataset.py",
+        "file_sha256": "41cef8c0f6850f9507720dead300561a0ed13acc8b1429a22b7612f413f91051"
+      },
+      {
+        "path": "cosmos_policy/models/human2robot_adapter.py",
+        "file_sha256": "e3a5044af9e2d84fa3e33739c092bb43639fedfbe9767d4b5894e3d5c1478b7c"
+      },
+      {
+        "path": "cosmos_policy/models/policy_video2world_model_human2robot_ret.py",
+        "file_sha256": "0191b1083cedb509b8b08aa71d08acfa99732856c0ce02e8f9c370065525cb9d"
+      },
+      {
+        "path": "cosmos_policy/config/experiment/human2robot_experiment_configs.py",
+        "file_sha256": "cfdda84adf3d2fe8ce4ecfd9f2b50441662d11b66e3441e882e5e41511f263ee"
+      },
+      {
+        "path": "cosmos_policy/scripts/train.py",
+        "file_sha256": "ed5ea9c5062d017f23dedcf6a8c2242619301370150086c62eeb58e2dc82c39f"
+      }
+    ]
+  },
+  "claim_boundary": "This is a diagnostic full-2B one-batch overfit and integration test. Its 50-step checkpoint is not a formal M5B result and cannot replace any preregistered step-7000 method-by-seed checkpoint or quality comparison."
+}

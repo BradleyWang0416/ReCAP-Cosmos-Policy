@@ -1,0 +1,62 @@
+{
+  "schema_version": "human2robot-m5a-data-contract-stress-v03",
+  "created_at_utc": "2026-07-11T07:32:01.503482+00:00",
+  "scope": "train split only; held-out robot trajectories are not used",
+  "data_scope": {
+    "train_episode_count": 16,
+    "heldout_episode_count": 4,
+    "heldout_robot_trajectory_used": false
+  },
+  "checks": {
+    "wrong_role": {
+      "injection": "swap frozen pool/query role identifiers",
+      "primary_metric": "role_contract_violation_rate",
+      "baseline": 0.0,
+      "perturbed": 1.0,
+      "expected_bindings": {
+        "pool_action_view_id": "human_hand_robot_frame_raw",
+        "query_action_view_id": "robot_ee_observed_t_plus_1_bc_proxy"
+      },
+      "injected_bindings": {
+        "pool_action_view_id": "robot_ee_observed_t_plus_1_bc_proxy",
+        "query_action_view_id": "human_hand_robot_frame_raw"
+      },
+      "detector_triggered": true
+    },
+    "same_frame_copy": {
+      "injection": "replace strictly-future query label with observed state at t",
+      "primary_metric": "temporal_leakage_rate",
+      "baseline": 0.0,
+      "perturbed": 1.0,
+      "expected_future_offset_view_steps": 1,
+      "injected_future_offset_view_steps": 0,
+      "strict_future_target_rate": 0.0,
+      "misleading_position_error_median_canonical": 0.005421468220289801,
+      "misleading_residual_norm_median": 0.006987939580973591,
+      "detector_triggered": true
+    },
+    "wrong_lag": {
+      "injection": "use robot observed t+30 instead of t+1",
+      "primary_metric": "paired_position_error_median_canonical",
+      "baseline": 0.007382313865449027,
+      "perturbed": 0.062440029442744245,
+      "ratio": 8.45805672595124,
+      "baseline_residual_norm_median": 0.009233622297172454,
+      "perturbed_residual_norm_median": 0.1007504890487224,
+      "threshold_ratio": 1.5,
+      "detector_triggered": true
+    },
+    "scale_x2": {
+      "injection": "multiply pool xyz by 2",
+      "primary_metric": "paired_position_error_median_canonical",
+      "baseline": 0.007382313865449027,
+      "perturbed": 0.4942420550713205,
+      "ratio": 66.94947736975666,
+      "baseline_residual_norm_median": 0.009233622297172454,
+      "perturbed_residual_norm_median": 0.4993245016629934,
+      "threshold_ratio": 1.5,
+      "detector_triggered": true
+    }
+  },
+  "status": "passed"
+}

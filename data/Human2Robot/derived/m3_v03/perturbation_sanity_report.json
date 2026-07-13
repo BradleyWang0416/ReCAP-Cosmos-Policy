@@ -1,0 +1,39 @@
+{
+  "schema_version": "human2robot-m3-derived-view-v03",
+  "created_at_utc": "2026-07-11T06:58:19.036315+00:00",
+  "status": "passed",
+  "checks": {
+    "wrong_role": {
+      "primary_metric": "role_contract_violation_rate",
+      "baseline": 0.0,
+      "perturbed": 1.0,
+      "significant_worsening": true
+    },
+    "same_frame_copy": {
+      "primary_metric": "temporal_leakage_rate",
+      "baseline": 0.0,
+      "perturbed": 1.0,
+      "strict_future_target_rate_baseline": 1.0,
+      "strict_future_target_rate_perturbed": 0.0,
+      "significant_worsening": true
+    },
+    "wrong_lag": {
+      "primary_metric": "paired_position_error_median_canonical",
+      "wrong_lag_source_rows": 30,
+      "baseline": 0.007382313865449027,
+      "perturbed": 0.062440029442744245,
+      "ratio": 8.45805672595124,
+      "threshold_ratio": 1.5,
+      "significant_worsening": true
+    },
+    "scale_x2": {
+      "primary_metric": "paired_position_error_median_canonical",
+      "scale_factor": 2.0,
+      "baseline": 0.007382313865449027,
+      "perturbed": 0.4942420550713205,
+      "ratio": 66.94947736975666,
+      "threshold_ratio": 1.5,
+      "significant_worsening": true
+    }
+  }
+}

@@ -1,0 +1,13 @@
+cmd: /workspace/cosmos_policy/scripts/train.py --config=cosmos_policy/config/config.py
+  -- experiment=cosmos_predict2p5_2b_human2robot_recap_hand_ret_seed20260711 trainer.max_iter=1
+  checkpoint.save_iter=1000 job.group=human2robot_m5b_p2_capacity job.name=recap_main_seed20260711_exact_batch_capacity
+  job.wandb_mode=disabled
+args_cfg_path: cosmos_policy/config/config.py
+args_override:
+- --
+- experiment=cosmos_predict2p5_2b_human2robot_recap_hand_ret_seed20260711
+- trainer.max_iter=1
+- checkpoint.save_iter=1000
+- job.group=human2robot_m5b_p2_capacity
+- job.name=recap_main_seed20260711_exact_batch_capacity
+- job.wandb_mode=disabled

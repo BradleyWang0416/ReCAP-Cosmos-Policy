@@ -1,0 +1,12 @@
+{
+  "schema_version": "human2robot-m4-offline-bridge-v03",
+  "created_at_utc": "2026-07-11T07:09:22.639705+00:00",
+  "prediction_metrics_finite": true,
+  "rotation_projection_fallback_count": 0,
+  "gap_crossing_count": 0,
+  "gripper_postprocess": "clip_to_[0,1]",
+  "workspace_clipping": "disabled_in_smoke; report prediction error in canonical coordinates",
+  "query_command_status": "unverified",
+  "deployment_command_adapter_id": null,
+  "m6_rollout_approved": false
+}

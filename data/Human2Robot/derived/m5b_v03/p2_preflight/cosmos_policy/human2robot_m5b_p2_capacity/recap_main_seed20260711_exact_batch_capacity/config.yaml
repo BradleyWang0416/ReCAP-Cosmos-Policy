@@ -1,0 +1,638 @@
+checkpoint:
+  broadcast_via_filesystem: false
+  dcp_allow_mismatched_size: false
+  dcp_async_mode_enabled: false
+  enable_gcs_patch_in_boto3: false
+  jit:
+    device: cuda
+    dtype: bfloat16
+    enabled: false
+    input_shape: null
+    strict: true
+  keys_not_to_resume: []
+  load_ema_to_reg: true
+  load_from_object_store:
+    bucket: bucket
+    credentials: credentials/s3_checkpoint.secret
+    enabled: false
+  load_path: /DATA1/wxs/_HUGGINGFACE/nvidia/Cosmos-Predict2.5-2B/base/post-trained/81edfebe-bd6a-4039-8c1d-737df1a790bf_ema_bf16.pt
+  load_training_state: false
+  only_load_scheduler_state: false
+  save_iter: 1000
+  save_to_object_store:
+    bucket: bucket
+    credentials: credentials/s3_checkpoint.secret
+    enabled: false
+  strict_resume: false
+  type:
+    _target_: <class 'cosmos_policy._src.predict2.checkpointer.dcp.DistributedCheckpointer'>
+    callbacks: null
+    disable_async: 'False'
+  verbose: true
+dataloader_train:
+  _target_: <class 'torch.utils.data.dataloader.DataLoader'>
+  batch_sampler: null
+  batch_size: '25'
+  collate_fn: null
+  dataloaders:
+    image_data:
+      dataloader:
+        _target_: <function get_cached_replay_dataloader at 0x7f3659473400>
+        batch_size: '12'
+        cache_augment_fn: functools.partial(<function duplicate_batches at 0x7f3659472560>,
+          n=1)
+        cache_replay_name: image_dataloader
+        cache_size: '8'
+        concat_size: '1'
+        dataset:
+          _target_: <function get_image_dataset at 0x7f3650cd7880>
+          augmentor_name: image_basic_augmentor_without_embeddings
+          caption_type: qwen2p5_7b_v4
+          dataset_resolution_type: gt720p
+          embedding_type: null
+          len_t5: '512'
+          resolution: '224'
+          t5_dim: '1024'
+        num_workers: '6'
+        pin_memory: 'True'
+        shuffle: 'False'
+        use_cache: 'False'
+        webdataset: 'False'
+      ratio: '1'
+    video_data:
+      dataloader:
+        _target_: <function get_cached_replay_dataloader at 0x7f3659473400>
+        batch_size: '1'
+        cache_augment_fn: functools.partial(<function duplicate_batches_random at
+          0x7f3659472dd0>, n=1.8)
+        cache_replay_name: video_dataloader
+        cache_size: '16'
+        concat_size: '1'
+        dataset:
+          _target_: <function get_video_dataset at 0x7f3650cd79a0>
+          augmentor_name: video_basic_augmentor_v2
+          caption_type: t2w_qwen2p5_7b
+          dataset_resolution_type: all
+          embedding_type: null
+          len_t5: '512'
+          max_fps_thres: '60'
+          min_fps_thres: '10'
+          num_video_frames: '93'
+          resolution: '224'
+          t5_dim: '1024'
+          use_native_fps: 'True'
+          video_decoder_name: video_naive_bytes
+        num_workers: '8'
+        pin_memory: 'True'
+        shuffle: 'False'
+        use_cache: 'False'
+        webdataset: 'False'
+      ratio: '3'
+  dataset:
+    _target_: <function build_human2robot_formal_dataset at 0x7f3650f59360>
+    aux_sampling_prob: '0.0'
+    canonical_root: /workspace/data/Human2Robot/canonical/v3
+    chunk_size: '8'
+    data_dir: ./PushT-Cosmos-Policy/success_only
+    demonstration_sampling_prob: '1.0'
+    diagnostic_overfit_window_index: null
+    episode_allowlist_path: ''
+    episode_allowlist_top_k: '-1'
+    extra_task_splits: null
+    final_image_size: '224'
+    force_zero_ret_image: 'False'
+    force_zero_ret_state: 'False'
+    gamma: '0.99'
+    horizon: '8'
+    m3_report_path: /workspace/data/Human2Robot/derived/m3_v03/m3_validation_report.json
+    m4_report_path: /workspace/data/Human2Robot/derived/m4_v03/m4_launch_report.json
+    main_view_path: /workspace/data/Human2Robot/derived/views/nominal_camera_30hz_segmented/human_hand_robot_frame_raw/robot_ee_observed_t_plus_1_bc_proxy/train_only_tplus1_query_anchor_se3_identity_scale_v1
+    max_num_episodes: '100'
+    method_id: recap_hand_ret
+    normalize_actions: 'True'
+    normalize_images: 'False'
+    normalize_proprio: 'True'
+    num_duplicates_per_image: '4'
+    predict_future_states: 'True'
+    protocol_path: "/workspace/\u65B9\u6848/v03/M5B_formal_acceptance_protocol_v1.json"
+    ret_action_as_target_prob: '0.0'
+    ret_context_multiplier: '1'
+    ret_image_subsample: '1'
+    ret_single_frame: 'False'
+    retrieval_dropout_prob: '0.0'
+    retrieval_image_only_dropout_prob: '0.0'
+    retrieval_npz_path:
+    - ./PushT-Cosmos-Policy/retrieval_results_state_action_tri_default_p_base.npz
+    - ./PushT-Cosmos-Policy/retrieval_results_state_action_tri_goal_goal_flipped.npz
+    retrieval_source_splits:
+    - base
+    - goal_flipped
+    retrieval_top_k_choice: '1'
+    return_value_function_returns: 'True'
+    rollout_data_dir: ''
+    seed: '20260711'
+    split: train
+    success_rollout_sampling_prob: '1.0'
+    t5_text_embeddings_path: ./PushT-Cosmos-Policy/success_only/t5_embeddings.pkl
+    task_split:
+    - tri_default_p
+    - tri_goal
+    text_conditioning: disabled_zero_embedding
+    treat_success_rollouts_as_demos: 'False'
+    use_image_aug: 'True'
+    use_proprio: 'True'
+    use_residual_actions: 'False'
+    use_stronger_image_aug: 'True'
+    use_third_person_images: 'True'
+    use_wrist_images: 'False'
+    window_stride: '8'
+  drop_last: 'True'
+  generator: null
+  in_order: 'True'
+  multiprocessing_context: null
+  num_workers: '4'
+  persistent_workers: 'True'
+  pin_memory: 'True'
+  pin_memory_device: ''
+  prefetch_factor: null
+  sampler:
+    _target_: <class 'torch.utils.data.distributed.DistributedSampler'>
+    dataset:
+      _target_: <function build_human2robot_formal_dataset at 0x7f3650f59360>
+      aux_sampling_prob: '0.0'
+      canonical_root: /workspace/data/Human2Robot/canonical/v3
+      chunk_size: '8'
+      data_dir: ./PushT-Cosmos-Policy/success_only
+      demonstration_sampling_prob: '1.0'
+      diagnostic_overfit_window_index: null
+      episode_allowlist_path: ''
+      episode_allowlist_top_k: '-1'
+      extra_task_splits: null
+      final_image_size: '224'
+      force_zero_ret_image: 'False'
+      force_zero_ret_state: 'False'
+      gamma: '0.99'
+      horizon: '8'
+      m3_report_path: /workspace/data/Human2Robot/derived/m3_v03/m3_validation_report.json
+      m4_report_path: /workspace/data/Human2Robot/derived/m4_v03/m4_launch_report.json
+      main_view_path: /workspace/data/Human2Robot/derived/views/nominal_camera_30hz_segmented/human_hand_robot_frame_raw/robot_ee_observed_t_plus_1_bc_proxy/train_only_tplus1_query_anchor_se3_identity_scale_v1
+      max_num_episodes: '100'
+      method_id: recap_hand_ret
+      normalize_actions: 'True'
+      normalize_images: 'False'
+      normalize_proprio: 'True'
+      num_duplicates_per_image: '4'
+      predict_future_states: 'True'
+      protocol_path: "/workspace/\u65B9\u6848/v03/M5B_formal_acceptance_protocol_v1.json"
+      ret_action_as_target_prob: '0.0'
+      ret_context_multiplier: '1'
+      ret_image_subsample: '1'
+      ret_single_frame: 'False'
+      retrieval_dropout_prob: '0.0'
+      retrieval_image_only_dropout_prob: '0.0'
+      retrieval_npz_path:
+      - ./PushT-Cosmos-Policy/retrieval_results_state_action_tri_default_p_base.npz
+      - ./PushT-Cosmos-Policy/retrieval_results_state_action_tri_goal_goal_flipped.npz
+      retrieval_source_splits:
+      - base
+      - goal_flipped
+      retrieval_top_k_choice: '1'
+      return_value_function_returns: 'True'
+      rollout_data_dir: ''
+      seed: '20260711'
+      split: train
+      success_rollout_sampling_prob: '1.0'
+      t5_text_embeddings_path: ./PushT-Cosmos-Policy/success_only/t5_embeddings.pkl
+      task_split:
+      - tri_default_p
+      - tri_goal
+      text_conditioning: disabled_zero_embedding
+      treat_success_rollouts_as_demos: 'False'
+      use_image_aug: 'True'
+      use_proprio: 'True'
+      use_residual_actions: 'False'
+      use_stronger_image_aug: 'True'
+      use_third_person_images: 'True'
+      use_wrist_images: 'False'
+      window_stride: '8'
+    drop_last: 'False'
+    num_replicas:
+      _target_: <function get_data_parallel_world_size at 0x7f37954b3370>
+      partial_data_parallel: 'False'
+      with_context_parallel: 'False'
+    rank:
+      _target_: <function get_data_parallel_rank at 0x7f37954b3490>
+      partial_data_parallel: 'False'
+      with_context_parallel: 'False'
+    seed: '20260711'
+    shuffle: 'True'
+  shuffle: null
+  timeout: '0'
+  worker_init_fn: null
+dataloader_val:
+  _target_: <class 'cosmos_policy._src.predict2.datasets.joint_dataloader.IterativeJointDataLoader'>
+  dataloaders:
+    image_data:
+      dataloader:
+        _target_: <function get_cached_replay_dataloader at 0x7f3659473400>
+        batch_size: '2'
+        cache_augment_fn: null
+        cache_replay_name: image_dataloader
+        cache_size: '32'
+        concat_size: '1'
+        dataset:
+          _target_: <function get_image_dataset at 0x7f3650cd7880>
+          len_t5: '512'
+          resolution: '512'
+          t5_dim: '1024'
+        num_workers: '8'
+        pin_memory: 'True'
+        shuffle: 'False'
+        use_cache: 'False'
+        webdataset: 'False'
+      ratio: '1'
+    video_data:
+      dataloader:
+        _target_: <function get_cached_replay_dataloader at 0x7f3659473400>
+        batch_size: '1'
+        cache_augment_fn: null
+        cache_replay_name: video_dataloader
+        cache_size: '32'
+        concat_size: '1'
+        dataset:
+          _target_: <function get_video_dataset at 0x7f3650cd79a0>
+          len_t5: '512'
+          num_video_frames: '136'
+          resolution: '512'
+          t5_dim: '1024'
+        num_workers: '8'
+        pin_memory: 'True'
+        shuffle: 'False'
+        use_cache: 'False'
+        webdataset: 'False'
+      ratio: '1'
+defaults:
+- _self_
+- data_train: mock
+- data_val: mock
+- optimizer: fusedadamw
+- scheduler: lambdalinear
+- model: policy_fsdp
+- callbacks: basic
+- net: null
+- conditioner: video_prediction_conditioner
+- ema: power
+- tokenizer: policy_wan2pt1_tokenizer
+- checkpoint: s3
+- ckpt_type: dummy
+- experiment: null
+job:
+  cluster: null
+  group: human2robot_m5b_p2_capacity
+  name: recap_main_seed20260711_exact_batch_capacity
+  project: cosmos_policy
+  wandb_mode: disabled
+model:
+  _recursive_: 'False'
+  _target_: <class 'cosmos_policy.models.policy_video2world_model_human2robot_ret.CosmosPolicyHuman2RobotRetModelRectifiedFlow'>
+  config:
+    action_dim: 10
+    action_loss_multiplier: 16
+    chunk_size: 8
+    cond_dropout_warmup_steps: 0
+    conditional_frame_timestep: 0.0
+    conditional_frames_probs:
+      0: 0.0
+      1: 0.0
+      2: 0.0
+      3: 0.0
+      4: 0.0
+      5: 0.0
+      6: 0.0
+      7: 1.0
+    conditioner:
+      _target_: <class 'cosmos_policy.config.conditioner.video2world_conditioner.Video2WorldConditioner'>
+      fps:
+        _target_: <class 'cosmos_policy._src.predict2.conditioner.ReMapkey'>
+        dropout_rate: '0.0'
+        dtype: null
+        input_key: fps
+        output_key: fps
+      padding_mask:
+        _target_: <class 'cosmos_policy._src.predict2.conditioner.ReMapkey'>
+        dropout_rate: '0.0'
+        dtype: null
+        input_key: padding_mask
+        output_key: padding_mask
+      text:
+        _target_: <class 'cosmos_policy._src.predict2.conditioner.TextAttr'>
+        credential_path: credentials/s3_training.secret
+        dropout_rate: '0.0'
+        empty_string_embeddings_path: s3://bucket/predict2_assets/reason1_empty_string_embeddings.pt
+        input_key:
+        - t5_text_embeddings
+        use_empty_string: 'False'
+      use_video_condition:
+        _target_: <class 'cosmos_policy._src.predict2.conditioner.BooleanFlag'>
+        dropout_rate: '0.0'
+        input_key: fps
+        output_key: use_video_condition
+    conditioning_strategy: frame_replace
+    denoise_replace_gt_frames: true
+    ema:
+      enabled: false
+      iteration_shift: 0
+      rate: 0.1
+    fsdp_shard_size: 8
+    high_sigma_ratio: 0.05
+    high_sigma_timesteps_max: 1000
+    high_sigma_timesteps_min: 980
+    init_lora_weights: true
+    input_caption_key: ai_caption
+    input_data_key: video
+    input_image_key: images
+    lora_alpha: 32
+    lora_rank: 32
+    lora_target_modules: q_proj,k_proj,v_proj,output_proj,mlp.layer1,mlp.layer2
+    mask_current_state_action_for_value_prediction: false
+    mask_future_state_for_qvalue_prediction: false
+    mask_loss_for_action_future_state_prediction: false
+    mask_value_prediction_loss_for_policy_prediction: false
+    max_num_conditional_frames: 7
+    min_num_conditional_frames: 7
+    net:
+      _target_: <class 'cosmos_policy._src.predict2.networks.minimal_v1_lvg_dit.MinimalV1LVGDiT'>
+      adaln_lora_dim: '256'
+      atten_backend: minimal_a2a
+      concat_padding_mask: 'True'
+      crossattn_emb_channels: '1024'
+      crossattn_proj_in_channels: '100352'
+      extra_per_block_abs_pos_emb: 'False'
+      in_channels: '16'
+      max_frames: '128'
+      max_img_h: '240'
+      max_img_w: '240'
+      model_channels: '2048'
+      num_blocks: '28'
+      num_heads: '16'
+      out_channels: '16'
+      patch_spatial: '2'
+      patch_temporal: '1'
+      pos_emb_cls: rope3d
+      pos_emb_interpolation: crop
+      pos_emb_learnable: 'True'
+      rope_enable_fps_modulation: 'False'
+      rope_h_extrapolation_ratio: '3.0'
+      rope_t_extrapolation_ratio: '1.0'
+      rope_w_extrapolation_ratio: '3.0'
+      sac_config:
+        every_n_blocks: 1
+        mode: predict2_2b_720_aggressive
+      timestep_scale: '0.001'
+      use_adaln_lora: 'True'
+      use_crossattn_projection: 'False'
+      use_wan_fp32_strategy: 'True'
+    precision: bfloat16
+    projection_hidden_dim: 256
+    proprio_dim: 10
+    resolution: '224'
+    sde:
+      _target_: <class 'cosmos_policy.modules.hybrid_edm_sde.HybridEDMSDE'>
+      hybrid_sigma_distribution: 'True'
+      p_mean: '0.0'
+      p_std: '1.0'
+      sigma_max: '80'
+      sigma_min: '0.0002'
+      uniform_lower: '1.0'
+      uniform_upper: '85.0'
+    shift: 5
+    state_ch: 16
+    state_t: 10
+    text_encoder_class: T5
+    text_encoder_config: null
+    tokenizer:
+      _target_: <class 'cosmos_policy.tokenizers.wan2pt1.Wan2pt1VAEInterface'>
+      chunk_duration: '37'
+      cp_grid_shape: null
+      is_parallel: 'False'
+      load_mean_std: 'False'
+      s3_credential_path: credentials/s3_training.secret
+      temporal_window: '16'
+      vae_pth: /DATA1/wxs/_HUGGINGFACE/nvidia/Cosmos-Predict2.5-2B/tokenizer.pth
+    train_time_distribution: uniform
+    train_time_logitnormal_mean: 0.0
+    train_time_logitnormal_std: 1.0
+    train_time_weight: uniform
+    use_action_projection: false
+    use_dora: false
+    use_dynamic_shift: false
+    use_high_sigma_strategy: false
+    use_kerras_sigma_at_inference: true
+    use_lora: false
+    use_proprio_projection: false
+    use_torch_compile: false
+model_parallel:
+  _cpu_offloading_context: null
+  async_tensor_model_parallel_allreduce: false
+  autocast_dtype: torch.float32
+  barrier_with_L1_time: true
+  batch_p2p_comm: true
+  batch_p2p_sync: true
+  bf16: false
+  context_parallel_size: 1
+  cpu_offloading: false
+  cpu_offloading_activations: true
+  cpu_offloading_double_buffering: false
+  cpu_offloading_num_layers: 0
+  cpu_offloading_weights: true
+  cross_entropy_fusion_impl: native
+  cross_entropy_loss_fusion: false
+  deallocate_pipeline_outputs: false
+  defer_embedding_wgrad_compute: false
+  delay_wgrad_compute: false
+  deterministic_mode: false
+  enable_autocast: false
+  expert_model_parallel_size: 1
+  expert_tensor_parallel_size: 1
+  finalize_model_grads_func: null
+  fp16: false
+  grad_scale_func: null
+  grad_sync_func: null
+  gradient_accumulation_fusion: false
+  hierarchical_context_parallel_sizes: null
+  microbatch_group_size_per_vp_stage: 1
+  moe_extended_tp: false
+  no_sync_func: null
+  num_microbatches_with_partial_activation_checkpoints: null
+  overlap_moe_expert_parallel_comm: false
+  overlap_p2p_comm: false
+  overlap_p2p_comm_warmup_flush: false
+  param_sync_func: null
+  params_dtype: torch.float32
+  perform_initialization: true
+  pipeline_dtype: null
+  pipeline_model_parallel_comm_backend: null
+  pipeline_model_parallel_size: 1
+  sequence_parallel: false
+  tensor_model_parallel_size: 1
+  timers: null
+  tp_comm_atomic_ag: false
+  tp_comm_atomic_rs: false
+  tp_comm_bootstrap_backend: nccl
+  tp_comm_bulk_dgrad: true
+  tp_comm_bulk_wgrad: true
+  tp_comm_overlap: false
+  tp_comm_overlap_ag: true
+  tp_comm_overlap_disable_fc1: false
+  tp_comm_overlap_disable_qkv: false
+  tp_comm_overlap_rs: true
+  tp_comm_overlap_rs_dgrad: false
+  tp_comm_split_ag: true
+  tp_comm_split_rs: true
+  use_cpu_initialization: false
+  use_ring_exchange_p2p: false
+  use_te_rng_tracker: false
+  variable_seq_lengths: false
+  virtual_pipeline_model_parallel_size: null
+  wgrad_deferral_limit: 0
+optimizer:
+  _target_: <function get_base_optimizer at 0x7f36c6578670>
+  betas:
+  - '0.9'
+  - '0.999'
+  eps: 1e-08
+  fused: 'True'
+  lr: '0.0001'
+  model: null
+  optim_type: adamw
+  weight_decay: '0.1'
+scheduler:
+  _target_: <class 'cosmos_policy._src.imaginaire.functional.lr_scheduler.LambdaLinearScheduler'>
+  cycle_lengths:
+  - '20000'
+  - '100000000000000'
+  f_max:
+  - '1.0'
+  - '0.06'
+  f_min:
+  - '0.06'
+  - '0.06'
+  f_start:
+  - 1e-06
+  - '0.06'
+  verbosity_interval: '0'
+  warm_up_steps:
+  - '500'
+  - '0'
+trainer:
+  callbacks:
+    compile_tokenizer:
+      _target_: <class 'cosmos_policy._src.predict2.callbacks.compile_tokenizer.CompileTokenizer'>
+      compile_after_iterations: '4'
+      dynamic: 'False'
+      enabled: 'True'
+    dataloader_speed:
+      _target_: <class 'cosmos_policy._src.predict2.callbacks.dataloading_monitor.DetailedDataLoadingSpeedMonitor'>
+      every_n: '5'
+      save_s3: 'False'
+      step_size: '1'
+    device_monitor:
+      _target_: <class 'cosmos_policy._src.predict2.callbacks.device_monitor.DeviceMonitor'>
+      every_n: '5'
+      log_memory_detail: 'True'
+      save_s3: 'False'
+      step_size: '1'
+      upload_every_n_mul: '10'
+    every_n_sample_ema:
+      every_n: '1000000000000'
+    every_n_sample_reg:
+      every_n: '100000'
+      guidance:
+      - '0'
+      save_s3: 'False'
+      use_negative_prompt: 'False'
+    grad_clip:
+      _target_: <class 'cosmos_policy._src.predict2.callbacks.grad_clip.GradClip'>
+      clip_norm: '0.1'
+      force_finite: 'True'
+    heart_beat:
+      _target_: <class 'cosmos_policy._src.predict2.callbacks.heart_beat.HeartBeat'>
+      every_n: '10'
+      save_s3: 'False'
+      step_size: '1'
+      update_interval_in_minute: '20'
+    iter_speed:
+      _target_: <class 'cosmos_policy._src.predict2.callbacks.iter_speed.IterSpeed'>
+      every_n: '5'
+      hit_thres: '5'
+      save_s3: 'False'
+      save_s3_every_log_n: '10'
+    low_prec:
+      _target_: <class 'cosmos_policy._src.imaginaire.utils.callback.LowPrecisionCallback'>
+      config: null
+      trainer: null
+      update_iter: '1'
+    manual_gc:
+      _target_: <class 'cosmos_policy._src.imaginaire.callbacks.manual_gc.ManualGarbageCollection'>
+      every_n: '200'
+      warm_up: '5'
+    wandb:
+      _target_: <class 'cosmos_policy.config.callbacks.WandbCallback'>
+      logging_iter_multipler: '1'
+      save_logging_iter_multipler: '10'
+      save_s3: 'False'
+    wandb_10x:
+      _target_: <class 'cosmos_policy.config.callbacks.WandbCallback'>
+      logging_iter_multipler: '10'
+      save_logging_iter_multipler: '1'
+      save_s3: 'False'
+  cudnn:
+    benchmark: 'True'
+    deterministic: 'False'
+  ddp:
+    broadcast_buffers: 'True'
+    find_unused_parameters: 'False'
+    static_graph: 'True'
+  distributed_parallelism: fsdp
+  grad_accum_iter: '1'
+  grad_scaler_args:
+    enabled: 'False'
+  logging_iter: '5'
+  max_iter: '1'
+  max_val_iter: null
+  memory_format: torch.preserve_format
+  profiling:
+    enable_memory_snapshot: 'False'
+    enable_profiling: 'False'
+    profile_freq: '1'
+    profile_memory: 'False'
+    record_shape: 'False'
+    save_s3: 'False'
+    target_ranks:
+    - '0'
+    - '1'
+    - '2'
+    - '3'
+    - '4'
+    - '5'
+    - '6'
+    - '7'
+    with_modules: 'True'
+    with_stack: 'True'
+  run_validation: 'False'
+  run_validation_on_start: 'False'
+  seed: '20260711'
+  straggler_detection:
+    analyze_backward: 'True'
+    analyze_dataloading: 'True'
+    analyze_forward: 'True'
+    analyze_optimizer: 'True'
+    enabled: 'False'
+    max_diff: '1.5'
+    profile_freq: '1'
+    raise_error: 'True'
+    report_freq: '100'
+  timeout_period: '999999999'
+  type: <class 'cosmos_policy.trainer.CosmosPolicyTrainer'>
+  validation_iter: '100'
+upload_reproducible_setup: 'False'

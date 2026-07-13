@@ -1,0 +1,33 @@
+{
+  "status": "exported",
+  "exported_at_utc": "2026-07-08T03:29:03.462685+00:00",
+  "episode": "/DATA1/wxs/DATASETS/Human2Robot/data/v1/roll/episode_0.hdf5",
+  "video": "data/Human2Robot/human2robot_roll_episode0_pair_clip.mp4",
+  "contact_sheet": "data/Human2Robot/human2robot_roll_episode0_pair_clip_contact_sheet.jpg",
+  "frame_shape": [
+    240,
+    860,
+    3
+  ],
+  "fps": 30,
+  "start_frame": 391,
+  "end_frame_exclusive": 511,
+  "frame_count": 120,
+  "camera_shape": [
+    549,
+    240,
+    426,
+    3
+  ],
+  "timestamp_first": 1737609199,
+  "timestamp_last": 1737609203,
+  "step_first": 1596,
+  "step_last": 1715,
+  "pairing_checks": {
+    "same_hdf5_episode": true,
+    "same_frame_indices": true,
+    "same_camera_frame_shape": true,
+    "timestamp_window_monotonic": true,
+    "step_window_monotonic": true
+  }
+}

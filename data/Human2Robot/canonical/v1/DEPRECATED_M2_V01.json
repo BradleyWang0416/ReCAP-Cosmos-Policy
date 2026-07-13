@@ -1,0 +1,33 @@
+{
+  "status": "acceptance_withdrawn",
+  "created_at_utc": "2026-07-10T17:03:01.266207+00:00",
+  "schema_version": "human2robot-canonical-hdf5-v1",
+  "reason": "unverified 30 Hz assumption and synthetic 10 Hz timeline",
+  "replacement": {
+    "schema_version": "human2robot-canonical-hdf5-v2",
+    "plan": "方案/v02/RECAP_人手示范用于上下文学习指导真实机器人复现实验方案.md",
+    "acceptance_report": "方案/v02/M2_Human2Robot_native_time_验收报告.md"
+  },
+  "allowed_uses": [
+    "legacy regression",
+    "dtype/schema tests",
+    "visualization",
+    "time ablation"
+  ],
+  "forbidden_uses": [
+    "M2-v02 retrieval",
+    "training statistics",
+    "main experiments",
+    "paper conclusions"
+  ],
+  "frozen_artifact_sha256": {
+    "data/Human2Robot/canonical/v1/preprocessing_manifest.json": "ab3f90d788681057db978fe2208f7bb3887ce66c420769392b1d168f57ca513d",
+    "data/Human2Robot/canonical/v1/m2_pipeline_report.json": "7c3233f936be2fb18f7b947205610136b4ff854d31fb76cf1b0c252ecf7b8573",
+    "data/Human2Robot/canonical/v1/m2_validation_report.json": "fd4161f0ec10a4ce14fe96631f143ce3c5d8ecd4e73409d90fed57e71d4e48b2",
+    "data/Human2Robot/canonical/v1/dataset_statistics.json": "516c01a98be680e21a34582727b622c5d25aaa3cbf839bf88b9a76b66f6475f5",
+    "data/Human2Robot/canonical/v1/dataset_statistics_post_norm.json": "e578cf6c3230825d996f9d152e5a98496059bb3ded55538c4ab89806d83c8a22",
+    "data/Human2Robot/canonical/v1/delta_dataset_statistics.json": "73aee94fefb972205ca99a3d8c368bc825f5954d76d51f3ca18bc63bb5f7b536",
+    "data/Human2Robot/canonical/v1/visualizations/visualization_manifest.json": "1e5b941816fa273bbba026ac81b251f925f5943b6f10bce96f9d9c585df69f49",
+    "方案/v01/M2_Human2Robot_canonical_HDF5_验收报告.md": "b03f15b61792319ac90a2ef598b05f056328f2b0c937fff9600f6ac0c84bbba5"
+  }
+}

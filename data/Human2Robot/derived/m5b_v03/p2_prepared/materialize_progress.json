@@ -1,0 +1,11 @@
+{
+  "cell_id": null,
+  "completed_cells": 48,
+  "detail": "prepared_manifest.json committed",
+  "phase": "complete",
+  "pid": 12493,
+  "run_id": "2026-07-13T14:03:56.571022+00:00__pid12493",
+  "schema_version": "human2robot-m5b-p2-materialize-progress-v1",
+  "total_cells": 48,
+  "updated_at_utc": "2026-07-13T14:49:20.642232+00:00"
+}

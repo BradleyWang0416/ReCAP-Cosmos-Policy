@@ -1,0 +1,174 @@
+{
+  "schema_version": "human2robot-m3-derived-view-v03",
+  "created_at_utc": "2026-07-11T06:58:18.472967+00:00",
+  "status": "passed",
+  "gate": "A2a",
+  "gate_decision": "passed",
+  "canonical_schema": "human2robot-canonical-hdf5-v3",
+  "canonical_episode_count": 20,
+  "split_sha256": "1d3ef2377aa19938b06646f6d5fc31ec9f275fc9f37e253e1e9aa5eecdc5a968",
+  "source_evidence_manifest": "方案/v03/source_evidence_manifest_v3.json",
+  "source_evidence_manifest_sha256": "bc7e0af72e310df0dba6c51f19d774644365f6501f86ece84ca0447fa4f98ff8",
+  "evidence_sources": [
+    {
+      "name": "Human2Robot paper",
+      "url": "https://arxiv.org/pdf/2502.16587v4",
+      "version": "arXiv v4, Appendix A",
+      "accessed_at": "2026-07-11",
+      "supports": [
+        "nominal_camera_fps=30",
+        "paired D435 camera capture configuration"
+      ]
+    },
+    {
+      "name": "HumanAndRobot dataset card",
+      "url": "https://huggingface.co/datasets/dannyXSC/HumanAndRobot",
+      "version": "dataset card accessed 2026-07-11",
+      "accessed_at": "2026-07-11",
+      "supports": [
+        "/action is human hand pose in robot frame",
+        "/end_position is observed robot end-effector pose",
+        "Euler angles are degree XYZ",
+        "gripper 1=open and 0=close"
+      ]
+    }
+  ],
+  "roles": {
+    "pool": {
+      "dataset": "trajectories/human_hand_robot_frame_10d",
+      "role": "pool_side_human_plan_in_robot_frame",
+      "source": "v1 /action",
+      "command_status": "not_required_for_offline_pool; executable_status_unknown"
+    },
+    "query": {
+      "dataset": "trajectories/robot_ee_observed_10d",
+      "role": "observed_robot_ee_trajectory_and_dataset_card_approved_bc_label_source",
+      "source": "/end_position + /gripper_state",
+      "command_status": "unverified_not_executable_command"
+    }
+  },
+  "canonical_checks": [
+    {
+      "episode_id": "demo_00000",
+      "source_action_role": "human_hand_pose_in_robot_frame",
+      "robot_trajectory_role": "observed_robot_ee_pose",
+      "generic_action_present": false
+    },
+    {
+      "episode_id": "demo_00001",
+      "source_action_role": "human_hand_pose_in_robot_frame",
+      "robot_trajectory_role": "observed_robot_ee_pose",
+      "generic_action_present": false
+    },
+    {
+      "episode_id": "demo_00002",
+      "source_action_role": "human_hand_pose_in_robot_frame",
+      "robot_trajectory_role": "observed_robot_ee_pose",
+      "generic_action_present": false
+    },
+    {
+      "episode_id": "demo_00003",
+      "source_action_role": "human_hand_pose_in_robot_frame",
+      "robot_trajectory_role": "observed_robot_ee_pose",
+      "generic_action_present": false
+    },
+    {
+      "episode_id": "demo_00004",
+      "source_action_role": "human_hand_pose_in_robot_frame",
+      "robot_trajectory_role": "observed_robot_ee_pose",
+      "generic_action_present": false
+    },
+    {
+      "episode_id": "demo_00005",
+      "source_action_role": "human_hand_pose_in_robot_frame",
+      "robot_trajectory_role": "observed_robot_ee_pose",
+      "generic_action_present": false
+    },
+    {
+      "episode_id": "demo_00006",
+      "source_action_role": "human_hand_pose_in_robot_frame",
+      "robot_trajectory_role": "observed_robot_ee_pose",
+      "generic_action_present": false
+    },
+    {
+      "episode_id": "demo_00007",
+      "source_action_role": "human_hand_pose_in_robot_frame",
+      "robot_trajectory_role": "observed_robot_ee_pose",
+      "generic_action_present": false
+    },
+    {
+      "episode_id": "demo_00008",
+      "source_action_role": "human_hand_pose_in_robot_frame",
+      "robot_trajectory_role": "observed_robot_ee_pose",
+      "generic_action_present": false
+    },
+    {
+      "episode_id": "demo_00009",
+      "source_action_role": "human_hand_pose_in_robot_frame",
+      "robot_trajectory_role": "observed_robot_ee_pose",
+      "generic_action_present": false
+    },
+    {
+      "episode_id": "demo_00010",
+      "source_action_role": "human_hand_pose_in_robot_frame",
+      "robot_trajectory_role": "observed_robot_ee_pose",
+      "generic_action_present": false
+    },
+    {
+      "episode_id": "demo_00011",
+      "source_action_role": "human_hand_pose_in_robot_frame",
+      "robot_trajectory_role": "observed_robot_ee_pose",
+      "generic_action_present": false
+    },
+    {
+      "episode_id": "demo_00012",
+      "source_action_role": "human_hand_pose_in_robot_frame",
+      "robot_trajectory_role": "observed_robot_ee_pose",
+      "generic_action_present": false
+    },
+    {
+      "episode_id": "demo_00013",
+      "source_action_role": "human_hand_pose_in_robot_frame",
+      "robot_trajectory_role": "observed_robot_ee_pose",
+      "generic_action_present": false
+    },
+    {
+      "episode_id": "demo_00014",
+      "source_action_role": "human_hand_pose_in_robot_frame",
+      "robot_trajectory_role": "observed_robot_ee_pose",
+      "generic_action_present": false
+    },
+    {
+      "episode_id": "demo_00015",
+      "source_action_role": "human_hand_pose_in_robot_frame",
+      "robot_trajectory_role": "observed_robot_ee_pose",
+      "generic_action_present": false
+    },
+    {
+      "episode_id": "demo_00016",
+      "source_action_role": "human_hand_pose_in_robot_frame",
+      "robot_trajectory_role": "observed_robot_ee_pose",
+      "generic_action_present": false
+    },
+    {
+      "episode_id": "demo_00017",
+      "source_action_role": "human_hand_pose_in_robot_frame",
+      "robot_trajectory_role": "observed_robot_ee_pose",
+      "generic_action_present": false
+    },
+    {
+      "episode_id": "demo_00018",
+      "source_action_role": "human_hand_pose_in_robot_frame",
+      "robot_trajectory_role": "observed_robot_ee_pose",
+      "generic_action_present": false
+    },
+    {
+      "episode_id": "demo_00019",
+      "source_action_role": "human_hand_pose_in_robot_frame",
+      "robot_trajectory_role": "observed_robot_ee_pose",
+      "generic_action_present": false
+    }
+  ],
+  "errors": [],
+  "m2_evidence_mutated": false
+}

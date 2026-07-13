@@ -1,0 +1,20 @@
+{
+  "pool_window_count": 968,
+  "query_window_count": 153,
+  "top_k": 10,
+  "queries_with_top_k": 153,
+  "every_query_has_top_k": true,
+  "gap_crossing_count": 0,
+  "retrieval_feature_schema": [
+    "normalized_segment_phase"
+  ],
+  "heldout_robot_trajectory_used_in_retrieval_feature": false,
+  "heldout_robot_trajectory_usage": "offline target evaluation only",
+  "retrieved_phase_error_median": 0.002428761840257476,
+  "random_phase_error_median": 0.27534972216944853,
+  "retrieved_residual_norm_median": 0.02529636869209293,
+  "random_residual_norm_median": 0.0788824080650771,
+  "absolute_target_norm_median": 1.7679219556662513,
+  "retrieval_index": "data/Human2Robot/derived/views/nominal_camera_30hz_segmented/human_hand_robot_frame_raw/robot_ee_observed_t_plus_1_bc_proxy/train_only_tplus1_query_anchor_se3_identity_scale_v1/retrieval_index.npz",
+  "retrieval_index_sha256": "362bc28cfb96174208a37e63366b6c157e08e0de8e124066ca9d6057ec36c305"
+}

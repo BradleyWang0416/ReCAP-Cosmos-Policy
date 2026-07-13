@@ -1,0 +1,79 @@
+{
+  "status": "passed",
+  "created_at_utc": "2026-07-10T15:38:20.449199+00:00",
+  "sampling": "random.Random(seed).sample without replacement",
+  "seed": 20260710,
+  "count": 10,
+  "videos": [
+    {
+      "canonical_episode": "data/Human2Robot/canonical/v1/pilot/demo_00004.hdf5",
+      "video": "data/Human2Robot/canonical/v1/visualizations/sample_00_demo_00004.mp4",
+      "task": "grab_both_cubes_v1",
+      "frame_count": 140,
+      "fps": 10.0
+    },
+    {
+      "canonical_episode": "data/Human2Robot/canonical/v1/pilot/demo_00017.hdf5",
+      "video": "data/Human2Robot/canonical/v1/visualizations/sample_01_demo_00017.mp4",
+      "task": "pull_plate_v1",
+      "frame_count": 207,
+      "fps": 10.0
+    },
+    {
+      "canonical_episode": "data/Human2Robot/canonical/v1/pilot/demo_00009.hdf5",
+      "video": "data/Human2Robot/canonical/v1/visualizations/sample_02_demo_00009.mp4",
+      "task": "grab_pencil_v1",
+      "frame_count": 132,
+      "fps": 10.0
+    },
+    {
+      "canonical_episode": "data/Human2Robot/canonical/v1/pilot/demo_00012.hdf5",
+      "video": "data/Human2Robot/canonical/v1/visualizations/sample_03_demo_00012.mp4",
+      "task": "grab_to_plate2_and_back_v1",
+      "frame_count": 76,
+      "fps": 10.0
+    },
+    {
+      "canonical_episode": "data/Human2Robot/canonical/v1/pilot/demo_00006.hdf5",
+      "video": "data/Human2Robot/canonical/v1/visualizations/sample_04_demo_00006.mp4",
+      "task": "grab_cup_v1",
+      "frame_count": 81,
+      "fps": 10.0
+    },
+    {
+      "canonical_episode": "data/Human2Robot/canonical/v1/pilot/demo_00013.hdf5",
+      "video": "data/Human2Robot/canonical/v1/visualizations/sample_05_demo_00013.mp4",
+      "task": "grab_to_plate2_and_pull_v1",
+      "frame_count": 112,
+      "fps": 10.0
+    },
+    {
+      "canonical_episode": "data/Human2Robot/canonical/v1/pilot/demo_00002.hdf5",
+      "video": "data/Human2Robot/canonical/v1/visualizations/sample_06_demo_00002.mp4",
+      "task": "cloth/cloth21",
+      "frame_count": 206,
+      "fps": 10.0
+    },
+    {
+      "canonical_episode": "data/Human2Robot/canonical/v1/pilot/demo_00001.hdf5",
+      "video": "data/Human2Robot/canonical/v1/visualizations/sample_07_demo_00001.mp4",
+      "task": "cloth/cloth13",
+      "frame_count": 239,
+      "fps": 10.0
+    },
+    {
+      "canonical_episode": "data/Human2Robot/canonical/v1/pilot/demo_00010.hdf5",
+      "video": "data/Human2Robot/canonical/v1/visualizations/sample_08_demo_00010.mp4",
+      "task": "grab_to_plate1_and_back_v1",
+      "frame_count": 225,
+      "fps": 10.0
+    },
+    {
+      "canonical_episode": "data/Human2Robot/canonical/v1/pilot/demo_00005.hdf5",
+      "video": "data/Human2Robot/canonical/v1/visualizations/sample_09_demo_00005.mp4",
+      "task": "grab_cube2_v1",
+      "frame_count": 60,
+      "fps": 10.0
+    }
+  ]
+}

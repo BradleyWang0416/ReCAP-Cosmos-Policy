@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "reviewed_at": "2026-07-11T01:04:00+08:00",
+  "review_method": "visual inspection of four-frame contact sheet (native frames 0, 50, 100, 150) for every sampled video",
+  "checks": [
+    "human and robot RGB streams are readable and semantically paired",
+    "native frame progression is visible",
+    "state/action overlay is readable",
+    "source step/timestamp and segment labels are present",
+    "gap segmentation is not presented as a synthetic continuous timeline"
+  ],
+  "sample_count": 10,
+  "passed_count": 10,
+  "samples": [
+    {"sample": "sample_00_demo_00013", "task": "grab_to_plate2_and_pull_v1", "status": "passed"},
+    {"sample": "sample_01_demo_00016", "task": "pull_plate_grab_cube", "status": "passed"},
+    {"sample": "sample_02_demo_00003", "task": "cloth/cloth31", "status": "passed"},
+    {"sample": "sample_03_demo_00015", "task": "grab_two_cubes2_v1", "status": "passed"},
+    {"sample": "sample_04_demo_00019", "task": "push_box_random_v1", "status": "passed"},
+    {"sample": "sample_05_demo_00011", "task": "grab_to_plate1_v1", "status": "passed"},
+    {"sample": "sample_06_demo_00009", "task": "grab_pencil_v1", "status": "passed", "note": "contact sheet shows segment 0 to segment 1"},
+    {"sample": "sample_07_demo_00017", "task": "pull_plate_v1", "status": "passed"},
+    {"sample": "sample_08_demo_00005", "task": "grab_cube2_v1", "status": "passed"},
+    {"sample": "sample_09_demo_00006", "task": "grab_cup_v1", "status": "passed"}
+  ]
+}

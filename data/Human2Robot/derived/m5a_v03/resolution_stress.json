@@ -1,0 +1,62 @@
+{
+  "schema_version": "human2robot-m5a-data-contract-stress-v03",
+  "created_at_utc": "2026-07-11T07:32:01.860394+00:00",
+  "status": "passed",
+  "source_stream_shapes": {
+    "human/images": [
+      [
+        240,
+        426,
+        3
+      ]
+    ],
+    "robot_images": [
+      [
+        240,
+        426,
+        3
+      ]
+    ]
+  },
+  "samples_checked": 120,
+  "strategies": {
+    "paper_comparison_main": {
+      "id": "center_crop_width_426_to_424_v1",
+      "operation": "remove one column from each horizontal edge; no resize",
+      "output_shape": [
+        240,
+        424,
+        3
+      ]
+    },
+    "canonical_compatibility": {
+      "id": "edge_pad_width_424_to_426_v1",
+      "operation": "replicate one horizontal edge column on each side; no resize",
+      "output_shape": [
+        240,
+        426,
+        3
+      ]
+    }
+  },
+  "retrieval_feature_schema": [
+    "normalized_segment_phase",
+    "task_pool_membership"
+  ],
+  "action_contract_sha256_before": "cb670c8462645d08bbe5bf00b6d93fe8219b7ffe49e59aa25600d940e8892279",
+  "action_contract_sha256_after": "cb670c8462645d08bbe5bf00b6d93fe8219b7ffe49e59aa25600d940e8892279",
+  "roundtrip_border_change_fraction_median": 0.0016562336984872197,
+  "checks": {
+    "all_source_shapes_are_240x426": true,
+    "center_crop_426_to_424_shape_valid": true,
+    "edge_pad_424_to_426_shape_valid": true,
+    "crop_then_pad_inner_pixels_exact": true,
+    "action_contract_sha256_unchanged": true,
+    "current_phase_retrieval_exactly_image_independent": true
+  },
+  "claim_boundary": {
+    "current_action_conclusion": "exactly invariant because image preprocessing never mutates action arrays",
+    "current_phase_retrieval_conclusion": "exactly invariant because retrieval features contain no image/visual field",
+    "visual_retrieval_conclusion": "NEEDS_EXPERIMENT in M5-B with the frozen visual encoder"
+  }
+}

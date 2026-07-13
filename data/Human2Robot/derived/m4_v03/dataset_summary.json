@@ -1,0 +1,14 @@
+{
+  "sample_count": 1121,
+  "train_sample_count": 968,
+  "heldout_sample_count": 153,
+  "heldout_task_count": 4,
+  "gap_crossing_count": 0,
+  "strict_future_offset_view_steps": 1,
+  "retrieval_feature_schema": [
+    "normalized_segment_phase",
+    "task_pool_membership"
+  ],
+  "heldout_robot_trajectory_used_in_retrieval_feature": false,
+  "heldout_robot_trajectory_usage": "offline target evaluation only"
+}

@@ -1,0 +1,29 @@
+{
+  "status": "passed",
+  "reviewed_at": "2026-07-11",
+  "reviewer": "Codex visual inspection",
+  "visualization_manifest_sha256": "11731dbdd01264ae45bea3c1f7ca9fd3d4506ec3cae0da44e5167f7b3a9fd5c3",
+  "method": "For each selected MP4, inspect native frames 0, 50, 100, and 150 in a 2x2 contact sheet; verify paired RGB, role labels, source time labels, trajectory overlays, and visible task progression.",
+  "acceptance_checks": {
+    "human_and_robot_rgb_decode": "10/10 passed",
+    "paired_scene_correspondence": "10/10 passed",
+    "robot_overlay_label": "ROBOT OBS; 10/10 passed",
+    "human_overlay_label": "HUMAN POSE; 10/10 passed",
+    "generic_action_label_absent": "10/10 passed",
+    "source_step_timestamp_segment_visible": "10/10 passed",
+    "ffprobe_geometry_fps_and_frame_count": "10/10 passed; 852x312, 10 fps playback, frames equal canonical T"
+  },
+  "samples": [
+    {"sample": "sample_00_demo_00013", "task": "grab_to_plate2_and_pull_v1", "frames": 336, "contact_sheet": "sample_00_contact.jpg", "result": "passed"},
+    {"sample": "sample_01_demo_00016", "task": "pull_plate_grab_cube", "frames": 956, "contact_sheet": "sample_01_contact.jpg", "result": "passed"},
+    {"sample": "sample_02_demo_00003", "task": "cloth/cloth31", "frames": 639, "contact_sheet": "sample_02_contact.jpg", "result": "passed"},
+    {"sample": "sample_03_demo_00015", "task": "grab_two_cubes2_v1", "frames": 161, "contact_sheet": "sample_03_contact.jpg", "result": "passed"},
+    {"sample": "sample_04_demo_00019", "task": "push_box_random_v1", "frames": 292, "contact_sheet": "sample_04_contact.jpg", "result": "passed"},
+    {"sample": "sample_05_demo_00011", "task": "grab_to_plate1_v1", "frames": 370, "contact_sheet": "sample_05_contact.jpg", "result": "passed"},
+    {"sample": "sample_06_demo_00009", "task": "grab_pencil_v1", "frames": 394, "contact_sheet": "sample_06_contact.jpg", "result": "passed; segment 0 to 1 visible"},
+    {"sample": "sample_07_demo_00017", "task": "pull_plate_v1", "frames": 620, "contact_sheet": "sample_07_contact.jpg", "result": "passed"},
+    {"sample": "sample_08_demo_00005", "task": "grab_cube2_v1", "frames": 180, "contact_sheet": "sample_08_contact.jpg", "result": "passed"},
+    {"sample": "sample_09_demo_00006", "task": "grab_cup_v1", "frames": 242, "contact_sheet": "sample_09_contact.jpg", "result": "passed"}
+  ],
+  "note": "The 10 fps value is encoding playback only and is not source capture-frequency evidence."
+}

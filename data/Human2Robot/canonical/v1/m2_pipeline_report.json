@@ -1,0 +1,46 @@
+{
+  "status": "passed",
+  "completed_at_utc": "2026-07-10T15:38:20.449494+00:00",
+  "schema_version": "human2robot-canonical-hdf5-v1",
+  "output_root": "data/Human2Robot/canonical/v1",
+  "conversion": {
+    "episode_count": 20,
+    "task_count": 20,
+    "split": "pilot",
+    "source_fps_assumed": 30.0,
+    "target_fps": 10.0
+  },
+  "statistics": {
+    "episode_count": 20,
+    "frame_count": 3021,
+    "action_dim": 10,
+    "proprio_dim": 10,
+    "normalization": "per-dimension min-max to [-1, 1]; constant dimensions map to 0",
+    "delta_definition": "canonical actions - canonical obs/states at the same timestep",
+    "files": [
+      "dataset_statistics.json",
+      "dataset_statistics_post_norm.json",
+      "delta_dataset_statistics.json"
+    ]
+  },
+  "validation": {
+    "episode_count": 20,
+    "passed_episode_count": 20,
+    "failed_episode_count": 0,
+    "task_count": 20,
+    "frame_count": 3021,
+    "obs/states_global_max_linear_speed_m_s": 1.3285540961308018,
+    "obs/states_global_max_angular_speed_rad_s": 0.8901785210611791,
+    "actions_global_max_linear_speed_m_s": 2.447595554117365,
+    "actions_global_max_angular_speed_rad_s": 1.3701845439816807
+  },
+  "visualizations": {
+    "count": 10,
+    "seed": 20260710
+  },
+  "artifacts": {
+    "preprocessing_manifest": "data/Human2Robot/canonical/v1/preprocessing_manifest.json",
+    "validation_report": "data/Human2Robot/canonical/v1/m2_validation_report.json",
+    "visualization_manifest": "data/Human2Robot/canonical/v1/visualizations/visualization_manifest.json"
+  }
+}

@@ -1,0 +1,3 @@
+PWD: /workspace
+job_local_path: /workspace/data/Human2Robot/derived/m5b_v03/p2_preflight/cosmos_policy/human2robot_m5b_p2_capacity/recap_main_seed20260711_exact_batch_capacity
+s3: s3://bucket/cosmos_policy/human2robot_m5b_p2_capacity/recap_main_seed20260711_exact_batch_capacity/

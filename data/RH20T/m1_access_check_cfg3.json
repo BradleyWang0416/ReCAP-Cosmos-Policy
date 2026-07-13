@@ -1,0 +1,299 @@
+{
+  "status": "passed",
+  "checked_at_utc": "2026-07-05T16:36:38.854238+00:00",
+  "dataset": "RH20T",
+  "root": "/DATA1/wxs/DATASETS/RH20T/320x180",
+  "cfg": "RH20T_cfg3",
+  "episode": "task_0001_user_0016_scene_0001_cfg_0003",
+  "paired_human_episode": "task_0001_user_0016_scene_0001_cfg_0003_human",
+  "layout": {
+    "lowdim": "/DATA1/wxs/DATASETS/RH20T/320x180/LowDim/RH20T_cfg3",
+    "rgb": "/DATA1/wxs/DATASETS/RH20T/320x180/RGB/RH20T_cfg3",
+    "calibration": "/DATA1/wxs/DATASETS/RH20T/320x180/Calibration/RH20T_cfg3"
+  },
+  "top_level_counts": {
+    "lowdim": {
+      "robot_episode_dirs": 800,
+      "human_episode_dirs": 775
+    },
+    "rgb": {
+      "robot_episode_dirs": 800,
+      "human_episode_dirs": 775
+    },
+    "calibration_dirs": 29
+  },
+  "robot_metadata": {
+    "finish_time": 1631270670081,
+    "rating": 9,
+    "calib_quality": 2,
+    "calib": 1631153393825,
+    "action": 1631241424515
+  },
+  "human_metadata": {
+    "calib": 1640674052372,
+    "calib_quality": -1,
+    "start_time": 1641530512210,
+    "end_time": 1641530513964
+  },
+  "robot_lowdim": {
+    "tcp_base.npy": {
+      "type": "dict",
+      "key_count": 8,
+      "sample_keys": [
+        "045322071843",
+        "104122062823",
+        "038522062288",
+        "104422070011",
+        "036422060909",
+        "104122062295",
+        "104122063550",
+        "f0172289"
+      ],
+      "sample_key": "045322071843",
+      "sample_value_type": "list",
+      "sample_value_length": 221,
+      "sample_record": {
+        "type": "dict",
+        "keys": [
+          "timestamp",
+          "tcp",
+          "robot_ft"
+        ],
+        "timestamp": 1631270646876,
+        "tcp_shape": [
+          7
+        ],
+        "tcp_dtype": "float64",
+        "tcp_finite": true,
+        "tcp_sample": [
+          0.5437139868736267,
+          0.002389000728726387,
+          0.20003600418567657,
+          0.00022476189763826154
+        ],
+        "robot_ft_shape": [
+          6
+        ],
+        "robot_ft_dtype": "float64",
+        "robot_ft_finite": true,
+        "robot_ft_sample": [
+          16.680065155029297,
+          -7.475310802459717,
+          -6.427533149719238,
+          3.2484772205352783
+        ]
+      },
+      "path": "/DATA1/wxs/DATASETS/RH20T/320x180/LowDim/RH20T_cfg3/task_0001_user_0016_scene_0001_cfg_0003/transformed/tcp_base.npy",
+      "size_bytes": 365643
+    },
+    "gripper.npy": {
+      "type": "dict",
+      "key_count": 8,
+      "sample_keys": [
+        "045322071843",
+        "104122062823",
+        "038522062288",
+        "104422070011",
+        "036422060909",
+        "104122062295",
+        "104122063550",
+        "f0172289"
+      ],
+      "sample_key": "045322071843",
+      "sample_value_type": "dict",
+      "sample_value_length": 221,
+      "sample_nested_key": 1631270646876,
+      "sample_record": {
+        "type": "dict",
+        "keys": [
+          "gripper_command",
+          "gripper_info"
+        ],
+        "gripper_command": [
+          97.27272727272727,
+          0,
+          200
+        ],
+        "gripper_info": [
+          2.727272727272727,
+          0,
+          0
+        ]
+      },
+      "path": "/DATA1/wxs/DATASETS/RH20T/320x180/LowDim/RH20T_cfg3/task_0001_user_0016_scene_0001_cfg_0003/transformed/gripper.npy",
+      "size_bytes": 346972
+    }
+  },
+  "robot_video": {
+    "path": "/DATA1/wxs/DATASETS/RH20T/320x180/RGB/RH20T_cfg3/task_0001_user_0016_scene_0001_cfg_0003",
+    "camera_count": 8,
+    "checked_camera": {
+      "camera": "cam_036422060909",
+      "color_mp4": "/DATA1/wxs/DATASETS/RH20T/320x180/RGB/RH20T_cfg3/task_0001_user_0016_scene_0001_cfg_0003/cam_036422060909/color/color.mp4",
+      "color_mp4_size_bytes": 418853,
+      "timestamps": {
+        "path": "/DATA1/wxs/DATASETS/RH20T/320x180/RGB/RH20T_cfg3/task_0001_user_0016_scene_0001_cfg_0003/cam_036422060909/color/timestamps.npy",
+        "count": 199,
+        "dtype": "int64",
+        "first": 1631270647658,
+        "last": 1631270673135,
+        "monotonic_non_decreasing": true
+      },
+      "ffprobe": {
+        "available": true,
+        "opened": true,
+        "stream": {
+          "codec_name": "h264",
+          "width": 320,
+          "height": 180,
+          "duration": "7.960000",
+          "nb_frames": "199"
+        }
+      }
+    }
+  },
+  "human_video": {
+    "path": "/DATA1/wxs/DATASETS/RH20T/320x180/RGB/RH20T_cfg3/task_0001_user_0016_scene_0001_cfg_0003_human",
+    "camera_count": 8,
+    "checked_camera": {
+      "camera": "cam_036422060909",
+      "color_mp4": "/DATA1/wxs/DATASETS/RH20T/320x180/RGB/RH20T_cfg3/task_0001_user_0016_scene_0001_cfg_0003_human/cam_036422060909/color/color.mp4",
+      "color_mp4_size_bytes": 50388,
+      "timestamps": {
+        "path": "/DATA1/wxs/DATASETS/RH20T/320x180/RGB/RH20T_cfg3/task_0001_user_0016_scene_0001_cfg_0003_human/cam_036422060909/color/timestamps.npy",
+        "count": 36,
+        "dtype": "int64",
+        "first": 1641530509461,
+        "last": 1641530514385,
+        "monotonic_non_decreasing": true
+      },
+      "ffprobe": {
+        "available": true,
+        "opened": true,
+        "stream": {
+          "codec_name": "h264",
+          "width": 320,
+          "height": 180,
+          "duration": "1.440000",
+          "nb_frames": "36"
+        }
+      }
+    }
+  },
+  "robot_calibration": {
+    "path": "/DATA1/wxs/DATASETS/RH20T/320x180/Calibration/RH20T_cfg3/calib/1631153393825",
+    "files": {
+      "devices.npy": {
+        "type": "ndarray",
+        "shape": [
+          6
+        ],
+        "dtype": "<U12",
+        "path": "/DATA1/wxs/DATASETS/RH20T/320x180/Calibration/RH20T_cfg3/calib/1631153393825/devices.npy",
+        "size_bytes": 416
+      },
+      "intrinsics.npy": {
+        "type": "dict",
+        "key_count": 6,
+        "sample_keys": [
+          "045322071843",
+          "104122062823",
+          "036422060909",
+          "104122062295",
+          "104122063550",
+          "f0172289"
+        ],
+        "sample_key": "045322071843",
+        "sample_record": {
+          "type": "ndarray",
+          "shape": [
+            3,
+            4
+          ],
+          "dtype": "float64",
+          "finite": true,
+          "sample": [
+            908.434814453125,
+            0.0,
+            650.3659057617188,
+            0.0
+          ]
+        },
+        "path": "/DATA1/wxs/DATASETS/RH20T/320x180/Calibration/RH20T_cfg3/calib/1631153393825/intrinsics.npy",
+        "size_bytes": 1243
+      },
+      "extrinsics.npy": {
+        "type": "dict",
+        "key_count": 6,
+        "sample_keys": [
+          "045322071843",
+          "104122062823",
+          "036422060909",
+          "104122062295",
+          "104122063550",
+          "f0172289"
+        ],
+        "sample_key": "045322071843",
+        "sample_value_type": "list",
+        "sample_value_length": 1,
+        "sample_record": {
+          "type": "ndarray",
+          "shape": [
+            4,
+            4
+          ],
+          "dtype": "float64",
+          "finite": true,
+          "sample": [
+            -0.03719010613418467,
+            0.9991496354610186,
+            -0.017801740472254253,
+            0.07588573094983135
+          ]
+        },
+        "path": "/DATA1/wxs/DATASETS/RH20T/320x180/Calibration/RH20T_cfg3/calib/1631153393825/extrinsics.npy",
+        "size_bytes": 1459
+      },
+      "tcp.npy": {
+        "type": "ndarray",
+        "shape": [
+          7
+        ],
+        "dtype": "float32",
+        "finite": true,
+        "sample": [
+          -0.5437139868736267,
+          -0.021891999989748,
+          0.20003600418567657,
+          0.0032043526880443096
+        ],
+        "path": "/DATA1/wxs/DATASETS/RH20T/320x180/Calibration/RH20T_cfg3/calib/1631153393825/tcp.npy",
+        "size_bytes": 156
+      }
+    },
+    "image_file_count": 12,
+    "sample_image_files": [
+      "/DATA1/wxs/DATASETS/RH20T/320x180/Calibration/RH20T_cfg3/calib/1631153393825/imgs/cam_036422060909_c.png",
+      "/DATA1/wxs/DATASETS/RH20T/320x180/Calibration/RH20T_cfg3/calib/1631153393825/imgs/cam_036422060909_d.npy",
+      "/DATA1/wxs/DATASETS/RH20T/320x180/Calibration/RH20T_cfg3/calib/1631153393825/imgs/cam_045322071843_c.png",
+      "/DATA1/wxs/DATASETS/RH20T/320x180/Calibration/RH20T_cfg3/calib/1631153393825/imgs/cam_045322071843_d.npy",
+      "/DATA1/wxs/DATASETS/RH20T/320x180/Calibration/RH20T_cfg3/calib/1631153393825/imgs/cam_104122062295_c.png",
+      "/DATA1/wxs/DATASETS/RH20T/320x180/Calibration/RH20T_cfg3/calib/1631153393825/imgs/cam_104122062295_d.npy",
+      "/DATA1/wxs/DATASETS/RH20T/320x180/Calibration/RH20T_cfg3/calib/1631153393825/imgs/cam_104122062823_c.png",
+      "/DATA1/wxs/DATASETS/RH20T/320x180/Calibration/RH20T_cfg3/calib/1631153393825/imgs/cam_104122062823_d.npy"
+    ]
+  },
+  "task_description": {
+    "path": "/home/wxs/ReCAP-Cosmos-Policy/data/RH20T/task_description.json",
+    "size_bytes": 25754,
+    "task_count": 149,
+    "checked_task_id": "task_0001",
+    "checked_description": {
+      "task_description_english": "Press the button from top to bottom",
+      "task_description_chinese": "自上而下按下按钮"
+    }
+  },
+  "warnings": [
+    "Paired human metadata references calibration 1640674052372, but it is not present under /DATA1/wxs/DATASETS/RH20T/320x180/Calibration/RH20T_cfg3/calib."
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "status": "passed",
+  "completed_at_utc": "2026-07-11T04:46:59.212574+00:00",
+  "schema_version": "human2robot-canonical-hdf5-v3",
+  "output_root": "data/Human2Robot/canonical/v3",
+  "conversion": {
+    "episode_count": 20,
+    "task_count": 20,
+    "canonical_frames": 9039,
+    "source_frames": 9039,
+    "timebase_policy": "preserve_native",
+    "frame_selection": "all_source_rows",
+    "nominal_camera_fps": 30.0,
+    "nominal_camera_fps_status": "verified_upstream",
+    "record_timebase_globally_trusted": false,
+    "split_sha256": "1d3ef2377aa19938b06646f6d5fc31ec9f275fc9f37e253e1e9aa5eecdc5a968",
+    "train_task_count": 16,
+    "heldout_task_count": 4
+  },
+  "statistics": {
+    "episode_count": 16,
+    "frame_count": 7803,
+    "robot_observed_dim": 10,
+    "human_hand_robot_frame_dim": 10,
+    "source_split": "train",
+    "split_manifest_sha256": "1d3ef2377aa19938b06646f6d5fc31ec9f275fc9f37e253e1e9aa5eecdc5a968",
+    "normalization": "per-dimension min-max to [-1, 1]; constant dimensions map to 0",
+    "files": [
+      "robot_observed_statistics.json",
+      "human_hand_robot_frame_statistics.json",
+      "dataset_statistics_post_norm_by_role.json",
+      "data_quality_statistics.json"
+    ]
+  },
+  "statistics_validation": {
+    "status": "passed",
+    "errors": [],
+    "checked_files": [
+      "data/Human2Robot/canonical/v3/robot_observed_statistics.json",
+      "data/Human2Robot/canonical/v3/human_hand_robot_frame_statistics.json",
+      "data/Human2Robot/canonical/v3/dataset_statistics_post_norm_by_role.json",
+      "data/Human2Robot/canonical/v3/data_quality_statistics.json"
+    ],
+    "forbidden_generic_statistics_absent": true
+  },
+  "validation": {
+    "episode_count": 20,
+    "passed_episode_count": 20,
+    "failed_episode_count": 0,
+    "task_count": 20,
+    "frame_count": 9039,
+    "source_one_to_one_verified_count": 20,
+    "timebase_status_counts": {
+      "coarse": 17,
+      "discontinuous": 3,
+      "trusted": 0,
+      "unknown": 0
+    },
+    "gap_count": 3,
+    "segment_count": 23
+  },
+  "visualizations": {
+    "count": 10,
+    "seed": 20260711,
+    "playback_fps": 10.0,
+    "manual_review_status": "pending_manual_review"
+  },
+  "artifacts": {
+    "preprocessing_manifest": "data/Human2Robot/canonical/v3/preprocessing_manifest.json",
+    "validation_report": "data/Human2Robot/canonical/v3/m2_validation_report.json",
+    "task_split_manifest": "data/Human2Robot/canonical/v3/task_split_manifest.json",
+    "timebase_audit_report": "data/Human2Robot/canonical/v3/timebase_audit_report.json",
+    "visualization_manifest": "data/Human2Robot/canonical/v3/visualizations/visualization_manifest.json",
+    "v2_superseded_marker": "data/Human2Robot/canonical/v2/SUPERSEDED_M2_V02.json",
+    "source_evidence_manifest": "方案/v03/source_evidence_manifest_v3.json"
+  }
+}
