@@ -42,9 +42,9 @@ MAIN_VIEW_PATH = os.path.join(
 M3_REPORT_PATH = os.path.join(HUMAN2ROBOT_ROOT, "derived", "m3_v03", "m3_validation_report.json")
 M4_REPORT_PATH = os.path.join(HUMAN2ROBOT_ROOT, "derived", "m4_v03", "m4_launch_report.json")
 PROTOCOL_PATH = os.path.join(WORKSPACE, "方案", "v03", "M5B_formal_acceptance_protocol_v1.json")
-SUPPLEMENT_PATH = os.path.join(WORKSPACE, "方案", "v03", "M5B_P2_execution_supplement_v1.json")
+SUPPLEMENT_PATH = os.path.join(WORKSPACE, "方案", "v03", "M5B_P2_execution_supplement_v2.json")
 P1_POOL_ROOT = os.path.join(HUMAN2ROBOT_ROOT, "derived", "m5b_v03", "p1_human_only_pool")
-P2_PREPARED_ROOT = os.path.join(HUMAN2ROBOT_ROOT, "derived", "m5b_v03", "p2_prepared")
+P2_PREPARED_ROOT = os.path.join(HUMAN2ROBOT_ROOT, "derived", "m5b_v03", "p2_prepared_v2")
 LOCAL_POSTTRAINED_CKPT = os.environ.get(
     "COSMOS_PREDICT2P5_POSTTRAINED_CKPT",
     "/DATA1/wxs/_HUGGINGFACE/nvidia/Cosmos-Predict2.5-2B/base/post-trained/"
@@ -126,6 +126,9 @@ def _formal_config(spec: P2TrainingSpec) -> LazyDict:
                     use_proprio_projection=False,
                     projection_hidden_dim=256,
                     action_loss_multiplier=16,
+                    shift=5,
+                    use_dynamic_shift=False,
+                    use_kerras_sigma_at_inference=True,
                     net=dict(use_crossattn_projection=False, crossattn_emb_channels=1024),
                 )
             ),

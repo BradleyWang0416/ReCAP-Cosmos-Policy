@@ -34,8 +34,8 @@ from cosmos_policy.datasets.human2robot_p2_contract import (
     rank_retrieval_candidates,
 )
 
-P2_SCHEMA_VERSION = "human2robot-formal-cosmos-adapter-p2-v1"
-SUPPLEMENT_SHA256 = "be6ca3cdeb7d725221cbefa4664a44f33531edea1b66a74ea2405bff54dfc4ba"
+P2_SCHEMA_VERSION = "human2robot-formal-cosmos-adapter-p2-v2"
+SUPPLEMENT_SHA256 = "17d9fc308c50b9b7899793a4c8d3bca1eeba217053fbacb368e2f9a2e390d7ab"
 P1_POOL_MANIFEST_SHA256 = "47e87be5800194de6e0ac99b47dbe23ef96a91298edbff3e9996b1484b489299"
 P1_SELECTION_ID = "48e0c0f5c283a5a7b9f3de8eb6535f13f5f760cc325a81413053015fd6299afd"
 ALLOWED_METHODS = {"no_retrieval", "retrieval_only", "co_training", "recap_hand_ret"}
@@ -243,13 +243,13 @@ class Human2RobotP2Dataset(Dataset):
         self.supplement = _read_json(self.supplement_path)
         views_root = self.main_view_path.parents[3]
         pool_action_view = "human_hand_phase_aligned" if time_view_id == "phase_or_dtw" else "human_hand_robot_frame_raw"
-        self.time_view_path = (
-            views_root
-            / time_view_id
-            / pool_action_view
-            / "robot_ee_observed_t_plus_1_bc_proxy"
-            / "train_only_tplus1_query_anchor_se3_identity_scale_v1"
-        )
+        if self.query_offset_view_steps == 5:
+            query_action_view = "robot_ee_observed_t_plus_5_lag_diagnostic"
+            alignment_id = "train_only_tplus5_query_anchor_se3_identity_scale_v1"
+        else:
+            query_action_view = "robot_ee_observed_t_plus_1_bc_proxy"
+            alignment_id = "train_only_tplus1_query_anchor_se3_identity_scale_v1"
+        self.time_view_path = views_root / time_view_id / pool_action_view / query_action_view / alignment_id
         self.view = _read_json(self.time_view_path / "view_manifest.json")
         self.m3_report = _read_json(self.m3_report_path)
         self.m4_report = _read_json(self.m4_report_path)
@@ -264,6 +264,7 @@ class Human2RobotP2Dataset(Dataset):
         self.statistics = _read_json(self.statistics_path or default_statistics)
         self.features, self.index_manifest = _load_feature_store(self.retrieval_index_path)
         self.protocol_file_sha256 = file_sha256(self.protocol_path)
+        self.supplement_file_sha256 = file_sha256(self.supplement_path)
         self.statistics_file_sha256 = file_sha256(self.statistics_path or default_statistics)
         self.retrieval_index_sha256 = (
             file_sha256(self.retrieval_index_path) if self.retrieval_index_path else "phase_or_random_no_feature_npz"
@@ -291,6 +292,10 @@ class Human2RobotP2Dataset(Dataset):
         _require(self.m3_report.get("status") == "passed", "M3 is not passed")
         _require(self.m4_report.get("status") == "launched", "M4 is not launched")
         _require(self.view.get("time_view_id") == self.time_view_id, "Time-view manifest drift")
+        _require(
+            self.view.get("query_target_offset_view_steps") == self.query_offset_view_steps,
+            "Query-offset view manifest drift",
+        )
         _require(self.view.get("gap_policy") == "never_cross_segment", "Time view may cross gaps")
         _require(self.view.get("query_command_status") == "unverified", "Command status upgraded")
         _require(file_sha256(self.p1_pool_root / "pool_manifest.json") == P1_POOL_MANIFEST_SHA256, "P1 pool drift")
@@ -689,7 +694,7 @@ class Human2RobotP2Dataset(Dataset):
         return {
             "schema_version": P2_SCHEMA_VERSION,
             "protocol_file_sha256": self.protocol_file_sha256,
-            "supplement_file_sha256": SUPPLEMENT_SHA256,
+            "supplement_file_sha256": self.supplement_file_sha256,
             "split_sha256": self.split_manifest["split_sha256"],
             "p1_selection_id": P1_SELECTION_ID,
             "split": self.split,

@@ -21,18 +21,19 @@ import numpy as np
 import torch
 
 from cosmos_policy.datasets.human2robot_dataset import _preprocess_video, align_pool_chunk
+from cosmos_policy.datasets.human2robot_p2_contract import preprocess_resolution_frames
 from cosmos_policy.datasets.human2robot_p2_dataset import Human2RobotP2Dataset, P2Window
 from cosmos_policy.datasets.human2robot_p2_specs import P2TrainingSpec, p2_training_specs
 
-SCHEMA_VERSION = "human2robot-m5b-p2-prepared-artifacts-v1"
+SCHEMA_VERSION = "human2robot-m5b-p2-prepared-artifacts-v2"
 INDEX_SCHEMA_VERSION = "human2robot-m5b-p2-retrieval-index-v1"
 STATISTICS_SCHEMA_VERSION = "human2robot-m5b-p2-train-statistics-v1"
 CELL_RECEIPT_SCHEMA_VERSION = "human2robot-m5b-p2-cell-receipt-v1"
 VISUAL_CACHE_SCHEMA_VERSION = "human2robot-m5b-p2-visual-context-cache-v1"
 PROGRESS_SCHEMA_VERSION = "human2robot-m5b-p2-materialize-progress-v1"
 PROTOCOL_SHA256 = "7598dfa2ac2e129f5d21a295dad23b90f63c3c8e68811da73cbcc20eb95d5ce4"
-SUPPLEMENT_SHA256 = "be6ca3cdeb7d725221cbefa4664a44f33531edea1b66a74ea2405bff54dfc4ba"
-REGISTRY_SHA256 = "4664d036bcf6bc41e8a44fac2afe04ff6de62c2a180a29d3433bd83e46604df5"
+SUPPLEMENT_SHA256 = "17d9fc308c50b9b7899793a4c8d3bca1eeba217053fbacb368e2f9a2e390d7ab"
+REGISTRY_SHA256 = "502cc57d41c7e4829e872ac95a258d7dc1e8d0d8a27ddfc3cf0315d4d31ef2d6"
 SPLIT_SHA256 = "1d3ef2377aa19938b06646f6d5fc31ec9f275fc9f37e253e1e9aa5eecdc5a968"
 POOL_MANIFEST_SHA256 = "47e87be5800194de6e0ac99b47dbe23ef96a91298edbff3e9996b1484b489299"
 TOKENIZER_PATH = Path("/DATA1/wxs/_HUGGINGFACE/nvidia/Cosmos-Predict2.5-2B/tokenizer.pth")
@@ -216,10 +217,10 @@ def workspace_paths(workspace: Path) -> dict[str, Path]:
         "m3_report_path": human_root / "derived/m3_v03/m3_validation_report.json",
         "m4_report_path": human_root / "derived/m4_v03/m4_launch_report.json",
         "protocol_path": workspace / "方案/v03/M5B_formal_acceptance_protocol_v1.json",
-        "supplement_path": workspace / "方案/v03/M5B_P2_execution_supplement_v1.json",
-        "registry_path": workspace / "方案/v03/M5B_P2_cell_registry_v1.json",
+        "supplement_path": workspace / "方案/v03/M5B_P2_execution_supplement_v2.json",
+        "registry_path": workspace / "方案/v03/M5B_P2_cell_registry_v2.json",
         "p1_pool_root": human_root / "derived/m5b_v03/p1_human_only_pool",
-        "output_root": human_root / "derived/m5b_v03/p2_prepared",
+        "output_root": human_root / "derived/m5b_v03/p2_prepared_v2",
     }
 
 
@@ -400,6 +401,7 @@ def encode_visual_features(
     records: list[tuple[str, Human2RobotP2Dataset, P2Window, str]],
     *,
     batch_size: int,
+    resolution_variant: str = "center_crop_240x424_then_resize_224",
     progress_callback: Callable[[int, int], None] | None = None,
 ) -> dict[str, np.ndarray]:
     require(Path("/.dockerenv").is_file(), "Visual features require the full Docker environment")
@@ -428,7 +430,7 @@ def encode_visual_features(
             # latent frame 1 (the anchor slot), never the warm-up latent.
             warmup = np.zeros_like(anchor)
             frames = np.concatenate((warmup[None], np.repeat(anchor[None], 4, axis=0)), axis=0)
-            videos.append(_preprocess_video(frames, 224, None))
+            videos.append(preprocess_resolution_frames(frames, resolution_variant))
         batch = torch.stack(videos).cuda(non_blocking=False).float().div_(127.5).sub_(1.0)
         with torch.inference_mode():
             latent = tokenizer.encode(batch)

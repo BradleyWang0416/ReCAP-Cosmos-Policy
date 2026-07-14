@@ -1,0 +1,336 @@
+{
+  "approved_proposal": {
+    "file_sha256": "edf692ea17242458e0e133d1dcc25685d4b02e7964845d2c2ee8fbb2a66ad733",
+    "path": "\u65b9\u6848/v03/M5B_P2_execution_supplement_v0.proposed.json",
+    "scope_interpretation": "minimum_claim_centered_not_literal_method_by_every_variant_cross_product"
+  },
+  "approved_successor_decision": {
+    "approval_basis": "user directive: \u6309\u4e03\u9879\u63a8\u8350\u51bb\u7ed3\u5e76\u5b9e\u65bd",
+    "approved_at_date": "2026-07-14",
+    "file_sha256": "c41895e2c1906fd3b57092adc0b935c9f5a72825f03acc5931c6110b96f53a9c",
+    "path": "\u65b9\u6848/v03/M5B_P2_execution_correction_v2.proposed.json"
+  },
+  "artifact_taxonomy": {
+    "aggregate_report": {
+      "applies_when": "The artifact performs registered statistics or qualitative/failure-case selection.",
+      "required_artifact": "manifest binding every contributing task-seed evaluation artifact with no missing-cell imputation"
+    },
+    "checkpoint_linked_evaluation": {
+      "applies_when": "The variant changes only pool size, inference top-k, corruption severity, or resolution preprocessing.",
+      "required_artifact": "immutable evaluation manifest binding the exact step-7000 parent model payload SHA256 and every evaluator/data/index/preprocessor hash"
+    },
+    "learned_training_checkpoint": {
+      "applies_when": "The variant changes the supervised target, training retrieval conditioning, H/K tensor layout, or training time view.",
+      "missing_primary_policy": "invalid_and_rerun_no_imputation",
+      "optimizer_steps": 7000,
+      "primary_step": 7000,
+      "save_every_steps": 1000
+    },
+    "nonlearned_method_artifact": {
+      "applies_when": "method_id is retrieval_only",
+      "optimizer_checkpoint": "not_applicable_by_frozen_nonlearned_definition",
+      "required_artifact": "immutable manifest binding code, pool, feature/index, alignment, projection, seed-controlled tie breaking, per-window outputs, and output hashes"
+    }
+  },
+  "authorization_evidence": "The user explicitly replied '\u6211\u6388\u6743' after being shown the proposed minimum claim-centered scope, Docker test permission, and nonlearned retrieval_only artifact rule.",
+  "checkpoint_storage_contract": {
+    "available_gib_observed_before_freeze": 535,
+    "estimated_retained_primary_model_gib": 177.6,
+    "formal_output_root": "/DATA1/wxs/ReCAP_M5B_P2_RUNS",
+    "intermediate_policy": "Each full DCP must be component/rank validated and fully hashed before pruning. Persist its audit manifest, payload hash, byte counts, loss/log pointers, creation time, validation time, and prune time. Keep the newest full resumable DCP until its successor is validated.",
+    "intermediate_steps": [
+      1000,
+      2000,
+      3000,
+      4000,
+      5000,
+      6000
+    ],
+    "measured_capacity_probe": {
+      "full_checkpoint_gib_approx": 11,
+      "model_gib_approx": 3.7,
+      "optimizer_gib_approx": 7.4,
+      "probe_is_formal_evidence": false,
+      "scheduler_kib_approx": 16,
+      "trainer_kib_approx": 12
+    },
+    "minimum_free_space_before_each_launch_gib": 35,
+    "primary_step_7000_policy": "Validate and hash the complete DCP, then permanently retain the model component, metadata, resolved config, runtime binding, logs, and audit manifest. The optimizer component may be pruned only after the retained model loads successfully for a fixed heldout-free contract inference smoke.",
+    "pruning_is_imputation": false,
+    "pruning_without_prior_full_audit": "forbidden",
+    "stop_before_launch_if_below_minimum": true
+  },
+  "claim_boundary": "This supplement freezes how future P2 artifacts are produced and audited. It contains no experiment result and does not pass P2, M5-v03, Gate C, or M6.",
+  "current_state": {
+    "formal_queue_allowed": false,
+    "formal_results": "NEEDS_EXPERIMENT",
+    "p2_acceptance_allowed": false,
+    "p2_status": "pending"
+  },
+  "decision_freeze": {
+    "1_sampler": {
+      "final_clean_x0_prediction": true,
+      "guidance": 1.5,
+      "legacy_2ab_forbidden": true,
+      "num_steps": 35,
+      "ode_steps": 34,
+      "scheduler": "native_rectified_flow_scheduler",
+      "shift": 5.0,
+      "use_kerras_sigma_at_inference": true,
+      "variance_scale": false
+    },
+    "2_workspace": {
+      "clipping_allowed": false,
+      "m6_safety_workspace": false,
+      "path": "\u65b9\u6848/v03/M5B_P2_workspace_bounds_v1.json",
+      "sha256": "29e0fd8d4b58beabcf7cea7ba50488a0775a79b6f429596a3573a0bbb007eb6a",
+      "xyz_max": [
+        0.3929606391815469,
+        0.6422473229467869,
+        0.1784485638162039
+      ],
+      "xyz_min": [
+        -0.014063655375503005,
+        0.21701816841959953,
+        -0.008498346848426763
+      ]
+    },
+    "3_completion": {
+      "successor_cell_count": 203,
+      "terminal_cell_id": "aggregate_report__M5B-QUAL-01__full_matrix_completion_acceptance",
+      "terminal_parent_count": 202
+    },
+    "4_lag_view": {
+      "path": "data/Human2Robot/derived/views/nominal_camera_30hz_segmented/human_hand_robot_frame_raw/robot_ee_observed_t_plus_5_lag_diagnostic/train_only_tplus5_query_anchor_se3_identity_scale_v1/view_manifest.json",
+      "query_offset_view_steps": 5,
+      "sha256": "53ab59227f865767f07fd4b8c6cea52689b7c22ec1359cedb975308644fe806d",
+      "window_count_by_split": {
+        "heldout": 147,
+        "train": 943
+      }
+    },
+    "5_temporal": {
+      "intermediate_status": "diagnostic",
+      "masked_severe_allowed": false,
+      "materialization_point": "uint8 model video input before tokenizer.encode",
+      "mild_primary": [
+        "frame_drop_5pct",
+        "timestamp_jitter_5ms"
+      ],
+      "severe_pre_model_reject": [
+        "frame_drop_20pct",
+        "timestamp_jitter_20ms",
+        "pause_1p0s",
+        "step_jump_20"
+      ]
+    },
+    "6_resolution": {
+      "mean_jaccard_threshold": 0.9,
+      "primary_metric_relative_degradation_max": 0.05,
+      "ranking": "same frozen WAN encoder, same candidates, same seeded ties, per-query top-k",
+      "report_median_min_identical_ratio": true
+    },
+    "7_activation": {
+      "final_acceptance_schema": "\u65b9\u6848/v03/M5B_P2_final_acceptance_schema_v2.json",
+      "launch_does_not_imply_p2_acceptance": true,
+      "launch_schema": "\u65b9\u6848/v03/M5B_P2_launch_activation_schema_v2.json"
+    }
+  },
+  "formal_inference_contract": {
+    "action_extraction": "extract_action_chunk_from_latent_sequence using the checkpoint-bound action decoder and action latent index",
+    "checkpoint": "fixed step-7000 retained model DCP only",
+    "guidance": 1.5,
+    "inference_seed": "lower 31 bits of SHA256('<run_seed>:<experiment_id>:<variant_id>:<task>:<episode_id>:<current_row>:<retrieval_rank>')",
+    "load_training_state": false,
+    "nonfinite_policy": "count and invalidate the task-seed artifact; never replace with a finite value",
+    "rotation_projection": "Gram-Schmidt projection of the two 3D rotation columns followed by right-handed cross product",
+    "sample_count_per_query_retrieval_rank": 1,
+    "sampler_steps": 35,
+    "solver": "2ab",
+    "variance_scale": false
+  },
+  "formal_launch_preconditions": [
+    "successor hashes and locks validate",
+    "full Docker test suite passes",
+    "eight GPUs visible",
+    "formal output mount is writable",
+    "local weight hashes match",
+    "source snapshot is materialized",
+    "separate launch activation v2 is approved"
+  ],
+  "frozen_at_local_date": "2026-07-13",
+  "frozen_at_utc": "2026-07-14T09:03:40.276857+00:00",
+  "frozen_registry_contract": {
+    "aggregate_report_count": 5,
+    "checkpoint_linked_evaluation_count": 147,
+    "generator_code_sha256": "8765d24606db00a8b875195c760092f2a1f7b4c28dda8db6564ad52b1ca6c0bd",
+    "learned_training_checkpoint_count": 48,
+    "nonlearned_method_artifact_count": 3,
+    "total_cell_count": 203
+  },
+  "frozen_seeds": [
+    20260711,
+    20260712,
+    20260713
+  ],
+  "guardrail_contract": {
+    "gap_crossing_count": 0,
+    "heldout_target_retrieval_feature_count": 0,
+    "long_term_residual_saturation_count": 0,
+    "nonfinite_prediction_count": 0,
+    "saturation_definition": "at least five consecutive predicted residual steps above the train-only residual-norm P99",
+    "workspace_clipping_count": 0
+  },
+  "heldout_retrieval_contract": {
+    "heldout_robot_observation_history_allowed": true,
+    "heldout_robot_target_in_retrieval_features": false,
+    "nested_pool_rule": "the first N pool_rank episodes for the heldout task",
+    "pool_manifest_sha256": "47e87be5800194de6e0ac99b47dbe23ef96a91298edbff3e9996b1484b489299",
+    "pool_path": "data/Human2Robot/derived/m5b_v03/p1_human_only_pool",
+    "pool_sizes": [
+      0,
+      1,
+      2,
+      4,
+      8,
+      10
+    ],
+    "same_task_membership_filter": true,
+    "selection_id": "48e0c0f5c283a5a7b9f3de8eb6535f13f5f760cc325a81413053015fd6299afd",
+    "tie_break": "ascending SHA256 of '<run_seed>:<query_id>:<candidate_human_content_sha256>'"
+  },
+  "learned_checkpoint_applicability": {
+    "M5B-ACTION-01": {
+      "count": 6,
+      "main_parent": "M5B-MAIN-01 recap_hand_ret",
+      "negative_controls": "checkpoint-linked evaluation only",
+      "new_checkpoints": "phase-aligned view and lag-calibrated diagnostic x 3 seeds"
+    },
+    "M5B-MAIN-01": {
+      "count": 9,
+      "new_checkpoints": "no_retrieval/co_training/recap_hand_ret x 3 seeds",
+      "pool_growth": "checkpoint-linked evaluation only"
+    },
+    "M5B-QUAL-01": {
+      "artifacts": "three seed-level case manifests plus one all-seed aggregate report",
+      "count": 0,
+      "new_checkpoints": "none"
+    },
+    "M5B-REP-01": {
+      "absolute_parent": "M5B-MAIN-01 co_training",
+      "count": 3,
+      "new_checkpoints": "future_state x 3 seeds",
+      "residual_parent": "M5B-MAIN-01 recap_hand_ret"
+    },
+    "M5B-RES-01": {
+      "count": 0,
+      "new_checkpoints": "none",
+      "variants": "checkpoint-linked evaluation using the same parent and frozen visual encoder"
+    },
+    "M5B-RET-01": {
+      "count": 12,
+      "new_checkpoints": "random/geometry/visual/geometry_plus_visual x 3 seeds",
+      "phase_parent": "M5B-MAIN-01 recap_hand_ret"
+    },
+    "M5B-SENS-01": {
+      "count": 6,
+      "main_h_k_parent": "M5B-MAIN-01 recap_hand_ret",
+      "new_checkpoints": "H/K=4/4 and H/K=16/8 at top-k=3 x 3 seeds",
+      "top_k": "checkpoint-linked evaluation only at H/K=8/8"
+    },
+    "M5B-TIME-01": {
+      "count": 12,
+      "new_checkpoints": "stride4/stride3/policy10/phase_or_dtw x 3 seeds",
+      "nominal30_parent": "M5B-MAIN-01 recap_hand_ret",
+      "temporal_corruptions": "checkpoint-linked evaluation only on the nominal30 parent"
+    }
+  },
+  "metric_and_statistics_contract": {
+    "bootstrap": "10,000 hierarchical paired resamples; sample four tasks with replacement, then three seeds with replacement within each sampled task; report percentile 2.5/97.5 bounds; RNG seed 20260711",
+    "effect_estimator": "median of the 12 task-seed paired differences",
+    "missing_unit_policy": "invalidate the comparison and rerun; no imputation",
+    "multiple_comparison": "Holm step-down adjustment across the two primary comparisons",
+    "paired_difference": "recap_hand_ret minus baseline; negative favors RECAP",
+    "primary_unit": "one position_error_median_canonical per heldout_task x seed",
+    "randomization_test": "exact one-sided sign-flip test over all 2^12 task-seed differences using the arithmetic mean paired difference as test statistic; raw p is the fraction of permutations <= the observed statistic",
+    "task_improvement_rule": "a task improves only when its median across the three seed-level paired differences is < 0",
+    "window_replication_forbidden": true
+  },
+  "parent_protocol": {
+    "file_sha256": "7598dfa2ac2e129f5d21a295dad23b90f63c3c8e68811da73cbcc20eb95d5ce4",
+    "mutation_allowed": false,
+    "path": "\u65b9\u6848/v03/M5B_formal_acceptance_protocol_v1.json",
+    "protocol_id": "m5b_v03_preregistered_3seed_formal_v1"
+  },
+  "representation_contract": {
+    "absolute": "predict the future query_target_10d directly",
+    "future_state": "predict per-step 10D state transitions: step 0 is query[0]-current_state and step i is query[i]-query[i-1]; reconstruct by cumulative addition from current_state, then project rotation 6D and clip gripper",
+    "normalization": "separate train-only min/max statistics for every representation; heldout targets never enter statistics",
+    "residual": "predict query_target_10d minus aligned_human_plan_10d and reconstruct by addition"
+  },
+  "retrieval_modalities": {
+    "geometry": {
+      "distance": "L2 distance after flattening and per-vector L2 normalization",
+      "insufficient_history_policy": "reject the query or candidate before ranking; never pad across a segment",
+      "pool_feature": "the H human-plan states ending at the candidate anchor, expressed as per-step 10D differences relative to the anchor state and standardized with the same train-only statistics",
+      "query_feature": "the last H segment-safe observed robot states ending at the current row, expressed as per-step 10D differences relative to the current state and standardized with train-only statistics"
+    },
+    "geometry_plus_visual": {
+      "distance": "L2 distance",
+      "feature": "concatenate independently L2-normalized geometry and visual vectors with weights 1/sqrt(2) each"
+    },
+    "phase": {
+      "distance": "absolute scalar phase difference",
+      "pool_feature": "normalized segment phase of the human-only candidate window",
+      "query_feature": "normalized segment phase computed from rows at or before the current observation"
+    },
+    "random": {
+      "distance": "none",
+      "ranking": "ascending seeded tie-break hash over the leakage-safe same-task candidate set"
+    },
+    "visual": {
+      "distance": "cosine distance",
+      "encoder": "the frozen local Cosmos-Predict2.5 WAN tokenizer encoder used by the formal model",
+      "encoder_checkpoint_path": "/DATA1/wxs/_HUGGINGFACE/nvidia/Cosmos-Predict2.5-2B/tokenizer.pth",
+      "encoder_checkpoint_sha256": "38071ab59bd94681c686fa51d75a1968f64e470262043be31f7a094e442fd981",
+      "feature": "encode four identical copies of the preprocessed anchor RGB frame, take the anchor latent frame, spatially mean-pool every channel, then L2 normalize",
+      "pool_image": "human-only image at the candidate anchor",
+      "query_image": "current robot image only"
+    }
+  },
+  "schema_version": "human2robot-m5b-p2-execution-supplement-v2",
+  "status": "frozen_approved_execution_spec",
+  "supersedes": {
+    "file_sha256": "be6ca3cdeb7d725221cbefa4664a44f33531edea1b66a74ea2405bff54dfc4ba",
+    "mutation_allowed": false,
+    "path": "\u65b9\u6848/v03/M5B_P2_execution_supplement_v1.json"
+  },
+  "supplement_id": "m5b_p2_claim_centered_execution_v2",
+  "top_k_inference_contract": {
+    "aggregation": "inverse-normalize and reconstruct each canonical trajectory first, average canonical 10D predictions equally, project rotation 6D to a valid rotation, and clip gripper to [0,1]",
+    "execution": "run one deterministic model inference for each ranked retrieved plan",
+    "main_value": 3,
+    "pool0": "mask retrieval conditioning and run the no-retrieval-compatible path; retrieval_only at pool0 is not a primary comparison unit",
+    "values": [
+      1,
+      3,
+      5,
+      10
+    ]
+  },
+  "training_retrieval_contract": {
+    "candidate_scope": "segment-safe windows from the same train task; the query window and every row overlapping its target horizon are excluded",
+    "candidate_shortage_policy": "use all available candidates when 1 <= available < k; reject the sample when available is 0",
+    "conditioning_aggregation": "one training example is emitted per retrieved plan and receives weight 1/effective_k so every original query has total weight one",
+    "fairness": "all learned methods see the same original query set, total query weight, augmentation count, optimizer steps, per-rank batch, DP world size, and initialization",
+    "heldout_data_used": false,
+    "main_top_k": 3,
+    "train_scope": "canonical/v3 train tasks only"
+  },
+  "variant_materialization": {
+    "action": "Every variant binds an immutable derived-view manifest. Negative controls are inference-time injections and must trigger the registered detector before metric acceptance.",
+    "h_k": "H controls retrieved history/plan length and K controls predicted query length; incomplete or segment-crossing windows are rejected.",
+    "resolution": "source426, crop424, and crop424-edge-pad426 all end at 224 model input and use the exact same frozen visual encoder checkpoint.",
+    "time": "Every training time view binds its existing view manifest SHA. Corruptions are deterministic inference-time transforms and severe invalid inputs must be rejected or masked before model invocation."
+  }
+}

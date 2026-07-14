@@ -1,0 +1,20 @@
+{
+  "candidate_registry_generator_file_sha256": "8765d24606db00a8b875195c760092f2a1f7b4c28dda8db6564ad52b1ca6c0bd",
+  "cell_count": 203,
+  "contains_experiment_results": false,
+  "counts": {
+    "aggregate_report": 5,
+    "checkpoint_linked_evaluation": 147,
+    "learned_training_checkpoint": 48,
+    "nonlearned_method_artifact": 3
+  },
+  "execution_supplement_file_sha256": "17d9fc308c50b9b7899793a4c8d3bca1eeba217053fbacb368e2f9a2e390d7ab",
+  "execution_supplement_lock_file_sha256": "dc17df1fb84b6ea53fdea34bccad102c80a6d23256e00bf393004ec84a8c63b3",
+  "formal_queue_allowed": false,
+  "passes_p2": false,
+  "registry_file_sha256": "502cc57d41c7e4829e872ac95a258d7dc1e8d0d8a27ddfc3cf0315d4d31ef2d6",
+  "registry_materializer_file_sha256": "ac15c5b748e06771fee9b7247672c03c0b34ded5110c5c686bc55e11183ab313",
+  "registry_path": "\u65b9\u6848/v03/M5B_P2_cell_registry_v2.json",
+  "schema_version": "human2robot-m5b-p2-cell-registry-lock-v2",
+  "status": "locked_pending_execution"
+}

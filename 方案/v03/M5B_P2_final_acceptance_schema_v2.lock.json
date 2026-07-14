@@ -1,0 +1,8 @@
+{
+  "artifact_file_sha256": "edb257d7770a2dd0cbd8c7270cef5718afc3fb11411878f6de6eab32b09247eb",
+  "artifact_path": "/workspace/\u65b9\u6848/v03/M5B_P2_final_acceptance_schema_v2.json",
+  "contains_experiment_results": false,
+  "passes_p2": false,
+  "schema_version": "human2robot-m5b-p2-final-acceptance-schema-lock-v2",
+  "status": "locked"
+}

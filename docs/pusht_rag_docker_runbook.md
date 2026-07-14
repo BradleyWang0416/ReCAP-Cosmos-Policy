@@ -264,6 +264,56 @@ uv 和 HuggingFace 等缓存位置：
 
 注意：`.venv/bin/python` 指向容器内的 uv Python，例如 `/home/cosmos/.local/share/uv/.../python3.10`。所以它在容器内可用，但在宿主机上可能显示为断开的 symlink，这是正常现象。
 
+### 4.3 M5B-P2 正式输出专用容器（只打开 shell，不启动训练）
+
+上面的通用 PushT 容器故意使用 `/DATA1:/DATA1:ro`。M5B-P2 的冻结正式输出根是
+`/DATA1/wxs/ReCAP_M5B_P2_RUNS`，因此不能在该只读容器中创建 checkpoint、cell artifact
+或 source snapshot。M5B-P2 在 successor contract 获批后应使用独立脚本：
+
+```bash
+bash start_m5b_p2_formal_docker.sh
+```
+
+该脚本只打开名为 `recap_m5b_p2_formal` 的完整 Docker shell，并执行以下约束：
+
+- `/DATA1` 可写挂载，`/workspace` 仍绑定当前仓库；
+- 固定 offline/no-download 环境，W&B disabled；
+- 使用已经存在的 `cosmos-policy:latest`、本地权重和缓存；
+- 不下载、不创建 launch activation/final acceptance，也不自动启动训练。
+
+进入 shell 后首先运行只读 preflight：
+
+```bash
+.venv/bin/python -m tools.human2robot_m5b_p2_preflight
+```
+
+在可写正式容器中，冻结与授权顺序必须是：
+
+```bash
+# 1. 物化当前候选代码的 immutable source snapshot；不启动 cell
+.venv/bin/python -m tools.human2robot_m5b_p2 prepare
+
+# 2. 对同一 candidate code 运行冻结的完整 Docker suite 并写 receipt
+.venv/bin/python -m tools.human2robot_m5b_p2_activation run-docker-suite
+
+# 3. 复核 mount/GPU/storage/weights/snapshot/receipt 后只签发 launch authorization
+.venv/bin/python -m tools.human2robot_m5b_p2_activation issue-launch
+
+# 4. launch artifact 存在后重跑 preflight；此时才允许返回 passed
+.venv/bin/python -m tools.human2robot_m5b_p2_preflight
+
+# 5. 仍只查看计划，不会自动 run all
+.venv/bin/python -m tools.human2robot_m5b_p2_dag plan
+```
+
+正式 cell 仍须逐个显式执行 `human2robot_m5b_p2_dag run-cell <cell_id>`；任何父产物未完成都会拒绝执行。
+
+只有 preflight 的 mount、8 GPU、存储、权重、source snapshot 与 successor-contract blocker
+全部清零，且 `/DATA1/wxs/ReCAP_M5B_P2_RUNS/launch_activation_v2.json` 按冻结 schema 独立签发，
+才允许执行 203-cell DAG。launch activation 只开启队列，仍固定
+`p2_acceptance_allowed=false`；第 203 个终止报告通过后，才能另行生成
+`final_acceptance_v2.json`。因此仅把 `/DATA1` 改为可写并不构成启动授权。
+
 ## 5. 同步 Python 环境
 
 进入容器后执行：
@@ -627,4 +677,3 @@ NUM_GPUS=1 bash eval_pusht_rag.sh
 ```bash
 NUM_GPUS=8 bash eval_pusht_rag.sh
 ```
-

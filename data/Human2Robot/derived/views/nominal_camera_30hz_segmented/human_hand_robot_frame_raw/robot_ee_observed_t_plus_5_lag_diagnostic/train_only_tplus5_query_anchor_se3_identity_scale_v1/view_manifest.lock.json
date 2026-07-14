@@ -1,0 +1,10 @@
+{
+  "artifact_file_sha256": "53ab59227f865767f07fd4b8c6cea52689b7c22ec1359cedb975308644fe806d",
+  "artifact_path": "/workspace/data/Human2Robot/derived/views/nominal_camera_30hz_segmented/human_hand_robot_frame_raw/robot_ee_observed_t_plus_5_lag_diagnostic/train_only_tplus5_query_anchor_se3_identity_scale_v1/view_manifest.json",
+  "contains_experiment_results": false,
+  "gap_crossing_count": 0,
+  "passes_p2": false,
+  "query_target_offset_view_steps": 5,
+  "schema_version": "human2robot-m5b-p2-lag-derived-view-lock-v1",
+  "status": "locked"
+}

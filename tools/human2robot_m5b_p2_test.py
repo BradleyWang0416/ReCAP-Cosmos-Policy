@@ -21,6 +21,7 @@ from tools.human2robot_m5b_p2 import (
     P2Error,
     base_bindings,
     exclusive_execution_lock,
+    initial_cell_record,
     main_training_cells,
     protocol_experiment_coverage,
     queue_implemented_main_subset,
@@ -35,17 +36,26 @@ from tools.human2robot_m5b_p2 import (
 )
 
 
-def test_main_training_cells_are_exactly_three_methods_by_three_seeds() -> None:
+def test_training_cells_exactly_cover_frozen_48_specs() -> None:
     cells = main_training_cells()
-    assert len(cells) == len(LEARNED_METHODS) * len(FORMAL_SEEDS) == 9
-    assert len({cell.cell_id for cell in cells}) == 9
-    assert {(cell.method_id, cell.seed) for cell in cells} == {
-        (method, seed) for method in LEARNED_METHODS for seed in FORMAL_SEEDS
-    }
-    assert {cell.experiment_id for cell in cells} == {MAIN_EXPERIMENT_ID}
+    assert len(cells) == 48
+    assert len({cell.cell_id for cell in cells}) == 48
+    assert {cell.seed for cell in cells} == set(FORMAL_SEEDS)
+    assert sum(cell.experiment_id == MAIN_EXPERIMENT_ID for cell in cells) == 9
+    assert {cell.method_id for cell in cells if cell.experiment_id == MAIN_EXPERIMENT_ID} == set(
+        LEARNED_METHODS
+    )
 
 
-def test_protocol_coverage_never_overclaims_main_subset() -> None:
+def test_training_record_reserves_common_registry_artifact_for_evaluators(tmp_path: Path) -> None:
+    cell = main_training_cells()[0]
+    record = initial_cell_record(cell, tmp_path, "0" * 64)
+    assert record["registry_artifact_path"] == str(
+        tmp_path / "cells" / cell.cell_id / "artifact.json"
+    )
+
+
+def test_protocol_coverage_reports_all_bound_handler_families() -> None:
     protocol = {
         "experiment_matrix": [
             {"experiment_id": experiment_id} for experiment_id in REQUIRED_EXPERIMENT_IDS
@@ -56,11 +66,10 @@ def test_protocol_coverage_never_overclaims_main_subset() -> None:
         execution_spec_frozen=True,
         full_cell_registry_bound=True,
     )
-    assert coverage["checkpoint_execution_implemented"] == [MAIN_EXPERIMENT_ID]
-    assert coverage["full_protocol_matrix_implemented"] is False
-    assert set(coverage["checkpoint_or_evaluation_execution_not_yet_implemented"]) == set(
-        REQUIRED_EXPERIMENT_IDS[1:]
-    )
+    assert set(coverage["checkpoint_execution_implemented"]) == set(REQUIRED_EXPERIMENT_IDS[:6])
+    assert coverage["evaluation_or_report_execution_implemented"] == list(REQUIRED_EXPERIMENT_IDS)
+    assert coverage["full_protocol_matrix_implemented"] is True
+    assert coverage["checkpoint_or_evaluation_execution_not_yet_implemented"] == []
     assert coverage["execution_supplement_status"] == "frozen_approved_execution_spec"
     assert coverage["full_execution_spec_frozen"] is True
     assert coverage["full_cell_registry_bound"] is True
@@ -92,16 +101,16 @@ def test_frozen_supplement_and_registry_are_bound_but_still_nonformal() -> None:
     assert supplement["status"] == "frozen_approved_execution_spec"
     assert supplement["formal_queue_allowed"] is False
     assert supplement["p2_acceptance_allowed"] is False
-    assert supplement["cell_count"] == 202
+    assert supplement["cell_count"] == 203
     assert registry["status"] == "frozen_pending_execution"
     assert registry["formal_queue_allowed"] is False
     assert registry["p2_acceptance_allowed"] is False
-    assert registry["cell_count"] == 202
+    assert registry["cell_count"] == 203
     assert registry["counts"] == {
         "learned_training_checkpoint": 48,
         "nonlearned_method_artifact": 3,
         "checkpoint_linked_evaluation": 147,
-        "aggregate_report": 4,
+        "aggregate_report": 5,
     }
 
 
@@ -131,6 +140,7 @@ def test_runtime_binding_checks_actual_world_size_seed_batch_and_steps(tmp_path:
     binding = {
         "cell_id": cell.cell_id,
         "experiment_id": cell.experiment_id,
+        "variant_id": cell.variant_id,
         "method_id": cell.method_id,
         "protocol_file_sha256": PROTOCOL_SHA256,
         "code_sha256": code_sha256,
@@ -145,6 +155,12 @@ def test_runtime_binding_checks_actual_world_size_seed_batch_and_steps(tmp_path:
             "sampler_seed": cell.seed,
             "H_steps": 8,
             "K_steps": 8,
+            "top_k": cell.top_k,
+            "pool_size": cell.pool_size,
+            "retrieval_modality": cell.retrieval_modality,
+            "time_view_id": cell.time_view_id,
+            "query_offset_view_steps": cell.query_offset_view_steps,
+            "target_representation": cell.target_representation,
             "initialization_checkpoint_path": str(INITIALIZATION_CHECKPOINT_PATH),
             "tokenizer_checkpoint_path": str(TOKENIZER_CHECKPOINT_PATH),
         },
@@ -176,7 +192,8 @@ def test_required_binding_order_and_full_gate_boundary() -> None:
     bindings = base_bindings(cell, "d" * 64)
     validate_binding_keys(bindings)
     master = {
-        "implemented_main_training_cells": [{"status": "completed"} for _ in range(9)],
+        "implemented_main_training_cells": [{"status": "completed"} for _ in range(48)],
+        "all_registry_cells_complete": False,
         "protocol_experiment_coverage": {
             "full_protocol_matrix_implemented": False,
             "full_execution_spec_frozen": False,
@@ -185,7 +202,8 @@ def test_required_binding_order_and_full_gate_boundary() -> None:
         "claim_boundary": {},
     }
     update_master_acceptance(master)
-    assert master["acceptance"]["implemented_cells_complete"] is True
+    assert master["acceptance"]["learned_training_cells_complete"] is True
+    assert master["acceptance"]["all_203_registry_cells_complete"] is False
     assert master["acceptance"]["p2_gate_passed"] is False
     assert master["status"] == "pending"
     assert master["formal_result"] is False
@@ -201,10 +219,10 @@ def test_required_binding_order_and_full_gate_boundary() -> None:
     assert master["acceptance"]["full_cell_registry_bound"] is False
 
 
-def test_partial_main_launch_requires_explicit_acknowledgement(tmp_path: Path) -> None:
-    with pytest.raises(P2Error, match="only an implemented M5B-MAIN-01 subset"):
+def test_launch_requires_formal_activation_artifact(tmp_path: Path) -> None:
+    with pytest.raises(P2Error, match="Formal activation artifact missing"):
         run_cell(tmp_path, "any-cell")
-    with pytest.raises(P2Error, match="cannot pass full P2"):
+    with pytest.raises(P2Error, match="Formal activation artifact missing"):
         queue_implemented_main_subset(tmp_path)
 
 

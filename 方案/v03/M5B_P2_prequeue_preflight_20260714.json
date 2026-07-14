@@ -1,0 +1,96 @@
+{
+  "schema_version": "human2robot-m5b-p2-prequeue-preflight-evidence-v1",
+  "local_date": "2026-07-14",
+  "generated_at_utc": "2026-07-13T17:26:32.603547+00:00",
+  "status": "blocked",
+  "formal_result": false,
+  "formal_queue_allowed": false,
+  "formal_queue_started": false,
+  "docker": {
+    "container_name": "recap_m5b_p1_v2",
+    "inside_docker": true,
+    "image_contract": "cosmos-policy:latest existing full environment",
+    "downloads_performed": false
+  },
+  "matrix": {
+    "frozen_cell_count": 202,
+    "handler_count": 202,
+    "learned_prepared_entry_count": 48,
+    "formal_completed_cell_count": 0,
+    "formal_missing_cell_count": 202,
+    "registered_report_covered_evaluation_count": 27,
+    "total_evaluation_count": 147
+  },
+  "docker_regression": {
+    "status": "passed",
+    "passed_test_count": 127,
+    "warning_count": 3,
+    "warning_boundary": "Megatron/SWIG deprecation warnings only",
+    "py_compile_status": "passed",
+    "all_202_handler_commands_parse": true,
+    "formal_queue_started": false
+  },
+  "gpu": {
+    "status": "passed",
+    "visible_gpu_count": 8,
+    "expected_gpu_count": 8
+  },
+  "storage": {
+    "status": "passed",
+    "formal_output_root": "/DATA1/wxs/ReCAP_M5B_P2_RUNS",
+    "free_bytes": 541300006912,
+    "free_gib": 504.12491607666016,
+    "minimum_free_gib": 35
+  },
+  "formal_output_mount": {
+    "status": "blocked",
+    "mount_point": "/DATA1",
+    "mount_options": [
+      "ro",
+      "relatime"
+    ],
+    "writable": false
+  },
+  "weights": {
+    "initialization_checkpoint": {
+      "status": "passed",
+      "path": "/DATA1/wxs/_HUGGINGFACE/nvidia/Cosmos-Predict2.5-2B/base/post-trained/81edfebe-bd6a-4039-8c1d-737df1a790bf_ema_bf16.pt",
+      "size_bytes": 4118575006,
+      "sha256": "565bbb2c9645737327983f4461e4d32627bba465b0a8dc26447edea144e1ff47"
+    },
+    "tokenizer": {
+      "status": "passed",
+      "path": "/DATA1/wxs/_HUGGINGFACE/nvidia/Cosmos-Predict2.5-2B/tokenizer.pth",
+      "size_bytes": 507609880,
+      "sha256": "38071ab59bd94681c686fa51d75a1968f64e470262043be31f7a094e442fd981"
+    }
+  },
+  "offline_environment": {
+    "status": "passed_for_registered_handlers",
+    "COSMOS_SKIP_HF_AUTO_DOWNLOAD": "1",
+    "HF_HUB_OFFLINE": "1",
+    "TRANSFORMERS_OFFLINE": "1",
+    "WANDB_MODE": "disabled",
+    "WANDB_DISABLED": "true"
+  },
+  "source_snapshot": {
+    "status": "pending",
+    "candidate_file_count": 717,
+    "candidate_code_sha256": "1fbf1bd9e81d3ba2d39934ceb699f3322c5500f56da88ca6b5d5a877374db5d8",
+    "materialized": false,
+    "expected_path": "/DATA1/wxs/ReCAP_M5B_P2_RUNS/source_snapshots/1fbf1bd9e81d3ba2d39934ceb699f3322c5500f56da88ca6b5d5a877374db5d8"
+  },
+  "blockers": [
+    "formal_queue_closed_by_frozen_registry",
+    "p2_acceptance_closed_by_frozen_registry",
+    "aggregate_reports_cover_only_27_of_147_evaluations",
+    "formal_solver_2ab_not_bound_to_rectified_flow",
+    "workspace_bounds_not_frozen",
+    "lag_calibrated_variant_reuses_tplus1_view_manifest",
+    "temporal_corruption_materialization_not_frozen_at_model_input",
+    "resolution_jaccard_evidence_not_bound_by_registry",
+    "formal_output_mount_is_read_only",
+    "candidate_source_snapshot_not_materialized"
+  ],
+  "claim_boundary": "This is read-only prequeue evidence. It starts no training, completes no formal cell, creates no activation artifact, and does not pass P2, M5-v03, Gate C, or M6."
+}

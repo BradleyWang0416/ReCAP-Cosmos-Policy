@@ -1,0 +1,10 @@
+{
+  "artifact_file_sha256": "29e0fd8d4b58beabcf7cea7ba50488a0775a79b6f429596a3573a0bbb007eb6a",
+  "artifact_path": "/workspace/\u65b9\u6848/v03/M5B_P2_workspace_bounds_v1.json",
+  "contains_experiment_results": false,
+  "heldout_data_used": false,
+  "passes_p2": false,
+  "schema_version": "human2robot-m5b-p2-workspace-bounds-lock-v1",
+  "split_sha256": "1d3ef2377aa19938b06646f6d5fc31ec9f275fc9f37e253e1e9aa5eecdc5a968",
+  "status": "locked"
+}

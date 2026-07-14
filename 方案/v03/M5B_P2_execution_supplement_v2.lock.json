@@ -1,0 +1,12 @@
+{
+  "approved_proposal_file_sha256": "edf692ea17242458e0e133d1dcc25685d4b02e7964845d2c2ee8fbb2a66ad733",
+  "approved_successor_decision_file_sha256": "c41895e2c1906fd3b57092adc0b935c9f5a72825f03acc5931c6110b96f53a9c",
+  "candidate_registry_generator_file_sha256": "8765d24606db00a8b875195c760092f2a1f7b4c28dda8db6564ad52b1ca6c0bd",
+  "contains_experiment_results": false,
+  "parent_protocol_file_sha256": "7598dfa2ac2e129f5d21a295dad23b90f63c3c8e68811da73cbcc20eb95d5ce4",
+  "passes_p2": false,
+  "schema_version": "human2robot-m5b-p2-execution-supplement-lock-v2",
+  "status": "locked",
+  "supplement_file_sha256": "17d9fc308c50b9b7899793a4c8d3bca1eeba217053fbacb368e2f9a2e390d7ab",
+  "supplement_path": "\u65b9\u6848/v03/M5B_P2_execution_supplement_v2.json"
+}

@@ -38,7 +38,7 @@ def test_index_manifest_binds_no_heldout_target() -> None:
 
 def test_specs_match_frozen_learned_registry() -> None:
     registry = json.loads(
-        (ROOT / "方案/v03/M5B_P2_cell_registry_v1.json").read_text(encoding="utf-8")
+        (ROOT / "方案/v03/M5B_P2_cell_registry_v2.json").read_text(encoding="utf-8")
     )
     assert learned_registry_cell_ids(registry) == {spec.cell_id for spec in p2_training_specs()}
 

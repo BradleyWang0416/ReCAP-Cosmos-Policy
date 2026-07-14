@@ -1,0 +1,53 @@
+{
+  "schema_version": "human2robot-m5b-p2-execution-correction-proposal-v2",
+  "status": "PROPOSED_REQUIRES_USER_APPROVAL_AND_REFREEZE",
+  "formal_result": false,
+  "formal_queue_allowed": false,
+  "p2_acceptance_allowed": false,
+  "parent_supplement_sha256": "be6ca3cdeb7d725221cbefa4664a44f33531edea1b66a74ea2405bff54dfc4ba",
+  "parent_registry_sha256": "4664d036bcf6bc41e8a44fac2afe04ff6de62c2a180a29d3433bd83e46604df5",
+  "nonsemantic_launch_preconditions": {
+    "formal_output_mount": "Start the dedicated full Docker shell with /DATA1 mounted read-write; the existing PushT runbook container is read-only and cannot hold formal artifacts.",
+    "source_snapshot": "After all seven semantic corrections are approved and implemented, materialize and verify the 717-file candidate snapshot before activation. The current candidate code SHA256 is 1fbf1bd9e81d3ba2d39934ceb699f3322c5500f56da88ca6b5d5a877374db5d8.",
+    "formal_queue_started": false
+  },
+  "required_corrections": [
+    {
+      "decision_id": "P2-CORR-SOLVER-01",
+      "problem": "The frozen solver is 2ab, but the selected CosmosPolicyHuman2Robot rectified-flow model exposes no solver_option and uses its RF sample_scheduler.",
+      "recommended_resolution": "Freeze the native deterministic rectified-flow scheduler at 35 steps and its shift value; do not label it 2ab.",
+      "alternative": "Change to an EDM model path that genuinely implements 2ab, then rerun P0 and all model/config contracts."
+    },
+    {
+      "decision_id": "P2-CORR-WORKSPACE-01",
+      "problem": "workspace_clipping_count has pass value 0 but no immutable xyz bounds or clipping-versus-rejection rule is frozen.",
+      "required_resolution": "Freeze explicit canonical xyz minimum/maximum bounds, provenance, margin, and out-of-bounds policy before inference."
+    },
+    {
+      "decision_id": "P2-CORR-REPORT-01",
+      "problem": "The four registered QUAL report nodes transitively cover only 27 of the 147 evaluation cells.",
+      "recommended_resolution": "Freeze one additional full-matrix completion report that binds all 202 cell artifacts and all 147 evaluation hashes; retain the four QUAL reports for case selection."
+    },
+    {
+      "decision_id": "P2-CORR-LAGVIEW-01",
+      "problem": "The lag-calibrated diagnostic uses query_offset=5 but its prepared contract still binds the t+1 derived-view manifest.",
+      "required_resolution": "Materialize and hash a distinct lag-calibrated derived view, or rename/refreeze the variant as an offset-5 diagnostic on the t+1 view."
+    },
+    {
+      "decision_id": "P2-CORR-TEMPORAL-01",
+      "problem": "Corruption names and severities are frozen, but exact deterministic model-input transforms, masks, and severe-invalid thresholds are not.",
+      "required_resolution": "Freeze transform algorithms, seed derivation, affected tensors, mild/severe classification, and pre-model reject/mask receipts."
+    },
+    {
+      "decision_id": "P2-CORR-RESOLUTION-01",
+      "problem": "G6 requires visual top-k Jaccard, while RES cells reuse the phase-retrieval parent and register no per-resolution visual retrieval artifacts or aggregation rule.",
+      "required_resolution": "Bind per-resolution frozen-encoder visual rankings and freeze whether the 0.90 threshold applies per query, minimum, median, or mean."
+    },
+    {
+      "decision_id": "P2-CORR-ACTIVATION-01",
+      "problem": "The immutable registry itself has formal_queue_allowed=false and p2_acceptance_allowed=false.",
+      "required_resolution": "Freeze a separate activation artifact or a successor registry defining the exact conditions that change these flags after all preflight checks pass."
+    }
+  ],
+  "claim_boundary": "This file is a correction proposal only. It does not mutate the frozen v1 protocol/supplement/registry and cannot authorize training."
+}

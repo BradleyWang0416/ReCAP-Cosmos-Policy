@@ -1,0 +1,8 @@
+{
+  "artifact_file_sha256": "1e2b5f3e245c87d9c9a9f65ffadf2b191ff3dafc20546fb0beecb3e0b23b4ba2",
+  "artifact_path": "/workspace/\u65b9\u6848/v03/M5B_P2_launch_activation_schema_v2.json",
+  "contains_experiment_results": false,
+  "passes_p2": false,
+  "schema_version": "human2robot-m5b-p2-launch-activation-schema-lock-v2",
+  "status": "locked"
+}

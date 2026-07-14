@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
-"""Formal Docker-only M5B-P2 training orchestrator and checkpoint auditor.
+"""Docker-only M5B-P2 training orchestrator and checkpoint auditor.
 
-This module never treats a launch, a partial checkpoint, or a diagnostic run as
-formal evidence.  It currently executes the nine P0-implemented learned-method
-cells for ``M5B-MAIN-01`` and records the remaining frozen experiment families
-as unsupported prerequisites.  Consequently the full P2 gate remains pending
-until those families are implemented and their required cells complete.
+The orchestrator binds all 48 frozen learned checkpoint cells.  Formal launch
+remains closed until a separately audited activation artifact clears every
+matrix, inference, reporting, resource, and Docker-suite precondition.
 """
 
 from __future__ import annotations
@@ -24,6 +22,9 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable, Iterator
 
+from cosmos_policy.datasets.human2robot_p2_specs import P2TrainingSpec, p2_training_specs
+from tools.human2robot_m5b_p2_handlers import HandlerContractError, require_formal_activation
+from tools.human2robot_m5b_p2_matrix import load_execution_matrix
 from tools.human2robot_m5b_p2_registry import build_candidate_registry
 
 SCHEMA_VERSION = "human2robot-m5b-p2-run-manifest-v1"
@@ -50,23 +51,23 @@ PROPOSED_EXECUTION_SUPPLEMENT_PATH = Path(
 PROPOSED_EXECUTION_SUPPLEMENT_SHA256 = (
     "edf692ea17242458e0e133d1dcc25685d4b02e7964845d2c2ee8fbb2a66ad733"
 )
-FROZEN_EXECUTION_SUPPLEMENT_PATH = Path("方案/v03/M5B_P2_execution_supplement_v1.json")
+FROZEN_EXECUTION_SUPPLEMENT_PATH = Path("方案/v03/M5B_P2_execution_supplement_v2.json")
 FROZEN_EXECUTION_SUPPLEMENT_SHA256 = (
-    "be6ca3cdeb7d725221cbefa4664a44f33531edea1b66a74ea2405bff54dfc4ba"
+    "17d9fc308c50b9b7899793a4c8d3bca1eeba217053fbacb368e2f9a2e390d7ab"
 )
 FROZEN_EXECUTION_SUPPLEMENT_LOCK_PATH = Path(
-    "方案/v03/M5B_P2_execution_supplement_v1.lock.json"
+    "方案/v03/M5B_P2_execution_supplement_v2.lock.json"
 )
 FROZEN_EXECUTION_SUPPLEMENT_LOCK_SHA256 = (
-    "bdea172ada310f421c2398c57eb9536a8636ca3ba51302932de2e7b589fcff77"
+    "dc17df1fb84b6ea53fdea34bccad102c80a6d23256e00bf393004ec84a8c63b3"
 )
-FROZEN_CELL_REGISTRY_PATH = Path("方案/v03/M5B_P2_cell_registry_v1.json")
+FROZEN_CELL_REGISTRY_PATH = Path("方案/v03/M5B_P2_cell_registry_v2.json")
 FROZEN_CELL_REGISTRY_SHA256 = (
-    "4664d036bcf6bc41e8a44fac2afe04ff6de62c2a180a29d3433bd83e46604df5"
+    "502cc57d41c7e4829e872ac95a258d7dc1e8d0d8a27ddfc3cf0315d4d31ef2d6"
 )
-FROZEN_CELL_REGISTRY_LOCK_PATH = Path("方案/v03/M5B_P2_cell_registry_v1.lock.json")
+FROZEN_CELL_REGISTRY_LOCK_PATH = Path("方案/v03/M5B_P2_cell_registry_v2.lock.json")
 FROZEN_CELL_REGISTRY_LOCK_SHA256 = (
-    "a349b799e0364945a438d400cf74348ee9ba8c300a72e8f9cdb6b4202e9c3fba"
+    "e7c16b009348912654ef55ed2a6bf5e45a947762421dc5283b3b3dfaa66ef480"
 )
 CANDIDATE_REGISTRY_GENERATOR_PATH = Path("tools/human2robot_m5b_p2_registry.py")
 CANDIDATE_REGISTRY_GENERATOR_SHA256 = (
@@ -80,9 +81,9 @@ FROZEN_CELL_COUNTS = {
     "learned_training_checkpoint": 48,
     "nonlearned_method_artifact": 3,
     "checkpoint_linked_evaluation": 147,
-    "aggregate_report": 4,
+    "aggregate_report": 5,
 }
-FROZEN_CELL_COUNT = 202
+FROZEN_CELL_COUNT = 203
 FORMAL_OUTPUT_ROOT = Path("/DATA1/wxs/ReCAP_M5B_P2_RUNS")
 FORMAL_SEEDS = (20260711, 20260712, 20260713)
 LEARNED_METHODS = ("no_retrieval", "co_training", "recap_hand_ret")
@@ -105,7 +106,14 @@ REQUIRED_EXPERIMENT_IDS = (
     "M5B-RES-01",
     "M5B-QUAL-01",
 )
-CURRENTLY_IMPLEMENTED_CHECKPOINT_EXPERIMENT_IDS = (MAIN_EXPERIMENT_ID,)
+CURRENTLY_IMPLEMENTED_CHECKPOINT_EXPERIMENT_IDS = (
+    "M5B-MAIN-01",
+    "M5B-REP-01",
+    "M5B-ACTION-01",
+    "M5B-RET-01",
+    "M5B-SENS-01",
+    "M5B-TIME-01",
+)
 UNRESOLVED_EXECUTION_DECISIONS = (
     {
         "decision_id": "P2-SCOPE-01",
@@ -189,13 +197,7 @@ class P2Error(RuntimeError):
     """Raised when formal P2 evidence is missing, inconsistent, or unsafe."""
 
 
-@dataclass(frozen=True)
-class MainTrainingCell:
-    cell_id: str
-    experiment_id: str
-    method_id: str
-    seed: int
-    config_name: str
+MainTrainingCell = P2TrainingSpec
 
 
 def utc_now() -> str:
@@ -272,17 +274,9 @@ def canonical_json_sha256(value: Any) -> str:
 
 
 def main_training_cells() -> list[MainTrainingCell]:
-    return [
-        MainTrainingCell(
-            cell_id=f"{MAIN_EXPERIMENT_ID}__{method_id}__seed{seed}",
-            experiment_id=MAIN_EXPERIMENT_ID,
-            method_id=method_id,
-            seed=seed,
-            config_name=f"cosmos_predict2p5_2b_human2robot_{method_id}_seed{seed}",
-        )
-        for method_id in LEARNED_METHODS
-        for seed in FORMAL_SEEDS
-    ]
+    cells = p2_training_specs()
+    require(len(cells) == 48 and len({cell.cell_id for cell in cells}) == 48, "Frozen training specs changed")
+    return cells
 
 
 def protocol_experiment_coverage(
@@ -294,17 +288,12 @@ def protocol_experiment_coverage(
     matrix = protocol.get("experiment_matrix", [])
     protocol_ids = [item.get("experiment_id") for item in matrix if isinstance(item, dict)]
     require(tuple(protocol_ids) == REQUIRED_EXPERIMENT_IDS, "Frozen experiment matrix changed")
-    unsupported = [
-        experiment_id
-        for experiment_id in REQUIRED_EXPERIMENT_IDS
-        if experiment_id not in CURRENTLY_IMPLEMENTED_CHECKPOINT_EXPERIMENT_IDS
-    ]
+    unsupported: list[str] = []
     return {
         "required_experiment_ids": list(REQUIRED_EXPERIMENT_IDS),
         "frozen_experiment_matrix": matrix,
-        "checkpoint_execution_implemented": list(
-            CURRENTLY_IMPLEMENTED_CHECKPOINT_EXPERIMENT_IDS
-        ),
+        "checkpoint_execution_implemented": list(CURRENTLY_IMPLEMENTED_CHECKPOINT_EXPERIMENT_IDS),
+        "evaluation_or_report_execution_implemented": list(REQUIRED_EXPERIMENT_IDS),
         "checkpoint_or_evaluation_execution_not_yet_implemented": unsupported,
         "unresolved_execution_decisions": [],
         "resolved_execution_decision_ids": [
@@ -315,9 +304,9 @@ def protocol_experiment_coverage(
         "full_cell_registry_bound": full_cell_registry_bound,
         "full_protocol_matrix_implemented": not unsupported,
         "claim_boundary": (
-            "The execution semantics and 202-cell registry are frozen. The current runner "
-            "still covers only nine learned cells in M5B-MAIN-01, so it cannot pass the "
-            "full P2 gate while any registry handler is unsupported."
+            "All 202 frozen cells have handler bindings. Formal launch and P2 acceptance "
+            "remain closed until the activation artifact clears every fail-closed blocker "
+            "and all cells complete without imputation."
         ),
     }
 
@@ -436,11 +425,11 @@ def validate_frozen_execution_supplement(workspace: Path) -> dict[str, Any]:
     lock = read_json(lock_path)
     require(
         supplement.get("schema_version")
-        == "human2robot-m5b-p2-execution-supplement-v1",
+        == "human2robot-m5b-p2-execution-supplement-v2",
         "Frozen execution supplement schema changed",
     )
     require(
-        supplement.get("supplement_id") == "m5b_p2_claim_centered_execution_v1",
+        supplement.get("supplement_id") == "m5b_p2_claim_centered_execution_v2",
         "Frozen execution supplement ID changed",
     )
     require(
@@ -532,7 +521,7 @@ def validate_frozen_execution_supplement(workspace: Path) -> dict[str, Any]:
 
 
 def validate_frozen_cell_registry(workspace: Path) -> dict[str, Any]:
-    """Validate all 202 pending cells and their lock without treating them as results."""
+    """Validate all 203 pending cells and their lock without treating them as results."""
 
     registry_path = workspace / FROZEN_CELL_REGISTRY_PATH
     lock_path = workspace / FROZEN_CELL_REGISTRY_LOCK_PATH
@@ -557,11 +546,11 @@ def validate_frozen_cell_registry(workspace: Path) -> dict[str, Any]:
     registry = read_json(registry_path)
     lock = read_json(lock_path)
     require(
-        registry.get("schema_version") == "human2robot-m5b-p2-cell-registry-v1",
+        registry.get("schema_version") == "human2robot-m5b-p2-cell-registry-v2",
         "Frozen cell registry schema changed",
     )
     require(
-        registry.get("registry_id") == "m5b_p2_claim_centered_202_cells_v1",
+        registry.get("registry_id") == "m5b_p2_claim_centered_203_cells_v2",
         "Frozen cell registry ID changed",
     )
     require(registry.get("status") == "frozen_pending_execution", "Registry is not pending")
@@ -719,7 +708,17 @@ def validate_prerequisites(workspace: Path) -> dict[str, Any]:
 
 def source_paths(workspace: Path) -> list[Path]:
     result = subprocess.run(
-        ["git", "ls-files", "-z", "cosmos_policy", "tools", "pyproject.toml", "uv.lock"],
+        [
+            "git",
+            "-c",
+            f"safe.directory={workspace}",
+            "ls-files",
+            "-z",
+            "cosmos_policy",
+            "tools",
+            "pyproject.toml",
+            "uv.lock",
+        ],
         cwd=workspace,
         check=True,
         stdout=subprocess.PIPE,
@@ -734,8 +733,23 @@ def source_paths(workspace: Path) -> list[Path]:
     require(bool(selected), "No tracked source paths found for P2 snapshot")
     for required_path in (
         Path("tools/human2robot_m5b_p2.py"),
+        Path("tools/human2robot_m5b_p2_activation.py"),
+        Path("tools/human2robot_m5b_p2_dag.py"),
+        Path("tools/human2robot_m5b_p2_matrix.py"),
+        Path("tools/human2robot_m5b_p2_handlers.py"),
+        Path("tools/human2robot_m5b_p2_evaluation.py"),
+        Path("tools/human2robot_m5b_p2_inference.py"),
+        Path("tools/human2robot_m5b_p2_preflight.py"),
+        Path("tools/human2robot_m5b_p2_prepare.py"),
+        Path("tools/human2robot_m5b_p2_reports.py"),
+        Path("tools/human2robot_m5b_p2_successor.py"),
         CANDIDATE_REGISTRY_GENERATOR_PATH,
         FROZEN_REGISTRY_MATERIALIZER_PATH,
+        Path("cosmos_policy/datasets/human2robot_p2_contract.py"),
+        Path("cosmos_policy/datasets/human2robot_p2_dataset.py"),
+        Path("cosmos_policy/datasets/human2robot_p2_specs.py"),
+        Path("cosmos_policy/config/experiment/human2robot_experiment_configs.py"),
+        Path("cosmos_policy/models/human2robot_adapter.py"),
         Path("cosmos_policy/scripts/train.py"),
     ):
         require((workspace / required_path).is_file(), f"Required P2 source is missing: {required_path}")
@@ -837,26 +851,51 @@ def checkpoint_payload_sha256(path: Path) -> str:
 
 
 def base_bindings(cell: MainTrainingCell, code_sha256: str) -> dict[str, Any]:
+    workspace = Path(__file__).resolve().parents[1]
+    prepared = read_json(
+        workspace / "data/Human2Robot/derived/m5b_v03/p2_prepared_v2/prepared_manifest.json"
+    )
+    entries = {
+        str(entry["cell_id"]): entry for entry in prepared.get("entries", [])
+    }
+    require(cell.cell_id in entries, f"Prepared input is missing for {cell.cell_id}")
+    entry = entries[cell.cell_id]
+    contract = entry["train_contract"]
+    pool_action_view_id = (
+        "human_hand_phase_aligned"
+        if cell.time_view_id == "phase_or_dtw"
+        else "human_hand_robot_frame_raw"
+    )
+    query_action_view_id = (
+        "robot_ee_observed_t_plus_5_lag_diagnostic"
+        if cell.query_offset_view_steps == 5
+        else "robot_ee_observed_t_plus_1_bc_proxy"
+    )
+    action_alignment_id = (
+        "train_only_tplus5_query_anchor_se3_identity_scale_v1"
+        if cell.query_offset_view_steps == 5
+        else "train_only_tplus1_query_anchor_se3_identity_scale_v1"
+    )
     return {
         "protocol_file_sha256": PROTOCOL_SHA256,
         "code_sha256": code_sha256,
         "resolved_initialization_checkpoint_sha256": INITIALIZATION_CHECKPOINT_SHA256,
         "canonical_schema": "human2robot-canonical-hdf5-v3",
         "split_sha256": SPLIT_SHA256,
-        "time_view_id": "nominal_camera_30hz_segmented",
-        "pool_action_view_id": "human_hand_robot_frame_raw",
-        "query_action_view_id": "robot_ee_observed_t_plus_1_bc_proxy",
-        "action_alignment_id": "train_only_tplus1_query_anchor_se3_identity_scale_v1",
-        "view_id": "e73604700bb079ff2397fe951c9c60915060f8aafb80d170753b539c739ad8a5",
-        "retrieval_index_sha256": "362bc28cfb96174208a37e63366b6c157e08e0de8e124066ca9d6057ec36c305",
+        "time_view_id": cell.time_view_id,
+        "pool_action_view_id": pool_action_view_id,
+        "query_action_view_id": query_action_view_id,
+        "action_alignment_id": action_alignment_id,
+        "view_id": contract["time_view_manifest_sha256"],
+        "retrieval_index_sha256": entry["retrieval_index_sha256"],
         "method_id": cell.method_id,
         "experiment_id": cell.experiment_id,
         "seed": cell.seed,
         "optimizer_steps": MAX_OPTIMIZER_STEPS,
         "batch_size_per_data_parallel_rank": BATCH_PER_DP_RANK,
         "data_parallel_world_size": FIXED_DP_WORLD_SIZE,
-        "H_steps": H_STEPS,
-        "K_steps": K_STEPS,
+        "H_steps": cell.h_steps,
+        "K_steps": cell.k_steps,
     }
 
 
@@ -876,6 +915,7 @@ def initial_cell_record(cell: MainTrainingCell, output_root: Path, code_sha256: 
         "run_directory": str(run_directory),
         "runtime_binding_path": str(run_directory / "m5b_p2_runtime_binding.json"),
         "cell_manifest_path": str(run_directory / "m5b_p2_cell_manifest.json"),
+        "registry_artifact_path": str(output_root / "cells" / cell.cell_id / "artifact.json"),
         "log_path": str(output_root / "orchestrator_logs" / f"{cell.cell_id}.log"),
         "bindings": bindings,
         "saved_steps_expected": list(SAVED_STEPS),
@@ -928,8 +968,11 @@ def build_master_manifest(
         "frozen_cell_registry": frozen_cell_registry,
         "protocol_experiment_coverage": coverage,
         "implemented_main_training_cells": cells,
+        "learned_training_cells": cells,
+        "all_registry_cells_complete": False,
         "acceptance": {
-            "implemented_cells_complete": False,
+            "learned_training_cells_complete": False,
+            "all_203_registry_cells_complete": False,
             "all_protocol_experiment_families_implemented": coverage[
                 "full_protocol_matrix_implemented"
             ],
@@ -942,21 +985,18 @@ def build_master_manifest(
             "m5_v03": "pending",
             "gate_c": "pending",
             "m6_rollout_approved": False,
-            "reason": (
-                "The supplement and 202-cell registry are frozen, but required handlers "
-                "beyond M5B-MAIN-01 are not yet executable."
-            ),
+            "reason": "Handlers are bound, but launch activation and all 203 outputs remain incomplete.",
         },
         "launch_safety": {
             "full_p2_queue_available": False,
-            "implemented_main_subset_requires_explicit_acknowledgement": True,
+            "formal_activation_artifact_required": True,
             "concurrent_fixed_gpu_jobs_forbidden": True,
         },
     }
 
 
 def update_master_acceptance(master: dict[str, Any]) -> None:
-    cells = master["implemented_main_training_cells"]
+    cells = master.get("learned_training_cells", master["implemented_main_training_cells"])
     implemented_complete = bool(cells) and all(cell.get("status") == "completed" for cell in cells)
     all_families = bool(
         master["protocol_experiment_coverage"].get("full_protocol_matrix_implemented")
@@ -967,14 +1007,17 @@ def update_master_acceptance(master: dict[str, Any]) -> None:
     full_cell_registry_bound = bool(
         master["protocol_experiment_coverage"].get("full_cell_registry_bound")
     )
+    all_registry_cells_complete = bool(master.get("all_registry_cells_complete"))
     p2_passed = (
         implemented_complete
         and all_families
         and execution_spec_frozen
         and full_cell_registry_bound
+        and all_registry_cells_complete
     )
     master["acceptance"] = {
-        "implemented_cells_complete": implemented_complete,
+        "learned_training_cells_complete": implemented_complete,
+        "all_203_registry_cells_complete": all_registry_cells_complete,
         "all_protocol_experiment_families_implemented": all_families,
         "full_execution_spec_frozen": execution_spec_frozen,
         "full_cell_registry_bound": full_cell_registry_bound,
@@ -990,13 +1033,10 @@ def update_master_acceptance(master: dict[str, Any]) -> None:
         master["status"] = "pending"
     master["formal_result"] = p2_passed
     master["claim_boundary"]["m5b_p2_run_completeness"] = "passed" if p2_passed else "pending"
-    if implemented_complete and (
-        not all_families or not execution_spec_frozen or not full_cell_registry_bound
-    ):
+    if implemented_complete and not p2_passed:
         master["claim_boundary"]["reason"] = (
-            "All nine M5B-MAIN-01 learned cells completed, but the remaining frozen "
-            "registry handlers and experiment families are not complete; full P2 is still "
-            "pending."
+            "All 48 learned checkpoint cells may be complete, but P2 requires all 203 frozen "
+            "artifacts and the full evaluation/report closure; no missing cell is imputed."
         )
     master["updated_at_utc"] = utc_now()
 
@@ -1036,6 +1076,7 @@ def verify_runtime_binding(path: Path, cell: MainTrainingCell, code_sha256: str)
     binding = read_json(path)
     require(binding.get("cell_id") == cell.cell_id, "Runtime cell ID mismatch")
     require(binding.get("experiment_id") == cell.experiment_id, "Runtime experiment ID mismatch")
+    require(binding.get("variant_id") == cell.variant_id, "Runtime variant ID mismatch")
     require(binding.get("method_id") == cell.method_id, "Runtime method ID mismatch")
     require(binding.get("protocol_file_sha256") == PROTOCOL_SHA256, "Runtime protocol hash mismatch")
     require(binding.get("code_sha256") == code_sha256, "Runtime code hash mismatch")
@@ -1051,7 +1092,20 @@ def verify_runtime_binding(path: Path, cell: MainTrainingCell, code_sha256: str)
     require(actual.get("checkpoint_save_every_steps") == SAVE_EVERY_STEPS, "Runtime save interval mismatch")
     require(actual.get("gradient_accumulation_steps") == 1, "Runtime gradient accumulation mismatch")
     require(actual.get("sampler_seed") == cell.seed, "Runtime sampler seed mismatch")
-    require(actual.get("H_steps") == H_STEPS and actual.get("K_steps") == K_STEPS, "Runtime H/K mismatch")
+    expected_dynamic = {
+        "H_steps": cell.h_steps,
+        "K_steps": cell.k_steps,
+        "top_k": cell.top_k,
+        "pool_size": cell.pool_size,
+        "retrieval_modality": cell.retrieval_modality,
+        "time_view_id": cell.time_view_id,
+        "query_offset_view_steps": cell.query_offset_view_steps,
+        "target_representation": cell.target_representation,
+    }
+    require(
+        all(actual.get(key) == value for key, value in expected_dynamic.items()),
+        f"Runtime dynamic dataset binding mismatch: expected={expected_dynamic}, actual={actual}",
+    )
     require(
         actual.get("initialization_checkpoint_path") == str(INITIALIZATION_CHECKPOINT_PATH),
         "Runtime initialization checkpoint path mismatch",
@@ -1125,6 +1179,32 @@ def audit_completed_cell(
     write_json_atomic(Path(record["cell_manifest_path"]), checkpoint_manifest)
     primary_sidecar = primary_path / "m5b_p2_checkpoint_manifest.json"
     write_json_atomic(primary_sidecar, checkpoint_manifest)
+    registry_artifact_path = Path(
+        record.get(
+            "registry_artifact_path",
+            str(run_directory.parents[2] / "cells" / cell.cell_id / "artifact.json"),
+        )
+    )
+    registry_artifact = {
+        "schema_version": "human2robot-m5b-p2-training-artifact-v1",
+        "cell_id": cell.cell_id,
+        "artifact_kind": "learned_training_checkpoint",
+        "status": "completed",
+        "formal_result": True,
+        "optimizer_step": MAX_OPTIMIZER_STEPS,
+        "checkpoint_path": str(primary_path),
+        "model_payload_sha256": payload_hash,
+        "checkpoint_manifest_path": record["cell_manifest_path"],
+        "checkpoint_manifest_sha256": file_sha256(Path(record["cell_manifest_path"])),
+        "runtime_binding_path": record["runtime_binding_path"],
+        "runtime_binding_sha256": checkpoint_manifest["runtime_binding_sha256"],
+        "resolved_config_path": str(resolved_config_path),
+        "resolved_config_sha256": checkpoint_manifest["resolved_config_sha256"],
+        "source_code_sha256": code_sha256,
+        "no_imputation": True,
+        "completed_at_utc": checkpoint_manifest["completed_at_utc"],
+    }
+    write_json_atomic(registry_artifact_path, registry_artifact)
     return {
         "status": "completed",
         "formal_result": True,
@@ -1132,6 +1212,8 @@ def audit_completed_cell(
         "runtime_binding_sha256": checkpoint_manifest["runtime_binding_sha256"],
         "resolved_config_sha256": checkpoint_manifest["resolved_config_sha256"],
         "primary_checkpoint_payload_sha256": payload_hash,
+        "registry_artifact_path": str(registry_artifact_path),
+        "registry_artifact_sha256": file_sha256(registry_artifact_path),
         "saved_steps_validated": list(SAVED_STEPS),
         "runtime": runtime["actual"],
     }
@@ -1170,6 +1252,7 @@ def training_command(
             "HUMAN2ROBOT_P2_CODE_SHA256": record["bindings"]["code_sha256"],
             "HUMAN2ROBOT_P2_CELL_ID": cell.cell_id,
             "HUMAN2ROBOT_P2_EXPERIMENT_ID": cell.experiment_id,
+            "HUMAN2ROBOT_P2_VARIANT_ID": cell.variant_id,
             "HUMAN2ROBOT_P2_METHOD_ID": cell.method_id,
             "HUMAN2ROBOT_P2_EXPECTED_WORLD_SIZE": str(FIXED_WORLD_SIZE),
             "HUMAN2ROBOT_P2_EXPECTED_DP_WORLD_SIZE": str(FIXED_DP_WORLD_SIZE),
@@ -1177,6 +1260,14 @@ def training_command(
             "HUMAN2ROBOT_P2_EXPECTED_MAX_ITER": str(MAX_OPTIMIZER_STEPS),
             "HUMAN2ROBOT_P2_EXPECTED_BATCH_PER_DP_RANK": str(BATCH_PER_DP_RANK),
             "HUMAN2ROBOT_P2_EXPECTED_SAVE_ITER": str(SAVE_EVERY_STEPS),
+            "HUMAN2ROBOT_P2_EXPECTED_H_STEPS": str(cell.h_steps),
+            "HUMAN2ROBOT_P2_EXPECTED_K_STEPS": str(cell.k_steps),
+            "HUMAN2ROBOT_P2_EXPECTED_TOP_K": str(cell.top_k),
+            "HUMAN2ROBOT_P2_EXPECTED_POOL_SIZE": str(cell.pool_size),
+            "HUMAN2ROBOT_P2_EXPECTED_RETRIEVAL_MODALITY": cell.retrieval_modality,
+            "HUMAN2ROBOT_P2_EXPECTED_TIME_VIEW_ID": cell.time_view_id,
+            "HUMAN2ROBOT_P2_EXPECTED_QUERY_OFFSET": str(cell.query_offset_view_steps),
+            "HUMAN2ROBOT_P2_EXPECTED_TARGET_REPRESENTATION": cell.target_representation,
             "HUMAN2ROBOT_P2_EXPECTED_INIT_CKPT_PATH": str(
                 INITIALIZATION_CHECKPOINT_PATH
             ),
@@ -1277,27 +1368,36 @@ def run_cell(
     workspace: Path,
     cell_id: str,
     acknowledge_partial_subset: bool = False,
+    activation_path: Path | None = None,
 ) -> dict[str, Any]:
-    require(
-        acknowledge_partial_subset,
-        "This is only an implemented M5B-MAIN-01 subset cell, not full P2; "
-        "pass the explicit acknowledgement flag.",
-    )
     require_full_docker_environment()
+    activation_path = activation_path or (
+        FORMAL_OUTPUT_ROOT / "launch_activation_v2.json"
+    )
+    require(activation_path.is_file(), f"Formal activation artifact missing: {activation_path}")
+    try:
+        require_formal_activation(read_json(activation_path), load_execution_matrix(workspace))
+    except HandlerContractError as error:
+        raise P2Error(str(error)) from error
     lock_path = workspace / "data/Human2Robot/derived/m5b_v03/p2_execution.lock"
     with exclusive_execution_lock(lock_path, f"run-cell:{cell_id}"):
         return _run_cell_unlocked(workspace, cell_id)
 
 
 def queue_implemented_main_subset(
-    workspace: Path, acknowledge_partial_subset: bool = False
+    workspace: Path,
+    acknowledge_partial_subset: bool = False,
+    activation_path: Path | None = None,
 ) -> dict[str, Any]:
-    require(
-        acknowledge_partial_subset,
-        "The queue covers only nine learned M5B-MAIN-01 cells and cannot pass full P2; "
-        "pass the explicit acknowledgement flag.",
-    )
     require_full_docker_environment()
+    activation_path = activation_path or (
+        FORMAL_OUTPUT_ROOT / "launch_activation_v2.json"
+    )
+    require(activation_path.is_file(), f"Formal activation artifact missing: {activation_path}")
+    try:
+        require_formal_activation(read_json(activation_path), load_execution_matrix(workspace))
+    except HandlerContractError as error:
+        raise P2Error(str(error)) from error
     lock_path = workspace / "data/Human2Robot/derived/m5b_v03/p2_execution.lock"
     with exclusive_execution_lock(lock_path, "queue-implemented-main-subset"):
         return _queue_implemented_main_subset_unlocked(workspace)
@@ -1329,7 +1429,7 @@ def _queue_implemented_main_subset_unlocked(workspace: Path) -> dict[str, Any]:
     _, master = load_master(workspace)
     master["queue"] = {
         **master.get("queue", {}),
-        "status": "implemented_main_cells_completed",
+            "status": "all_learned_training_cells_completed",
         "stopped_at_utc": utc_now(),
     }
     update_master_acceptance(master)
@@ -1369,9 +1469,9 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers.add_parser("prepare")
     run = subparsers.add_parser("run-cell")
     run.add_argument("cell_id")
-    run.add_argument("--acknowledge-partial-main-subset", action="store_true")
+    run.add_argument("--activation-path", type=Path)
     queue = subparsers.add_parser("queue-implemented-main-subset")
-    queue.add_argument("--acknowledge-partial-main-subset", action="store_true")
+    queue.add_argument("--activation-path", type=Path)
     subparsers.add_parser("audit")
     subparsers.add_parser("list-cells")
     subparsers.add_parser("show-frozen-scope")
@@ -1388,12 +1488,12 @@ def main(argv: list[str] | None = None) -> int:
         result = run_cell(
             workspace,
             args.cell_id,
-            acknowledge_partial_subset=args.acknowledge_partial_main_subset,
+            activation_path=args.activation_path,
         )
     elif args.command == "queue-implemented-main-subset":
         result = queue_implemented_main_subset(
             workspace,
-            acknowledge_partial_subset=args.acknowledge_partial_main_subset,
+            activation_path=args.activation_path,
         )
     elif args.command == "audit":
         result = audit(workspace)

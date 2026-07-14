@@ -1,0 +1,143 @@
+{
+  "coordinate_system": "canonical robot_ee_observed_10d xyz",
+  "coordinate_units": "canonical units; physical unit not asserted",
+  "created_at_utc": "2026-07-14T09:03:40.276036+00:00",
+  "formula": "axiswise [train_min - 0.05*(train_max-train_min), train_max + 0.05*(train_max-train_min)]",
+  "heldout_data_used": false,
+  "inference_policy": "do_not_clip; count every out-of-envelope predicted step; acceptance requires zero",
+  "margin_fraction_of_axis_range": 0.05,
+  "margin_xyz": [
+    0.018501104298047723,
+    0.01932859793305397,
+    0.008497586848392302
+  ],
+  "preprocessing_manifest_file_sha256": "52988de59862ffab51882e9734ae30c3b56d092c64f2b47dcd20bb1607f3fdc7",
+  "preprocessing_manifest_path": "data/Human2Robot/canonical/v3/preprocessing_manifest.json",
+  "raw_train_xyz_max": [
+    0.37445953488349915,
+    0.6229187250137329,
+    0.16995097696781158
+  ],
+  "raw_train_xyz_min": [
+    0.004437448922544718,
+    0.2363467663526535,
+    -7.600000344609725e-07
+  ],
+  "schema_version": "human2robot-m5b-p2-workspace-bounds-v1",
+  "scope": "M5 offline prediction guardrail only; not M6 robot safety workspace",
+  "source_episode_count": 16,
+  "source_episodes": [
+    {
+      "canonical_path": "data/Human2Robot/canonical/v3/pilot/demo_00000.hdf5",
+      "row_count": 676,
+      "source_relative_path": "cloth/cloth12/episode_0.hdf5",
+      "source_sha256": "3647d99eac040f86f5f1067604509566a0f3cafe6647905934055ef01aa20529"
+    },
+    {
+      "canonical_path": "data/Human2Robot/canonical/v3/pilot/demo_00001.hdf5",
+      "row_count": 715,
+      "source_relative_path": "cloth/cloth13/episode_0.hdf5",
+      "source_sha256": "0ca9967881d15bee6272197b9d9cffc41f41ee2706b00e06b4098816512462b0"
+    },
+    {
+      "canonical_path": "data/Human2Robot/canonical/v3/pilot/demo_00002.hdf5",
+      "row_count": 618,
+      "source_relative_path": "cloth/cloth21/episode_0.hdf5",
+      "source_sha256": "0750fcb023875aa82c1317290e68be7d6fe4b9f25fd5d46f35f5011721076cc8"
+    },
+    {
+      "canonical_path": "data/Human2Robot/canonical/v3/pilot/demo_00003.hdf5",
+      "row_count": 639,
+      "source_relative_path": "cloth/cloth31/episode_0.hdf5",
+      "source_sha256": "1ba0967aec0ef80f3f990b521c8c1145d30950a515bfeddedd5630cbd3feed67"
+    },
+    {
+      "canonical_path": "data/Human2Robot/canonical/v3/pilot/demo_00004.hdf5",
+      "row_count": 418,
+      "source_relative_path": "grab_both_cubes_v1/episode_0.hdf5",
+      "source_sha256": "d731beb2f039bbc83f7a17df8afeb3f476f7304f5f2e755a0630edddd85843ba"
+    },
+    {
+      "canonical_path": "data/Human2Robot/canonical/v3/pilot/demo_00006.hdf5",
+      "row_count": 242,
+      "source_relative_path": "grab_cup_v1/episode_0.hdf5",
+      "source_sha256": "6ccc24382a25052eecade2fe354a9787d08d1491b706da49d0e518e7ea54a535"
+    },
+    {
+      "canonical_path": "data/Human2Robot/canonical/v3/pilot/demo_00008.hdf5",
+      "row_count": 438,
+      "source_relative_path": "grab_pencil2_v1/episode_1.hdf5",
+      "source_sha256": "fd1870f75a774301e2a3709e4a469f937ff5fd66c582997322cf57098b338835"
+    },
+    {
+      "canonical_path": "data/Human2Robot/canonical/v3/pilot/demo_00009.hdf5",
+      "row_count": 394,
+      "source_relative_path": "grab_pencil_v1/episode_0.hdf5",
+      "source_sha256": "156a09101c9bacd229cc6211ea99365df5a43355369b763ffcaffa1caafae6df"
+    },
+    {
+      "canonical_path": "data/Human2Robot/canonical/v3/pilot/demo_00010.hdf5",
+      "row_count": 675,
+      "source_relative_path": "grab_to_plate1_and_back_v1/episode_0.hdf5",
+      "source_sha256": "c1a131e4876491222e40064af758ff18deda1cc59e824ddfd96e7538c863bd7f"
+    },
+    {
+      "canonical_path": "data/Human2Robot/canonical/v3/pilot/demo_00012.hdf5",
+      "row_count": 226,
+      "source_relative_path": "grab_to_plate2_and_back_v1/episode_1.hdf5",
+      "source_sha256": "905b662b3dfd62185e13c578cf8e3aa28d2c492be5a5309e5c6ca05ef1d1c8be"
+    },
+    {
+      "canonical_path": "data/Human2Robot/canonical/v3/pilot/demo_00013.hdf5",
+      "row_count": 336,
+      "source_relative_path": "grab_to_plate2_and_pull_v1/episode_0.hdf5",
+      "source_sha256": "60a20453e243b3c239f9d0146ab3fbb976a525b05c4dae80ad543b1ba36e3aa3"
+    },
+    {
+      "canonical_path": "data/Human2Robot/canonical/v3/pilot/demo_00014.hdf5",
+      "row_count": 424,
+      "source_relative_path": "grab_to_plate2_v1/episode_0.hdf5",
+      "source_sha256": "117777b1949361ad7853ff61e40d0ec89955c0de97567997cd778fb02f55bf2a"
+    },
+    {
+      "canonical_path": "data/Human2Robot/canonical/v3/pilot/demo_00015.hdf5",
+      "row_count": 161,
+      "source_relative_path": "grab_two_cubes2_v1/episode_2.hdf5",
+      "source_sha256": "c75836a6d4dd2ec9c17ae1c6466820352d7e66e6194471e0cbdd18db3c95409e"
+    },
+    {
+      "canonical_path": "data/Human2Robot/canonical/v3/pilot/demo_00016.hdf5",
+      "row_count": 956,
+      "source_relative_path": "pull_plate_grab_cube/episode_0.hdf5",
+      "source_sha256": "b0effbe24e88c0cfe26fa79be764e616142d014ffaf7e20e556cdc12f0a1b977"
+    },
+    {
+      "canonical_path": "data/Human2Robot/canonical/v3/pilot/demo_00017.hdf5",
+      "row_count": 620,
+      "source_relative_path": "pull_plate_v1/episode_0.hdf5",
+      "source_sha256": "d9ae41bc8fb8a7484136d778427648d308398b150e9516f8dfeb8ed4d89505d8"
+    },
+    {
+      "canonical_path": "data/Human2Robot/canonical/v3/pilot/demo_00018.hdf5",
+      "row_count": 265,
+      "source_relative_path": "push_box_common_v1/episode_0.hdf5",
+      "source_sha256": "806627379c58f4b91795a588b8bb78c6d3e85b46238baf0f5f3f301aa3d09f53"
+    }
+  ],
+  "source_row_count": 7803,
+  "source_split": "train_only",
+  "split_manifest_file_sha256": "21e241cef98ec1a470605d8e54b9560aff5aad7d571372e74d92b9d4939e876d",
+  "split_manifest_path": "data/Human2Robot/canonical/v3/task_split_manifest.json",
+  "split_sha256": "1d3ef2377aa19938b06646f6d5fc31ec9f275fc9f37e253e1e9aa5eecdc5a968",
+  "status": "frozen",
+  "xyz_max": [
+    0.3929606391815469,
+    0.6422473229467869,
+    0.1784485638162039
+  ],
+  "xyz_min": [
+    -0.014063655375503005,
+    0.21701816841959953,
+    -0.008498346848426763
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "counts": {
+    "heldout": {
+      "frozen_p2_query_count": 149,
+      "old_p0_query_count": 153
+    },
+    "train": {
+      "frozen_p2_query_count": 954,
+      "old_p0_query_count": 968
+    }
+  },
+  "created_at_utc": "2026-07-13T17:02:43.893661+00:00",
+  "evidence_boundary": {
+    "formal_training_must_use": "Human2RobotP2Dataset and the 48 prepared entries only",
+    "p0_overfit_does_not_support": "the frozen P2 history/current/future sampling semantics",
+    "p0_overfit_still_supports": "the 2B adapter and action latent path can overfit a real Human2Robot batch",
+    "p2_prepared_inputs_follow_frozen_contract": true
+  },
+  "example": {
+    "episode": "demo_00000.hdf5",
+    "old_first_window": {
+      "current_row": 0,
+      "future_query_rows": [1, 2, 3, 4, 5, 6, 7, 8],
+      "history_or_pool_rows": [0, 1, 2, 3, 4, 5, 6, 7]
+    },
+    "p2_first_window": {
+      "current_row": 7,
+      "future_query_rows": [8, 9, 10, 11, 12, 13, 14, 15],
+      "history_or_pool_rows": [0, 1, 2, 3, 4, 5, 6, 7]
+    },
+    "segment_number": 0
+  },
+  "formal_result": false,
+  "schema_version": "human2robot-m5b-p0-to-p2-window-audit-v1",
+  "semantics": {
+    "frozen_p2": "H segment-safe history rows end at current; K query rows are strictly after current",
+    "old_p0": "current=first pool row; H rows extend forward; query is the same forward block shifted by one",
+    "same_semantics": false
+  },
+  "source_bindings": {
+    "prepared_manifest_path": "/workspace/data/Human2Robot/derived/m5b_v03/p2_prepared/prepared_manifest.json",
+    "prepared_manifest_sha256": "7f8607f90b8f6acb1570a8926d4095f706709bbffa5757a53f3f2241d504de76",
+    "split_manifest_path": "/workspace/data/Human2Robot/canonical/v3/task_split_manifest.json",
+    "split_manifest_sha256": "21e241cef98ec1a470605d8e54b9560aff5aad7d571372e74d92b9d4939e876d"
+  },
+  "status": "passed_with_migration_boundary"
+}

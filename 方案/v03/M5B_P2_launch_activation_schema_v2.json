@@ -1,0 +1,25 @@
+{
+  "artifact_schema_version": "human2robot-m5b-p2-launch-activation-v2",
+  "claim_boundary": "This schema does not activate the queue. An independent artifact at the formal output root is required.",
+  "required_exact_values": {
+    "all_147_evaluations_bound_to_terminal_report": true,
+    "docker_full_suite_passed": true,
+    "formal_output_mount_writable": true,
+    "formal_queue_allowed": true,
+    "gpu_count": 8,
+    "lag_view_manifest_sha256": "53ab59227f865767f07fd4b8c6cea52689b7c22ec1359cedb975308644fe806d",
+    "launch_authorized": true,
+    "local_weight_hashes_passed": true,
+    "native_rectified_flow_contract_resolved": true,
+    "p2_acceptance_allowed": false,
+    "prepared_manifest_sha256": "15a1bd6cc378079b04a821fe691fe293739acc827e183caa44633b76b6a629cd",
+    "registry_sha256": "502cc57d41c7e4829e872ac95a258d7dc1e8d0d8a27ddfc3cf0315d4d31ef2d6",
+    "source_snapshot_frozen": true,
+    "status": "approved",
+    "storage_probe_passed": true,
+    "supplement_sha256": "17d9fc308c50b9b7899793a4c8d3bca1eeba217053fbacb368e2f9a2e390d7ab",
+    "workspace_bounds_sha256": "29e0fd8d4b58beabcf7cea7ba50488a0775a79b6f429596a3573a0bbb007eb6a"
+  },
+  "schema_version": "human2robot-m5b-p2-launch-activation-schema-v2",
+  "status": "frozen_schema_not_activated"
+}

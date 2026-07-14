@@ -26,7 +26,7 @@ def _dataset(**overrides):
         "m3_report_path": ROOT / "data/Human2Robot/derived/m3_v03/m3_validation_report.json",
         "m4_report_path": ROOT / "data/Human2Robot/derived/m4_v03/m4_launch_report.json",
         "protocol_path": ROOT / "方案/v03/M5B_formal_acceptance_protocol_v1.json",
-        "supplement_path": ROOT / "方案/v03/M5B_P2_execution_supplement_v1.json",
+        "supplement_path": ROOT / "方案/v03/M5B_P2_execution_supplement_v2.json",
         "p1_pool_root": ROOT / "data/Human2Robot/derived/m5b_v03/p1_human_only_pool",
         "method_id": "recap_hand_ret",
         "experiment_id": "M5B-MAIN-01",
