@@ -7,7 +7,6 @@ import argparse
 import json
 import math
 import os
-from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Mapping, Sequence
@@ -22,8 +21,19 @@ from tools.human2robot_m5b_p2_evaluation import (
 )
 from tools.human2robot_m5b_p2_handlers import require_formal_activation
 from tools.human2robot_m5b_p2_matrix import (
+    FOUR_GPU_BATCH_PER_DP_RANK,
+    FOUR_GPU_DP_WORLD_SIZE,
+    FOUR_GPU_EFFECTIVE_GLOBAL_BATCH_SIZE,
+    FOUR_GPU_FSDP_SHARD_SIZE,
+    FOUR_GPU_GRADIENT_ACCUMULATION_STEPS,
+    FOUR_GPU_SUCCESSOR_SHA256,
+    FOUR_GPU_WORLD_SIZE,
+    IO_DIAGNOSTIC_ENV,
+    IO_SUCCESSOR_SHA256,
     LAG_VIEW_MANIFEST_SHA256,
+    MEMORY_SUCCESSOR_SHA256,
     PREPARED_MANIFEST_SHA256,
+    PYTORCH_CUDA_ALLOC_CONF,
     SUPPLEMENT_SHA256,
     WORKSPACE_BOUNDS_SHA256,
     ExecutionMatrix,
@@ -33,7 +43,7 @@ from tools.human2robot_m5b_p2_matrix import (
 
 DEFAULT_ARTIFACT_ROOT = Path("/DATA1/wxs/ReCAP_M5B_P2_RUNS")
 REQUIRED_OUTPUTS = (
-    "data/Human2Robot/derived/m5b_v03/run_manifest.json",
+    "data/Human2Robot/derived/m5b_v03/run_manifest_v5.json",
     "data/Human2Robot/derived/m5b_v03/main_comparison_task_seed.json",
     "data/Human2Robot/derived/m5b_v03/pool_growth.json",
     "data/Human2Robot/derived/m5b_v03/representation_ablation.json",
@@ -594,7 +604,7 @@ def build_completion_report(
     }
     if write_outputs:
         output_map = {
-            "data/Human2Robot/derived/m5b_v03/run_manifest.json": {
+            "data/Human2Robot/derived/m5b_v03/run_manifest_v5.json": {
                 "terminal_parent_inventory": parent_inventory,
                 "completed_cell_count": 203,
                 "registry_sha256": matrix.prepared_manifest["registry_file_sha256"],
@@ -647,7 +657,7 @@ def build_final_acceptance(
     inventory = _inventory(matrix, artifact_root)
     _require(inventory["all_203_complete"], f"203-cell inventory is incomplete: {inventory}")
     acceptance = {
-        "schema_version": "human2robot-m5b-p2-final-acceptance-v2",
+        "schema_version": "human2robot-m5b-p2-final-acceptance-v5",
         "status": "passed",
         "formal_queue_allowed": True,
         "p2_acceptance_allowed": True,
@@ -657,6 +667,18 @@ def build_final_acceptance(
         "completed_cell_count": 203,
         "registry_sha256": matrix.prepared_manifest["registry_file_sha256"],
         "supplement_sha256": SUPPLEMENT_SHA256,
+        "four_gpu_successor_sha256": FOUR_GPU_SUCCESSOR_SHA256,
+        "memory_successor_sha256": MEMORY_SUCCESSOR_SHA256,
+        "io_successor_sha256": IO_SUCCESSOR_SHA256,
+        "indexed_hdf5_image_reads": True,
+        "diagnostic_environment": dict(IO_DIAGNOSTIC_ENV),
+        "pytorch_cuda_alloc_conf": PYTORCH_CUDA_ALLOC_CONF,
+        "world_size": FOUR_GPU_WORLD_SIZE,
+        "data_parallel_world_size": FOUR_GPU_DP_WORLD_SIZE,
+        "fsdp_shard_size": FOUR_GPU_FSDP_SHARD_SIZE,
+        "batch_size_per_data_parallel_rank": FOUR_GPU_BATCH_PER_DP_RANK,
+        "gradient_accumulation_steps": FOUR_GPU_GRADIENT_ACCUMULATION_STEPS,
+        "effective_global_batch_size": FOUR_GPU_EFFECTIVE_GLOBAL_BATCH_SIZE,
         "prepared_manifest_sha256": PREPARED_MANIFEST_SHA256,
         "workspace_bounds_sha256": WORKSPACE_BOUNDS_SHA256,
         "lag_view_manifest_sha256": LAG_VIEW_MANIFEST_SHA256,
@@ -665,7 +687,7 @@ def build_final_acceptance(
         "m6_rollout_approved": False,
         "issued_at_utc": utc_now(),
     }
-    write_json_atomic(artifact_root / "final_acceptance_v2.json", acceptance)
+    write_json_atomic(artifact_root / "final_acceptance_v5.json", acceptance)
     return acceptance
 
 
@@ -681,7 +703,7 @@ def build_parser() -> argparse.ArgumentParser:
     final.add_argument(
         "--launch-activation-path",
         type=Path,
-        default=DEFAULT_ARTIFACT_ROOT / "launch_activation_v2.json",
+        default=DEFAULT_ARTIFACT_ROOT / "launch_activation_v5.json",
     )
     subparsers.add_parser("inventory")
     return parser

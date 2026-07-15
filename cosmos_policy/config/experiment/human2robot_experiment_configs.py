@@ -103,10 +103,12 @@ def _formal_config(spec: P2TrainingSpec) -> LazyDict:
             trainer=dict(
                 seed=spec.seed,
                 max_iter=7000,
+                grad_accum_iter=2,
                 run_validation=False,
             ),
             model=L(CosmosPolicyHuman2RobotRetModelRectifiedFlow)(
                 config=dict(
+                    fsdp_shard_size=4,
                     state_t=spec.state_t,
                     min_num_conditional_frames=action_latent_idx,
                     max_num_conditional_frames=action_latent_idx,

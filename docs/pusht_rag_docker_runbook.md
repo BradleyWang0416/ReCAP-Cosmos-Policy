@@ -274,6 +274,16 @@ uv 和 HuggingFace 等缓存位置：
 bash start_m5b_p2_formal_docker.sh
 ```
 
+v3 successor 固定只向容器暴露 4 张宿主机 GPU。默认使用宿主机 `0,1,2,3`；若稳定卡是
+其他编号，启动时显式指定恰好四个、互不重复的物理卡号，例如：
+
+```bash
+M5B_P2_GPU_DEVICES=2,3,4,5 bash start_m5b_p2_formal_docker.sh
+```
+
+容器内这四张卡会重新编号为逻辑 `0,1,2,3`。正式训练命令固定
+`torchrun --nproc_per_node=4`，禁止再用 `--gpus all` 向正式容器暴露额外 GPU。
+
 该脚本只打开名为 `recap_m5b_p2_formal` 的完整 Docker shell，并执行以下约束：
 
 - `/DATA1` 可写挂载，`/workspace` 仍绑定当前仓库；
@@ -306,13 +316,19 @@ bash start_m5b_p2_formal_docker.sh
 .venv/bin/python -m tools.human2robot_m5b_p2_dag plan
 ```
 
+第 4、5 步都必须显示 `formal_queue_allowed=true`、`formal_queue_started=false`，且
+preflight 的 `blockers=[]`、DAG plan 的 `matrix_blockers=[]`。preflight 与单-cell
+dispatcher 会重新计算当前源码 SHA256，并核对 source snapshot 与 Docker-suite receipt；
+签发后若修改任何受控源码，旧 activation 会立即失效，必须重新执行上述 1–4 步。
+
 正式 cell 仍须逐个显式执行 `human2robot_m5b_p2_dag run-cell <cell_id>`；任何父产物未完成都会拒绝执行。
 
-只有 preflight 的 mount、8 GPU、存储、权重、source snapshot 与 successor-contract blocker
-全部清零，且 `/DATA1/wxs/ReCAP_M5B_P2_RUNS/launch_activation_v2.json` 按冻结 schema 独立签发，
+只有 preflight 的 mount、恰好 4 GPU、存储、权重、source snapshot 与 successor-contract blocker
+全部清零，且 `/DATA1/wxs/ReCAP_M5B_P2_RUNS/launch_activation_v3.json` 按冻结 schema 独立签发，
 才允许执行 203-cell DAG。launch activation 只开启队列，仍固定
 `p2_acceptance_allowed=false`；第 203 个终止报告通过后，才能另行生成
-`final_acceptance_v2.json`。因此仅把 `/DATA1` 改为可写并不构成启动授权。
+`final_acceptance_v3.json`。v2 activation 和旧 `run_manifest.json` 只保留为 8 卡历史记录，
+不能授权 v3 四卡运行。因此仅把 `/DATA1` 改为可写并不构成启动授权。
 
 ## 5. 同步 Python 环境
 

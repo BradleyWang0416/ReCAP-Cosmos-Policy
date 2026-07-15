@@ -7,15 +7,19 @@ import pytest
 
 from tools.human2robot_m5b_p2 import (
     BATCH_PER_DP_RANK,
+    EFFECTIVE_GLOBAL_BATCH_SIZE,
+    FSDP_SHARD_SIZE,
     FIXED_DP_WORLD_SIZE,
     FIXED_WORLD_SIZE,
     FORMAL_SEEDS,
+    GRADIENT_ACCUMULATION_STEPS,
     INITIALIZATION_CHECKPOINT_PATH,
     LEARNED_METHODS,
     MAIN_EXPERIMENT_ID,
     MAX_OPTIMIZER_STEPS,
     PROTOCOL_SHA256,
     REQUIRED_EXPERIMENT_IDS,
+    RUNTIME_DIAGNOSTIC_FIELDS,
     SAVE_EVERY_STEPS,
     TOKENIZER_CHECKPOINT_PATH,
     P2Error,
@@ -25,7 +29,9 @@ from tools.human2robot_m5b_p2 import (
     main_training_cells,
     protocol_experiment_coverage,
     queue_implemented_main_subset,
+    require_four_gpu_runtime_container,
     run_cell,
+    training_command,
     update_master_acceptance,
     validate_binding_keys,
     validate_dcp_checkpoint,
@@ -33,6 +39,13 @@ from tools.human2robot_m5b_p2 import (
     validate_frozen_cell_registry,
     validate_frozen_execution_supplement,
     verify_runtime_binding,
+)
+from tools.human2robot_m5b_p2_matrix import (
+    FOUR_GPU_SUCCESSOR_SHA256,
+    IO_DIAGNOSTIC_ENV,
+    IO_SUCCESSOR_SHA256,
+    MEMORY_SUCCESSOR_SHA256,
+    PYTORCH_CUDA_ALLOC_CONF,
 )
 
 
@@ -50,6 +63,7 @@ def test_training_cells_exactly_cover_frozen_48_specs() -> None:
 def test_training_record_reserves_common_registry_artifact_for_evaluators(tmp_path: Path) -> None:
     cell = main_training_cells()[0]
     record = initial_cell_record(cell, tmp_path, "0" * 64)
+    assert record["cell_id"] == cell.cell_id
     assert record["registry_artifact_path"] == str(
         tmp_path / "cells" / cell.cell_id / "artifact.json"
     )
@@ -138,11 +152,15 @@ def test_runtime_binding_checks_actual_world_size_seed_batch_and_steps(tmp_path:
     code_sha256 = "c" * 64
     binding_path = tmp_path / "runtime.json"
     binding = {
+        "schema_version": "human2robot-m5b-p2-runtime-binding-v2",
         "cell_id": cell.cell_id,
         "experiment_id": cell.experiment_id,
         "variant_id": cell.variant_id,
         "method_id": cell.method_id,
         "protocol_file_sha256": PROTOCOL_SHA256,
+        "four_gpu_successor_sha256": FOUR_GPU_SUCCESSOR_SHA256,
+        "memory_successor_sha256": MEMORY_SUCCESSOR_SHA256,
+        "io_successor_sha256": IO_SUCCESSOR_SHA256,
         "code_sha256": code_sha256,
         "actual": {
             "world_size": FIXED_WORLD_SIZE,
@@ -151,7 +169,10 @@ def test_runtime_binding_checks_actual_world_size_seed_batch_and_steps(tmp_path:
             "max_optimizer_steps": MAX_OPTIMIZER_STEPS,
             "batch_size_per_data_parallel_rank": BATCH_PER_DP_RANK,
             "checkpoint_save_every_steps": SAVE_EVERY_STEPS,
-            "gradient_accumulation_steps": 1,
+            "gradient_accumulation_steps": GRADIENT_ACCUMULATION_STEPS,
+            "fsdp_shard_size": FSDP_SHARD_SIZE,
+            "effective_global_batch_size": EFFECTIVE_GLOBAL_BATCH_SIZE,
+            "visible_cuda_device_count": FIXED_WORLD_SIZE,
             "sampler_seed": cell.seed,
             "H_steps": 8,
             "K_steps": 8,
@@ -163,6 +184,11 @@ def test_runtime_binding_checks_actual_world_size_seed_batch_and_steps(tmp_path:
             "target_representation": cell.target_representation,
             "initialization_checkpoint_path": str(INITIALIZATION_CHECKPOINT_PATH),
             "tokenizer_checkpoint_path": str(TOKENIZER_CHECKPOINT_PATH),
+            "pytorch_cuda_alloc_conf": PYTORCH_CUDA_ALLOC_CONF,
+            **{
+                field_name: IO_DIAGNOSTIC_ENV[environment_name]
+                for environment_name, field_name in RUNTIME_DIAGNOSTIC_FIELDS.items()
+            },
         },
         "optimization": {
             "optimizer": "adamw",
@@ -177,6 +203,11 @@ def test_runtime_binding_checks_actual_world_size_seed_batch_and_steps(tmp_path:
             "huggingface_offline": True,
             "transformers_offline": True,
             "wandb_disabled": True,
+            "pytorch_cuda_alloc_conf": PYTORCH_CUDA_ALLOC_CONF,
+            **{
+                field_name: IO_DIAGNOSTIC_ENV[environment_name]
+                for environment_name, field_name in RUNTIME_DIAGNOSTIC_FIELDS.items()
+            },
         },
     }
     binding_path.write_text(json.dumps(binding), encoding="utf-8")
@@ -185,6 +216,68 @@ def test_runtime_binding_checks_actual_world_size_seed_batch_and_steps(tmp_path:
     binding_path.write_text(json.dumps(binding), encoding="utf-8")
     with pytest.raises(P2Error, match="DP world size"):
         verify_runtime_binding(binding_path, cell, code_sha256)
+
+    binding["actual"]["data_parallel_world_size"] = FIXED_DP_WORLD_SIZE
+    binding["actual"]["pytorch_cuda_alloc_conf"] = "max_split_size_mb:128"
+    binding_path.write_text(json.dumps(binding), encoding="utf-8")
+    with pytest.raises(P2Error, match="CUDA allocator"):
+        verify_runtime_binding(binding_path, cell, code_sha256)
+
+
+def test_four_gpu_successor_preserves_effective_global_batch() -> None:
+    assert FIXED_WORLD_SIZE == FIXED_DP_WORLD_SIZE == FSDP_SHARD_SIZE == 4
+    assert BATCH_PER_DP_RANK == 25
+    assert GRADIENT_ACCUMULATION_STEPS == 2
+    assert EFFECTIVE_GLOBAL_BATCH_SIZE == 200
+    assert (
+        FIXED_DP_WORLD_SIZE * BATCH_PER_DP_RANK * GRADIENT_ACCUMULATION_STEPS
+        == EFFECTIVE_GLOBAL_BATCH_SIZE
+    )
+
+
+def test_training_command_exposes_exactly_four_logical_gpus(tmp_path: Path) -> None:
+    workspace = tmp_path / "workspace"
+    snapshot = tmp_path / "snapshot"
+    torchrun = workspace / ".venv/bin/torchrun"
+    config_path = snapshot / "cosmos_policy/config/config.py"
+    torchrun.parent.mkdir(parents=True)
+    config_path.parent.mkdir(parents=True)
+    torchrun.write_text("", encoding="utf-8")
+    config_path.write_text("", encoding="utf-8")
+    cell = main_training_cells()[0]
+    record = {
+        "runtime_binding_path": str(tmp_path / "runtime.json"),
+        "bindings": {"code_sha256": "e" * 64},
+    }
+    command, environment = training_command(
+        workspace, snapshot, tmp_path / "outputs", record, cell
+    )
+    assert "--nproc_per_node=4" in command
+    assert "--config=cosmos_policy/config/config.py" in command
+    assert all(str(snapshot) not in argument for argument in command)
+    assert environment["CUDA_VISIBLE_DEVICES"] == "0,1,2,3"
+    assert environment["PYTORCH_CUDA_ALLOC_CONF"] == PYTORCH_CUDA_ALLOC_CONF
+    assert environment["HUMAN2ROBOT_P2_MEMORY_SUCCESSOR_SHA256"] == MEMORY_SUCCESSOR_SHA256
+    assert environment["HUMAN2ROBOT_P2_IO_SUCCESSOR_SHA256"] == IO_SUCCESSOR_SHA256
+    assert all(environment[key] == value for key, value in IO_DIAGNOSTIC_ENV.items())
+    assert (
+        environment["HUMAN2ROBOT_P2_EXPECTED_PYTORCH_CUDA_ALLOC_CONF"]
+        == PYTORCH_CUDA_ALLOC_CONF
+    )
+    assert environment["HUMAN2ROBOT_P2_EXPECTED_GRAD_ACCUM_STEPS"] == "2"
+    assert environment["HUMAN2ROBOT_P2_EXPECTED_FSDP_SHARD_SIZE"] == "4"
+    assert environment["HUMAN2ROBOT_P2_EXPECTED_EFFECTIVE_GLOBAL_BATCH"] == "200"
+
+
+def test_dispatch_rejects_historical_eight_gpu_container(monkeypatch) -> None:
+    import torch
+
+    monkeypatch.setattr(torch.cuda, "is_available", lambda: True)
+    monkeypatch.setattr(torch.cuda, "device_count", lambda: 8)
+    with pytest.raises(P2Error, match="requires exactly 4 visible GPUs"):
+        require_four_gpu_runtime_container()
+    monkeypatch.setattr(torch.cuda, "device_count", lambda: 4)
+    require_four_gpu_runtime_container()
 
 
 def test_required_binding_order_and_full_gate_boundary() -> None:
@@ -220,10 +313,11 @@ def test_required_binding_order_and_full_gate_boundary() -> None:
 
 
 def test_launch_requires_formal_activation_artifact(tmp_path: Path) -> None:
+    missing_activation = tmp_path / "missing_launch_activation_v5.json"
     with pytest.raises(P2Error, match="Formal activation artifact missing"):
-        run_cell(tmp_path, "any-cell")
+        run_cell(tmp_path, "any-cell", activation_path=missing_activation)
     with pytest.raises(P2Error, match="Formal activation artifact missing"):
-        queue_implemented_main_subset(tmp_path)
+        queue_implemented_main_subset(tmp_path, activation_path=missing_activation)
 
 
 def test_execution_lock_rejects_a_second_fixed_gpu_owner(tmp_path: Path) -> None:

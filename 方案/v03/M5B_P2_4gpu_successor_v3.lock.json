@@ -1,0 +1,10 @@
+{
+  "contains_experiment_results": false,
+  "data_contract_execution_supplement_sha256": "17d9fc308c50b9b7899793a4c8d3bca1eeba217053fbacb368e2f9a2e390d7ab",
+  "formal_protocol_sha256": "7598dfa2ac2e129f5d21a295dad23b90f63c3c8e68811da73cbcc20eb95d5ce4",
+  "passes_p2": false,
+  "schema_version": "human2robot-m5b-p2-four-gpu-successor-lock-v3",
+  "status": "locked_pending_execution",
+  "successor_file_sha256": "6f333136b343cee87dca3c0328a73ffd441d3059633159d02e6f514573b809ab",
+  "successor_path": "方案/v03/M5B_P2_4gpu_successor_v3.json"
+}

@@ -1,0 +1,9 @@
+{
+  "contains_successful_cell_result": false,
+  "memory_successor_sha256": "c5f3334e4fecc81b38466046917d7aefdf1d6eaf7b0e8344458b05cf02455bc2",
+  "passes_p2": false,
+  "schema_version": "human2robot-m5b-p2-io-successor-lock-v5",
+  "status": "locked_pending_execution",
+  "successor_file_sha256": "844f44c8e39178582f4a1cf7dcc5d16d510aad262e22104ff11eb93666d8fde2",
+  "successor_path": "方案/v03/M5B_P2_io_successor_v5.json"
+}

@@ -14,7 +14,7 @@ import os
 import shutil
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Mapping
+from typing import Any
 
 import torch
 
@@ -22,7 +22,12 @@ from cosmos_policy.config.experiment.human2robot_experiment_configs import (
     LOCAL_POSTTRAINED_CKPT,
     LOCAL_TOKENIZER_CKPT,
 )
-from tools.human2robot_m5b_p2 import FORMAL_OUTPUT_ROOT, source_manifest, source_paths
+from tools.human2robot_m5b_p2 import (
+    FORMAL_OUTPUT_ROOT,
+    source_manifest,
+    source_paths,
+    source_snapshot_matches_candidate,
+)
 from tools.human2robot_m5b_p2_handlers import (
     FORMAL_OFFLINE_ENV,
     HandlerContractError,
@@ -30,10 +35,14 @@ from tools.human2robot_m5b_p2_handlers import (
     require_formal_activation,
 )
 from tools.human2robot_m5b_p2_inference import preflight as inference_preflight
-from tools.human2robot_m5b_p2_matrix import file_sha256, load_execution_matrix
+from tools.human2robot_m5b_p2_matrix import (
+    FOUR_GPU_WORLD_SIZE,
+    file_sha256,
+    load_execution_matrix,
+)
 
 MINIMUM_FREE_GIB = 35
-EXPECTED_GPU_COUNT = 8
+EXPECTED_GPU_COUNT = FOUR_GPU_WORLD_SIZE
 EXPECTED_WEIGHT_HASHES = {
     "initialization_checkpoint": "565bbb2c9645737327983f4461e4d32627bba465b0a8dc26447edea144e1ff47",
     "tokenizer": "38071ab59bd94681c686fa51d75a1968f64e470262043be31f7a094e442fd981",
@@ -119,6 +128,17 @@ def _storage_probe(path: Path) -> dict[str, Any]:
     }
 
 
+def queue_authorized(
+    *,
+    require_launch_activation: bool,
+    launch_activation_status: str,
+    blockers: list[str],
+) -> bool:
+    """Return true only for the post-activation, blocker-free queue state."""
+
+    return require_launch_activation and launch_activation_status == "approved" and not blockers
+
+
 def run_preflight(
     workspace: Path,
     *,
@@ -132,7 +152,7 @@ def run_preflight(
     source = source_manifest(workspace, source_paths(workspace))
     source_snapshot_path = artifact_root / "source_snapshots" / source["code_sha256"]
     source_snapshot_manifest = source_snapshot_path / "source_snapshot_manifest.json"
-    launch_activation_path = artifact_root / "launch_activation_v2.json"
+    launch_activation_path = artifact_root / "launch_activation_v5.json"
     mount = mount_binding(artifact_root)
     storage = _storage_probe(artifact_root)
     weights = {
@@ -153,7 +173,9 @@ def run_preflight(
     if not Path("/.dockerenv").exists():
         infrastructure_blockers.append("not_running_inside_docker")
     if gpu_count != EXPECTED_GPU_COUNT:
-        infrastructure_blockers.append(f"expected_8_gpus_found_{gpu_count}")
+        infrastructure_blockers.append(
+            f"expected_{EXPECTED_GPU_COUNT}_gpus_found_{gpu_count}"
+        )
     if storage["status"] != "passed":
         infrastructure_blockers.append("formal_output_storage_below_35_gib")
     if not mount["writable"]:
@@ -163,8 +185,24 @@ def run_preflight(
     for label, binding in weights.items():
         if binding["status"] != "passed":
             infrastructure_blockers.append(f"{label}_hash_{binding['status']}")
+    source_snapshot_status = "pending"
+    source_snapshot_error: str | None = None
     if not source_snapshot_manifest.is_file():
         infrastructure_blockers.append("candidate_source_snapshot_not_materialized")
+    else:
+        try:
+            frozen_source = json.loads(source_snapshot_manifest.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as error:
+            source_snapshot_status = "invalid"
+            source_snapshot_error = str(error)
+            infrastructure_blockers.append("candidate_source_snapshot_invalid")
+        else:
+            if not source_snapshot_matches_candidate(frozen_source, source):
+                source_snapshot_status = "invalid"
+                source_snapshot_error = "Frozen source manifest differs from the current candidate"
+                infrastructure_blockers.append("candidate_source_snapshot_invalid")
+            else:
+                source_snapshot_status = "passed"
     launch_activation: dict[str, Any]
     if not require_launch_activation:
         launch_activation = {
@@ -172,14 +210,26 @@ def run_preflight(
             "status": "not_required_for_pre_activation_probe",
         }
     elif not launch_activation_path.is_file():
-        infrastructure_blockers.append("launch_activation_v2_not_issued")
+        infrastructure_blockers.append("launch_activation_v5_not_issued")
         launch_activation = {"path": str(launch_activation_path), "status": "missing"}
     else:
         try:
             activation_payload = json.loads(launch_activation_path.read_text(encoding="utf-8"))
             require_formal_activation(activation_payload, matrix)
+            if activation_payload.get("candidate_code_sha256") != source["code_sha256"]:
+                raise HandlerContractError("Launch activation is bound to different candidate code")
+            if activation_payload.get("source_snapshot_manifest_path") != str(source_snapshot_manifest):
+                raise HandlerContractError("Launch activation is bound to a different source snapshot")
+            receipt_value = activation_payload.get("docker_suite_receipt_path")
+            if not isinstance(receipt_value, str):
+                raise HandlerContractError("Launch activation has no Docker-suite receipt path")
+            receipt_path = Path(receipt_value)
+            if not receipt_path.is_file():
+                raise HandlerContractError("Launch activation Docker-suite receipt is missing")
+            if activation_payload.get("docker_suite_receipt_sha256") != file_sha256(receipt_path):
+                raise HandlerContractError("Launch activation Docker-suite receipt hash mismatch")
         except (json.JSONDecodeError, HandlerContractError) as error:
-            infrastructure_blockers.append("launch_activation_v2_invalid")
+            infrastructure_blockers.append("launch_activation_v5_invalid")
             launch_activation = {
                 "path": str(launch_activation_path),
                 "status": "invalid",
@@ -193,11 +243,16 @@ def run_preflight(
             }
 
     blockers = list(dict.fromkeys([*inference["blockers"], *infrastructure_blockers]))
+    formal_queue_allowed = queue_authorized(
+        require_launch_activation=require_launch_activation,
+        launch_activation_status=str(launch_activation.get("status")),
+        blockers=blockers,
+    )
     return {
-        "schema_version": "human2robot-m5b-p2-prequeue-preflight-v1",
+        "schema_version": "human2robot-m5b-p2-prequeue-preflight-v5",
         "generated_at_utc": utc_now(),
         "status": "passed" if not blockers else "blocked",
-        "formal_queue_allowed": False,
+        "formal_queue_allowed": formal_queue_allowed,
         "formal_queue_started": False,
         "workspace": str(workspace),
         "artifact_root": str(artifact_root),
@@ -225,7 +280,8 @@ def run_preflight(
             "expected_path": str(source_snapshot_path),
             "manifest_path": str(source_snapshot_manifest),
             "materialized": source_snapshot_manifest.is_file(),
-            "status": "passed" if source_snapshot_manifest.is_file() else "pending",
+            "status": source_snapshot_status,
+            **({"error": source_snapshot_error} if source_snapshot_error is not None else {}),
         },
         "launch_activation": launch_activation,
         "matrix": {

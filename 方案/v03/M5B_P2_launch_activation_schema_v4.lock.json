@@ -1,0 +1,9 @@
+{
+  "artifact_schema_version": "human2robot-m5b-p2-launch-activation-v4",
+  "four_gpu_successor_sha256": "6f333136b343cee87dca3c0328a73ffd441d3059633159d02e6f514573b809ab",
+  "memory_successor_sha256": "c5f3334e4fecc81b38466046917d7aefdf1d6eaf7b0e8344458b05cf02455bc2",
+  "schema_file_sha256": "3f3d1e7b55f67ebbee736b6875a64868b8cf1db4c10f7e1eab25ab8d67bace2d",
+  "schema_path": "方案/v03/M5B_P2_launch_activation_schema_v4.json",
+  "schema_version": "human2robot-m5b-p2-launch-activation-schema-lock-v4",
+  "status": "locked"
+}

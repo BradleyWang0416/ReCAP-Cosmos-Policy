@@ -5,12 +5,22 @@ from __future__ import annotations
 
 import json
 from dataclasses import dataclass
-from pathlib import Path
 from typing import Mapping
 
 from tools.human2robot_m5b_p2_matrix import (
+    FOUR_GPU_BATCH_PER_DP_RANK,
+    FOUR_GPU_DP_WORLD_SIZE,
+    FOUR_GPU_EFFECTIVE_GLOBAL_BATCH_SIZE,
+    FOUR_GPU_FSDP_SHARD_SIZE,
+    FOUR_GPU_GRADIENT_ACCUMULATION_STEPS,
+    FOUR_GPU_SUCCESSOR_SHA256,
+    FOUR_GPU_WORLD_SIZE,
+    IO_DIAGNOSTIC_ENV,
+    IO_SUCCESSOR_SHA256,
     LAG_VIEW_MANIFEST_SHA256,
+    MEMORY_SUCCESSOR_SHA256,
     PREPARED_MANIFEST_SHA256,
+    PYTORCH_CUDA_ALLOC_CONF,
     SUPPLEMENT_SHA256,
     WORKSPACE_BOUNDS_SHA256,
     CellBinding,
@@ -25,6 +35,8 @@ FORMAL_OFFLINE_ENV = {
     "TRANSFORMERS_OFFLINE": "1",
     "WANDB_MODE": "disabled",
     "WANDB_DISABLED": "true",
+    "PYTORCH_CUDA_ALLOC_CONF": PYTORCH_CUDA_ALLOC_CONF,
+    **IO_DIAGNOSTIC_ENV,
 }
 
 
@@ -64,7 +76,7 @@ def _command(binding: CellBinding) -> tuple[str, ...]:
             "run-cell",
             cell.cell_id,
             "--activation-path",
-            f"{DEFAULT_ARTIFACT_ROOT}/launch_activation_v2.json",
+            f"{DEFAULT_ARTIFACT_ROOT}/launch_activation_v5.json",
         )
     if cell.artifact_kind in {"nonlearned_method_artifact", "checkpoint_linked_evaluation"}:
         return (
@@ -79,7 +91,7 @@ def _command(binding: CellBinding) -> tuple[str, ...]:
             "--cell-id",
             cell.cell_id,
             "--activation-path",
-            f"{DEFAULT_ARTIFACT_ROOT}/launch_activation_v2.json",
+            f"{DEFAULT_ARTIFACT_ROOT}/launch_activation_v5.json",
             "--workspace-bounds-path",
             "/workspace/方案/v03/M5B_P2_workspace_bounds_v1.json",
         )
@@ -104,7 +116,7 @@ def build_handler_plans(matrix: ExecutionMatrix) -> dict[str, HandlerPlan]:
     for cell_id in matrix.topological_cell_ids:
         binding = matrix.bindings_by_id[cell_id]
         artifact_kind = binding.cell.artifact_kind
-        gpu_count = 8 if artifact_kind == "learned_training_checkpoint" else (
+        gpu_count = FOUR_GPU_WORLD_SIZE if artifact_kind == "learned_training_checkpoint" else (
             0 if artifact_kind == "aggregate_report" or binding.cell.method_id == "retrieval_only" else 1
         )
         result[cell_id] = HandlerPlan(
@@ -153,13 +165,19 @@ def require_formal_activation(
     matrix: ExecutionMatrix,
 ) -> None:
     expected = {
-        "schema_version": "human2robot-m5b-p2-launch-activation-v2",
+        "schema_version": "human2robot-m5b-p2-launch-activation-v5",
         "status": "approved",
         "launch_authorized": True,
         "formal_queue_allowed": True,
         "p2_acceptance_allowed": False,
         "registry_sha256": matrix.prepared_manifest["registry_file_sha256"],
         "supplement_sha256": SUPPLEMENT_SHA256,
+        "four_gpu_successor_sha256": FOUR_GPU_SUCCESSOR_SHA256,
+        "memory_successor_sha256": MEMORY_SUCCESSOR_SHA256,
+        "io_successor_sha256": IO_SUCCESSOR_SHA256,
+        "indexed_hdf5_image_reads": True,
+        "diagnostic_environment": IO_DIAGNOSTIC_ENV,
+        "pytorch_cuda_alloc_conf": PYTORCH_CUDA_ALLOC_CONF,
         "prepared_manifest_sha256": PREPARED_MANIFEST_SHA256,
         "workspace_bounds_sha256": WORKSPACE_BOUNDS_SHA256,
         "lag_view_manifest_sha256": LAG_VIEW_MANIFEST_SHA256,
@@ -167,7 +185,13 @@ def require_formal_activation(
         "all_147_evaluations_bound_to_terminal_report": True,
         "docker_full_suite_passed": True,
         "source_snapshot_frozen": True,
-        "gpu_count": 8,
+        "gpu_count": FOUR_GPU_WORLD_SIZE,
+        "world_size": FOUR_GPU_WORLD_SIZE,
+        "data_parallel_world_size": FOUR_GPU_DP_WORLD_SIZE,
+        "fsdp_shard_size": FOUR_GPU_FSDP_SHARD_SIZE,
+        "batch_size_per_data_parallel_rank": FOUR_GPU_BATCH_PER_DP_RANK,
+        "gradient_accumulation_steps": FOUR_GPU_GRADIENT_ACCUMULATION_STEPS,
+        "effective_global_batch_size": FOUR_GPU_EFFECTIVE_GLOBAL_BATCH_SIZE,
         "storage_probe_passed": True,
         "formal_output_mount_writable": True,
         "local_weight_hashes_passed": True,
@@ -189,7 +213,7 @@ def require_final_acceptance(
     terminal_report_sha256: str,
 ) -> None:
     expected = {
-        "schema_version": "human2robot-m5b-p2-final-acceptance-v2",
+        "schema_version": "human2robot-m5b-p2-final-acceptance-v5",
         "status": "passed",
         "formal_queue_allowed": True,
         "p2_acceptance_allowed": True,
@@ -199,6 +223,18 @@ def require_final_acceptance(
         "completed_cell_count": 203,
         "registry_sha256": matrix.prepared_manifest["registry_file_sha256"],
         "supplement_sha256": SUPPLEMENT_SHA256,
+        "four_gpu_successor_sha256": FOUR_GPU_SUCCESSOR_SHA256,
+        "memory_successor_sha256": MEMORY_SUCCESSOR_SHA256,
+        "io_successor_sha256": IO_SUCCESSOR_SHA256,
+        "indexed_hdf5_image_reads": True,
+        "diagnostic_environment": IO_DIAGNOSTIC_ENV,
+        "pytorch_cuda_alloc_conf": PYTORCH_CUDA_ALLOC_CONF,
+        "world_size": FOUR_GPU_WORLD_SIZE,
+        "data_parallel_world_size": FOUR_GPU_DP_WORLD_SIZE,
+        "fsdp_shard_size": FOUR_GPU_FSDP_SHARD_SIZE,
+        "batch_size_per_data_parallel_rank": FOUR_GPU_BATCH_PER_DP_RANK,
+        "gradient_accumulation_steps": FOUR_GPU_GRADIENT_ACCUMULATION_STEPS,
+        "effective_global_batch_size": FOUR_GPU_EFFECTIVE_GLOBAL_BATCH_SIZE,
         "prepared_manifest_sha256": PREPARED_MANIFEST_SHA256,
         "workspace_bounds_sha256": WORKSPACE_BOUNDS_SHA256,
         "lag_view_manifest_sha256": LAG_VIEW_MANIFEST_SHA256,

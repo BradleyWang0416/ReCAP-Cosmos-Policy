@@ -1,0 +1,104 @@
+{
+  "authorization": {
+    "approved_at_local_date": "2026-07-14",
+    "basis": "user directive: 只能稳定拿到4张GPU，改成4卡successor"
+  },
+  "claim_boundary": {
+    "contains_experiment_results": false,
+    "formal_queue_allowed": false,
+    "m6_rollout_approved": false,
+    "p2_acceptance_allowed": false,
+    "runtime_performance_status": "NEEDS_EXPERIMENT"
+  },
+  "compatibility": {
+    "cell_registry": {
+      "path": "方案/v03/M5B_P2_cell_registry_v2.json",
+      "sha256": "502cc57d41c7e4829e872ac95a258d7dc1e8d0d8a27ddfc3cf0315d4d31ef2d6"
+    },
+    "data_contract_execution_supplement": {
+      "path": "方案/v03/M5B_P2_execution_supplement_v2.json",
+      "sha256": "17d9fc308c50b9b7899793a4c8d3bca1eeba217053fbacb368e2f9a2e390d7ab"
+    },
+    "prepared_manifest": {
+      "path": "data/Human2Robot/derived/m5b_v03/p2_prepared_v2/prepared_manifest.json",
+      "sha256": "15a1bd6cc378079b04a821fe691fe293739acc827e183caa44633b76b6a629cd"
+    },
+    "reuse_policy": "The 203-cell registry, all 48 prepared learned-cell inputs, three seeds, evaluation bindings, statistics, and report DAG are reused byte-for-byte. No data rematerialization is authorized by this runtime-only successor."
+  },
+  "evidence_status": {
+    "derived": {
+      "effective_global_batch_size": 200,
+      "examples_presented_per_cell": 1400000,
+      "microbatches_per_cell": 14000
+    },
+    "needs_experiment": [
+      "four-GPU peak memory per rank",
+      "four-GPU optimizer-step throughput and wall-clock duration",
+      "first full four-rank DCP aggregate byte size",
+      "finite-loss and resume smoke evidence under the frozen four-GPU runtime"
+    ],
+    "verified_contract": [
+      "world_size=4",
+      "data_parallel_world_size=4",
+      "fsdp_shard_size=4",
+      "batch_size_per_data_parallel_rank=25",
+      "gradient_accumulation_steps=2",
+      "effective_global_batch_size=200",
+      "max_optimizer_steps=7000"
+    ]
+  },
+  "frozen_runtime": {
+    "batch_size_per_data_parallel_rank": 25,
+    "checkpoint_rank_count": 4,
+    "data_parallel_world_size": 4,
+    "effective_global_batch_size": 200,
+    "effective_global_batch_formula": "data_parallel_world_size * batch_size_per_data_parallel_rank * gradient_accumulation_steps",
+    "fsdp_shard_size": 4,
+    "gradient_accumulation_steps": 2,
+    "max_optimizer_steps": 7000,
+    "precision": "bfloat16",
+    "save_every_optimizer_steps": 1000,
+    "visible_gpu_count": 4,
+    "world_size": 4
+  },
+  "inherited_unchanged": {
+    "checkpoint_retention_and_pruning": "方案/v03/M5B_P2_execution_supplement_v2.json#checkpoint_storage_contract",
+    "formal_seeds": [
+      20260711,
+      20260712,
+      20260713
+    ],
+    "learned_training_cell_count": 48,
+    "optimizer_and_scheduler": "unchanged from the parent protocol and execution supplement except for gradient_accumulation_steps",
+    "total_cell_count": 203
+  },
+  "migration": {
+    "historical_artifacts_retained": [
+      "方案/v03/M5B_P2_launch_activation_schema_v2.json",
+      "方案/v03/M5B_P2_final_acceptance_schema_v2.json",
+      "/DATA1/wxs/ReCAP_M5B_P2_RUNS/launch_activation_v2.json when present",
+      "data/Human2Robot/derived/m5b_v03/run_manifest.json when present"
+    ],
+    "new_final_acceptance_artifact": "/DATA1/wxs/ReCAP_M5B_P2_RUNS/final_acceptance_v3.json",
+    "new_launch_activation_artifact": "/DATA1/wxs/ReCAP_M5B_P2_RUNS/launch_activation_v3.json",
+    "new_run_manifest": "data/Human2Robot/derived/m5b_v03/run_manifest_v3.json",
+    "old_activation_authorizes_new_runtime": false
+  },
+  "parent": {
+    "execution_supplement_lock_path": "方案/v03/M5B_P2_execution_supplement_v2.lock.json",
+    "execution_supplement_lock_sha256": "dc17df1fb84b6ea53fdea34bccad102c80a6d23256e00bf393004ec84a8c63b3",
+    "execution_supplement_path": "方案/v03/M5B_P2_execution_supplement_v2.json",
+    "execution_supplement_sha256": "17d9fc308c50b9b7899793a4c8d3bca1eeba217053fbacb368e2f9a2e390d7ab",
+    "formal_protocol_path": "方案/v03/M5B_formal_acceptance_protocol_v1.json",
+    "formal_protocol_sha256": "7598dfa2ac2e129f5d21a295dad23b90f63c3c8e68811da73cbcc20eb95d5ce4"
+  },
+  "schema_version": "human2robot-m5b-p2-four-gpu-successor-v3",
+  "status": "frozen_approved_runtime_successor",
+  "successor_id": "m5b_p2_four_gpu_effective_batch_preserving_v3",
+  "supersedes_runtime_only": {
+    "launch_activation_schema": "human2robot-m5b-p2-launch-activation-schema-v2",
+    "parent_gradient_accumulation_steps": 1,
+    "parent_visible_gpu_count": 8,
+    "scope": "GPU/world/FSDP rank count, gradient accumulation, runtime evidence, launch activation, and final acceptance schema versions only"
+  }
+}

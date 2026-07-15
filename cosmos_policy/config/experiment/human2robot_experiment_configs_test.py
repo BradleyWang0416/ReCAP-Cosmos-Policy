@@ -51,12 +51,14 @@ def test_formal_optimizer_checkpoint_and_dynamic_dimensions_are_frozen() -> None
         assert dataset["retrieval_index_path"] == f"{P2_PREPARED_ROOT}/indices/{spec.cell_id}.npz"
         assert config["trainer"]["max_iter"] == 7000
         assert config["trainer"]["seed"] == spec.seed
+        assert config["trainer"]["grad_accum_iter"] == 2
         assert config["optimizer"]["lr"] == 1e-4
         assert config["checkpoint"]["save_iter"] == 1000
         assert config["dataloader_train"]["batch_size"] == 25
         assert config["dataloader_train"]["sampler"]["seed"] == config["trainer"]["seed"]
         assert config["job"]["wandb_mode"] == "disabled"
         model = config["model"]["config"]
+        assert model["fsdp_shard_size"] == 4
         assert model["action_dim"] == model["proprio_dim"] == 10
         assert model["state_t"] == spec.state_t
         assert model["min_num_conditional_frames"] == spec.action_latent_idx
@@ -66,6 +68,12 @@ def test_formal_optimizer_checkpoint_and_dynamic_dimensions_are_frozen() -> None
             for index in range(spec.action_latent_idx + 1)
         }
         assert model["tokenizer"]["chunk_duration"] == spec.tokenizer_chunk_duration
+        assert (
+            4
+            * config["dataloader_train"]["batch_size"]
+            * config["trainer"]["grad_accum_iter"]
+            == 200
+        )
 
 
 def test_specs_match_frozen_learned_cell_registry_exactly() -> None:

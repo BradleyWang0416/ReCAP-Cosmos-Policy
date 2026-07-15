@@ -4,6 +4,10 @@
 
 状态：**实现闭环已大幅补齐，但正式队列仍必须保持关闭。**
 
+> **历史状态说明（2026-07-14）**：本报告保留 v2 activation 签发前的闭环审计。
+> 当前状态以 `M5B_P2_4GPU_successor_冻结与启动前验收报告_20260714.md` 为准：四卡 v3
+> activation 与 post-activation preflight 已通过，但正式 cell 仍为 0/203。
+
 机器可读的最终只读检查摘要见 `M5B_P2_prequeue_preflight_20260714.json`。
 
 ## 已完成

@@ -1,0 +1,149 @@
+{
+  "artifact_root": "/DATA1/wxs/ReCAP_M5B_P2_RUNS",
+  "blockers": [],
+  "docker": {
+    "formal_output_mount": {
+      "filesystem": "ext4",
+      "mount_options": [
+        "rw",
+        "relatime"
+      ],
+      "mount_point": "/DATA1",
+      "target_path": "/DATA1/wxs/ReCAP_M5B_P2_RUNS",
+      "writable": true
+    },
+    "inside_docker": true
+  },
+  "formal_queue_allowed": true,
+  "formal_queue_started": false,
+  "generated_at_utc": "2026-07-15T02:55:52.779867+00:00",
+  "gpu": {
+    "cuda_available": true,
+    "expected_gpu_count": 4,
+    "status": "passed",
+    "visible_gpu_count": 4
+  },
+  "inference_preflight": {
+    "blockers": [],
+    "formal_parameters": {
+      "final_clean_x0_prediction": true,
+      "guidance": 1.5,
+      "num_steps": 35,
+      "ode_steps": 34,
+      "sample_count_per_query_retrieval_rank": 1,
+      "scheduler": "native_rectified_flow_scheduler",
+      "shift": 5.0,
+      "use_kerras_sigma_at_inference": true,
+      "variance_scale": false
+    },
+    "formal_queue_allowed": false,
+    "sampler_contract": {
+      "method_signature": "(self, data_batch: 'Dict', guidance: 'float' = 1.5, seed: 'int' = 1, state_shape: 'Tuple | None' = None, n_sample: 'int | None' = None, is_negative_prompt: 'bool' = False, num_steps: 'int' = 35, shift: 'float | None' = None, use_variance_scale: 'bool' = False, return_orig_clean_latent_frames: 'bool' = False, **kwargs) -> 'torch.Tensor'",
+      "model_type": "cosmos_policy.models.policy_video2world_model_human2robot_ret.CosmosPolicyHuman2RobotRetModelRectifiedFlow",
+      "native_parameters_explicit": true,
+      "reason": null,
+      "scheduler": "native_rectified_flow_scheduler",
+      "shift": 5.0,
+      "status": "passed"
+    },
+    "schema_version": "human2robot-m5b-p2-inference-preflight-v1",
+    "status": "passed"
+  },
+  "infrastructure_blockers": [],
+  "launch_activation": {
+    "file_sha256": "3dfd5ab3133b4a7a8126a203ba2b10d1f358bd58eeac783dc42844196fc08e76",
+    "path": "/DATA1/wxs/ReCAP_M5B_P2_RUNS/launch_activation_v5.json",
+    "status": "approved"
+  },
+  "matrix": {
+    "all_cells_have_handlers": true,
+    "cell_count": 203,
+    "handler_count": 203,
+    "prepared_entry_count": 48,
+    "report_covered_evaluation_count": 147
+  },
+  "offline_environment": {
+    "current_probe_process_environment": {
+      "COSMOS_SKIP_HF_AUTO_DOWNLOAD": "1",
+      "HF_HUB_OFFLINE": "1",
+      "HUMAN2ROBOT_P2_SLOW_SAMPLE_SECONDS": null,
+      "NCCL_DEBUG": null,
+      "NCCL_DEBUG_SUBSYS": null,
+      "PYTORCH_CUDA_ALLOC_CONF": null,
+      "TORCH_NCCL_DESYNC_DEBUG": null,
+      "TORCH_NCCL_DUMP_ON_TIMEOUT": null,
+      "TORCH_NCCL_TRACE_BUFFER_SIZE": null,
+      "TRANSFORMERS_OFFLINE": "1",
+      "WANDB_DISABLED": "true",
+      "WANDB_MODE": "disabled"
+    },
+    "planned_handler_environment": {
+      "COSMOS_SKIP_HF_AUTO_DOWNLOAD": "1",
+      "HF_HUB_OFFLINE": "1",
+      "HUMAN2ROBOT_P2_SLOW_SAMPLE_SECONDS": "5",
+      "NCCL_DEBUG": "INFO",
+      "NCCL_DEBUG_SUBSYS": "COLL",
+      "PYTORCH_CUDA_ALLOC_CONF": "expandable_segments:True",
+      "TORCH_NCCL_DESYNC_DEBUG": "1",
+      "TORCH_NCCL_DUMP_ON_TIMEOUT": "1",
+      "TORCH_NCCL_TRACE_BUFFER_SIZE": "65536",
+      "TRANSFORMERS_OFFLINE": "1",
+      "WANDB_DISABLED": "true",
+      "WANDB_MODE": "disabled"
+    },
+    "required": {
+      "COSMOS_SKIP_HF_AUTO_DOWNLOAD": "1",
+      "HF_HUB_OFFLINE": "1",
+      "HUMAN2ROBOT_P2_SLOW_SAMPLE_SECONDS": "5",
+      "NCCL_DEBUG": "INFO",
+      "NCCL_DEBUG_SUBSYS": "COLL",
+      "PYTORCH_CUDA_ALLOC_CONF": "expandable_segments:True",
+      "TORCH_NCCL_DESYNC_DEBUG": "1",
+      "TORCH_NCCL_DUMP_ON_TIMEOUT": "1",
+      "TORCH_NCCL_TRACE_BUFFER_SIZE": "65536",
+      "TRANSFORMERS_OFFLINE": "1",
+      "WANDB_DISABLED": "true",
+      "WANDB_MODE": "disabled"
+    },
+    "status": "passed"
+  },
+  "schema_version": "human2robot-m5b-p2-prequeue-preflight-v5",
+  "source_snapshot": {
+    "candidate_code_sha256": "07fe5ee3a9b90037ed724a94da76d9d87476e6eaea554af8c3ddb420ff3da511",
+    "candidate_file_count": 731,
+    "expected_path": "/DATA1/wxs/ReCAP_M5B_P2_RUNS/source_snapshots/07fe5ee3a9b90037ed724a94da76d9d87476e6eaea554af8c3ddb420ff3da511",
+    "manifest_path": "/DATA1/wxs/ReCAP_M5B_P2_RUNS/source_snapshots/07fe5ee3a9b90037ed724a94da76d9d87476e6eaea554af8c3ddb420ff3da511/source_snapshot_manifest.json",
+    "materialized": true,
+    "status": "passed"
+  },
+  "status": "passed",
+  "storage": {
+    "free_bytes": 1198525988864,
+    "free_gib": 1116.2143096923828,
+    "minimum_free_gib": 35,
+    "probed_existing_path": "/DATA1/wxs/ReCAP_M5B_P2_RUNS",
+    "requested_path": "/DATA1/wxs/ReCAP_M5B_P2_RUNS",
+    "status": "passed"
+  },
+  "weights": {
+    "initialization_checkpoint": {
+      "actual_sha256": "565bbb2c9645737327983f4461e4d32627bba465b0a8dc26447edea144e1ff47",
+      "content_hash_verified": true,
+      "exists": true,
+      "expected_sha256": "565bbb2c9645737327983f4461e4d32627bba465b0a8dc26447edea144e1ff47",
+      "path": "/DATA1/wxs/_HUGGINGFACE/nvidia/Cosmos-Predict2.5-2B/base/post-trained/81edfebe-bd6a-4039-8c1d-737df1a790bf_ema_bf16.pt",
+      "size_bytes": 4118575006,
+      "status": "passed"
+    },
+    "tokenizer": {
+      "actual_sha256": "38071ab59bd94681c686fa51d75a1968f64e470262043be31f7a094e442fd981",
+      "content_hash_verified": true,
+      "exists": true,
+      "expected_sha256": "38071ab59bd94681c686fa51d75a1968f64e470262043be31f7a094e442fd981",
+      "path": "/DATA1/wxs/_HUGGINGFACE/nvidia/Cosmos-Predict2.5-2B/tokenizer.pth",
+      "size_bytes": 507609880,
+      "status": "passed"
+    }
+  },
+  "workspace": "/workspace"
+}

@@ -16,11 +16,24 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Mapping
 
+import torch
+
 from tools.human2robot_m5b_p2 import FORMAL_OUTPUT_ROOT, source_manifest, source_paths
 from tools.human2robot_m5b_p2_handlers import FORMAL_OFFLINE_ENV, require_formal_activation
 from tools.human2robot_m5b_p2_matrix import (
+    FOUR_GPU_BATCH_PER_DP_RANK,
+    FOUR_GPU_DP_WORLD_SIZE,
+    FOUR_GPU_EFFECTIVE_GLOBAL_BATCH_SIZE,
+    FOUR_GPU_FSDP_SHARD_SIZE,
+    FOUR_GPU_GRADIENT_ACCUMULATION_STEPS,
+    FOUR_GPU_SUCCESSOR_SHA256,
+    FOUR_GPU_WORLD_SIZE,
+    IO_DIAGNOSTIC_ENV,
+    IO_SUCCESSOR_SHA256,
     LAG_VIEW_MANIFEST_SHA256,
+    MEMORY_SUCCESSOR_SHA256,
     PREPARED_MANIFEST_SHA256,
+    PYTORCH_CUDA_ALLOC_CONF,
     SUPPLEMENT_SHA256,
     WORKSPACE_BOUNDS_SHA256,
     file_sha256,
@@ -29,7 +42,7 @@ from tools.human2robot_m5b_p2_matrix import (
 from tools.human2robot_m5b_p2_preflight import run_preflight
 
 
-MINIMUM_FROZEN_TEST_COUNT = 137
+MINIMUM_FROZEN_TEST_COUNT = 141
 
 
 class ActivationContractError(RuntimeError):
@@ -61,6 +74,12 @@ def write_json_atomic(path: Path, value: Mapping[str, Any]) -> None:
 
 def run_docker_suite(workspace: Path, receipt_path: Path) -> dict[str, Any]:
     require(Path("/.dockerenv").is_file(), "Docker suite must run inside the full container")
+    visible_gpu_count = torch.cuda.device_count() if torch.cuda.is_available() else 0
+    require(
+        visible_gpu_count == FOUR_GPU_WORLD_SIZE,
+        f"Four-GPU Docker suite requires exactly {FOUR_GPU_WORLD_SIZE} visible GPUs; "
+        f"found {visible_gpu_count}",
+    )
     source = source_manifest(workspace, source_paths(workspace))
     command = [
         ".venv/bin/pytest",
@@ -87,13 +106,14 @@ def run_docker_suite(workspace: Path, receipt_path: Path) -> dict[str, Any]:
     passed_count = int(matches[-1]) if matches else 0
     passed = process.returncode == 0 and passed_count >= MINIMUM_FROZEN_TEST_COUNT
     receipt = {
-        "schema_version": "human2robot-m5b-p2-docker-suite-receipt-v2",
+        "schema_version": "human2robot-m5b-p2-docker-suite-receipt-v5",
         "status": "passed" if passed else "failed",
         "formal_result": False,
         "cell_execution_started": False,
         "created_at_utc": utc_now(),
         "candidate_code_sha256": source["code_sha256"],
         "candidate_source_file_count": len(source["files"]),
+        "visible_gpu_count": visible_gpu_count,
         "command": command,
         "offline_environment": FORMAL_OFFLINE_ENV,
         "returncode": process.returncode,
@@ -114,9 +134,26 @@ def issue_launch_activation(
     """Issue queue authorization only; final P2 acceptance remains false."""
 
     receipt = read_json(docker_suite_receipt_path)
-    require(receipt.get("schema_version") == "human2robot-m5b-p2-docker-suite-receipt-v2", "Docker receipt schema drift")
+    require(receipt.get("schema_version") == "human2robot-m5b-p2-docker-suite-receipt-v5", "Docker receipt schema drift")
     require(receipt.get("status") == "passed", "Docker suite is not passed")
+    require(
+        receipt.get("visible_gpu_count") == FOUR_GPU_WORLD_SIZE,
+        "Docker suite receipt was not produced in the frozen four-GPU environment",
+    )
     require(int(receipt.get("passed_test_count", 0)) >= MINIMUM_FROZEN_TEST_COUNT, "Docker test count is incomplete")
+    require(
+        receipt.get("offline_environment", {}).get("PYTORCH_CUDA_ALLOC_CONF")
+        == PYTORCH_CUDA_ALLOC_CONF,
+        "Docker receipt does not bind the frozen PyTorch CUDA allocator",
+    )
+    require(
+        {
+            key: receipt.get("offline_environment", {}).get(key)
+            for key in IO_DIAGNOSTIC_ENV
+        }
+        == IO_DIAGNOSTIC_ENV,
+        "Docker receipt does not bind the frozen I/O diagnostics",
+    )
     preflight = run_preflight(
         workspace,
         artifact_root=artifact_root,
@@ -130,13 +167,19 @@ def issue_launch_activation(
     )
     matrix = load_execution_matrix(workspace)
     activation = {
-        "schema_version": "human2robot-m5b-p2-launch-activation-v2",
+        "schema_version": "human2robot-m5b-p2-launch-activation-v5",
         "status": "approved",
         "launch_authorized": True,
         "formal_queue_allowed": True,
         "p2_acceptance_allowed": False,
         "registry_sha256": matrix.prepared_manifest["registry_file_sha256"],
         "supplement_sha256": SUPPLEMENT_SHA256,
+        "four_gpu_successor_sha256": FOUR_GPU_SUCCESSOR_SHA256,
+        "memory_successor_sha256": MEMORY_SUCCESSOR_SHA256,
+        "io_successor_sha256": IO_SUCCESSOR_SHA256,
+        "indexed_hdf5_image_reads": True,
+        "diagnostic_environment": dict(IO_DIAGNOSTIC_ENV),
+        "pytorch_cuda_alloc_conf": PYTORCH_CUDA_ALLOC_CONF,
         "prepared_manifest_sha256": PREPARED_MANIFEST_SHA256,
         "workspace_bounds_sha256": WORKSPACE_BOUNDS_SHA256,
         "lag_view_manifest_sha256": LAG_VIEW_MANIFEST_SHA256,
@@ -144,7 +187,13 @@ def issue_launch_activation(
         "all_147_evaluations_bound_to_terminal_report": True,
         "docker_full_suite_passed": True,
         "source_snapshot_frozen": True,
-        "gpu_count": 8,
+        "gpu_count": FOUR_GPU_WORLD_SIZE,
+        "world_size": FOUR_GPU_WORLD_SIZE,
+        "data_parallel_world_size": FOUR_GPU_DP_WORLD_SIZE,
+        "fsdp_shard_size": FOUR_GPU_FSDP_SHARD_SIZE,
+        "batch_size_per_data_parallel_rank": FOUR_GPU_BATCH_PER_DP_RANK,
+        "gradient_accumulation_steps": FOUR_GPU_GRADIENT_ACCUMULATION_STEPS,
+        "effective_global_batch_size": FOUR_GPU_EFFECTIVE_GLOBAL_BATCH_SIZE,
         "storage_probe_passed": True,
         "formal_output_mount_writable": True,
         "local_weight_hashes_passed": True,
@@ -157,7 +206,7 @@ def issue_launch_activation(
         "claim_boundary": "Launch authorization only; P2 acceptance and M6 rollout remain forbidden.",
     }
     require_formal_activation(activation, matrix)
-    output = artifact_root / "launch_activation_v2.json"
+    output = artifact_root / "launch_activation_v5.json"
     write_json_atomic(output, activation)
     return activation
 
@@ -179,10 +228,10 @@ def main(argv: list[str] | None = None) -> int:
     workspace = args.workspace.resolve()
     artifact_root = args.artifact_root.resolve()
     if args.command == "run-docker-suite":
-        receipt = args.receipt_path or artifact_root / "docker_suite_receipt_v2.json"
+        receipt = args.receipt_path or artifact_root / "docker_suite_receipt_v5.json"
         result = run_docker_suite(workspace, receipt.resolve())
     else:
-        receipt = args.docker_suite_receipt_path or artifact_root / "docker_suite_receipt_v2.json"
+        receipt = args.docker_suite_receipt_path or artifact_root / "docker_suite_receipt_v5.json"
         result = issue_launch_activation(workspace, artifact_root, receipt.resolve())
     print(json.dumps(result, indent=2, sort_keys=True))
     return 0

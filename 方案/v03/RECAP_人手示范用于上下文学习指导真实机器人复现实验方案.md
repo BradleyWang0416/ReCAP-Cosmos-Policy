@@ -4,7 +4,7 @@
 主数据集：Human2Robot / H&R v1  
 目标：冻结策略后，仅通过新增人手示范检索池，使真实机器人执行未见任务。
 
-修订状态：v03.3 M5B-P2 successor freeze（2026-07-14）。v03.1/v03.2 的 action-gate erratum、M2 schema 与既有 v1 验收产物保持不变；本次冻结七项后继决定、203-cell 终止报告、offset=5 独立视图、train-only workspace envelope、native Rectified Flow、真实 pre-tokenizer temporal transforms、resolution visual ranking 证据及两阶段 activation。
+修订状态：v03.4 M5B-P2 four-GPU runtime successor（2026-07-14）。v03.1/v03.2 的 action-gate erratum、M2 schema 与既有 v1 验收产物保持不变；v03.3 冻结的七项后继决定、203-cell 终止报告、offset=5 独立视图、train-only workspace envelope、native Rectified Flow、真实 pre-tokenizer temporal transforms 和 resolution visual ranking 证据保持不变。v03.4 仅把正式训练运行时覆盖为 4 GPU FSDP、每 rank batch 25、梯度累积 2，从而保持有效全局 batch 200，并启用 v3 launch/final activation 链。
 
 修订基线：[v02 实验方案](../v02/RECAP_人手示范用于上下文学习指导真实机器人复现实验方案.md)。
 
@@ -38,7 +38,7 @@ v03 不覆盖 v1 或 v2。新主线写入 `canonical/v3`；v1 继续作为固定
 | M3-v02 | 暂停 | 未生成正式主索引；由 M3-v03 替代 |
 | M3-v03：action/time view sanity | 已完成，通过 Gate B | 分离 pool/query action view；批准严格 future `t+1` BC proxy，lag-calibrated proxy 因弱相关仅作诊断 |
 | M4-v03：paired bridge | 已启动，Gate C pending | 已完成 ridge smoke 闭环；正式 Cosmos/RECAP、多 seed 与扩充 human pool 待执行 |
-| M5-v03：机制与压力测试 | M5-A 首轮通过；M5B-P0/P1 通过；P2 successor frozen、formal pending | 48/48 v2 learned 输入已准备，203/203 cell 有 handler/report builder；正式结果仍为 0/203，launch activation 未签发，队列关闭 |
+| M5-v03：机制与压力测试 | M5-A 首轮通过；M5B-P0/P1 通过；P2 formal ready、尚未启动 | 48/48 v2 learned 输入已准备，203/203 cell 有 handler/report builder；正式结果仍为 0/203，launch activation 已签发，队列获准但未启动 |
 | M6-v03：真实机器人 | 待执行 | 真实 clock 独立标定，不继承 public 30 Hz |
 
 ### 0.2 硬性门禁
@@ -48,7 +48,7 @@ v03 不覆盖 v1 或 v2。新主线写入 `canonical/v3`；v1 继续作为固定
 - `/action` 固定为 pool-side human plan，不要求它是 robot command。
 - Gate A2b 未批准 query-side future EE BC proxy、pool/query alignment 和 residual sanity 前，不启动 M4 主训练。
 - deployment command adapter、真实 clock、latency 和安全门禁未通过前，不执行 M6 rollout，也不固定最终 `H/K/policy_hz`。
-- M5B-P2 successor contract 已冻结；可写正式输出挂载、Docker 全回归复核与 immutable source snapshot 未完成前，不签发 launch activation，也不启动任何 7,000-step 队列。
+- M5B-P2 successor contract、可写正式输出、141-test Docker 回执、immutable source snapshot 与 launch activation 均已完成；当前允许按 DAG 显式启动单个 cell，但不得自动 `run all`，也不得在第 203 个终止报告前宣称 P2 验收通过。
 
 ## 1. 相比 v02 的核心改动
 
@@ -453,7 +453,7 @@ M4 验收标准继续要求 RECAP 优于 `No retrieval` 和 `Retrieval Only`，p
 
 ### M5-v03：机制消融与压力测试
 
-状态：**M5-A 已完成首轮数据/契约压力测试；M5B-P0-IMPLEMENTATION 与 M5B-P1-DATA 已通过；M5B-P2 的 prequeue 实现闭环已完成，正式执行与后续模型门禁仍 pending**。M5-A 启动报告为 `M5A_data_contract_stress_启动报告.md`，P0 报告为 `M5B_P0_IMPLEMENTATION_验收报告.md`，P1 报告为 `M5B_P1_DATA_验收报告.md`；P2 的 v1 prequeue 历史审计为 `M5B_P2_prequeue_closure_audit.md`，当前 v2 successor 冻结与实现依据为 `M5B_P2_successor_freeze_implementation_report.md`。
+状态：**M5-A 已完成首轮数据/契约压力测试；M5B-P0-IMPLEMENTATION 与 M5B-P1-DATA 已通过；M5B-P2 的 v2 八卡门禁作为历史记录保留，当前 v3 四卡 successor、source snapshot、四卡 Docker receipt、launch activation、post-activation preflight 与 DAG plan 均已通过；正式执行尚未启动，模型结果仍 pending**。M5-A 启动报告为 `M5A_data_contract_stress_启动报告.md`，P0 报告为 `M5B_P0_IMPLEMENTATION_验收报告.md`，P1 报告为 `M5B_P1_DATA_验收报告.md`；P2 的 v1 prequeue 历史审计为 `M5B_P2_prequeue_closure_audit.md`，v2 successor 冻结依据为 `M5B_P2_successor_freeze_implementation_report.md`，四卡运行时冻结件为 `M5B_P2_4gpu_successor_v3.json`。
 
 M5-A 绑定 M3 Gate B 与 M4 冻结契约，只验证错误 role、lag、scale、时间和分辨率处理能否被数据/契约检测器发现。首轮结果中四类 action stress、六种 time view、frame drop/jitter/pause/step jump 检测和 426↔424 crop/pad 契约均通过；所有 time view 和 temporal stress 的 gap crossing 均为 0。
 
@@ -467,7 +467,7 @@ P2 v2 successor 已补齐 48 learned checkpoint、3 个带完整 provenance/payl
 
 203 条 handler 命令均绑定显式单-cell 的 fail-closed dispatcher，不提供自动 `run all`。后继 sampler 固定为 native Rectified Flow：guidance 1.5、35 次采样调用（34 ODE steps 加 final clean x0）、shift 5.0、Karras sigma 开启、variance scale 关闭，禁止旧 `2ab` 参数。workspace guardrail 使用 16 个 train episode 的 canonical robot EE xyz 全局轴对齐范围并按各轴 range 扩 5%，只计越界、不裁剪，也不冒充 M6 物理安全边界。temporal stress 直接修改 tokenizer 前的 uint8 model video input；严重四档必须 pre-model reject 且 model-call count 为 0。resolution gate 使用同一冻结 WAN encoder、同一候选/seeded tie，保存逐 query visual top-k，以 mean Jaccard ≥0.90 为主门禁并报告 median/min/identical ratio。
 
-启动状态与验收状态已拆分：`M5B_P2_launch_activation_schema_v2.json` 只允许在 successor 哈希、Docker suite、8 GPU、可写正式盘、本地权重和 source snapshot 全部通过后开启队列，且明确 `p2_acceptance_allowed=false`；`M5B_P2_final_acceptance_schema_v2.json` 只有在第 203 个终止报告通过后才能令 `p2_acceptance_allowed=true`。当前现有容器仍把 `/DATA1` 挂为只读，source snapshot 与独立 launch activation 均未产生，所以 formal cell 仍为 **0/203**、队列关闭，全部模型结果继续标记 `NEEDS_EXPERIMENT`。
+启动状态与验收状态已拆分。八卡 `M5B_P2_launch_activation_schema_v2.json`、旧 source snapshot、receipt 和 `launch_activation_v2.json` 只作为历史证据保留，不能授权新运行。当前 `M5B_P2_launch_activation_schema_v3.json` 要求恰好 4 GPU、`world_size=DP=fsdp_shard_size=4`、每 rank batch 25、gradient accumulation 2、有效全局 batch 200，并且 successor 哈希、当前源码 Docker suite、可写正式盘、本地权重和 source snapshot 全部通过后才可开启队列；它仍明确 `p2_acceptance_allowed=false`。当前 v3 候选源码 SHA256 为 `ebcaab2a3df0a14c4252fce5e34e8d0e2cbf402e1e665518d38492ef27107bd3`，四卡 Docker suite 为 148 passed；`launch_activation_v3.json`、post-activation preflight 和 DAG plan 均已通过，`formal_queue_allowed=true`、`formal_queue_started=false`、blockers=`[]`。`M5B_P2_final_acceptance_schema_v3.json` 只有在第 203 个终止报告通过后才能令 `p2_acceptance_allowed=true`。formal cell 仍为 **0/203**，四卡峰值显存、吞吐、首份四 rank DCP 大小及全部模型结果均继续标记 `NEEDS_EXPERIMENT`。详细证据见 `M5B_P2_4GPU_successor_冻结与启动前验收报告_20260714.md`。
 
 保留 residual/absolute、future-state、retrieval modality、geometry/visual、top-k、pool-growth 和 temporal mismatch 消融。
 

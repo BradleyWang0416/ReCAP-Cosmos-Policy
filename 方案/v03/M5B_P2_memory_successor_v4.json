@@ -1,0 +1,71 @@
+{
+  "authorization": {
+    "approved_at_local_date": "2026-07-14",
+    "basis": "user directive: 先冻结一个 memory-successor，仅增加 PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True 后重新验收"
+  },
+  "claim_boundary": {
+    "contains_successful_cell_result": false,
+    "formal_queue_allowed": false,
+    "m6_rollout_approved": false,
+    "p2_acceptance_allowed": false,
+    "runtime_performance_status": "NEEDS_EXPERIMENT"
+  },
+  "frozen_runtime_delta": {
+    "environment": {
+      "PYTORCH_CUDA_ALLOC_CONF": "expandable_segments:True"
+    },
+    "only_authorized_runtime_delta": true,
+    "scope": "CUDA caching-allocator segment growth policy only; no model, data, optimizer, batch, precision, seed, step, checkpoint, or evaluation semantic changes"
+  },
+  "inherited_exact_runtime": {
+    "batch_size_per_data_parallel_rank": 25,
+    "checkpoint_rank_count": 4,
+    "data_parallel_world_size": 4,
+    "effective_global_batch_size": 200,
+    "fsdp_shard_size": 4,
+    "gradient_accumulation_steps": 2,
+    "max_optimizer_steps": 7000,
+    "precision": "bfloat16",
+    "save_every_optimizer_steps": 1000,
+    "visible_gpu_count": 4,
+    "world_size": 4
+  },
+  "observed_failure_basis": {
+    "cell_id": "learned_training_checkpoint__M5B-MAIN-01__frozen_main__no_retrieval__seed20260711",
+    "completed_optimizer_iterations": 2,
+    "failure_kind": "torch.OutOfMemoryError",
+    "formal_result": false,
+    "gpu_total_gib_reported": 47.37,
+    "gpu_free_gib_reported": 7.02,
+    "pytorch_allocated_gib_reported": 27.48,
+    "pytorch_reserved_unallocated_gib_reported": 11.87,
+    "requested_allocation_gib": 7.18,
+    "runtime_binding": {
+      "path": "/DATA1/wxs/ReCAP_M5B_P2_RUNS/cosmos_policy/human2robot_m5b_formal/cosmos_predict2p5_2b_human2robot_no_retrieval_seed20260711/m5b_p2_runtime_binding.json",
+      "sha256": "863ff4f307313876494a61d1c5939899a01e4d6ccfc229187927b8f7dba07be2"
+    },
+    "run_manifest": {
+      "path": "data/Human2Robot/derived/m5b_v03/run_manifest_v3.json",
+      "sha256": "979d8172a52688ae9e6f83d5409e0c7f7e5e7a68960944d3ae5bc3ae40faa526"
+    },
+    "training_log": {
+      "path": "/DATA1/wxs/ReCAP_M5B_P2_RUNS/orchestrator_logs/learned_training_checkpoint__M5B-MAIN-01__frozen_main__no_retrieval__seed20260711.log",
+      "sha256": "b22e2f20473558cc3dfb5c13514e0f5807189d5104548de90255f148bef8b8ba"
+    }
+  },
+  "parent": {
+    "four_gpu_successor_path": "方案/v03/M5B_P2_4gpu_successor_v3.json",
+    "four_gpu_successor_sha256": "6f333136b343cee87dca3c0328a73ffd441d3059633159d02e6f514573b809ab",
+    "formal_protocol_sha256": "7598dfa2ac2e129f5d21a295dad23b90f63c3c8e68811da73cbcc20eb95d5ce4"
+  },
+  "schema_version": "human2robot-m5b-p2-memory-successor-v4",
+  "status": "frozen_approved_runtime_memory_successor",
+  "successor_id": "m5b_p2_four_gpu_expandable_segments_v4",
+  "version_migration": {
+    "new_final_acceptance_artifact": "/DATA1/wxs/ReCAP_M5B_P2_RUNS/final_acceptance_v4.json",
+    "new_launch_activation_artifact": "/DATA1/wxs/ReCAP_M5B_P2_RUNS/launch_activation_v4.json",
+    "new_run_manifest": "data/Human2Robot/derived/m5b_v03/run_manifest_v4.json",
+    "old_v3_activation_authorizes_memory_successor": false,
+    "old_v3_failure_evidence_retained": true
+  }
+}

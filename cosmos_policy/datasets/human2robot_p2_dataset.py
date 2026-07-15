@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import json
+import os
+import time
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterable
@@ -76,6 +78,7 @@ P2_DATASET_KWARGS = {
     "target_representation",
     "statistics_path",
     "retrieval_index_path",
+    "final_image_size",
     "resolution_variant",
     "use_image_aug",
     "num_duplicates_per_image",
@@ -142,6 +145,21 @@ def _load_feature_store(path: Path | None) -> tuple[dict[str, np.ndarray], dict[
     return dict(zip(ids, features, strict=True)), manifest
 
 
+def _read_image_rows(images: Any, rows: np.ndarray) -> np.ndarray:
+    """Read only requested HDF5 image rows while preserving caller order."""
+
+    requested = np.asarray(rows, dtype=np.int64)
+    _require(requested.ndim == 1 and requested.size > 0, "Image rows must be a non-empty vector")
+    _require(
+        bool(np.all(requested >= 0)) and bool(np.all(requested < int(images.shape[0]))),
+        "Image row is outside the episode",
+    )
+    unique_rows, inverse = np.unique(requested, return_inverse=True)
+    selected = np.asarray(images[unique_rows], dtype=np.uint8)
+    _require(len(selected) == len(unique_rows), "Selected image row count mismatch")
+    return selected[inverse]
+
+
 class Human2RobotP2Dataset(Dataset):
     """Formal query/retrieval examples for both learned training and held-out inference."""
 
@@ -170,6 +188,7 @@ class Human2RobotP2Dataset(Dataset):
         target_representation: str = "residual",
         statistics_path: str | Path | None = None,
         retrieval_index_path: str | Path | None = None,
+        final_image_size: int = 224,
         resolution_variant: str = "center_crop_240x424_then_resize_224",
         use_image_aug: bool = True,
         num_duplicates_per_image: int = 4,
@@ -199,6 +218,7 @@ class Human2RobotP2Dataset(Dataset):
         self.target_representation = target_representation
         self.statistics_path = Path(statistics_path) if statistics_path else None
         self.retrieval_index_path = Path(retrieval_index_path) if retrieval_index_path else None
+        self.final_image_size = int(final_image_size)
         self.resolution_variant = resolution_variant
         self.use_image_aug = bool(use_image_aug)
         self.num_duplicates_per_image = int(num_duplicates_per_image)
@@ -234,6 +254,7 @@ class Human2RobotP2Dataset(Dataset):
             or (experiment_id == "M5B-REP-01" and variant_id == "future_state"),
             "future_state is only registered for M5B-REP-01/future_state",
         )
+        _require(self.final_image_size == 224, "P2 final_image_size must remain frozen at 224")
         _require(resolution_variant in RESOLUTION_VARIANTS, "Unregistered resolution variant")
         _require(self.num_duplicates_per_image == 4, "WAN tokenizer requires four-frame slots")
         _require(text_conditioning == "disabled_zero_embedding", "Text conditioning is not registered")
@@ -427,14 +448,19 @@ class Human2RobotP2Dataset(Dataset):
 
     def _states_and_images(self, window: P2Window, role: str) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
         states = self._states(window, role)
+        image_rows = (
+            window.future_rows
+            if role == "human"
+            else np.asarray([window.current_row, window.future_rows[-1]], dtype=np.int64)
+        )
         with h5py.File(window.path, "r") as file:
             demo = file["data/demo_0"]
             if window.source_kind == "p1":
-                images = np.asarray(demo["human/images"][:], dtype=np.uint8)
+                images = _read_image_rows(demo["human/images"], image_rows)
             elif role == "human":
-                images = np.asarray(demo["metadata/human/images"][:], dtype=np.uint8)
+                images = _read_image_rows(demo["metadata/human/images"], image_rows)
             else:
-                images = np.asarray(demo["obs/robot_images"][:], dtype=np.uint8)
+                images = _read_image_rows(demo["obs/robot_images"], image_rows)
         return states, images, states[window.history_rows]
 
     def _geometry(self, window: P2Window, role: str) -> np.ndarray | None:
@@ -550,6 +576,40 @@ class Human2RobotP2Dataset(Dataset):
         return _normalize(raw, low, high), self.target_representation
 
     def __getitem__(self, index: int) -> dict[str, Any]:
+        started = time.perf_counter()
+        error_type: str | None = None
+        try:
+            return self._getitem_impl(index)
+        except BaseException as error:
+            error_type = type(error).__name__
+            raise
+        finally:
+            duration = time.perf_counter() - started
+            threshold = float(os.environ.get("HUMAN2ROBOT_P2_SLOW_SAMPLE_SECONDS", "0"))
+            if threshold > 0.0 and duration >= threshold:
+                worker = torch.utils.data.get_worker_info()
+                payload: dict[str, Any] = {
+                    "duration_seconds": round(duration, 6),
+                    "error_type": error_type,
+                    "global_rank": os.environ.get("RANK", "unknown"),
+                    "local_rank": os.environ.get("LOCAL_RANK", "unknown"),
+                    "pid": os.getpid(),
+                    "sample_index": int(index),
+                    "worker_id": -1 if worker is None else int(worker.id),
+                }
+                if 0 <= index < len(self.examples):
+                    example = self.examples[index]
+                    query = self.queries[example.query_index]
+                    payload.update(
+                        {
+                            "episode_id": query.episode_id,
+                            "query_id": query.window_id,
+                            "retrieval_rank": int(example.retrieval_rank),
+                        }
+                    )
+                print(f"[H2R-P2-DATA-TIMING] {json.dumps(payload, sort_keys=True)}", flush=True)
+
+    def _getitem_impl(self, index: int) -> dict[str, Any]:
         example = self.examples[index]
         query = self.queries[example.query_index]
         robot, robot_images, _ = self._states_and_images(query, "robot")
@@ -564,9 +624,8 @@ class Human2RobotP2Dataset(Dataset):
             candidate_sha = ""
         else:
             candidate = self.candidates[example.candidate_index]
-            human, all_human_images, _ = self._states_and_images(candidate, "human")
+            human, human_images, _ = self._states_and_images(candidate, "human")
             raw_plan = human[candidate.future_rows]
-            human_images = all_human_images[candidate.future_rows]
             candidate_id = candidate.window_id
             candidate_sha = candidate.human_content_sha256
         aligned_plan = align_pool_chunk(raw_plan, current)
@@ -589,8 +648,8 @@ class Human2RobotP2Dataset(Dataset):
             self.statistics["query_bc_target_10d_min"],
             self.statistics["query_bc_target_10d_max"],
         )
-        current_image = robot_images[query.current_row]
-        future_image = robot_images[query.future_rows[-1]]
+        current_image = robot_images[0]
+        future_image = robot_images[1]
         blank = np.zeros_like(current_image)
         blank4 = np.repeat(blank[None], self.num_duplicates_per_image, axis=0)
         frames = np.concatenate(
@@ -610,7 +669,7 @@ class Human2RobotP2Dataset(Dataset):
         _require(len(frames) == 29 + self.h_steps, "P2 WAN frame layout mismatch")
         if self.resolution_variant == "center_crop_240x424_then_resize_224":
             augment_seed = self.seed + example.query_index * 31 + example.retrieval_rank if self.use_image_aug else None
-            video = _preprocess_video(frames, 224, augment_seed)
+            video = _preprocess_video(frames, self.final_image_size, augment_seed)
         else:
             _require(not self.use_image_aug, "Resolution ablation inference must disable augmentation")
             video = preprocess_resolution_frames(frames, self.resolution_variant)
@@ -623,8 +682,8 @@ class Human2RobotP2Dataset(Dataset):
             "t5_text_embeddings": torch.zeros(512, 1024, dtype=torch.bfloat16),
             "t5_text_mask": torch.zeros(512, dtype=torch.int64),
             "fps": 30,
-            "padding_mask": torch.zeros(1, 224, 224),
-            "image_size": 224 * torch.ones(4),
+            "padding_mask": torch.zeros(1, self.final_image_size, self.final_image_size),
+            "image_size": self.final_image_size * torch.ones(4),
             "proprio": torch.from_numpy(current_normalized),
             "future_proprio": torch.from_numpy(future_normalized),
             "__key__": index,
@@ -712,6 +771,7 @@ class Human2RobotP2Dataset(Dataset):
             "time_view_manifest_sha256": file_sha256(self.time_view_path / "view_manifest.json"),
             "query_offset_view_steps": self.query_offset_view_steps,
             "target_representation": self.target_representation,
+            "final_image_size": self.final_image_size,
             "query_count": len(self.queries),
             "candidate_count": len(self.candidates),
             "example_count": len(self.examples),

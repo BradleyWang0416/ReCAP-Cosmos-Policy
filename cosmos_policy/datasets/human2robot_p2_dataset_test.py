@@ -6,8 +6,13 @@ import numpy as np
 import pytest
 import torch
 
+from cosmos_policy.datasets import human2robot_p2_dataset as p2_dataset_module
 from cosmos_policy.datasets.human2robot_dataset import Human2RobotContractError
-from cosmos_policy.datasets.human2robot_p2_dataset import Human2RobotP2Dataset, P2Window
+from cosmos_policy.datasets.human2robot_p2_dataset import (
+    Human2RobotP2Dataset,
+    P2Window,
+    build_human2robot_p2_dataset,
+)
 from cosmos_policy.models.human2robot_adapter import validate_human2robot_batch
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -32,11 +37,12 @@ def _dataset(**overrides):
         "experiment_id": "M5B-MAIN-01",
         "variant_id": "frozen_main",
         "seed": 20260711,
+        "final_image_size": 224,
         "use_image_aug": False,
         "diagnostic_window_limit": 2,
     }
     kwargs.update(overrides)
-    return Human2RobotP2Dataset(**kwargs)
+    return build_human2robot_p2_dataset(**kwargs)
 
 
 def test_train_phase_retrieval_is_cross_window_and_query_weight_balanced() -> None:
@@ -91,6 +97,17 @@ def test_h4_k4_changes_pixel_and_latent_layout_without_padding() -> None:
     assert validate_human2robot_batch(sample)["latent_layout_valid"] is True
 
 
+def test_final_image_size_is_explicitly_frozen_to_224() -> None:
+    dataset = _dataset(split="train")
+    sample = dataset[0]
+    assert dataset.final_image_size == 224
+    assert dataset.contract_manifest()["final_image_size"] == 224
+    assert sample["padding_mask"].shape == (1, 224, 224)
+    assert bool(torch.all(sample["image_size"] == 224))
+    with pytest.raises(Human2RobotContractError, match="final_image_size must remain frozen at 224"):
+        _dataset(split="train", final_image_size=256)
+
+
 def test_lag_and_future_state_remain_variant_scoped() -> None:
     with pytest.raises(Human2RobotContractError, match="lag=5 is diagnostic-only"):
         _dataset(query_offset_view_steps=5)
@@ -140,3 +157,150 @@ def test_geometry_caches_per_window_without_loading_images(monkeypatch) -> None:
 
     assert history_reads == 1
     assert first is second
+
+
+def test_states_and_images_reads_only_robot_frames_used_by_the_sample(monkeypatch) -> None:
+    dataset = object.__new__(Human2RobotP2Dataset)
+    states = np.arange(200, dtype=np.float64).reshape(20, 10)
+    dataset._states = lambda _window, _role: states
+    window = P2Window(
+        window_id="query-1",
+        episode_id="episode-1",
+        path=Path("unused.hdf5"),
+        source_kind="canonical",
+        task="stack",
+        split="train",
+        segment_number=0,
+        current_row=7,
+        history_rows=np.arange(8, dtype=np.int64),
+        future_rows=np.arange(8, 16, dtype=np.int64),
+        phase=0.5,
+        human_content_sha256="a" * 64,
+        pool_rank=None,
+    )
+
+    class SelectedRowsOnly:
+        shape = (20, 2, 3, 3)
+
+        def __init__(self) -> None:
+            self.requests: list[list[int]] = []
+
+        def __getitem__(self, key):
+            if isinstance(key, slice):
+                raise AssertionError("full-episode image reads are forbidden")
+            rows = np.asarray(key, dtype=np.int64)
+            self.requests.append(rows.tolist())
+            return np.stack(
+                [np.full((2, 3, 3), int(row), dtype=np.uint8) for row in rows],
+                axis=0,
+            )
+
+    images = SelectedRowsOnly()
+    demo = {"obs/robot_images": images}
+
+    class FakeFile:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_args):
+            return False
+
+        def __getitem__(self, key):
+            assert key == "data/demo_0"
+            return demo
+
+    monkeypatch.setattr(p2_dataset_module.h5py, "File", lambda *_args, **_kwargs: FakeFile())
+
+    loaded_states, selected_images, history = dataset._states_and_images(window, "robot")
+
+    assert loaded_states is states
+    assert images.requests == [[7, 15]]
+    assert selected_images.shape == (2, 2, 3, 3)
+    assert selected_images[:, 0, 0, 0].tolist() == [7, 15]
+    assert np.array_equal(history, states[window.history_rows])
+
+
+@pytest.mark.parametrize(
+    ("source_kind", "dataset_key"),
+    (("canonical", "metadata/human/images"), ("p1", "human/images")),
+)
+def test_states_and_images_reads_only_human_future_window(
+    monkeypatch,
+    source_kind: str,
+    dataset_key: str,
+) -> None:
+    dataset = object.__new__(Human2RobotP2Dataset)
+    states = np.arange(240, dtype=np.float64).reshape(24, 10)
+    dataset._states = lambda _window, _role: states
+    window = P2Window(
+        window_id="candidate-1",
+        episode_id="episode-1",
+        path=Path("unused.hdf5"),
+        source_kind=source_kind,
+        task="stack",
+        split="train",
+        segment_number=0,
+        current_row=9,
+        history_rows=np.arange(2, 10, dtype=np.int64),
+        future_rows=np.arange(10, 18, dtype=np.int64),
+        phase=0.5,
+        human_content_sha256="a" * 64,
+        pool_rank=1 if source_kind == "p1" else None,
+    )
+
+    class SelectedRowsOnly:
+        shape = (24, 2, 3, 3)
+
+        def __init__(self) -> None:
+            self.requests: list[list[int]] = []
+
+        def __getitem__(self, key):
+            if isinstance(key, slice):
+                raise AssertionError("full-episode image reads are forbidden")
+            rows = np.asarray(key, dtype=np.int64)
+            self.requests.append(rows.tolist())
+            return np.stack(
+                [np.full((2, 3, 3), int(row), dtype=np.uint8) for row in rows],
+                axis=0,
+            )
+
+    images = SelectedRowsOnly()
+    demo = {dataset_key: images}
+
+    class FakeFile:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_args):
+            return False
+
+        def __getitem__(self, key):
+            assert key == "data/demo_0"
+            return demo
+
+    monkeypatch.setattr(p2_dataset_module.h5py, "File", lambda *_args, **_kwargs: FakeFile())
+
+    _, selected_images, _ = dataset._states_and_images(window, "human")
+
+    assert images.requests == [window.future_rows.tolist()]
+    assert selected_images.shape[0] == len(window.future_rows)
+    assert selected_images[:, 0, 0, 0].tolist() == window.future_rows.tolist()
+
+
+def test_slow_sample_observability_is_rank_and_worker_scoped(monkeypatch, capsys) -> None:
+    dataset = object.__new__(Human2RobotP2Dataset)
+    dataset.examples = []
+    dataset.queries = []
+    monkeypatch.setattr(dataset, "_getitem_impl", lambda index: {"sample_index": index})
+    monkeypatch.setenv("HUMAN2ROBOT_P2_SLOW_SAMPLE_SECONDS", "0.000000001")
+    monkeypatch.setenv("RANK", "2")
+    monkeypatch.setenv("LOCAL_RANK", "2")
+
+    assert dataset[7] == {"sample_index": 7}
+
+    captured = capsys.readouterr().out
+    assert captured.startswith("[H2R-P2-DATA-TIMING] ")
+    assert '"global_rank": "2"' in captured
+    assert '"local_rank": "2"' in captured
+    assert '"sample_index": 7' in captured
+    assert '"worker_id": -1' in captured

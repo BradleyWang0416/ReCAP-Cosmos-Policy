@@ -30,6 +30,52 @@ LAG_VIEW_MANIFEST_RELATIVE_PATH = Path(
     "human_hand_robot_frame_raw/robot_ee_observed_t_plus_5_lag_diagnostic/"
     "train_only_tplus5_query_anchor_se3_identity_scale_v1/view_manifest.json"
 )
+FOUR_GPU_SUCCESSOR_RELATIVE_PATH = Path("方案/v03/M5B_P2_4gpu_successor_v3.json")
+FOUR_GPU_SUCCESSOR_LOCK_RELATIVE_PATH = Path(
+    "方案/v03/M5B_P2_4gpu_successor_v3.lock.json"
+)
+LAUNCH_ACTIVATION_SCHEMA_V3_RELATIVE_PATH = Path(
+    "方案/v03/M5B_P2_launch_activation_schema_v3.json"
+)
+LAUNCH_ACTIVATION_SCHEMA_V3_LOCK_RELATIVE_PATH = Path(
+    "方案/v03/M5B_P2_launch_activation_schema_v3.lock.json"
+)
+FINAL_ACCEPTANCE_SCHEMA_V3_RELATIVE_PATH = Path(
+    "方案/v03/M5B_P2_final_acceptance_schema_v3.json"
+)
+FINAL_ACCEPTANCE_SCHEMA_V3_LOCK_RELATIVE_PATH = Path(
+    "方案/v03/M5B_P2_final_acceptance_schema_v3.lock.json"
+)
+MEMORY_SUCCESSOR_RELATIVE_PATH = Path("方案/v03/M5B_P2_memory_successor_v4.json")
+MEMORY_SUCCESSOR_LOCK_RELATIVE_PATH = Path(
+    "方案/v03/M5B_P2_memory_successor_v4.lock.json"
+)
+LAUNCH_ACTIVATION_SCHEMA_V4_RELATIVE_PATH = Path(
+    "方案/v03/M5B_P2_launch_activation_schema_v4.json"
+)
+LAUNCH_ACTIVATION_SCHEMA_V4_LOCK_RELATIVE_PATH = Path(
+    "方案/v03/M5B_P2_launch_activation_schema_v4.lock.json"
+)
+FINAL_ACCEPTANCE_SCHEMA_V4_RELATIVE_PATH = Path(
+    "方案/v03/M5B_P2_final_acceptance_schema_v4.json"
+)
+FINAL_ACCEPTANCE_SCHEMA_V4_LOCK_RELATIVE_PATH = Path(
+    "方案/v03/M5B_P2_final_acceptance_schema_v4.lock.json"
+)
+IO_SUCCESSOR_RELATIVE_PATH = Path("方案/v03/M5B_P2_io_successor_v5.json")
+IO_SUCCESSOR_LOCK_RELATIVE_PATH = Path("方案/v03/M5B_P2_io_successor_v5.lock.json")
+LAUNCH_ACTIVATION_SCHEMA_V5_RELATIVE_PATH = Path(
+    "方案/v03/M5B_P2_launch_activation_schema_v5.json"
+)
+LAUNCH_ACTIVATION_SCHEMA_V5_LOCK_RELATIVE_PATH = Path(
+    "方案/v03/M5B_P2_launch_activation_schema_v5.lock.json"
+)
+FINAL_ACCEPTANCE_SCHEMA_V5_RELATIVE_PATH = Path(
+    "方案/v03/M5B_P2_final_acceptance_schema_v5.json"
+)
+FINAL_ACCEPTANCE_SCHEMA_V5_LOCK_RELATIVE_PATH = Path(
+    "方案/v03/M5B_P2_final_acceptance_schema_v5.lock.json"
+)
 
 REGISTRY_SHA256 = "502cc57d41c7e4829e872ac95a258d7dc1e8d0d8a27ddfc3cf0315d4d31ef2d6"
 REGISTRY_CELLS_SHA256 = "cea1bbc669ff02e7c22f3511b84a136a255ea27dae60a4356876d8cd74b3be12"
@@ -43,6 +89,52 @@ PROTOCOL_SHA256 = "7598dfa2ac2e129f5d21a295dad23b90f63c3c8e68811da73cbcc20eb95d5
 SPLIT_SHA256 = "1d3ef2377aa19938b06646f6d5fc31ec9f275fc9f37e253e1e9aa5eecdc5a968"
 POOL_MANIFEST_SHA256 = "47e87be5800194de6e0ac99b47dbe23ef96a91298edbff3e9996b1484b489299"
 TOKENIZER_SHA256 = "38071ab59bd94681c686fa51d75a1968f64e470262043be31f7a094e442fd981"
+FOUR_GPU_SUCCESSOR_SHA256 = "6f333136b343cee87dca3c0328a73ffd441d3059633159d02e6f514573b809ab"
+FOUR_GPU_SUCCESSOR_LOCK_SHA256 = "6b57c2abd5ab5a62f0eeaed9b5436880ab7403088aae1241aa4937548888e9cb"
+LAUNCH_ACTIVATION_SCHEMA_V3_SHA256 = "40c9ed15ca2f49f91ca1b049948d2297f556c52c4a1611c76f27a1fdcff8f12e"
+LAUNCH_ACTIVATION_SCHEMA_V3_LOCK_SHA256 = (
+    "8459e7f6e4a5a2c5bb591dfbfa2c5e889bd9d35a617a94f10de025fc32cec4e0"
+)
+FINAL_ACCEPTANCE_SCHEMA_V3_SHA256 = "973869770105cd9e2d34e7a4011fdcd943c157737e4e96e25a26bec4f67f618e"
+FINAL_ACCEPTANCE_SCHEMA_V3_LOCK_SHA256 = (
+    "b75cbbb16b493979a646a2ac5785c53ce183e803461674b9408d967f505eb483"
+)
+MEMORY_SUCCESSOR_SHA256 = "c5f3334e4fecc81b38466046917d7aefdf1d6eaf7b0e8344458b05cf02455bc2"
+MEMORY_SUCCESSOR_LOCK_SHA256 = "a60f8def2b6a8ed08e50b7469c5689ebedf8b23ffd74786605171e8866242bc0"
+LAUNCH_ACTIVATION_SCHEMA_V4_SHA256 = "3f3d1e7b55f67ebbee736b6875a64868b8cf1db4c10f7e1eab25ab8d67bace2d"
+LAUNCH_ACTIVATION_SCHEMA_V4_LOCK_SHA256 = (
+    "a5297b0e62e81d42faae7c679c9cb079cc135d79cfe9428c3150e46a12ac7884"
+)
+FINAL_ACCEPTANCE_SCHEMA_V4_SHA256 = "072b71a45c4566dbb82de972dc46c0c9cfde27b110519ccfada70ad9596fc0b1"
+FINAL_ACCEPTANCE_SCHEMA_V4_LOCK_SHA256 = (
+    "4908978f1428187bfb0f705dd27dbc750555eb8421f9ff8263942bc230063e38"
+)
+IO_SUCCESSOR_SHA256 = "844f44c8e39178582f4a1cf7dcc5d16d510aad262e22104ff11eb93666d8fde2"
+IO_SUCCESSOR_LOCK_SHA256 = "67dad1418e97fe30e751fdf720a40e99cf30c96b51f9e52b61945bb058d5cb52"
+LAUNCH_ACTIVATION_SCHEMA_V5_SHA256 = "aef9326caf8056fc00e289a67e1fbc12148b8c5d9b6484ef0c356dbb26bc1c03"
+LAUNCH_ACTIVATION_SCHEMA_V5_LOCK_SHA256 = (
+    "5f4efb57d5e350cefab97d4c023b47d5aae5f93cd82c2e43a1daffac884ed094"
+)
+FINAL_ACCEPTANCE_SCHEMA_V5_SHA256 = "a77f9f4800ee697aeba532f76842e49023e014ff03c86ba61392837f6effb01f"
+FINAL_ACCEPTANCE_SCHEMA_V5_LOCK_SHA256 = (
+    "f4eb5f418297745e51c2a3122fc6e41d25d999b01971afd75ff85d61c283b1fa"
+)
+PYTORCH_CUDA_ALLOC_CONF = "expandable_segments:True"
+IO_DIAGNOSTIC_ENV = {
+    "TORCH_NCCL_TRACE_BUFFER_SIZE": "65536",
+    "TORCH_NCCL_DUMP_ON_TIMEOUT": "1",
+    "TORCH_NCCL_DESYNC_DEBUG": "1",
+    "NCCL_DEBUG": "INFO",
+    "NCCL_DEBUG_SUBSYS": "COLL",
+    "HUMAN2ROBOT_P2_SLOW_SAMPLE_SECONDS": "5",
+}
+
+FOUR_GPU_WORLD_SIZE = 4
+FOUR_GPU_DP_WORLD_SIZE = 4
+FOUR_GPU_FSDP_SHARD_SIZE = 4
+FOUR_GPU_BATCH_PER_DP_RANK = 25
+FOUR_GPU_GRADIENT_ACCUMULATION_STEPS = 2
+FOUR_GPU_EFFECTIVE_GLOBAL_BATCH_SIZE = 200
 
 FORMAL_SEEDS = (20260711, 20260712, 20260713)
 FROZEN_COUNTS = {
@@ -90,6 +182,275 @@ def file_sha256(path: Path) -> str:
 def canonical_json_sha256(value: Any) -> str:
     payload = json.dumps(value, sort_keys=True, separators=(",", ":")).encode("utf-8")
     return hashlib.sha256(payload).hexdigest()
+
+
+def validate_four_gpu_successor(workspace: Path) -> dict[str, Any]:
+    """Validate the runtime-only four-GPU successor and both v3 schemas."""
+
+    exact_files = {
+        FOUR_GPU_SUCCESSOR_RELATIVE_PATH: FOUR_GPU_SUCCESSOR_SHA256,
+        FOUR_GPU_SUCCESSOR_LOCK_RELATIVE_PATH: FOUR_GPU_SUCCESSOR_LOCK_SHA256,
+        LAUNCH_ACTIVATION_SCHEMA_V3_RELATIVE_PATH: LAUNCH_ACTIVATION_SCHEMA_V3_SHA256,
+        LAUNCH_ACTIVATION_SCHEMA_V3_LOCK_RELATIVE_PATH: LAUNCH_ACTIVATION_SCHEMA_V3_LOCK_SHA256,
+        FINAL_ACCEPTANCE_SCHEMA_V3_RELATIVE_PATH: FINAL_ACCEPTANCE_SCHEMA_V3_SHA256,
+        FINAL_ACCEPTANCE_SCHEMA_V3_LOCK_RELATIVE_PATH: FINAL_ACCEPTANCE_SCHEMA_V3_LOCK_SHA256,
+    }
+    for relative_path, expected_sha256 in exact_files.items():
+        _require(
+            file_sha256(workspace / relative_path) == expected_sha256,
+            f"Frozen four-GPU successor artifact changed: {relative_path}",
+        )
+
+    successor = _read_json(workspace / FOUR_GPU_SUCCESSOR_RELATIVE_PATH)
+    _require(
+        successor.get("schema_version") == "human2robot-m5b-p2-four-gpu-successor-v3",
+        "Four-GPU successor schema changed",
+    )
+    _require(
+        successor.get("status") == "frozen_approved_runtime_successor",
+        "Four-GPU successor is not frozen and approved",
+    )
+    parent = successor.get("parent", {})
+    _require(
+        parent.get("formal_protocol_sha256") == PROTOCOL_SHA256,
+        "Four-GPU successor parent protocol changed",
+    )
+    _require(
+        parent.get("execution_supplement_sha256") == SUPPLEMENT_SHA256,
+        "Four-GPU successor parent execution supplement changed",
+    )
+    superseded = successor.get("supersedes_runtime_only", {})
+    _require(
+        superseded.get("parent_visible_gpu_count") == 8
+        and superseded.get("parent_gradient_accumulation_steps") == 1,
+        "Four-GPU successor does not identify the superseded runtime",
+    )
+    runtime = successor.get("frozen_runtime", {})
+    expected_runtime = {
+        "world_size": FOUR_GPU_WORLD_SIZE,
+        "data_parallel_world_size": FOUR_GPU_DP_WORLD_SIZE,
+        "fsdp_shard_size": FOUR_GPU_FSDP_SHARD_SIZE,
+        "batch_size_per_data_parallel_rank": FOUR_GPU_BATCH_PER_DP_RANK,
+        "gradient_accumulation_steps": FOUR_GPU_GRADIENT_ACCUMULATION_STEPS,
+        "effective_global_batch_size": FOUR_GPU_EFFECTIVE_GLOBAL_BATCH_SIZE,
+        "visible_gpu_count": FOUR_GPU_WORLD_SIZE,
+        "checkpoint_rank_count": FOUR_GPU_WORLD_SIZE,
+        "max_optimizer_steps": 7000,
+        "save_every_optimizer_steps": 1000,
+        "precision": "bfloat16",
+    }
+    mismatches = {
+        key: {"actual": runtime.get(key), "expected": value}
+        for key, value in expected_runtime.items()
+        if runtime.get(key) != value
+    }
+    _require(not mismatches, f"Four-GPU frozen runtime changed: {mismatches}")
+    _require(
+        FOUR_GPU_DP_WORLD_SIZE
+        * FOUR_GPU_BATCH_PER_DP_RANK
+        * FOUR_GPU_GRADIENT_ACCUMULATION_STEPS
+        == FOUR_GPU_EFFECTIVE_GLOBAL_BATCH_SIZE,
+        "Four-GPU effective global batch derivation changed",
+    )
+    lock = _read_json(workspace / FOUR_GPU_SUCCESSOR_LOCK_RELATIVE_PATH)
+    _require(lock.get("status") == "locked_pending_execution", "Four-GPU successor lock is open")
+    _require(
+        lock.get("successor_file_sha256") == FOUR_GPU_SUCCESSOR_SHA256,
+        "Four-GPU successor lock binding changed",
+    )
+    _require(lock.get("contains_experiment_results") is False, "Successor lock contains results")
+    _require(lock.get("passes_p2") is False, "Successor lock may not pass P2")
+    return {
+        "path": FOUR_GPU_SUCCESSOR_RELATIVE_PATH.as_posix(),
+        "file_sha256": FOUR_GPU_SUCCESSOR_SHA256,
+        "lock_path": FOUR_GPU_SUCCESSOR_LOCK_RELATIVE_PATH.as_posix(),
+        "lock_file_sha256": FOUR_GPU_SUCCESSOR_LOCK_SHA256,
+        "frozen_runtime": dict(runtime),
+        "contains_experiment_results": False,
+        "passes_p2": False,
+    }
+
+
+def validate_memory_successor(workspace: Path) -> dict[str, Any]:
+    """Validate the allocator-only v4 successor and its activation schemas."""
+
+    exact_files = {
+        MEMORY_SUCCESSOR_RELATIVE_PATH: MEMORY_SUCCESSOR_SHA256,
+        MEMORY_SUCCESSOR_LOCK_RELATIVE_PATH: MEMORY_SUCCESSOR_LOCK_SHA256,
+        LAUNCH_ACTIVATION_SCHEMA_V4_RELATIVE_PATH: LAUNCH_ACTIVATION_SCHEMA_V4_SHA256,
+        LAUNCH_ACTIVATION_SCHEMA_V4_LOCK_RELATIVE_PATH: LAUNCH_ACTIVATION_SCHEMA_V4_LOCK_SHA256,
+        FINAL_ACCEPTANCE_SCHEMA_V4_RELATIVE_PATH: FINAL_ACCEPTANCE_SCHEMA_V4_SHA256,
+        FINAL_ACCEPTANCE_SCHEMA_V4_LOCK_RELATIVE_PATH: FINAL_ACCEPTANCE_SCHEMA_V4_LOCK_SHA256,
+    }
+    for relative_path, expected_sha256 in exact_files.items():
+        _require(
+            file_sha256(workspace / relative_path) == expected_sha256,
+            f"Frozen memory-successor artifact changed: {relative_path}",
+        )
+
+    successor = _read_json(workspace / MEMORY_SUCCESSOR_RELATIVE_PATH)
+    _require(
+        successor.get("schema_version") == "human2robot-m5b-p2-memory-successor-v4",
+        "Memory-successor schema changed",
+    )
+    _require(
+        successor.get("status") == "frozen_approved_runtime_memory_successor",
+        "Memory-successor is not frozen and approved",
+    )
+    parent = successor.get("parent", {})
+    _require(
+        parent.get("four_gpu_successor_sha256") == FOUR_GPU_SUCCESSOR_SHA256,
+        "Memory-successor parent four-GPU hash changed",
+    )
+    _require(
+        parent.get("formal_protocol_sha256") == PROTOCOL_SHA256,
+        "Memory-successor parent protocol changed",
+    )
+    delta = successor.get("frozen_runtime_delta", {})
+    _require(delta.get("only_authorized_runtime_delta") is True, "Memory delta is not exclusive")
+    _require(
+        delta.get("environment") == {"PYTORCH_CUDA_ALLOC_CONF": PYTORCH_CUDA_ALLOC_CONF},
+        "Memory-successor allocator environment changed",
+    )
+    inherited = successor.get("inherited_exact_runtime", {})
+    expected_runtime = {
+        "world_size": FOUR_GPU_WORLD_SIZE,
+        "data_parallel_world_size": FOUR_GPU_DP_WORLD_SIZE,
+        "fsdp_shard_size": FOUR_GPU_FSDP_SHARD_SIZE,
+        "batch_size_per_data_parallel_rank": FOUR_GPU_BATCH_PER_DP_RANK,
+        "gradient_accumulation_steps": FOUR_GPU_GRADIENT_ACCUMULATION_STEPS,
+        "effective_global_batch_size": FOUR_GPU_EFFECTIVE_GLOBAL_BATCH_SIZE,
+        "visible_gpu_count": FOUR_GPU_WORLD_SIZE,
+        "checkpoint_rank_count": FOUR_GPU_WORLD_SIZE,
+        "max_optimizer_steps": 7000,
+        "save_every_optimizer_steps": 1000,
+        "precision": "bfloat16",
+    }
+    _require(inherited == expected_runtime, "Memory-successor changed inherited runtime values")
+    failure = successor.get("observed_failure_basis", {})
+    _require(failure.get("formal_result") is False, "OOM basis was upgraded to a formal result")
+    _require(failure.get("failure_kind") == "torch.OutOfMemoryError", "OOM basis changed")
+    _require(
+        failure.get("completed_optimizer_iterations") == 2,
+        "OOM completed-iteration evidence changed",
+    )
+    lock = _read_json(workspace / MEMORY_SUCCESSOR_LOCK_RELATIVE_PATH)
+    _require(lock.get("status") == "locked_pending_execution", "Memory-successor lock is open")
+    _require(
+        lock.get("successor_file_sha256") == MEMORY_SUCCESSOR_SHA256,
+        "Memory-successor lock binding changed",
+    )
+    _require(lock.get("contains_successful_cell_result") is False, "Memory lock contains success")
+    _require(lock.get("passes_p2") is False, "Memory-successor lock may not pass P2")
+    return {
+        "path": MEMORY_SUCCESSOR_RELATIVE_PATH.as_posix(),
+        "file_sha256": MEMORY_SUCCESSOR_SHA256,
+        "lock_path": MEMORY_SUCCESSOR_LOCK_RELATIVE_PATH.as_posix(),
+        "lock_file_sha256": MEMORY_SUCCESSOR_LOCK_SHA256,
+        "pytorch_cuda_alloc_conf": PYTORCH_CUDA_ALLOC_CONF,
+        "contains_successful_cell_result": False,
+        "passes_p2": False,
+    }
+
+
+def validate_io_successor(workspace: Path) -> dict[str, Any]:
+    """Validate the indexed-HDF5 v5 successor and its diagnostic bindings."""
+
+    exact_files = {
+        IO_SUCCESSOR_RELATIVE_PATH: IO_SUCCESSOR_SHA256,
+        IO_SUCCESSOR_LOCK_RELATIVE_PATH: IO_SUCCESSOR_LOCK_SHA256,
+        LAUNCH_ACTIVATION_SCHEMA_V5_RELATIVE_PATH: LAUNCH_ACTIVATION_SCHEMA_V5_SHA256,
+        LAUNCH_ACTIVATION_SCHEMA_V5_LOCK_RELATIVE_PATH: LAUNCH_ACTIVATION_SCHEMA_V5_LOCK_SHA256,
+        FINAL_ACCEPTANCE_SCHEMA_V5_RELATIVE_PATH: FINAL_ACCEPTANCE_SCHEMA_V5_SHA256,
+        FINAL_ACCEPTANCE_SCHEMA_V5_LOCK_RELATIVE_PATH: FINAL_ACCEPTANCE_SCHEMA_V5_LOCK_SHA256,
+    }
+    for relative_path, expected_sha256 in exact_files.items():
+        _require(
+            file_sha256(workspace / relative_path) == expected_sha256,
+            f"Frozen I/O-successor artifact changed: {relative_path}",
+        )
+
+    successor = _read_json(workspace / IO_SUCCESSOR_RELATIVE_PATH)
+    _require(
+        successor.get("schema_version") == "human2robot-m5b-p2-io-successor-v5",
+        "I/O-successor schema changed",
+    )
+    _require(
+        successor.get("status") == "frozen_approved_data_io_successor",
+        "I/O-successor is not frozen and approved",
+    )
+    parent = successor.get("parent", {})
+    _require(
+        parent.get("memory_successor_sha256") == MEMORY_SUCCESSOR_SHA256,
+        "I/O-successor parent memory hash changed",
+    )
+    _require(
+        parent.get("formal_protocol_sha256") == PROTOCOL_SHA256,
+        "I/O-successor parent protocol changed",
+    )
+    delta = successor.get("frozen_data_io_delta", {})
+    _require(delta.get("no_full_episode_image_reads") is True, "Full image reads are not forbidden")
+    _require(delta.get("model_input_semantics_changed") is False, "I/O successor changes model inputs")
+    _require(
+        delta.get("optimizer_or_batch_semantics_changed") is False,
+        "I/O successor changes optimizer or batch semantics",
+    )
+    _require(
+        successor.get("frozen_diagnostic_environment") == IO_DIAGNOSTIC_ENV,
+        "I/O diagnostic environment changed",
+    )
+    inherited = successor.get("inherited_exact_runtime", {})
+    expected_runtime = {
+        "world_size": FOUR_GPU_WORLD_SIZE,
+        "data_parallel_world_size": FOUR_GPU_DP_WORLD_SIZE,
+        "fsdp_shard_size": FOUR_GPU_FSDP_SHARD_SIZE,
+        "batch_size_per_data_parallel_rank": FOUR_GPU_BATCH_PER_DP_RANK,
+        "gradient_accumulation_steps": FOUR_GPU_GRADIENT_ACCUMULATION_STEPS,
+        "effective_global_batch_size": FOUR_GPU_EFFECTIVE_GLOBAL_BATCH_SIZE,
+        "visible_gpu_count": FOUR_GPU_WORLD_SIZE,
+        "checkpoint_rank_count": FOUR_GPU_WORLD_SIZE,
+        "max_optimizer_steps": 7000,
+        "save_every_optimizer_steps": 1000,
+        "precision": "bfloat16",
+        "pytorch_cuda_alloc_conf": PYTORCH_CUDA_ALLOC_CONF,
+    }
+    _require(inherited == expected_runtime, "I/O-successor changed inherited runtime values")
+    implementation = successor.get("implementation_binding", {})
+    for path_key, hash_key in (
+        ("dataset_path", "dataset_sha256"),
+        ("regression_test_path", "regression_test_sha256"),
+    ):
+        source_path = workspace / str(implementation.get(path_key, ""))
+        _require(source_path.is_file(), f"I/O successor implementation is missing: {source_path}")
+        _require(
+            file_sha256(source_path) == implementation.get(hash_key),
+            f"I/O successor implementation changed: {source_path}",
+        )
+    failure = successor.get("observed_failure_basis", {})
+    _require(failure.get("formal_result") is False, "NCCL failure was upgraded to a formal result")
+    _require(
+        failure.get("failure_kind") == "ProcessGroupNCCLWatchdogTimeout",
+        "I/O-successor failure basis changed",
+    )
+    _require(failure.get("completed_optimizer_iterations") == 100, "Failure iteration changed")
+    lock = _read_json(workspace / IO_SUCCESSOR_LOCK_RELATIVE_PATH)
+    _require(lock.get("status") == "locked_pending_execution", "I/O-successor lock is open")
+    _require(
+        lock.get("successor_file_sha256") == IO_SUCCESSOR_SHA256,
+        "I/O-successor lock binding changed",
+    )
+    _require(lock.get("contains_successful_cell_result") is False, "I/O lock contains success")
+    _require(lock.get("passes_p2") is False, "I/O-successor lock may not pass P2")
+    return {
+        "path": IO_SUCCESSOR_RELATIVE_PATH.as_posix(),
+        "file_sha256": IO_SUCCESSOR_SHA256,
+        "lock_path": IO_SUCCESSOR_LOCK_RELATIVE_PATH.as_posix(),
+        "lock_file_sha256": IO_SUCCESSOR_LOCK_SHA256,
+        "diagnostic_environment": dict(IO_DIAGNOSTIC_ENV),
+        "indexed_hdf5_image_reads": True,
+        "contains_successful_cell_result": False,
+        "passes_p2": False,
+    }
 
 
 @dataclass(frozen=True)
@@ -473,6 +834,9 @@ def load_execution_matrix(
     verify_prepared_artifact_hashes: bool = True,
 ) -> ExecutionMatrix:
     workspace = workspace or Path(__file__).resolve().parents[1]
+    validate_four_gpu_successor(workspace)
+    validate_memory_successor(workspace)
+    validate_io_successor(workspace)
     _require(file_sha256(workspace / SUPPLEMENT_RELATIVE_PATH) == SUPPLEMENT_SHA256, "Frozen supplement SHA256 changed")
     registry, cells_by_id, order = load_frozen_registry(workspace)
     prepared, entries_by_id = load_prepared_manifest(

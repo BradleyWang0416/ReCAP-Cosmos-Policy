@@ -17,18 +17,34 @@ import shutil
 import subprocess
 import sys
 from contextlib import contextmanager
-from dataclasses import asdict, dataclass
+from dataclasses import asdict
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Iterable, Iterator
+from typing import Any, Iterable, Iterator, Mapping
 
 from cosmos_policy.datasets.human2robot_p2_specs import P2TrainingSpec, p2_training_specs
 from tools.human2robot_m5b_p2_handlers import HandlerContractError, require_formal_activation
-from tools.human2robot_m5b_p2_matrix import load_execution_matrix
+from tools.human2robot_m5b_p2_matrix import (
+    FOUR_GPU_BATCH_PER_DP_RANK,
+    FOUR_GPU_DP_WORLD_SIZE,
+    FOUR_GPU_EFFECTIVE_GLOBAL_BATCH_SIZE,
+    FOUR_GPU_FSDP_SHARD_SIZE,
+    FOUR_GPU_GRADIENT_ACCUMULATION_STEPS,
+    FOUR_GPU_SUCCESSOR_SHA256,
+    FOUR_GPU_WORLD_SIZE,
+    IO_DIAGNOSTIC_ENV,
+    IO_SUCCESSOR_SHA256,
+    MEMORY_SUCCESSOR_SHA256,
+    PYTORCH_CUDA_ALLOC_CONF,
+    load_execution_matrix,
+    validate_four_gpu_successor,
+    validate_io_successor,
+    validate_memory_successor,
+)
 from tools.human2robot_m5b_p2_registry import build_candidate_registry
 
-SCHEMA_VERSION = "human2robot-m5b-p2-run-manifest-v1"
-CELL_SCHEMA_VERSION = "human2robot-m5b-p2-cell-manifest-v1"
+SCHEMA_VERSION = "human2robot-m5b-p2-run-manifest-v5"
+CELL_SCHEMA_VERSION = "human2robot-m5b-p2-cell-manifest-v5"
 GATE_ID = "M5B-P2-RUN-COMPLETENESS"
 PROTOCOL_ID = "m5b_v03_preregistered_3seed_formal_v1"
 PROTOCOL_SHA256 = "7598dfa2ac2e129f5d21a295dad23b90f63c3c8e68811da73cbcc20eb95d5ce4"
@@ -85,13 +101,28 @@ FROZEN_CELL_COUNTS = {
 }
 FROZEN_CELL_COUNT = 203
 FORMAL_OUTPUT_ROOT = Path("/DATA1/wxs/ReCAP_M5B_P2_RUNS")
+RUN_MANIFEST_RELATIVE_PATH = Path(
+    "data/Human2Robot/derived/m5b_v03/run_manifest_v5.json"
+)
+LAUNCH_ACTIVATION_FILENAME = "launch_activation_v5.json"
+RUNTIME_DIAGNOSTIC_FIELDS = {
+    "TORCH_NCCL_TRACE_BUFFER_SIZE": "torch_nccl_trace_buffer_size",
+    "TORCH_NCCL_DUMP_ON_TIMEOUT": "torch_nccl_dump_on_timeout",
+    "TORCH_NCCL_DESYNC_DEBUG": "torch_nccl_desync_debug",
+    "NCCL_DEBUG": "nccl_debug",
+    "NCCL_DEBUG_SUBSYS": "nccl_debug_subsys",
+    "HUMAN2ROBOT_P2_SLOW_SAMPLE_SECONDS": "slow_sample_seconds",
+}
 FORMAL_SEEDS = (20260711, 20260712, 20260713)
 LEARNED_METHODS = ("no_retrieval", "co_training", "recap_hand_ret")
-FIXED_WORLD_SIZE = 8
-FIXED_DP_WORLD_SIZE = 8
+FIXED_WORLD_SIZE = FOUR_GPU_WORLD_SIZE
+FIXED_DP_WORLD_SIZE = FOUR_GPU_DP_WORLD_SIZE
+FSDP_SHARD_SIZE = FOUR_GPU_FSDP_SHARD_SIZE
+GRADIENT_ACCUMULATION_STEPS = FOUR_GPU_GRADIENT_ACCUMULATION_STEPS
 MAX_OPTIMIZER_STEPS = 7000
 SAVE_EVERY_STEPS = 1000
-BATCH_PER_DP_RANK = 25
+BATCH_PER_DP_RANK = FOUR_GPU_BATCH_PER_DP_RANK
+EFFECTIVE_GLOBAL_BATCH_SIZE = FOUR_GPU_EFFECTIVE_GLOBAL_BATCH_SIZE
 H_STEPS = 8
 K_STEPS = 8
 SAVED_STEPS = tuple(range(1000, 7001, 1000))
@@ -170,7 +201,7 @@ UNRESOLVED_EXECUTION_DECISIONS = (
         "why_blocking": "No formal Human2Robot held-out inference/evaluation runner exists yet.",
     },
 )
-REQUIRED_CHECKPOINT_BINDINGS = (
+PARENT_REQUIRED_CHECKPOINT_BINDINGS = (
     "protocol_file_sha256",
     "code_sha256",
     "resolved_initialization_checkpoint_sha256",
@@ -190,6 +221,17 @@ REQUIRED_CHECKPOINT_BINDINGS = (
     "data_parallel_world_size",
     "H_steps",
     "K_steps",
+)
+REQUIRED_CHECKPOINT_BINDINGS = PARENT_REQUIRED_CHECKPOINT_BINDINGS + (
+    "world_size",
+    "fsdp_shard_size",
+    "gradient_accumulation_steps",
+    "effective_global_batch_size",
+    "four_gpu_successor_sha256",
+    "memory_successor_sha256",
+    "io_successor_sha256",
+    "pytorch_cuda_alloc_conf",
+    "diagnostic_environment",
 )
 
 
@@ -216,6 +258,19 @@ def require_full_docker_environment() -> None:
     )
 
 
+def require_four_gpu_runtime_container() -> None:
+    """Reject dispatch from historical/all-GPU containers before subprocess launch."""
+
+    import torch
+
+    visible_gpu_count = torch.cuda.device_count() if torch.cuda.is_available() else 0
+    require(
+        visible_gpu_count == FIXED_WORLD_SIZE,
+        f"Four-GPU successor requires exactly {FIXED_WORLD_SIZE} visible GPUs; "
+        f"found {visible_gpu_count}",
+    )
+
+
 def read_json(path: Path) -> dict[str, Any]:
     require(path.is_file(), f"Required JSON does not exist: {path}")
     value = json.loads(path.read_text(encoding="utf-8"))
@@ -232,7 +287,7 @@ def write_json_atomic(path: Path, value: dict[str, Any]) -> None:
 
 @contextmanager
 def exclusive_execution_lock(lock_path: Path, purpose: str) -> Iterator[None]:
-    """Prevent concurrent formal jobs from sharing the fixed eight-GPU allocation."""
+    """Prevent concurrent formal jobs from sharing the fixed four-GPU allocation."""
 
     lock_path.parent.mkdir(parents=True, exist_ok=True)
     with lock_path.open("a+", encoding="utf-8") as lock_handle:
@@ -327,8 +382,8 @@ def validate_protocol(workspace: Path) -> dict[str, Any]:
     require(checkpoint["save_every_steps"] == SAVE_EVERY_STEPS, "Save interval changed")
     require(tuple(checkpoint["saved_steps"]) == SAVED_STEPS, "Saved steps changed")
     require(
-        tuple(checkpoint["required_manifest_bindings"]) == REQUIRED_CHECKPOINT_BINDINGS,
-        "Required checkpoint bindings changed",
+        tuple(checkpoint["required_manifest_bindings"]) == PARENT_REQUIRED_CHECKPOINT_BINDINGS,
+        "Parent required checkpoint bindings changed",
     )
     require(
         protocol["frozen_data_contract"]["split_sha256"] == SPLIT_SHA256,
@@ -777,6 +832,20 @@ def source_manifest(workspace: Path, paths: Iterable[Path]) -> dict[str, Any]:
     }
 
 
+def source_snapshot_matches_candidate(
+    snapshot: Mapping[str, Any],
+    candidate: Mapping[str, Any],
+) -> bool:
+    """Compare immutable source content while allowing snapshot audit metadata."""
+
+    return (
+        snapshot.get("schema_version") == candidate.get("schema_version")
+        and snapshot.get("code_sha256") == candidate.get("code_sha256")
+        and snapshot.get("files") == candidate.get("files")
+        and isinstance(snapshot.get("created_at_utc"), str)
+    )
+
+
 def materialize_source_snapshot(
     workspace: Path, snapshot_root: Path, manifest: dict[str, Any]
 ) -> Path:
@@ -896,6 +965,15 @@ def base_bindings(cell: MainTrainingCell, code_sha256: str) -> dict[str, Any]:
         "data_parallel_world_size": FIXED_DP_WORLD_SIZE,
         "H_steps": cell.h_steps,
         "K_steps": cell.k_steps,
+        "world_size": FIXED_WORLD_SIZE,
+        "fsdp_shard_size": FSDP_SHARD_SIZE,
+        "gradient_accumulation_steps": GRADIENT_ACCUMULATION_STEPS,
+        "effective_global_batch_size": EFFECTIVE_GLOBAL_BATCH_SIZE,
+        "four_gpu_successor_sha256": FOUR_GPU_SUCCESSOR_SHA256,
+        "memory_successor_sha256": MEMORY_SUCCESSOR_SHA256,
+        "io_successor_sha256": IO_SUCCESSOR_SHA256,
+        "pytorch_cuda_alloc_conf": PYTORCH_CUDA_ALLOC_CONF,
+        "diagnostic_environment": dict(IO_DIAGNOSTIC_ENV),
     }
 
 
@@ -909,6 +987,7 @@ def initial_cell_record(cell: MainTrainingCell, output_root: Path, code_sha256: 
     run_directory = expected_run_directory(output_root, cell)
     return {
         **asdict(cell),
+        "cell_id": cell.cell_id,
         "status": "pending",
         "formal_result": False,
         "attempt_count": 0,
@@ -930,6 +1009,9 @@ def build_master_manifest(
     protocol: dict[str, Any],
     prerequisites: dict[str, Any],
     execution_supplement: dict[str, Any],
+    four_gpu_successor: dict[str, Any],
+    memory_successor: dict[str, Any],
+    io_successor: dict[str, Any],
     frozen_cell_registry: dict[str, Any],
 ) -> dict[str, Any]:
     cells = [initial_cell_record(cell, output_root, source["code_sha256"]) for cell in main_training_cells()]
@@ -951,11 +1033,16 @@ def build_master_manifest(
         "fixed_runtime": {
             "world_size": FIXED_WORLD_SIZE,
             "data_parallel_world_size": FIXED_DP_WORLD_SIZE,
+            "fsdp_shard_size": FSDP_SHARD_SIZE,
             "batch_size_per_data_parallel_rank": BATCH_PER_DP_RANK,
+            "gradient_accumulation_steps": GRADIENT_ACCUMULATION_STEPS,
+            "effective_global_batch_size": EFFECTIVE_GLOBAL_BATCH_SIZE,
             "max_optimizer_steps": MAX_OPTIMIZER_STEPS,
             "save_every_steps": SAVE_EVERY_STEPS,
             "saved_steps": list(SAVED_STEPS),
             "offline_auto_download_disabled": True,
+            "pytorch_cuda_alloc_conf": PYTORCH_CUDA_ALLOC_CONF,
+            "diagnostic_environment": dict(IO_DIAGNOSTIC_ENV),
         },
         "source_snapshot": {
             "path": str(snapshot_path),
@@ -965,6 +1052,9 @@ def build_master_manifest(
         },
         "prerequisites": prerequisites,
         "execution_supplement": execution_supplement,
+        "four_gpu_successor": four_gpu_successor,
+        "memory_successor": memory_successor,
+        "io_successor": io_successor,
         "frozen_cell_registry": frozen_cell_registry,
         "protocol_experiment_coverage": coverage,
         "implemented_main_training_cells": cells,
@@ -1045,12 +1135,15 @@ def prepare(workspace: Path, output_root: Path) -> dict[str, Any]:
     require_full_docker_environment()
     protocol = validate_protocol(workspace)
     execution_supplement = validate_frozen_execution_supplement(workspace)
+    four_gpu_successor = validate_four_gpu_successor(workspace)
+    memory_successor = validate_memory_successor(workspace)
+    io_successor = validate_io_successor(workspace)
     frozen_cell_registry = validate_frozen_cell_registry(workspace)
     prerequisites = validate_prerequisites(workspace)
     paths = source_paths(workspace)
     source = source_manifest(workspace, paths)
     snapshot_path = materialize_source_snapshot(workspace, output_root / "source_snapshots", source)
-    manifest_path = workspace / "data/Human2Robot/derived/m5b_v03/run_manifest.json"
+    manifest_path = workspace / RUN_MANIFEST_RELATIVE_PATH
     if manifest_path.exists():
         existing = read_json(manifest_path)
         require(
@@ -1066,6 +1159,9 @@ def prepare(workspace: Path, output_root: Path) -> dict[str, Any]:
         protocol,
         prerequisites,
         execution_supplement,
+        four_gpu_successor,
+        memory_successor,
+        io_successor,
         frozen_cell_registry,
     )
     write_json_atomic(manifest_path, master)
@@ -1074,11 +1170,27 @@ def prepare(workspace: Path, output_root: Path) -> dict[str, Any]:
 
 def verify_runtime_binding(path: Path, cell: MainTrainingCell, code_sha256: str) -> dict[str, Any]:
     binding = read_json(path)
+    require(
+        binding.get("schema_version") == "human2robot-m5b-p2-runtime-binding-v2",
+        "Runtime binding schema mismatch",
+    )
     require(binding.get("cell_id") == cell.cell_id, "Runtime cell ID mismatch")
     require(binding.get("experiment_id") == cell.experiment_id, "Runtime experiment ID mismatch")
     require(binding.get("variant_id") == cell.variant_id, "Runtime variant ID mismatch")
     require(binding.get("method_id") == cell.method_id, "Runtime method ID mismatch")
     require(binding.get("protocol_file_sha256") == PROTOCOL_SHA256, "Runtime protocol hash mismatch")
+    require(
+        binding.get("four_gpu_successor_sha256") == FOUR_GPU_SUCCESSOR_SHA256,
+        "Runtime four-GPU successor hash mismatch",
+    )
+    require(
+        binding.get("memory_successor_sha256") == MEMORY_SUCCESSOR_SHA256,
+        "Runtime memory-successor hash mismatch",
+    )
+    require(
+        binding.get("io_successor_sha256") == IO_SUCCESSOR_SHA256,
+        "Runtime I/O-successor hash mismatch",
+    )
     require(binding.get("code_sha256") == code_sha256, "Runtime code hash mismatch")
     actual = binding.get("actual", {})
     require(actual.get("world_size") == FIXED_WORLD_SIZE, "Runtime global world size mismatch")
@@ -1090,7 +1202,31 @@ def verify_runtime_binding(path: Path, cell: MainTrainingCell, code_sha256: str)
         "Runtime batch mismatch",
     )
     require(actual.get("checkpoint_save_every_steps") == SAVE_EVERY_STEPS, "Runtime save interval mismatch")
-    require(actual.get("gradient_accumulation_steps") == 1, "Runtime gradient accumulation mismatch")
+    require(
+        actual.get("gradient_accumulation_steps") == GRADIENT_ACCUMULATION_STEPS,
+        "Runtime gradient accumulation mismatch",
+    )
+    require(actual.get("fsdp_shard_size") == FSDP_SHARD_SIZE, "Runtime FSDP shard size mismatch")
+    require(
+        actual.get("effective_global_batch_size") == EFFECTIVE_GLOBAL_BATCH_SIZE,
+        "Runtime effective global batch mismatch",
+    )
+    require(
+        actual.get("visible_cuda_device_count") == FIXED_WORLD_SIZE,
+        "Runtime visible CUDA device count mismatch",
+    )
+    require(
+        actual.get("pytorch_cuda_alloc_conf") == PYTORCH_CUDA_ALLOC_CONF,
+        "Runtime PyTorch CUDA allocator setting mismatch",
+    )
+    require(
+        {
+            environment_name: actual.get(field_name)
+            for environment_name, field_name in RUNTIME_DIAGNOSTIC_FIELDS.items()
+        }
+        == IO_DIAGNOSTIC_ENV,
+        "Runtime NCCL/data timing diagnostics mismatch",
+    )
     require(actual.get("sampler_seed") == cell.seed, "Runtime sampler seed mismatch")
     expected_dynamic = {
         "H_steps": cell.h_steps,
@@ -1138,6 +1274,19 @@ def verify_runtime_binding(path: Path, cell: MainTrainingCell, code_sha256: str)
     require(
         binding.get("environment", {}).get("wandb_disabled") is True,
         "W&B runtime binding is not disabled",
+    )
+    require(
+        binding.get("environment", {}).get("pytorch_cuda_alloc_conf")
+        == PYTORCH_CUDA_ALLOC_CONF,
+        "PyTorch CUDA allocator runtime binding mismatch",
+    )
+    require(
+        {
+            environment_name: binding.get("environment", {}).get(field_name)
+            for environment_name, field_name in RUNTIME_DIAGNOSTIC_FIELDS.items()
+        }
+        == IO_DIAGNOSTIC_ENV,
+        "Runtime binding diagnostic environment mismatch",
     )
     return binding
 
@@ -1228,7 +1377,8 @@ def training_command(
 ) -> tuple[list[str], dict[str, str]]:
     torchrun = workspace / ".venv/bin/torchrun"
     require(torchrun.is_file(), f"Container torchrun missing: {torchrun}")
-    config_path = snapshot_path / "cosmos_policy/config/config.py"
+    config_relative_path = Path("cosmos_policy/config/config.py")
+    config_path = snapshot_path / config_relative_path
     require(config_path.is_file(), f"Snapshot config missing: {config_path}")
     env = os.environ.copy()
     env.update(
@@ -1238,6 +1388,8 @@ def training_command(
             "TRANSFORMERS_OFFLINE": "1",
             "WANDB_MODE": "disabled",
             "WANDB_DISABLED": "true",
+            "PYTORCH_CUDA_ALLOC_CONF": PYTORCH_CUDA_ALLOC_CONF,
+            **IO_DIAGNOSTIC_ENV,
             "COSMOS_PREDICT2P5_POSTTRAINED_CKPT": str(
                 INITIALIZATION_CHECKPOINT_PATH
             ),
@@ -1249,6 +1401,9 @@ def training_command(
             "PYTHONPATH": str(snapshot_path),
             "HUMAN2ROBOT_P2_RUNTIME_BINDING_PATH": record["runtime_binding_path"],
             "HUMAN2ROBOT_P2_PROTOCOL_SHA256": PROTOCOL_SHA256,
+            "HUMAN2ROBOT_P2_FOUR_GPU_SUCCESSOR_SHA256": FOUR_GPU_SUCCESSOR_SHA256,
+            "HUMAN2ROBOT_P2_MEMORY_SUCCESSOR_SHA256": MEMORY_SUCCESSOR_SHA256,
+            "HUMAN2ROBOT_P2_IO_SUCCESSOR_SHA256": IO_SUCCESSOR_SHA256,
             "HUMAN2ROBOT_P2_CODE_SHA256": record["bindings"]["code_sha256"],
             "HUMAN2ROBOT_P2_CELL_ID": cell.cell_id,
             "HUMAN2ROBOT_P2_EXPERIMENT_ID": cell.experiment_id,
@@ -1259,6 +1414,13 @@ def training_command(
             "HUMAN2ROBOT_P2_EXPECTED_SEED": str(cell.seed),
             "HUMAN2ROBOT_P2_EXPECTED_MAX_ITER": str(MAX_OPTIMIZER_STEPS),
             "HUMAN2ROBOT_P2_EXPECTED_BATCH_PER_DP_RANK": str(BATCH_PER_DP_RANK),
+            "HUMAN2ROBOT_P2_EXPECTED_GRAD_ACCUM_STEPS": str(
+                GRADIENT_ACCUMULATION_STEPS
+            ),
+            "HUMAN2ROBOT_P2_EXPECTED_FSDP_SHARD_SIZE": str(FSDP_SHARD_SIZE),
+            "HUMAN2ROBOT_P2_EXPECTED_EFFECTIVE_GLOBAL_BATCH": str(
+                EFFECTIVE_GLOBAL_BATCH_SIZE
+            ),
             "HUMAN2ROBOT_P2_EXPECTED_SAVE_ITER": str(SAVE_EVERY_STEPS),
             "HUMAN2ROBOT_P2_EXPECTED_H_STEPS": str(cell.h_steps),
             "HUMAN2ROBOT_P2_EXPECTED_K_STEPS": str(cell.k_steps),
@@ -1274,6 +1436,7 @@ def training_command(
             "HUMAN2ROBOT_P2_EXPECTED_TOKENIZER_PATH": str(
                 TOKENIZER_CHECKPOINT_PATH
             ),
+            "HUMAN2ROBOT_P2_EXPECTED_PYTORCH_CUDA_ALLOC_CONF": PYTORCH_CUDA_ALLOC_CONF,
         }
     )
     command = [
@@ -1282,7 +1445,7 @@ def training_command(
         "--master_port=12430",
         "-m",
         "cosmos_policy.scripts.train",
-        f"--config={config_path}",
+        f"--config={config_relative_path.as_posix()}",
         "--",
         f"experiment={cell.config_name}",
     ]
@@ -1290,14 +1453,19 @@ def training_command(
 
 
 def load_master(workspace: Path) -> tuple[Path, dict[str, Any]]:
-    path = workspace / "data/Human2Robot/derived/m5b_v03/run_manifest.json"
+    path = workspace / RUN_MANIFEST_RELATIVE_PATH
     master = read_json(path)
     require(master.get("schema_version") == SCHEMA_VERSION, "Wrong P2 manifest schema")
     return path, master
 
 
 def find_cell_record(master: dict[str, Any], cell_id: str) -> dict[str, Any]:
-    matches = [item for item in master["implemented_main_training_cells"] if item["cell_id"] == cell_id]
+    records = master["implemented_main_training_cells"]
+    require(
+        all(isinstance(item, dict) and isinstance(item.get("cell_id"), str) for item in records),
+        "P2 manifest training record is missing cell_id",
+    )
+    matches = [item for item in records if item["cell_id"] == cell_id]
     require(len(matches) == 1, f"Unknown or duplicate cell: {cell_id}")
     return matches[0]
 
@@ -1372,13 +1540,14 @@ def run_cell(
 ) -> dict[str, Any]:
     require_full_docker_environment()
     activation_path = activation_path or (
-        FORMAL_OUTPUT_ROOT / "launch_activation_v2.json"
+        FORMAL_OUTPUT_ROOT / LAUNCH_ACTIVATION_FILENAME
     )
     require(activation_path.is_file(), f"Formal activation artifact missing: {activation_path}")
     try:
         require_formal_activation(read_json(activation_path), load_execution_matrix(workspace))
     except HandlerContractError as error:
         raise P2Error(str(error)) from error
+    require_four_gpu_runtime_container()
     lock_path = workspace / "data/Human2Robot/derived/m5b_v03/p2_execution.lock"
     with exclusive_execution_lock(lock_path, f"run-cell:{cell_id}"):
         return _run_cell_unlocked(workspace, cell_id)
@@ -1391,13 +1560,14 @@ def queue_implemented_main_subset(
 ) -> dict[str, Any]:
     require_full_docker_environment()
     activation_path = activation_path or (
-        FORMAL_OUTPUT_ROOT / "launch_activation_v2.json"
+        FORMAL_OUTPUT_ROOT / LAUNCH_ACTIVATION_FILENAME
     )
     require(activation_path.is_file(), f"Formal activation artifact missing: {activation_path}")
     try:
         require_formal_activation(read_json(activation_path), load_execution_matrix(workspace))
     except HandlerContractError as error:
         raise P2Error(str(error)) from error
+    require_four_gpu_runtime_container()
     lock_path = workspace / "data/Human2Robot/derived/m5b_v03/p2_execution.lock"
     with exclusive_execution_lock(lock_path, "queue-implemented-main-subset"):
         return _queue_implemented_main_subset_unlocked(workspace)

@@ -1,0 +1,8 @@
+{
+  "artifact_schema_version": "human2robot-m5b-p2-final-acceptance-v3",
+  "four_gpu_successor_sha256": "6f333136b343cee87dca3c0328a73ffd441d3059633159d02e6f514573b809ab",
+  "schema_file_sha256": "973869770105cd9e2d34e7a4011fdcd943c157737e4e96e25a26bec4f67f618e",
+  "schema_path": "方案/v03/M5B_P2_final_acceptance_schema_v3.json",
+  "schema_version": "human2robot-m5b-p2-final-acceptance-schema-lock-v3",
+  "status": "locked"
+}

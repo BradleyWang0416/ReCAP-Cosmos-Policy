@@ -1,7 +1,12 @@
 # M5B-P2 successor 七项冻结实施报告
 
 日期：2026-07-14  
-状态：**七项 successor 决定已冻结并实现；正式训练/评估尚未启动（0/203），模型结果仍为 `NEEDS_EXPERIMENT`。**
+状态：**七项 successor 决定已冻结并实现；正式训练/评估尚未启动（0/203），模型结果仍为 `NEEDS_EXPERIMENT`。训练前门禁已于同日完成，当前状态以 `M5B_P2_pretraining_readiness_report.md` 为准。**
+
+> 后续更新：本报告是八卡 v2 successor 的历史实施记录，其启动效力已被四卡 v3 撤销。
+> 当前 immutable source snapshot、148-test 四卡 Docker receipt、`launch_activation_v3.json`、
+> post-activation preflight 与 DAG plan 均已通过；当前状态以
+> `M5B_P2_4GPU_successor_冻结与启动前验收报告_20260714.md` 为准。
 
 ## 1. 结论
 

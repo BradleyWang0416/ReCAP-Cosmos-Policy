@@ -55,6 +55,9 @@ def _write_optional_human2robot_p2_runtime_binding(config: Config) -> None:
 
     required_env = (
         "HUMAN2ROBOT_P2_PROTOCOL_SHA256",
+        "HUMAN2ROBOT_P2_FOUR_GPU_SUCCESSOR_SHA256",
+        "HUMAN2ROBOT_P2_MEMORY_SUCCESSOR_SHA256",
+        "HUMAN2ROBOT_P2_IO_SUCCESSOR_SHA256",
         "HUMAN2ROBOT_P2_CODE_SHA256",
         "HUMAN2ROBOT_P2_CELL_ID",
         "HUMAN2ROBOT_P2_EXPERIMENT_ID",
@@ -65,6 +68,9 @@ def _write_optional_human2robot_p2_runtime_binding(config: Config) -> None:
         "HUMAN2ROBOT_P2_EXPECTED_SEED",
         "HUMAN2ROBOT_P2_EXPECTED_MAX_ITER",
         "HUMAN2ROBOT_P2_EXPECTED_BATCH_PER_DP_RANK",
+        "HUMAN2ROBOT_P2_EXPECTED_GRAD_ACCUM_STEPS",
+        "HUMAN2ROBOT_P2_EXPECTED_FSDP_SHARD_SIZE",
+        "HUMAN2ROBOT_P2_EXPECTED_EFFECTIVE_GLOBAL_BATCH",
         "HUMAN2ROBOT_P2_EXPECTED_SAVE_ITER",
         "HUMAN2ROBOT_P2_EXPECTED_H_STEPS",
         "HUMAN2ROBOT_P2_EXPECTED_K_STEPS",
@@ -76,6 +82,13 @@ def _write_optional_human2robot_p2_runtime_binding(config: Config) -> None:
         "HUMAN2ROBOT_P2_EXPECTED_TARGET_REPRESENTATION",
         "HUMAN2ROBOT_P2_EXPECTED_INIT_CKPT_PATH",
         "HUMAN2ROBOT_P2_EXPECTED_TOKENIZER_PATH",
+        "HUMAN2ROBOT_P2_EXPECTED_PYTORCH_CUDA_ALLOC_CONF",
+        "TORCH_NCCL_TRACE_BUFFER_SIZE",
+        "TORCH_NCCL_DUMP_ON_TIMEOUT",
+        "TORCH_NCCL_DESYNC_DEBUG",
+        "NCCL_DEBUG",
+        "NCCL_DEBUG_SUBSYS",
+        "HUMAN2ROBOT_P2_SLOW_SAMPLE_SECONDS",
     )
     missing = [name for name in required_env if not os.environ.get(name)]
     if missing:
@@ -98,6 +111,11 @@ def _write_optional_human2robot_p2_runtime_binding(config: Config) -> None:
         "batch_size_per_data_parallel_rank": int(config.dataloader_train.batch_size),
         "checkpoint_save_every_steps": int(config.checkpoint.save_iter),
         "gradient_accumulation_steps": int(config.trainer.grad_accum_iter),
+        "fsdp_shard_size": int(model_config.fsdp_shard_size),
+        "effective_global_batch_size": int(dp_world_size)
+        * int(config.dataloader_train.batch_size)
+        * int(config.trainer.grad_accum_iter),
+        "visible_cuda_device_count": int(torch.cuda.device_count()),
         "sampler_seed": int(config.dataloader_train.sampler.seed),
         "H_steps": int(dataset.h_steps),
         "K_steps": int(dataset.k_steps),
@@ -118,6 +136,13 @@ def _write_optional_human2robot_p2_runtime_binding(config: Config) -> None:
         "use_image_aug": bool(dataset.use_image_aug),
         "initialization_checkpoint_path": str(config.checkpoint.load_path),
         "tokenizer_checkpoint_path": str(model_config.tokenizer.vae_pth),
+        "pytorch_cuda_alloc_conf": os.environ.get("PYTORCH_CUDA_ALLOC_CONF"),
+        "torch_nccl_trace_buffer_size": os.environ.get("TORCH_NCCL_TRACE_BUFFER_SIZE"),
+        "torch_nccl_dump_on_timeout": os.environ.get("TORCH_NCCL_DUMP_ON_TIMEOUT"),
+        "torch_nccl_desync_debug": os.environ.get("TORCH_NCCL_DESYNC_DEBUG"),
+        "nccl_debug": os.environ.get("NCCL_DEBUG"),
+        "nccl_debug_subsys": os.environ.get("NCCL_DEBUG_SUBSYS"),
+        "slow_sample_seconds": os.environ.get("HUMAN2ROBOT_P2_SLOW_SAMPLE_SECONDS"),
     }
     expected = {
         "experiment_id": os.environ["HUMAN2ROBOT_P2_EXPERIMENT_ID"],
@@ -131,7 +156,14 @@ def _write_optional_human2robot_p2_runtime_binding(config: Config) -> None:
             os.environ["HUMAN2ROBOT_P2_EXPECTED_BATCH_PER_DP_RANK"]
         ),
         "checkpoint_save_every_steps": int(os.environ["HUMAN2ROBOT_P2_EXPECTED_SAVE_ITER"]),
-        "gradient_accumulation_steps": 1,
+        "gradient_accumulation_steps": int(
+            os.environ["HUMAN2ROBOT_P2_EXPECTED_GRAD_ACCUM_STEPS"]
+        ),
+        "fsdp_shard_size": int(os.environ["HUMAN2ROBOT_P2_EXPECTED_FSDP_SHARD_SIZE"]),
+        "effective_global_batch_size": int(
+            os.environ["HUMAN2ROBOT_P2_EXPECTED_EFFECTIVE_GLOBAL_BATCH"]
+        ),
+        "visible_cuda_device_count": int(os.environ["HUMAN2ROBOT_P2_EXPECTED_WORLD_SIZE"]),
         "sampler_seed": int(os.environ["HUMAN2ROBOT_P2_EXPECTED_SEED"]),
         "H_steps": int(os.environ["HUMAN2ROBOT_P2_EXPECTED_H_STEPS"]),
         "K_steps": int(os.environ["HUMAN2ROBOT_P2_EXPECTED_K_STEPS"]),
@@ -161,6 +193,15 @@ def _write_optional_human2robot_p2_runtime_binding(config: Config) -> None:
         "tokenizer_checkpoint_path": os.environ[
             "HUMAN2ROBOT_P2_EXPECTED_TOKENIZER_PATH"
         ],
+        "pytorch_cuda_alloc_conf": os.environ[
+            "HUMAN2ROBOT_P2_EXPECTED_PYTORCH_CUDA_ALLOC_CONF"
+        ],
+        "torch_nccl_trace_buffer_size": "65536",
+        "torch_nccl_dump_on_timeout": "1",
+        "torch_nccl_desync_debug": "1",
+        "nccl_debug": "INFO",
+        "nccl_debug_subsys": "COLL",
+        "slow_sample_seconds": "5",
     }
     if actual != expected:
         raise RuntimeError(f"Formal Human2Robot P2 runtime mismatch: actual={actual}, expected={expected}")
@@ -188,13 +229,20 @@ def _write_optional_human2robot_p2_runtime_binding(config: Config) -> None:
 
     if rank == 0:
         payload = {
-            "schema_version": "human2robot-m5b-p2-runtime-binding-v1",
+            "schema_version": "human2robot-m5b-p2-runtime-binding-v2",
             "recorded_at_utc": datetime.now(timezone.utc).isoformat(),
             "cell_id": os.environ["HUMAN2ROBOT_P2_CELL_ID"],
             "experiment_id": os.environ["HUMAN2ROBOT_P2_EXPERIMENT_ID"],
             "variant_id": os.environ["HUMAN2ROBOT_P2_VARIANT_ID"],
             "method_id": os.environ["HUMAN2ROBOT_P2_METHOD_ID"],
             "protocol_file_sha256": os.environ["HUMAN2ROBOT_P2_PROTOCOL_SHA256"],
+            "four_gpu_successor_sha256": os.environ[
+                "HUMAN2ROBOT_P2_FOUR_GPU_SUCCESSOR_SHA256"
+            ],
+            "memory_successor_sha256": os.environ[
+                "HUMAN2ROBOT_P2_MEMORY_SUCCESSOR_SHA256"
+            ],
+            "io_successor_sha256": os.environ["HUMAN2ROBOT_P2_IO_SUCCESSOR_SHA256"],
             "code_sha256": os.environ["HUMAN2ROBOT_P2_CODE_SHA256"],
             "actual": actual,
             "distributed": {
@@ -249,6 +297,17 @@ def _write_optional_human2robot_p2_runtime_binding(config: Config) -> None:
                 "huggingface_offline": os.environ.get("HF_HUB_OFFLINE") == "1",
                 "transformers_offline": os.environ.get("TRANSFORMERS_OFFLINE") == "1",
                 "wandb_disabled": os.environ.get("WANDB_MODE") == "disabled",
+                "pytorch_cuda_alloc_conf": os.environ.get("PYTORCH_CUDA_ALLOC_CONF"),
+                "torch_nccl_trace_buffer_size": os.environ.get(
+                    "TORCH_NCCL_TRACE_BUFFER_SIZE"
+                ),
+                "torch_nccl_dump_on_timeout": os.environ.get("TORCH_NCCL_DUMP_ON_TIMEOUT"),
+                "torch_nccl_desync_debug": os.environ.get("TORCH_NCCL_DESYNC_DEBUG"),
+                "nccl_debug": os.environ.get("NCCL_DEBUG"),
+                "nccl_debug_subsys": os.environ.get("NCCL_DEBUG_SUBSYS"),
+                "slow_sample_seconds": os.environ.get(
+                    "HUMAN2ROBOT_P2_SLOW_SAMPLE_SECONDS"
+                ),
             },
         }
         binding_path = Path(binding_path_value)
@@ -271,10 +330,13 @@ def launch(config: Config, args: argparse.Namespace) -> None:
 
     # Check that the config is valid
     config.validate()
-    _write_optional_human2robot_p2_runtime_binding(config)
     # Freeze the config so developers don't change it during training.
     config.freeze()  # type: ignore
     trainer = config.trainer.type(config)
+    # ImaginaireTrainer initializes Megatron model/data-parallel groups in its
+    # constructor.  Bind the formal runtime only after those groups exist, but
+    # still before model construction, dataloading, or any optimizer step.
+    _write_optional_human2robot_p2_runtime_binding(config)
     # Setup the miscellaneous stuff for reproducibility.
     log_reproducible_setup(config, args)
 

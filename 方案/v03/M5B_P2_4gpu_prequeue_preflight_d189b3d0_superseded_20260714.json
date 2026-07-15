@@ -1,0 +1,128 @@
+{
+  "artifact_root": "/DATA1/wxs/ReCAP_M5B_P2_RUNS",
+  "blockers": [],
+  "docker": {
+    "formal_output_mount": {
+      "filesystem": "ext4",
+      "mount_options": [
+        "rw",
+        "relatime"
+      ],
+      "mount_point": "/DATA1",
+      "target_path": "/DATA1/wxs/ReCAP_M5B_P2_RUNS",
+      "writable": true
+    },
+    "inside_docker": true
+  },
+  "formal_queue_allowed": true,
+  "formal_queue_started": false,
+  "generated_at_utc": "2026-07-14T14:43:10.366183+00:00",
+  "gpu": {
+    "cuda_available": true,
+    "expected_gpu_count": 4,
+    "status": "passed",
+    "visible_gpu_count": 4
+  },
+  "inference_preflight": {
+    "blockers": [],
+    "formal_parameters": {
+      "final_clean_x0_prediction": true,
+      "guidance": 1.5,
+      "num_steps": 35,
+      "ode_steps": 34,
+      "sample_count_per_query_retrieval_rank": 1,
+      "scheduler": "native_rectified_flow_scheduler",
+      "shift": 5.0,
+      "use_kerras_sigma_at_inference": true,
+      "variance_scale": false
+    },
+    "formal_queue_allowed": false,
+    "sampler_contract": {
+      "method_signature": "(self, data_batch: 'Dict', guidance: 'float' = 1.5, seed: 'int' = 1, state_shape: 'Tuple | None' = None, n_sample: 'int | None' = None, is_negative_prompt: 'bool' = False, num_steps: 'int' = 35, shift: 'float | None' = None, use_variance_scale: 'bool' = False, return_orig_clean_latent_frames: 'bool' = False, **kwargs) -> 'torch.Tensor'",
+      "model_type": "cosmos_policy.models.policy_video2world_model_human2robot_ret.CosmosPolicyHuman2RobotRetModelRectifiedFlow",
+      "native_parameters_explicit": true,
+      "reason": null,
+      "scheduler": "native_rectified_flow_scheduler",
+      "shift": 5.0,
+      "status": "passed"
+    },
+    "schema_version": "human2robot-m5b-p2-inference-preflight-v1",
+    "status": "passed"
+  },
+  "infrastructure_blockers": [],
+  "launch_activation": {
+    "file_sha256": "690cea15b174c765b678a3678f0e6af350cc18a663a2708b1e4952df8aef8871",
+    "path": "/DATA1/wxs/ReCAP_M5B_P2_RUNS/launch_activation_v3.json",
+    "status": "approved"
+  },
+  "matrix": {
+    "all_cells_have_handlers": true,
+    "cell_count": 203,
+    "handler_count": 203,
+    "prepared_entry_count": 48,
+    "report_covered_evaluation_count": 147
+  },
+  "offline_environment": {
+    "current_probe_process_environment": {
+      "COSMOS_SKIP_HF_AUTO_DOWNLOAD": "1",
+      "HF_HUB_OFFLINE": "1",
+      "TRANSFORMERS_OFFLINE": "1",
+      "WANDB_DISABLED": "true",
+      "WANDB_MODE": "disabled"
+    },
+    "planned_handler_environment": {
+      "COSMOS_SKIP_HF_AUTO_DOWNLOAD": "1",
+      "HF_HUB_OFFLINE": "1",
+      "TRANSFORMERS_OFFLINE": "1",
+      "WANDB_DISABLED": "true",
+      "WANDB_MODE": "disabled"
+    },
+    "required": {
+      "COSMOS_SKIP_HF_AUTO_DOWNLOAD": "1",
+      "HF_HUB_OFFLINE": "1",
+      "TRANSFORMERS_OFFLINE": "1",
+      "WANDB_DISABLED": "true",
+      "WANDB_MODE": "disabled"
+    },
+    "status": "passed"
+  },
+  "schema_version": "human2robot-m5b-p2-prequeue-preflight-v3",
+  "source_snapshot": {
+    "candidate_code_sha256": "d189b3d0ef8d436f4ba9308839c8eb332e13aba3c8dc05ed3896846e01d83d6d",
+    "candidate_file_count": 731,
+    "expected_path": "/DATA1/wxs/ReCAP_M5B_P2_RUNS/source_snapshots/d189b3d0ef8d436f4ba9308839c8eb332e13aba3c8dc05ed3896846e01d83d6d",
+    "manifest_path": "/DATA1/wxs/ReCAP_M5B_P2_RUNS/source_snapshots/d189b3d0ef8d436f4ba9308839c8eb332e13aba3c8dc05ed3896846e01d83d6d/source_snapshot_manifest.json",
+    "materialized": true,
+    "status": "passed"
+  },
+  "status": "passed",
+  "storage": {
+    "free_bytes": 1200013615104,
+    "free_gib": 1117.5997695922852,
+    "minimum_free_gib": 35,
+    "probed_existing_path": "/DATA1/wxs/ReCAP_M5B_P2_RUNS",
+    "requested_path": "/DATA1/wxs/ReCAP_M5B_P2_RUNS",
+    "status": "passed"
+  },
+  "weights": {
+    "initialization_checkpoint": {
+      "actual_sha256": "565bbb2c9645737327983f4461e4d32627bba465b0a8dc26447edea144e1ff47",
+      "content_hash_verified": true,
+      "exists": true,
+      "expected_sha256": "565bbb2c9645737327983f4461e4d32627bba465b0a8dc26447edea144e1ff47",
+      "path": "/DATA1/wxs/_HUGGINGFACE/nvidia/Cosmos-Predict2.5-2B/base/post-trained/81edfebe-bd6a-4039-8c1d-737df1a790bf_ema_bf16.pt",
+      "size_bytes": 4118575006,
+      "status": "passed"
+    },
+    "tokenizer": {
+      "actual_sha256": "38071ab59bd94681c686fa51d75a1968f64e470262043be31f7a094e442fd981",
+      "content_hash_verified": true,
+      "exists": true,
+      "expected_sha256": "38071ab59bd94681c686fa51d75a1968f64e470262043be31f7a094e442fd981",
+      "path": "/DATA1/wxs/_HUGGINGFACE/nvidia/Cosmos-Predict2.5-2B/tokenizer.pth",
+      "size_bytes": 507609880,
+      "status": "passed"
+    }
+  },
+  "workspace": "/workspace"
+}
