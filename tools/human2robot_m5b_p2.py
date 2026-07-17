@@ -33,18 +33,21 @@ from tools.human2robot_m5b_p2_matrix import (
     FOUR_GPU_SUCCESSOR_SHA256,
     FOUR_GPU_WORLD_SIZE,
     IO_DIAGNOSTIC_ENV,
+    IO_DIAGNOSTIC_ENV_V5,
     IO_SUCCESSOR_SHA256,
+    LOGGING_SUCCESSOR_SHA256,
     MEMORY_SUCCESSOR_SHA256,
     PYTORCH_CUDA_ALLOC_CONF,
     load_execution_matrix,
     validate_four_gpu_successor,
     validate_io_successor,
+    validate_logging_successor,
     validate_memory_successor,
 )
 from tools.human2robot_m5b_p2_registry import build_candidate_registry
 
-SCHEMA_VERSION = "human2robot-m5b-p2-run-manifest-v5"
-CELL_SCHEMA_VERSION = "human2robot-m5b-p2-cell-manifest-v5"
+SCHEMA_VERSION = "human2robot-m5b-p2-run-manifest-v6"
+CELL_SCHEMA_VERSION = "human2robot-m5b-p2-cell-manifest-v6"
 GATE_ID = "M5B-P2-RUN-COMPLETENESS"
 PROTOCOL_ID = "m5b_v03_preregistered_3seed_formal_v1"
 PROTOCOL_SHA256 = "7598dfa2ac2e129f5d21a295dad23b90f63c3c8e68811da73cbcc20eb95d5ce4"
@@ -102,15 +105,17 @@ FROZEN_CELL_COUNTS = {
 FROZEN_CELL_COUNT = 203
 FORMAL_OUTPUT_ROOT = Path("/DATA1/wxs/ReCAP_M5B_P2_RUNS")
 RUN_MANIFEST_RELATIVE_PATH = Path(
+    "data/Human2Robot/derived/m5b_v03/run_manifest_v6.json"
+)
+LEGACY_RUN_MANIFEST_RELATIVE_PATH = Path(
     "data/Human2Robot/derived/m5b_v03/run_manifest_v5.json"
 )
-LAUNCH_ACTIVATION_FILENAME = "launch_activation_v5.json"
+LAUNCH_ACTIVATION_FILENAME = "launch_activation_v6.json"
 RUNTIME_DIAGNOSTIC_FIELDS = {
     "TORCH_NCCL_TRACE_BUFFER_SIZE": "torch_nccl_trace_buffer_size",
     "TORCH_NCCL_DUMP_ON_TIMEOUT": "torch_nccl_dump_on_timeout",
     "TORCH_NCCL_DESYNC_DEBUG": "torch_nccl_desync_debug",
     "NCCL_DEBUG": "nccl_debug",
-    "NCCL_DEBUG_SUBSYS": "nccl_debug_subsys",
     "HUMAN2ROBOT_P2_SLOW_SAMPLE_SECONDS": "slow_sample_seconds",
 }
 FORMAL_SEEDS = (20260711, 20260712, 20260713)
@@ -230,8 +235,12 @@ REQUIRED_CHECKPOINT_BINDINGS = PARENT_REQUIRED_CHECKPOINT_BINDINGS + (
     "four_gpu_successor_sha256",
     "memory_successor_sha256",
     "io_successor_sha256",
+    "logging_successor_sha256",
     "pytorch_cuda_alloc_conf",
     "diagnostic_environment",
+)
+LEGACY_REQUIRED_CHECKPOINT_BINDINGS = tuple(
+    key for key in REQUIRED_CHECKPOINT_BINDINGS if key != "logging_successor_sha256"
 )
 
 
@@ -972,19 +981,24 @@ def base_bindings(cell: MainTrainingCell, code_sha256: str) -> dict[str, Any]:
         "four_gpu_successor_sha256": FOUR_GPU_SUCCESSOR_SHA256,
         "memory_successor_sha256": MEMORY_SUCCESSOR_SHA256,
         "io_successor_sha256": IO_SUCCESSOR_SHA256,
+        "logging_successor_sha256": LOGGING_SUCCESSOR_SHA256,
         "pytorch_cuda_alloc_conf": PYTORCH_CUDA_ALLOC_CONF,
         "diagnostic_environment": dict(IO_DIAGNOSTIC_ENV),
     }
 
 
-def validate_binding_keys(bindings: dict[str, Any]) -> None:
-    require(tuple(bindings.keys()) == REQUIRED_CHECKPOINT_BINDINGS, "Checkpoint binding keys/order changed")
+def validate_binding_keys(bindings: dict[str, Any], *, allow_legacy: bool = False) -> None:
+    expected = {REQUIRED_CHECKPOINT_BINDINGS}
+    if allow_legacy:
+        expected.add(LEGACY_REQUIRED_CHECKPOINT_BINDINGS)
+    require(tuple(bindings.keys()) in expected, "Checkpoint binding keys/order changed")
 
 
 def initial_cell_record(cell: MainTrainingCell, output_root: Path, code_sha256: str) -> dict[str, Any]:
     bindings = base_bindings(cell, code_sha256)
     validate_binding_keys(bindings)
     run_directory = expected_run_directory(output_root, cell)
+    log_directory = output_root / "orchestrator_logs" / cell.cell_id
     return {
         **asdict(cell),
         "cell_id": cell.cell_id,
@@ -995,10 +1009,35 @@ def initial_cell_record(cell: MainTrainingCell, output_root: Path, code_sha256: 
         "runtime_binding_path": str(run_directory / "m5b_p2_runtime_binding.json"),
         "cell_manifest_path": str(run_directory / "m5b_p2_cell_manifest.json"),
         "registry_artifact_path": str(output_root / "cells" / cell.cell_id / "artifact.json"),
-        "log_path": str(output_root / "orchestrator_logs" / f"{cell.cell_id}.log"),
+        "log_directory": str(log_directory),
+        "latest_log_pointer_path": str(log_directory / "latest_log.json"),
         "bindings": bindings,
         "saved_steps_expected": list(SAVED_STEPS),
     }
+
+
+def attempt_log_path(record: Mapping[str, Any]) -> Path:
+    attempt_count = int(record.get("attempt_count", 0))
+    require(attempt_count > 0, "Attempt log path requires a positive attempt count")
+    log_directory_value = record.get("log_directory")
+    require(isinstance(log_directory_value, str) and log_directory_value, "Attempt log directory missing")
+    return Path(log_directory_value) / f"attempt_{attempt_count:04d}.log"
+
+
+def write_latest_log_pointer(record: Mapping[str, Any], *, status: str) -> None:
+    pointer_path_value = record.get("latest_log_pointer_path")
+    require(isinstance(pointer_path_value, str) and pointer_path_value, "Latest-log pointer path missing")
+    write_json_atomic(
+        Path(pointer_path_value),
+        {
+            "schema_version": "human2robot-m5b-p2-latest-log-pointer-v1",
+            "cell_id": record["cell_id"],
+            "attempt_count": int(record["attempt_count"]),
+            "attempt_log_path": record["log_path"],
+            "status": status,
+            "updated_at_utc": utc_now(),
+        },
+    )
 
 
 def build_master_manifest(
@@ -1012,6 +1051,7 @@ def build_master_manifest(
     four_gpu_successor: dict[str, Any],
     memory_successor: dict[str, Any],
     io_successor: dict[str, Any],
+    logging_successor: dict[str, Any],
     frozen_cell_registry: dict[str, Any],
 ) -> dict[str, Any]:
     cells = [initial_cell_record(cell, output_root, source["code_sha256"]) for cell in main_training_cells()]
@@ -1055,6 +1095,7 @@ def build_master_manifest(
         "four_gpu_successor": four_gpu_successor,
         "memory_successor": memory_successor,
         "io_successor": io_successor,
+        "logging_successor": logging_successor,
         "frozen_cell_registry": frozen_cell_registry,
         "protocol_experiment_coverage": coverage,
         "implemented_main_training_cells": cells,
@@ -1131,6 +1172,46 @@ def update_master_acceptance(master: dict[str, Any]) -> None:
     master["updated_at_utc"] = utc_now()
 
 
+def import_completed_v5_cells(workspace: Path, master: dict[str, Any]) -> list[str]:
+    legacy_path = workspace / LEGACY_RUN_MANIFEST_RELATIVE_PATH
+    if not legacy_path.is_file():
+        return []
+    legacy = read_json(legacy_path)
+    require(
+        legacy.get("schema_version") == "human2robot-m5b-p2-run-manifest-v5",
+        "Legacy run manifest schema mismatch",
+    )
+    legacy_completed = {
+        record["cell_id"]: record
+        for record in legacy.get("learned_training_cells", [])
+        if record.get("status") == "completed" and record.get("formal_result") is True
+    }
+    imported: list[str] = []
+    cells = master["learned_training_cells"]
+    for index, record in enumerate(cells):
+        legacy_record = legacy_completed.get(record["cell_id"])
+        if legacy_record is None:
+            continue
+        artifact_path = Path(legacy_record["registry_artifact_path"])
+        require(artifact_path.is_file(), f"Legacy completed artifact missing: {artifact_path}")
+        require(
+            file_sha256(artifact_path) == legacy_record.get("registry_artifact_sha256"),
+            f"Legacy completed artifact hash mismatch: {artifact_path}",
+        )
+        artifact = read_json(artifact_path)
+        require(
+            artifact.get("source_code_sha256")
+            == legacy_record.get("bindings", {}).get("code_sha256"),
+            f"Legacy completed artifact source binding mismatch: {record['cell_id']}",
+        )
+        cells[index] = legacy_record
+        imported.append(record["cell_id"])
+    master["implemented_main_training_cells"] = cells
+    master["legacy_v5_completed_cells_imported"] = imported
+    update_master_acceptance(master)
+    return imported
+
+
 def prepare(workspace: Path, output_root: Path) -> dict[str, Any]:
     require_full_docker_environment()
     protocol = validate_protocol(workspace)
@@ -1138,6 +1219,7 @@ def prepare(workspace: Path, output_root: Path) -> dict[str, Any]:
     four_gpu_successor = validate_four_gpu_successor(workspace)
     memory_successor = validate_memory_successor(workspace)
     io_successor = validate_io_successor(workspace)
+    logging_successor = validate_logging_successor(workspace)
     frozen_cell_registry = validate_frozen_cell_registry(workspace)
     prerequisites = validate_prerequisites(workspace)
     paths = source_paths(workspace)
@@ -1162,17 +1244,28 @@ def prepare(workspace: Path, output_root: Path) -> dict[str, Any]:
         four_gpu_successor,
         memory_successor,
         io_successor,
+        logging_successor,
         frozen_cell_registry,
     )
+    import_completed_v5_cells(workspace, master)
     write_json_atomic(manifest_path, master)
     return master
 
 
 def verify_runtime_binding(path: Path, cell: MainTrainingCell, code_sha256: str) -> dict[str, Any]:
     binding = read_json(path)
+    schema_version = binding.get("schema_version")
     require(
-        binding.get("schema_version") == "human2robot-m5b-p2-runtime-binding-v2",
+        schema_version
+        in {
+            "human2robot-m5b-p2-runtime-binding-v2",
+            "human2robot-m5b-p2-runtime-binding-v3",
+        },
         "Runtime binding schema mismatch",
+    )
+    legacy_v5_runtime = schema_version == "human2robot-m5b-p2-runtime-binding-v2"
+    expected_diagnostic_environment = (
+        IO_DIAGNOSTIC_ENV_V5 if legacy_v5_runtime else IO_DIAGNOSTIC_ENV
     )
     require(binding.get("cell_id") == cell.cell_id, "Runtime cell ID mismatch")
     require(binding.get("experiment_id") == cell.experiment_id, "Runtime experiment ID mismatch")
@@ -1191,6 +1284,11 @@ def verify_runtime_binding(path: Path, cell: MainTrainingCell, code_sha256: str)
         binding.get("io_successor_sha256") == IO_SUCCESSOR_SHA256,
         "Runtime I/O-successor hash mismatch",
     )
+    if not legacy_v5_runtime:
+        require(
+            binding.get("logging_successor_sha256") == LOGGING_SUCCESSOR_SHA256,
+            "Runtime logging-successor hash mismatch",
+        )
     require(binding.get("code_sha256") == code_sha256, "Runtime code hash mismatch")
     actual = binding.get("actual", {})
     require(actual.get("world_size") == FIXED_WORLD_SIZE, "Runtime global world size mismatch")
@@ -1219,12 +1317,14 @@ def verify_runtime_binding(path: Path, cell: MainTrainingCell, code_sha256: str)
         actual.get("pytorch_cuda_alloc_conf") == PYTORCH_CUDA_ALLOC_CONF,
         "Runtime PyTorch CUDA allocator setting mismatch",
     )
+    actual_diagnostic_environment = {
+        environment_name: actual.get(field_name)
+        for environment_name, field_name in RUNTIME_DIAGNOSTIC_FIELDS.items()
+    }
+    if legacy_v5_runtime:
+        actual_diagnostic_environment["NCCL_DEBUG_SUBSYS"] = actual.get("nccl_debug_subsys")
     require(
-        {
-            environment_name: actual.get(field_name)
-            for environment_name, field_name in RUNTIME_DIAGNOSTIC_FIELDS.items()
-        }
-        == IO_DIAGNOSTIC_ENV,
+        actual_diagnostic_environment == expected_diagnostic_environment,
         "Runtime NCCL/data timing diagnostics mismatch",
     )
     require(actual.get("sampler_seed") == cell.seed, "Runtime sampler seed mismatch")
@@ -1280,12 +1380,16 @@ def verify_runtime_binding(path: Path, cell: MainTrainingCell, code_sha256: str)
         == PYTORCH_CUDA_ALLOC_CONF,
         "PyTorch CUDA allocator runtime binding mismatch",
     )
+    bound_diagnostic_environment = {
+        environment_name: binding.get("environment", {}).get(field_name)
+        for environment_name, field_name in RUNTIME_DIAGNOSTIC_FIELDS.items()
+    }
+    if legacy_v5_runtime:
+        bound_diagnostic_environment["NCCL_DEBUG_SUBSYS"] = binding.get("environment", {}).get(
+            "nccl_debug_subsys"
+        )
     require(
-        {
-            environment_name: binding.get("environment", {}).get(field_name)
-            for environment_name, field_name in RUNTIME_DIAGNOSTIC_FIELDS.items()
-        }
-        == IO_DIAGNOSTIC_ENV,
+        bound_diagnostic_environment == expected_diagnostic_environment,
         "Runtime binding diagnostic environment mismatch",
     )
     return binding
@@ -1307,10 +1411,13 @@ def audit_completed_cell(
     payload_hash = checkpoint_payload_sha256(primary_path)
     resolved_config_path = run_directory / "config.yaml"
     require(resolved_config_path.is_file(), f"Resolved config missing: {resolved_config_path}")
-    bindings = base_bindings(cell, code_sha256)
-    validate_binding_keys(bindings)
+    legacy_v5_runtime = runtime.get("schema_version") == "human2robot-m5b-p2-runtime-binding-v2"
+    bindings = dict(record.get("bindings", base_bindings(cell, code_sha256)))
+    validate_binding_keys(bindings, allow_legacy=legacy_v5_runtime)
     checkpoint_manifest = {
-        "schema_version": CELL_SCHEMA_VERSION,
+        "schema_version": (
+            "human2robot-m5b-p2-cell-manifest-v5" if legacy_v5_runtime else CELL_SCHEMA_VERSION
+        ),
         "status": "completed",
         "formal_result": True,
         "completed_at_utc": utc_now(),
@@ -1381,6 +1488,7 @@ def training_command(
     config_path = snapshot_path / config_relative_path
     require(config_path.is_file(), f"Snapshot config missing: {config_path}")
     env = os.environ.copy()
+    env.pop("NCCL_DEBUG_SUBSYS", None)
     env.update(
         {
             "COSMOS_SKIP_HF_AUTO_DOWNLOAD": "1",
@@ -1404,6 +1512,7 @@ def training_command(
             "HUMAN2ROBOT_P2_FOUR_GPU_SUCCESSOR_SHA256": FOUR_GPU_SUCCESSOR_SHA256,
             "HUMAN2ROBOT_P2_MEMORY_SUCCESSOR_SHA256": MEMORY_SUCCESSOR_SHA256,
             "HUMAN2ROBOT_P2_IO_SUCCESSOR_SHA256": IO_SUCCESSOR_SHA256,
+            "HUMAN2ROBOT_P2_LOGGING_SUCCESSOR_SHA256": LOGGING_SUCCESSOR_SHA256,
             "HUMAN2ROBOT_P2_CODE_SHA256": record["bindings"]["code_sha256"],
             "HUMAN2ROBOT_P2_CELL_ID": cell.cell_id,
             "HUMAN2ROBOT_P2_EXPERIMENT_ID": cell.experiment_id,
@@ -1476,7 +1585,7 @@ def _run_cell_unlocked(workspace: Path, cell_id: str) -> dict[str, Any]:
     require(cell_id in cell_map, f"Unsupported main training cell: {cell_id}")
     cell = cell_map[cell_id]
     record = find_cell_record(master, cell_id)
-    code_sha256 = master["source_snapshot"]["code_sha256"]
+    code_sha256 = record["bindings"]["code_sha256"]
     if record.get("status") == "completed":
         evidence = audit_completed_cell(record, cell, code_sha256)
         record.update(evidence)
@@ -1488,6 +1597,16 @@ def _run_cell_unlocked(workspace: Path, cell_id: str) -> dict[str, Any]:
     record["formal_result"] = False
     record["attempt_count"] = int(record.get("attempt_count", 0)) + 1
     record["attempt_started_at_utc"] = utc_now()
+    log_path = attempt_log_path(record)
+    record["log_path"] = str(log_path)
+    record.setdefault("attempt_logs", []).append(
+        {
+            "attempt_count": record["attempt_count"],
+            "path": str(log_path),
+            "started_at_utc": record["attempt_started_at_utc"],
+            "status": "running",
+        }
+    )
     record.pop("failure", None)
     update_master_acceptance(master)
     write_json_atomic(manifest_path, master)
@@ -1498,10 +1617,10 @@ def _run_cell_unlocked(workspace: Path, cell_id: str) -> dict[str, Any]:
     record["launch_command"] = command
     record["resume_policy"] = "resume only from this cell's latest valid DCP; never impute"
     write_json_atomic(manifest_path, master)
-    log_path = Path(record["log_path"])
     log_path.parent.mkdir(parents=True, exist_ok=True)
+    write_latest_log_pointer(record, status="running")
     try:
-        with log_path.open("ab", buffering=0) as log_handle:
+        with log_path.open("xb", buffering=0) as log_handle:
             process = subprocess.run(
                 command,
                 cwd=snapshot_path,
@@ -1511,19 +1630,26 @@ def _run_cell_unlocked(workspace: Path, cell_id: str) -> dict[str, Any]:
                 check=False,
             )
         record["last_exit_code"] = process.returncode
+        record["attempt_logs"][-1]["exit_code"] = process.returncode
         if process.returncode != 0:
             raise P2Error(f"Formal training process exited with code {process.returncode}")
         evidence = audit_completed_cell(record, cell, code_sha256)
         record.update(evidence)
+        record["attempt_logs"][-1]["status"] = "completed"
+        record["attempt_logs"][-1]["completed_at_utc"] = utc_now()
+        write_latest_log_pointer(record, status="completed")
     except BaseException as error:
         record["status"] = "failed"
         record["formal_result"] = False
+        record["attempt_logs"][-1]["status"] = "failed"
+        record["attempt_logs"][-1]["failed_at_utc"] = utc_now()
         record["failure"] = {
             "recorded_at_utc": utc_now(),
             "type": type(error).__name__,
             "message": str(error),
             "no_imputation": True,
         }
+        write_latest_log_pointer(record, status="failed")
         update_master_acceptance(master)
         write_json_atomic(manifest_path, master)
         raise
@@ -1610,9 +1736,9 @@ def _queue_implemented_main_subset_unlocked(workspace: Path) -> dict[str, Any]:
 def audit(workspace: Path) -> dict[str, Any]:
     require_full_docker_environment()
     manifest_path, master = load_master(workspace)
-    code_sha256 = master["source_snapshot"]["code_sha256"]
     for cell in main_training_cells():
         record = find_cell_record(master, cell.cell_id)
+        code_sha256 = record["bindings"]["code_sha256"]
         try:
             evidence = audit_completed_cell(record, cell, code_sha256)
         except P2Error as error:

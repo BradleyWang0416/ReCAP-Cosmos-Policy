@@ -1,0 +1,77 @@
+{
+  "authorization": {
+    "approved_at_local_date": "2026-07-17",
+    "basis": "user directive: 进行这项修复",
+    "frozen_at_utc": "2026-07-17T04:18:53Z"
+  },
+  "claim_boundary": {
+    "contains_new_successful_cell_result": false,
+    "formal_queue_allowed": false,
+    "m6_rollout_approved": false,
+    "p2_acceptance_allowed": false,
+    "runtime_performance_status": "NEEDS_EXPERIMENT"
+  },
+  "frozen_logging_delta": {
+    "attempt_log_naming": "attempt_{attempt_count:04d}.log",
+    "attempt_log_open_mode": "exclusive_create",
+    "attempt_logs_are_immutable": true,
+    "latest_log_pointer": "latest_log.json",
+    "legacy_logs_mutated": false,
+    "nccl_collective_info_enabled_during_normal_training": false,
+    "normal_training_environment": {
+      "HUMAN2ROBOT_P2_SLOW_SAMPLE_SECONDS": "5",
+      "NCCL_DEBUG": "WARN",
+      "TORCH_NCCL_DESYNC_DEBUG": "1",
+      "TORCH_NCCL_DUMP_ON_TIMEOUT": "1",
+      "TORCH_NCCL_TRACE_BUFFER_SIZE": "65536"
+    },
+    "scope": "Logging-only successor: preserve timeout traces and slow-sample diagnostics, disable per-collective INFO/COLL output in normal training, and isolate each retry in an immutable attempt log.",
+    "short_diagnostic_replay_policy": "NCCL_DEBUG=INFO and NCCL_DEBUG_SUBSYS=COLL are allowed only in a separately named, explicitly launched short diagnostic replay; never in a normal formal cell."
+  },
+  "implementation_binding": {
+    "orchestrator_path": "tools/human2robot_m5b_p2.py",
+    "orchestrator_sha256": "3a86511da72fa51811d1ebdca72e3d6c12fb7dd22644dc5dc00794bb0f552e70",
+    "regression_test_path": "tools/human2robot_m5b_p2_test.py",
+    "regression_test_sha256": "2796c8921da45e23bac7a22100471a5804dc9d3f14456090ca3ea86d85772732",
+    "runtime_binding_path": "cosmos_policy/scripts/train.py",
+    "runtime_binding_sha256": "d379dafbaa5e58e66442ff60a51381d7d2f756c01713552467a7bab2bd3a1862"
+  },
+  "inherited_exact_runtime": {
+    "batch_size_per_data_parallel_rank": 25,
+    "data_parallel_world_size": 4,
+    "effective_global_batch_size": 200,
+    "fsdp_shard_size": 4,
+    "gradient_accumulation_steps": 2,
+    "max_optimizer_steps": 7000,
+    "precision": "bfloat16",
+    "pytorch_cuda_alloc_conf": "expandable_segments:True",
+    "save_every_optimizer_steps": 1000,
+    "world_size": 4
+  },
+  "observed_failure_basis": {
+    "bytes_from_nccl_info": 1322687585,
+    "cell_id": "learned_training_checkpoint__M5B-MAIN-01__frozen_main__no_retrieval__seed20260711",
+    "formal_result_changed": false,
+    "legacy_log_bytes": 1324701780,
+    "legacy_log_path": "/DATA1/wxs/ReCAP_M5B_P2_RUNS/orchestrator_logs/learned_training_checkpoint__M5B-MAIN-01__frozen_main__no_retrieval__seed20260711.log",
+    "nccl_info_byte_fraction": 0.99848,
+    "nccl_info_line_count": 6936345,
+    "total_line_count": 6956943
+  },
+  "parent": {
+    "formal_protocol_sha256": "7598dfa2ac2e129f5d21a295dad23b90f63c3c8e68811da73cbcc20eb95d5ce4",
+    "io_successor_path": "方案/v03/M5B_P2_io_successor_v5.json",
+    "io_successor_sha256": "844f44c8e39178582f4a1cf7dcc5d16d510aad262e22104ff11eb93666d8fde2"
+  },
+  "schema_version": "human2robot-m5b-p2-logging-successor-v6",
+  "status": "frozen_approved_logging_successor",
+  "successor_id": "m5b_p2_warn_and_immutable_attempt_logs_v6",
+  "version_migration": {
+    "legacy_v5_completed_cells_may_be_imported_read_only": true,
+    "new_final_acceptance_artifact": "/DATA1/wxs/ReCAP_M5B_P2_RUNS/final_acceptance_v6.json",
+    "new_launch_activation_artifact": "/DATA1/wxs/ReCAP_M5B_P2_RUNS/launch_activation_v6.json",
+    "new_run_manifest": "data/Human2Robot/derived/m5b_v03/run_manifest_v6.json",
+    "old_v5_activation_authorizes_logging_successor": false,
+    "old_v5_logs_retained": true
+  }
+}

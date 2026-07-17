@@ -152,7 +152,7 @@ def run_preflight(
     source = source_manifest(workspace, source_paths(workspace))
     source_snapshot_path = artifact_root / "source_snapshots" / source["code_sha256"]
     source_snapshot_manifest = source_snapshot_path / "source_snapshot_manifest.json"
-    launch_activation_path = artifact_root / "launch_activation_v5.json"
+    launch_activation_path = artifact_root / "launch_activation_v6.json"
     mount = mount_binding(artifact_root)
     storage = _storage_probe(artifact_root)
     weights = {
@@ -210,7 +210,7 @@ def run_preflight(
             "status": "not_required_for_pre_activation_probe",
         }
     elif not launch_activation_path.is_file():
-        infrastructure_blockers.append("launch_activation_v5_not_issued")
+        infrastructure_blockers.append("launch_activation_v6_not_issued")
         launch_activation = {"path": str(launch_activation_path), "status": "missing"}
     else:
         try:
@@ -229,7 +229,7 @@ def run_preflight(
             if activation_payload.get("docker_suite_receipt_sha256") != file_sha256(receipt_path):
                 raise HandlerContractError("Launch activation Docker-suite receipt hash mismatch")
         except (json.JSONDecodeError, HandlerContractError) as error:
-            infrastructure_blockers.append("launch_activation_v5_invalid")
+            infrastructure_blockers.append("launch_activation_v6_invalid")
             launch_activation = {
                 "path": str(launch_activation_path),
                 "status": "invalid",
@@ -249,7 +249,7 @@ def run_preflight(
         blockers=blockers,
     )
     return {
-        "schema_version": "human2robot-m5b-p2-prequeue-preflight-v5",
+        "schema_version": "human2robot-m5b-p2-prequeue-preflight-v6",
         "generated_at_utc": utc_now(),
         "status": "passed" if not blockers else "blocked",
         "formal_queue_allowed": formal_queue_allowed,

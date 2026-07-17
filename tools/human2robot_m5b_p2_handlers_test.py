@@ -28,6 +28,7 @@ from tools.human2robot_m5b_p2_matrix import (
     IO_SUCCESSOR_SHA256,
     LAG_VIEW_MANIFEST_SHA256,
     MEMORY_SUCCESSOR_SHA256,
+    LOGGING_SUCCESSOR_SHA256,
     PREPARED_MANIFEST_SHA256,
     PYTORCH_CUDA_ALLOC_CONF,
     SUPPLEMENT_SHA256,
@@ -80,7 +81,7 @@ def test_training_eval_and_report_commands_are_separate(matrix) -> None:
     report = next(plan for plan in plans.values() if plan.artifact_kind == "aggregate_report")
     assert "tools.human2robot_m5b_p2" in training.command
     assert training.gpu_count == 4
-    assert any(value.endswith("/launch_activation_v5.json") for value in training.command)
+    assert any(value.endswith("/launch_activation_v6.json") for value in training.command)
     assert "--activation-path" in training.command
     assert "tools.human2robot_m5b_p2_inference" in evaluation.command
     assert "--activation-path" in evaluation.command
@@ -117,7 +118,7 @@ def test_activation_fails_closed_even_if_user_supplies_optimistic_flags(matrix) 
 
 def test_complete_launch_activation_opens_queue_but_not_p2_acceptance(matrix) -> None:
     activation = {
-        "schema_version": "human2robot-m5b-p2-launch-activation-v5",
+        "schema_version": "human2robot-m5b-p2-launch-activation-v6",
         "status": "approved",
         "launch_authorized": True,
         "formal_queue_allowed": True,
@@ -127,6 +128,7 @@ def test_complete_launch_activation_opens_queue_but_not_p2_acceptance(matrix) ->
         "four_gpu_successor_sha256": FOUR_GPU_SUCCESSOR_SHA256,
         "memory_successor_sha256": MEMORY_SUCCESSOR_SHA256,
         "io_successor_sha256": IO_SUCCESSOR_SHA256,
+        "logging_successor_sha256": LOGGING_SUCCESSOR_SHA256,
         "indexed_hdf5_image_reads": True,
         "diagnostic_environment": IO_DIAGNOSTIC_ENV,
         "pytorch_cuda_alloc_conf": PYTORCH_CUDA_ALLOC_CONF,

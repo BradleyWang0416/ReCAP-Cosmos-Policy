@@ -76,6 +76,22 @@ FINAL_ACCEPTANCE_SCHEMA_V5_RELATIVE_PATH = Path(
 FINAL_ACCEPTANCE_SCHEMA_V5_LOCK_RELATIVE_PATH = Path(
     "方案/v03/M5B_P2_final_acceptance_schema_v5.lock.json"
 )
+LOGGING_SUCCESSOR_RELATIVE_PATH = Path("方案/v03/M5B_P2_logging_successor_v6.json")
+LOGGING_SUCCESSOR_LOCK_RELATIVE_PATH = Path(
+    "方案/v03/M5B_P2_logging_successor_v6.lock.json"
+)
+LAUNCH_ACTIVATION_SCHEMA_V6_RELATIVE_PATH = Path(
+    "方案/v03/M5B_P2_launch_activation_schema_v6.json"
+)
+LAUNCH_ACTIVATION_SCHEMA_V6_LOCK_RELATIVE_PATH = Path(
+    "方案/v03/M5B_P2_launch_activation_schema_v6.lock.json"
+)
+FINAL_ACCEPTANCE_SCHEMA_V6_RELATIVE_PATH = Path(
+    "方案/v03/M5B_P2_final_acceptance_schema_v6.json"
+)
+FINAL_ACCEPTANCE_SCHEMA_V6_LOCK_RELATIVE_PATH = Path(
+    "方案/v03/M5B_P2_final_acceptance_schema_v6.lock.json"
+)
 
 REGISTRY_SHA256 = "502cc57d41c7e4829e872ac95a258d7dc1e8d0d8a27ddfc3cf0315d4d31ef2d6"
 REGISTRY_CELLS_SHA256 = "cea1bbc669ff02e7c22f3511b84a136a255ea27dae60a4356876d8cd74b3be12"
@@ -119,13 +135,30 @@ FINAL_ACCEPTANCE_SCHEMA_V5_SHA256 = "a77f9f4800ee697aeba532f76842e49023e014ff03c
 FINAL_ACCEPTANCE_SCHEMA_V5_LOCK_SHA256 = (
     "f4eb5f418297745e51c2a3122fc6e41d25d999b01971afd75ff85d61c283b1fa"
 )
+LOGGING_SUCCESSOR_SHA256 = "ca391656442f18d1881143988f13c51aacbe9a749844c79844527adf6cb55d18"
+LOGGING_SUCCESSOR_LOCK_SHA256 = "7b4b80023f5ca837f115534e0fda55bd55775da729f8dd988bb58c70e388aa68"
+LAUNCH_ACTIVATION_SCHEMA_V6_SHA256 = "3b2e022fa0cfb828238d01cfa6485bf820f077164e5e0ea5b2980ef8dcd50663"
+LAUNCH_ACTIVATION_SCHEMA_V6_LOCK_SHA256 = (
+    "2612a0a9792620ae7450fe2e9f18d5c146436f73118ee0bafff13938dd2c58c4"
+)
+FINAL_ACCEPTANCE_SCHEMA_V6_SHA256 = "95f43edfbb1864c80a6755de108135fbab0f26b8da73163ea17e39dcfc3778f4"
+FINAL_ACCEPTANCE_SCHEMA_V6_LOCK_SHA256 = (
+    "abb7ee51959ecdd30071736cca4c58d124184ee4ab85f50679662778def28ea1"
+)
 PYTORCH_CUDA_ALLOC_CONF = "expandable_segments:True"
-IO_DIAGNOSTIC_ENV = {
+IO_DIAGNOSTIC_ENV_V5 = {
     "TORCH_NCCL_TRACE_BUFFER_SIZE": "65536",
     "TORCH_NCCL_DUMP_ON_TIMEOUT": "1",
     "TORCH_NCCL_DESYNC_DEBUG": "1",
     "NCCL_DEBUG": "INFO",
     "NCCL_DEBUG_SUBSYS": "COLL",
+    "HUMAN2ROBOT_P2_SLOW_SAMPLE_SECONDS": "5",
+}
+IO_DIAGNOSTIC_ENV = {
+    "TORCH_NCCL_TRACE_BUFFER_SIZE": "65536",
+    "TORCH_NCCL_DUMP_ON_TIMEOUT": "1",
+    "TORCH_NCCL_DESYNC_DEBUG": "1",
+    "NCCL_DEBUG": "WARN",
     "HUMAN2ROBOT_P2_SLOW_SAMPLE_SECONDS": "5",
 }
 
@@ -396,8 +429,8 @@ def validate_io_successor(workspace: Path) -> dict[str, Any]:
         "I/O successor changes optimizer or batch semantics",
     )
     _require(
-        successor.get("frozen_diagnostic_environment") == IO_DIAGNOSTIC_ENV,
-        "I/O diagnostic environment changed",
+        successor.get("frozen_diagnostic_environment") == IO_DIAGNOSTIC_ENV_V5,
+        "Frozen v5 I/O diagnostic environment changed",
     )
     inherited = successor.get("inherited_exact_runtime", {})
     expected_runtime = {
@@ -446,9 +479,111 @@ def validate_io_successor(workspace: Path) -> dict[str, Any]:
         "file_sha256": IO_SUCCESSOR_SHA256,
         "lock_path": IO_SUCCESSOR_LOCK_RELATIVE_PATH.as_posix(),
         "lock_file_sha256": IO_SUCCESSOR_LOCK_SHA256,
-        "diagnostic_environment": dict(IO_DIAGNOSTIC_ENV),
+        "diagnostic_environment": dict(IO_DIAGNOSTIC_ENV_V5),
         "indexed_hdf5_image_reads": True,
         "contains_successful_cell_result": False,
+        "passes_p2": False,
+    }
+
+
+def validate_logging_successor(workspace: Path) -> dict[str, Any]:
+    """Validate the v6 normal-logging successor without rewriting v5 history."""
+
+    exact_files = {
+        LOGGING_SUCCESSOR_RELATIVE_PATH: LOGGING_SUCCESSOR_SHA256,
+        LOGGING_SUCCESSOR_LOCK_RELATIVE_PATH: LOGGING_SUCCESSOR_LOCK_SHA256,
+        LAUNCH_ACTIVATION_SCHEMA_V6_RELATIVE_PATH: LAUNCH_ACTIVATION_SCHEMA_V6_SHA256,
+        LAUNCH_ACTIVATION_SCHEMA_V6_LOCK_RELATIVE_PATH: LAUNCH_ACTIVATION_SCHEMA_V6_LOCK_SHA256,
+        FINAL_ACCEPTANCE_SCHEMA_V6_RELATIVE_PATH: FINAL_ACCEPTANCE_SCHEMA_V6_SHA256,
+        FINAL_ACCEPTANCE_SCHEMA_V6_LOCK_RELATIVE_PATH: FINAL_ACCEPTANCE_SCHEMA_V6_LOCK_SHA256,
+    }
+    for relative_path, expected_sha256 in exact_files.items():
+        _require(
+            file_sha256(workspace / relative_path) == expected_sha256,
+            f"Frozen logging-successor artifact changed: {relative_path}",
+        )
+
+    successor = _read_json(workspace / LOGGING_SUCCESSOR_RELATIVE_PATH)
+    _require(
+        successor.get("schema_version") == "human2robot-m5b-p2-logging-successor-v6",
+        "Logging-successor schema changed",
+    )
+    _require(
+        successor.get("status") == "frozen_approved_logging_successor",
+        "Logging-successor is not frozen and approved",
+    )
+    parent = successor.get("parent", {})
+    _require(
+        parent.get("io_successor_sha256") == IO_SUCCESSOR_SHA256,
+        "Logging-successor parent I/O hash changed",
+    )
+    _require(
+        parent.get("formal_protocol_sha256") == PROTOCOL_SHA256,
+        "Logging-successor parent protocol changed",
+    )
+    delta = successor.get("frozen_logging_delta", {})
+    _require(
+        delta.get("normal_training_environment") == IO_DIAGNOSTIC_ENV,
+        "Normal formal logging environment changed",
+    )
+    _require(
+        delta.get("nccl_collective_info_enabled_during_normal_training") is False,
+        "Normal formal training still enables collective INFO logging",
+    )
+    _require(
+        delta.get("attempt_log_open_mode") == "exclusive_create",
+        "Attempt logs may be appended or overwritten",
+    )
+    _require(
+        delta.get("attempt_log_naming") == "attempt_{attempt_count:04d}.log",
+        "Attempt-log naming contract changed",
+    )
+    _require(
+        delta.get("legacy_logs_mutated") is False,
+        "Logging successor may not rewrite legacy logs",
+    )
+    inherited = successor.get("inherited_exact_runtime", {})
+    expected_runtime = {
+        "world_size": FOUR_GPU_WORLD_SIZE,
+        "data_parallel_world_size": FOUR_GPU_DP_WORLD_SIZE,
+        "fsdp_shard_size": FOUR_GPU_FSDP_SHARD_SIZE,
+        "batch_size_per_data_parallel_rank": FOUR_GPU_BATCH_PER_DP_RANK,
+        "gradient_accumulation_steps": FOUR_GPU_GRADIENT_ACCUMULATION_STEPS,
+        "effective_global_batch_size": FOUR_GPU_EFFECTIVE_GLOBAL_BATCH_SIZE,
+        "max_optimizer_steps": 7000,
+        "save_every_optimizer_steps": 1000,
+        "precision": "bfloat16",
+        "pytorch_cuda_alloc_conf": PYTORCH_CUDA_ALLOC_CONF,
+    }
+    _require(inherited == expected_runtime, "Logging-successor changed inherited runtime values")
+    implementation = successor.get("implementation_binding", {})
+    for path_key, hash_key in (
+        ("orchestrator_path", "orchestrator_sha256"),
+        ("runtime_binding_path", "runtime_binding_sha256"),
+        ("regression_test_path", "regression_test_sha256"),
+    ):
+        source_path = workspace / str(implementation.get(path_key, ""))
+        _require(source_path.is_file(), f"Logging successor implementation is missing: {source_path}")
+        _require(
+            file_sha256(source_path) == implementation.get(hash_key),
+            f"Logging successor implementation changed: {source_path}",
+        )
+    lock = _read_json(workspace / LOGGING_SUCCESSOR_LOCK_RELATIVE_PATH)
+    _require(lock.get("status") == "locked_pending_execution", "Logging-successor lock is open")
+    _require(
+        lock.get("successor_file_sha256") == LOGGING_SUCCESSOR_SHA256,
+        "Logging-successor lock binding changed",
+    )
+    _require(lock.get("contains_new_successful_cell_result") is False, "Logging lock contains success")
+    _require(lock.get("passes_p2") is False, "Logging-successor lock may not pass P2")
+    return {
+        "path": LOGGING_SUCCESSOR_RELATIVE_PATH.as_posix(),
+        "file_sha256": LOGGING_SUCCESSOR_SHA256,
+        "lock_path": LOGGING_SUCCESSOR_LOCK_RELATIVE_PATH.as_posix(),
+        "lock_file_sha256": LOGGING_SUCCESSOR_LOCK_SHA256,
+        "normal_training_environment": dict(IO_DIAGNOSTIC_ENV),
+        "attempt_logs_are_immutable": True,
+        "contains_new_successful_cell_result": False,
         "passes_p2": False,
     }
 
@@ -837,6 +972,7 @@ def load_execution_matrix(
     validate_four_gpu_successor(workspace)
     validate_memory_successor(workspace)
     validate_io_successor(workspace)
+    validate_logging_successor(workspace)
     _require(file_sha256(workspace / SUPPLEMENT_RELATIVE_PATH) == SUPPLEMENT_SHA256, "Frozen supplement SHA256 changed")
     registry, cells_by_id, order = load_frozen_registry(workspace)
     prepared, entries_by_id = load_prepared_manifest(

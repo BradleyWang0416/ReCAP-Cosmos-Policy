@@ -28,7 +28,7 @@ def test_launch_issuer_rejects_receipt_from_non_four_gpu_container(tmp_path: Pat
     receipt.write_text(
         json.dumps(
             {
-                "schema_version": "human2robot-m5b-p2-docker-suite-receipt-v5",
+                "schema_version": "human2robot-m5b-p2-docker-suite-receipt-v6",
                 "status": "passed",
                 "visible_gpu_count": 8,
                 "passed_test_count": 999,

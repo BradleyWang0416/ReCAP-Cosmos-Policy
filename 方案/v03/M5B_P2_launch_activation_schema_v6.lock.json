@@ -1,0 +1,8 @@
+{
+  "artifact_schema_version": "human2robot-m5b-p2-launch-activation-v6",
+  "logging_successor_sha256": "ca391656442f18d1881143988f13c51aacbe9a749844c79844527adf6cb55d18",
+  "schema_file_sha256": "3b2e022fa0cfb828238d01cfa6485bf820f077164e5e0ea5b2980ef8dcd50663",
+  "schema_path": "方案/v03/M5B_P2_launch_activation_schema_v6.json",
+  "schema_version": "human2robot-m5b-p2-launch-activation-schema-lock-v6",
+  "status": "locked"
+}

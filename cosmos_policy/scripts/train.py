@@ -58,6 +58,7 @@ def _write_optional_human2robot_p2_runtime_binding(config: Config) -> None:
         "HUMAN2ROBOT_P2_FOUR_GPU_SUCCESSOR_SHA256",
         "HUMAN2ROBOT_P2_MEMORY_SUCCESSOR_SHA256",
         "HUMAN2ROBOT_P2_IO_SUCCESSOR_SHA256",
+        "HUMAN2ROBOT_P2_LOGGING_SUCCESSOR_SHA256",
         "HUMAN2ROBOT_P2_CODE_SHA256",
         "HUMAN2ROBOT_P2_CELL_ID",
         "HUMAN2ROBOT_P2_EXPERIMENT_ID",
@@ -87,7 +88,6 @@ def _write_optional_human2robot_p2_runtime_binding(config: Config) -> None:
         "TORCH_NCCL_DUMP_ON_TIMEOUT",
         "TORCH_NCCL_DESYNC_DEBUG",
         "NCCL_DEBUG",
-        "NCCL_DEBUG_SUBSYS",
         "HUMAN2ROBOT_P2_SLOW_SAMPLE_SECONDS",
     )
     missing = [name for name in required_env if not os.environ.get(name)]
@@ -199,8 +199,8 @@ def _write_optional_human2robot_p2_runtime_binding(config: Config) -> None:
         "torch_nccl_trace_buffer_size": "65536",
         "torch_nccl_dump_on_timeout": "1",
         "torch_nccl_desync_debug": "1",
-        "nccl_debug": "INFO",
-        "nccl_debug_subsys": "COLL",
+        "nccl_debug": "WARN",
+        "nccl_debug_subsys": None,
         "slow_sample_seconds": "5",
     }
     if actual != expected:
@@ -229,7 +229,7 @@ def _write_optional_human2robot_p2_runtime_binding(config: Config) -> None:
 
     if rank == 0:
         payload = {
-            "schema_version": "human2robot-m5b-p2-runtime-binding-v2",
+            "schema_version": "human2robot-m5b-p2-runtime-binding-v3",
             "recorded_at_utc": datetime.now(timezone.utc).isoformat(),
             "cell_id": os.environ["HUMAN2ROBOT_P2_CELL_ID"],
             "experiment_id": os.environ["HUMAN2ROBOT_P2_EXPERIMENT_ID"],
@@ -243,6 +243,9 @@ def _write_optional_human2robot_p2_runtime_binding(config: Config) -> None:
                 "HUMAN2ROBOT_P2_MEMORY_SUCCESSOR_SHA256"
             ],
             "io_successor_sha256": os.environ["HUMAN2ROBOT_P2_IO_SUCCESSOR_SHA256"],
+            "logging_successor_sha256": os.environ[
+                "HUMAN2ROBOT_P2_LOGGING_SUCCESSOR_SHA256"
+            ],
             "code_sha256": os.environ["HUMAN2ROBOT_P2_CODE_SHA256"],
             "actual": actual,
             "distributed": {

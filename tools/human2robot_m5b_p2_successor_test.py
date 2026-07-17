@@ -9,12 +9,15 @@ import numpy as np
 from tools.human2robot_m5b_p2_matrix import (
     FOUR_GPU_SUCCESSOR_SHA256,
     IO_DIAGNOSTIC_ENV,
+    IO_DIAGNOSTIC_ENV_V5,
     IO_SUCCESSOR_SHA256,
+    LOGGING_SUCCESSOR_SHA256,
     MEMORY_SUCCESSOR_SHA256,
     PYTORCH_CUDA_ALLOC_CONF,
     file_sha256,
     validate_four_gpu_successor,
     validate_io_successor,
+    validate_logging_successor,
     validate_memory_successor,
 )
 
@@ -153,7 +156,7 @@ def test_io_successor_forbids_full_episode_reads_and_binds_diagnostics() -> None
     assert evidence["indexed_hdf5_image_reads"] is True
     assert successor["frozen_data_io_delta"]["no_full_episode_image_reads"] is True
     assert successor["frozen_data_io_delta"]["model_input_semantics_changed"] is False
-    assert successor["frozen_diagnostic_environment"] == IO_DIAGNOSTIC_ENV
+    assert successor["frozen_diagnostic_environment"] == IO_DIAGNOSTIC_ENV_V5
     assert successor["inherited_exact_runtime"]["effective_global_batch_size"] == 200
     assert successor["observed_failure_basis"]["failure_kind"] == (
         "ProcessGroupNCCLWatchdogTimeout"
@@ -171,6 +174,27 @@ def test_v5_schemas_require_io_successor_and_preserve_v4_history() -> None:
         required = schema["required_exact_values"]
         assert required["io_successor_sha256"] == IO_SUCCESSOR_SHA256
         assert required["indexed_hdf5_image_reads"] is True
+        assert required["diagnostic_environment"] == IO_DIAGNOSTIC_ENV_V5
+
+
+def test_v6_logging_successor_disables_collective_info_and_preserves_v5_history() -> None:
+    evidence = validate_logging_successor(WORKSPACE)
+    successor = read("方案/v03/M5B_P2_logging_successor_v6.json")
+    launch_v5 = read("方案/v03/M5B_P2_launch_activation_schema_v5.json")
+    launch_v6 = read("方案/v03/M5B_P2_launch_activation_schema_v6.json")
+    final_v6 = read("方案/v03/M5B_P2_final_acceptance_schema_v6.json")
+    assert evidence["file_sha256"] == LOGGING_SUCCESSOR_SHA256
+    assert successor["parent"]["io_successor_sha256"] == IO_SUCCESSOR_SHA256
+    assert successor["frozen_logging_delta"]["normal_training_environment"] == (
+        IO_DIAGNOSTIC_ENV
+    )
+    assert successor["frozen_logging_delta"]["attempt_log_open_mode"] == "exclusive_create"
+    assert launch_v5["required_exact_values"]["diagnostic_environment"] == (
+        IO_DIAGNOSTIC_ENV_V5
+    )
+    for schema in (launch_v6, final_v6):
+        required = schema["required_exact_values"]
+        assert required["logging_successor_sha256"] == LOGGING_SUCCESSOR_SHA256
         assert required["diagnostic_environment"] == IO_DIAGNOSTIC_ENV
 
 
@@ -182,6 +206,7 @@ def test_formal_docker_launcher_exposes_only_selected_four_host_gpus() -> None:
     assert '-e PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True' in launcher
     for key, value in IO_DIAGNOSTIC_ENV.items():
         assert f"-e {key}={value}" in launcher
+    assert "NCCL_DEBUG_SUBSYS" not in launcher
 
 
 def test_runtime_binding_runs_after_megatron_parallel_groups_are_initialized() -> None:

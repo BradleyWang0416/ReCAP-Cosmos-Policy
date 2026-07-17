@@ -274,7 +274,7 @@ uv 和 HuggingFace 等缓存位置：
 bash start_m5b_p2_formal_docker.sh
 ```
 
-v3 successor 固定只向容器暴露 4 张宿主机 GPU。默认使用宿主机 `0,1,2,3`；若稳定卡是
+当前四卡 successor 链固定只向容器暴露 4 张宿主机 GPU。默认使用宿主机 `0,1,2,3`；若稳定卡是
 其他编号，启动时显式指定恰好四个、互不重复的物理卡号，例如：
 
 ```bash
@@ -288,6 +288,8 @@ M5B_P2_GPU_DEVICES=2,3,4,5 bash start_m5b_p2_formal_docker.sh
 
 - `/DATA1` 可写挂载，`/workspace` 仍绑定当前仓库；
 - 固定 offline/no-download 环境，W&B disabled；
+- 正常训练固定 `NCCL_DEBUG=WARN`，不设置 `NCCL_DEBUG_SUBSYS`；超时 trace/dump/desync
+  诊断继续开启；
 - 使用已经存在的 `cosmos-policy:latest`、本地权重和缓存；
 - 不下载、不创建 launch activation/final acceptance，也不自动启动训练。
 
@@ -324,11 +326,20 @@ dispatcher 会重新计算当前源码 SHA256，并核对 source snapshot 与 Do
 正式 cell 仍须逐个显式执行 `human2robot_m5b_p2_dag run-cell <cell_id>`；任何父产物未完成都会拒绝执行。
 
 只有 preflight 的 mount、恰好 4 GPU、存储、权重、source snapshot 与 successor-contract blocker
-全部清零，且 `/DATA1/wxs/ReCAP_M5B_P2_RUNS/launch_activation_v3.json` 按冻结 schema 独立签发，
+全部清零，且 `/DATA1/wxs/ReCAP_M5B_P2_RUNS/launch_activation_v6.json` 按冻结 schema 独立签发，
 才允许执行 203-cell DAG。launch activation 只开启队列，仍固定
 `p2_acceptance_allowed=false`；第 203 个终止报告通过后，才能另行生成
-`final_acceptance_v3.json`。v2 activation 和旧 `run_manifest.json` 只保留为 8 卡历史记录，
-不能授权 v3 四卡运行。因此仅把 `/DATA1` 改为可写并不构成启动授权。
+`final_acceptance_v6.json`。v2-v5 activation 和旧 run manifest 只保留为历史记录，
+不能授权 v6 logging-successor 运行。因此仅把 `/DATA1` 改为可写并不构成启动授权。
+
+v6 的每次训练尝试会写入独立日志：
+
+```text
+/DATA1/wxs/ReCAP_M5B_P2_RUNS/orchestrator_logs/<cell_id>/attempt_0001.log
+```
+
+同目录的 `latest_log.json` 指向当前或最近一次 attempt。重试会创建
+`attempt_0002.log`，不会再向旧日志追加。
 
 ## 5. 同步 Python 环境
 

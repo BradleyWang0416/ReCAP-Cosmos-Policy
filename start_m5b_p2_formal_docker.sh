@@ -39,8 +39,7 @@ docker run --rm -it \
   -e TORCH_NCCL_TRACE_BUFFER_SIZE=65536 \
   -e TORCH_NCCL_DUMP_ON_TIMEOUT=1 \
   -e TORCH_NCCL_DESYNC_DEBUG=1 \
-  -e NCCL_DEBUG=INFO \
-  -e NCCL_DEBUG_SUBSYS=COLL \
+  -e NCCL_DEBUG=WARN \
   -e HUMAN2ROBOT_P2_SLOW_SAMPLE_SECONDS=5 \
   -v "$HOME/.cache:/home/cosmos/.cache" \
   -v "$HOME/.local/share/uv:/home/cosmos/.local/share/uv" \

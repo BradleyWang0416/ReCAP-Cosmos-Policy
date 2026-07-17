@@ -1,0 +1,38 @@
+{
+  "artifact_schema_version": "human2robot-m5b-p2-final-acceptance-v6",
+  "claim_boundary": "May be issued only after the v6 logging-successor launch-authorized four-GPU queue and terminal report pass; launch activation alone cannot pass P2.",
+  "required_exact_values": {
+    "batch_size_per_data_parallel_rank": 25,
+    "completed_cell_count": 203,
+    "data_parallel_world_size": 4,
+    "diagnostic_environment": {
+      "HUMAN2ROBOT_P2_SLOW_SAMPLE_SECONDS": "5",
+      "NCCL_DEBUG": "WARN",
+      "TORCH_NCCL_DESYNC_DEBUG": "1",
+      "TORCH_NCCL_DUMP_ON_TIMEOUT": "1",
+      "TORCH_NCCL_TRACE_BUFFER_SIZE": "65536"
+    },
+    "effective_global_batch_size": 200,
+    "formal_queue_allowed": true,
+    "four_gpu_successor_sha256": "6f333136b343cee87dca3c0328a73ffd441d3059633159d02e6f514573b809ab",
+    "fsdp_shard_size": 4,
+    "gradient_accumulation_steps": 2,
+    "indexed_hdf5_image_reads": true,
+    "io_successor_sha256": "844f44c8e39178582f4a1cf7dcc5d16d510aad262e22104ff11eb93666d8fde2",
+    "lag_view_manifest_sha256": "53ab59227f865767f07fd4b8c6cea52689b7c22ec1359cedb975308644fe806d",
+    "logging_successor_sha256": "ca391656442f18d1881143988f13c51aacbe9a749844c79844527adf6cb55d18",
+    "memory_successor_sha256": "c5f3334e4fecc81b38466046917d7aefdf1d6eaf7b0e8344458b05cf02455bc2",
+    "p2_acceptance_allowed": true,
+    "prepared_manifest_sha256": "15a1bd6cc378079b04a821fe691fe293739acc827e183caa44633b76b6a629cd",
+    "pytorch_cuda_alloc_conf": "expandable_segments:True",
+    "registry_sha256": "502cc57d41c7e4829e872ac95a258d7dc1e8d0d8a27ddfc3cf0315d4d31ef2d6",
+    "status": "passed",
+    "supplement_sha256": "17d9fc308c50b9b7899793a4c8d3bca1eeba217053fbacb368e2f9a2e390d7ab",
+    "terminal_cell_id": "aggregate_report__M5B-QUAL-01__full_matrix_completion_acceptance",
+    "terminal_report_status": "passed",
+    "world_size": 4,
+    "workspace_bounds_sha256": "29e0fd8d4b58beabcf7cea7ba50488a0775a79b6f429596a3573a0bbb007eb6a"
+  },
+  "schema_version": "human2robot-m5b-p2-final-acceptance-schema-v6",
+  "status": "frozen_schema_not_accepted"
+}

@@ -26,6 +26,7 @@ from tools.human2robot_m5b_p2_matrix import (
     IO_SUCCESSOR_SHA256,
     LAG_VIEW_MANIFEST_SHA256,
     MEMORY_SUCCESSOR_SHA256,
+    LOGGING_SUCCESSOR_SHA256,
     PREPARED_MANIFEST_SHA256,
     PYTORCH_CUDA_ALLOC_CONF,
     SUPPLEMENT_SHA256,
@@ -68,10 +69,10 @@ def test_plan_opens_only_for_activation_bound_to_current_source(matrix, tmp_path
     snapshot = tmp_path / "source_snapshots" / source["code_sha256"] / "source_snapshot_manifest.json"
     snapshot.parent.mkdir(parents=True)
     snapshot.write_text(json.dumps({**source, "created_at_utc": "2026-07-14T00:00:00+00:00"}), encoding="utf-8")
-    receipt = tmp_path / "docker_suite_receipt_v5.json"
+    receipt = tmp_path / "docker_suite_receipt_v6.json"
     receipt.write_text(json.dumps({"status": "passed"}), encoding="utf-8")
     activation = {
-        "schema_version": "human2robot-m5b-p2-launch-activation-v5",
+        "schema_version": "human2robot-m5b-p2-launch-activation-v6",
         "status": "approved",
         "launch_authorized": True,
         "formal_queue_allowed": True,
@@ -81,6 +82,7 @@ def test_plan_opens_only_for_activation_bound_to_current_source(matrix, tmp_path
         "four_gpu_successor_sha256": FOUR_GPU_SUCCESSOR_SHA256,
         "memory_successor_sha256": MEMORY_SUCCESSOR_SHA256,
         "io_successor_sha256": IO_SUCCESSOR_SHA256,
+        "logging_successor_sha256": LOGGING_SUCCESSOR_SHA256,
         "indexed_hdf5_image_reads": True,
         "diagnostic_environment": IO_DIAGNOSTIC_ENV,
         "pytorch_cuda_alloc_conf": PYTORCH_CUDA_ALLOC_CONF,
@@ -106,7 +108,7 @@ def test_plan_opens_only_for_activation_bound_to_current_source(matrix, tmp_path
         "docker_suite_receipt_path": str(receipt),
         "docker_suite_receipt_sha256": file_sha256(receipt),
     }
-    activation_path = tmp_path / "launch_activation_v5.json"
+    activation_path = tmp_path / "launch_activation_v6.json"
     activation_path.write_text(json.dumps(activation), encoding="utf-8")
     plan = build_plan(WORKSPACE, tmp_path, activation_path, matrix)
     assert plan["formal_queue_allowed"] is True

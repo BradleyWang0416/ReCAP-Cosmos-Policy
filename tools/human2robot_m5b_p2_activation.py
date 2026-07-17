@@ -32,6 +32,7 @@ from tools.human2robot_m5b_p2_matrix import (
     IO_SUCCESSOR_SHA256,
     LAG_VIEW_MANIFEST_SHA256,
     MEMORY_SUCCESSOR_SHA256,
+    LOGGING_SUCCESSOR_SHA256,
     PREPARED_MANIFEST_SHA256,
     PYTORCH_CUDA_ALLOC_CONF,
     SUPPLEMENT_SHA256,
@@ -92,6 +93,7 @@ def run_docker_suite(workspace: Path, receipt_path: Path) -> dict[str, Any]:
         *[str(path.relative_to(workspace)) for path in sorted((workspace / "tools").glob("human2robot*_test.py"))],
     ]
     environment = os.environ.copy()
+    environment.pop("NCCL_DEBUG_SUBSYS", None)
     environment.update(FORMAL_OFFLINE_ENV)
     process = subprocess.run(
         command,
@@ -106,7 +108,7 @@ def run_docker_suite(workspace: Path, receipt_path: Path) -> dict[str, Any]:
     passed_count = int(matches[-1]) if matches else 0
     passed = process.returncode == 0 and passed_count >= MINIMUM_FROZEN_TEST_COUNT
     receipt = {
-        "schema_version": "human2robot-m5b-p2-docker-suite-receipt-v5",
+        "schema_version": "human2robot-m5b-p2-docker-suite-receipt-v6",
         "status": "passed" if passed else "failed",
         "formal_result": False,
         "cell_execution_started": False,
@@ -134,7 +136,7 @@ def issue_launch_activation(
     """Issue queue authorization only; final P2 acceptance remains false."""
 
     receipt = read_json(docker_suite_receipt_path)
-    require(receipt.get("schema_version") == "human2robot-m5b-p2-docker-suite-receipt-v5", "Docker receipt schema drift")
+    require(receipt.get("schema_version") == "human2robot-m5b-p2-docker-suite-receipt-v6", "Docker receipt schema drift")
     require(receipt.get("status") == "passed", "Docker suite is not passed")
     require(
         receipt.get("visible_gpu_count") == FOUR_GPU_WORLD_SIZE,
@@ -167,7 +169,7 @@ def issue_launch_activation(
     )
     matrix = load_execution_matrix(workspace)
     activation = {
-        "schema_version": "human2robot-m5b-p2-launch-activation-v5",
+        "schema_version": "human2robot-m5b-p2-launch-activation-v6",
         "status": "approved",
         "launch_authorized": True,
         "formal_queue_allowed": True,
@@ -177,6 +179,7 @@ def issue_launch_activation(
         "four_gpu_successor_sha256": FOUR_GPU_SUCCESSOR_SHA256,
         "memory_successor_sha256": MEMORY_SUCCESSOR_SHA256,
         "io_successor_sha256": IO_SUCCESSOR_SHA256,
+        "logging_successor_sha256": LOGGING_SUCCESSOR_SHA256,
         "indexed_hdf5_image_reads": True,
         "diagnostic_environment": dict(IO_DIAGNOSTIC_ENV),
         "pytorch_cuda_alloc_conf": PYTORCH_CUDA_ALLOC_CONF,
@@ -206,7 +209,7 @@ def issue_launch_activation(
         "claim_boundary": "Launch authorization only; P2 acceptance and M6 rollout remain forbidden.",
     }
     require_formal_activation(activation, matrix)
-    output = artifact_root / "launch_activation_v5.json"
+    output = artifact_root / "launch_activation_v6.json"
     write_json_atomic(output, activation)
     return activation
 
@@ -228,10 +231,10 @@ def main(argv: list[str] | None = None) -> int:
     workspace = args.workspace.resolve()
     artifact_root = args.artifact_root.resolve()
     if args.command == "run-docker-suite":
-        receipt = args.receipt_path or artifact_root / "docker_suite_receipt_v5.json"
+        receipt = args.receipt_path or artifact_root / "docker_suite_receipt_v6.json"
         result = run_docker_suite(workspace, receipt.resolve())
     else:
-        receipt = args.docker_suite_receipt_path or artifact_root / "docker_suite_receipt_v5.json"
+        receipt = args.docker_suite_receipt_path or artifact_root / "docker_suite_receipt_v6.json"
         result = issue_launch_activation(workspace, artifact_root, receipt.resolve())
     print(json.dumps(result, indent=2, sort_keys=True))
     return 0

@@ -23,6 +23,7 @@ from tools.human2robot_m5b_p2 import (
     SAVE_EVERY_STEPS,
     TOKENIZER_CHECKPOINT_PATH,
     P2Error,
+    attempt_log_path,
     base_bindings,
     exclusive_execution_lock,
     initial_cell_record,
@@ -44,6 +45,7 @@ from tools.human2robot_m5b_p2_matrix import (
     FOUR_GPU_SUCCESSOR_SHA256,
     IO_DIAGNOSTIC_ENV,
     IO_SUCCESSOR_SHA256,
+    LOGGING_SUCCESSOR_SHA256,
     MEMORY_SUCCESSOR_SHA256,
     PYTORCH_CUDA_ALLOC_CONF,
 )
@@ -152,7 +154,7 @@ def test_runtime_binding_checks_actual_world_size_seed_batch_and_steps(tmp_path:
     code_sha256 = "c" * 64
     binding_path = tmp_path / "runtime.json"
     binding = {
-        "schema_version": "human2robot-m5b-p2-runtime-binding-v2",
+        "schema_version": "human2robot-m5b-p2-runtime-binding-v3",
         "cell_id": cell.cell_id,
         "experiment_id": cell.experiment_id,
         "variant_id": cell.variant_id,
@@ -161,6 +163,7 @@ def test_runtime_binding_checks_actual_world_size_seed_batch_and_steps(tmp_path:
         "four_gpu_successor_sha256": FOUR_GPU_SUCCESSOR_SHA256,
         "memory_successor_sha256": MEMORY_SUCCESSOR_SHA256,
         "io_successor_sha256": IO_SUCCESSOR_SHA256,
+        "logging_successor_sha256": LOGGING_SUCCESSOR_SHA256,
         "code_sha256": code_sha256,
         "actual": {
             "world_size": FIXED_WORLD_SIZE,
@@ -259,7 +262,12 @@ def test_training_command_exposes_exactly_four_logical_gpus(tmp_path: Path) -> N
     assert environment["PYTORCH_CUDA_ALLOC_CONF"] == PYTORCH_CUDA_ALLOC_CONF
     assert environment["HUMAN2ROBOT_P2_MEMORY_SUCCESSOR_SHA256"] == MEMORY_SUCCESSOR_SHA256
     assert environment["HUMAN2ROBOT_P2_IO_SUCCESSOR_SHA256"] == IO_SUCCESSOR_SHA256
+    assert (
+        environment["HUMAN2ROBOT_P2_LOGGING_SUCCESSOR_SHA256"]
+        == LOGGING_SUCCESSOR_SHA256
+    )
     assert all(environment[key] == value for key, value in IO_DIAGNOSTIC_ENV.items())
+    assert "NCCL_DEBUG_SUBSYS" not in environment
     assert (
         environment["HUMAN2ROBOT_P2_EXPECTED_PYTORCH_CUDA_ALLOC_CONF"]
         == PYTORCH_CUDA_ALLOC_CONF
@@ -267,6 +275,24 @@ def test_training_command_exposes_exactly_four_logical_gpus(tmp_path: Path) -> N
     assert environment["HUMAN2ROBOT_P2_EXPECTED_GRAD_ACCUM_STEPS"] == "2"
     assert environment["HUMAN2ROBOT_P2_EXPECTED_FSDP_SHARD_SIZE"] == "4"
     assert environment["HUMAN2ROBOT_P2_EXPECTED_EFFECTIVE_GLOBAL_BATCH"] == "200"
+
+
+def test_formal_logging_avoids_per_collective_info_flood() -> None:
+    assert IO_DIAGNOSTIC_ENV["NCCL_DEBUG"] == "WARN"
+    assert "NCCL_DEBUG_SUBSYS" not in IO_DIAGNOSTIC_ENV
+    assert IO_DIAGNOSTIC_ENV["TORCH_NCCL_TRACE_BUFFER_SIZE"] == "65536"
+    assert IO_DIAGNOSTIC_ENV["TORCH_NCCL_DUMP_ON_TIMEOUT"] == "1"
+    assert IO_DIAGNOSTIC_ENV["TORCH_NCCL_DESYNC_DEBUG"] == "1"
+
+
+def test_formal_retries_get_distinct_immutable_attempt_logs(tmp_path: Path) -> None:
+    record = {"attempt_count": 1, "log_directory": str(tmp_path / "cell")}
+    first = attempt_log_path(record)
+    record["attempt_count"] = 2
+    second = attempt_log_path(record)
+    assert first == tmp_path / "cell/attempt_0001.log"
+    assert second == tmp_path / "cell/attempt_0002.log"
+    assert first != second
 
 
 def test_dispatch_rejects_historical_eight_gpu_container(monkeypatch) -> None:
@@ -313,7 +339,7 @@ def test_required_binding_order_and_full_gate_boundary() -> None:
 
 
 def test_launch_requires_formal_activation_artifact(tmp_path: Path) -> None:
-    missing_activation = tmp_path / "missing_launch_activation_v5.json"
+    missing_activation = tmp_path / "missing_launch_activation_v6.json"
     with pytest.raises(P2Error, match="Formal activation artifact missing"):
         run_cell(tmp_path, "any-cell", activation_path=missing_activation)
     with pytest.raises(P2Error, match="Formal activation artifact missing"):

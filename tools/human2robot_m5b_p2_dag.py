@@ -161,7 +161,7 @@ def build_plan(
         }
         formal_queue_allowed = True
     return {
-        "schema_version": "human2robot-m5b-p2-dag-plan-v5",
+        "schema_version": "human2robot-m5b-p2-dag-plan-v6",
         "formal_queue_allowed": formal_queue_allowed,
         "formal_queue_started": False,
         "ready_cell_ids": current["ready_cell_ids"],
@@ -211,14 +211,14 @@ def build_parser() -> argparse.ArgumentParser:
     plan.add_argument(
         "--activation-path",
         type=Path,
-        default=Path(DEFAULT_ARTIFACT_ROOT) / "launch_activation_v5.json",
+        default=Path(DEFAULT_ARTIFACT_ROOT) / "launch_activation_v6.json",
     )
     run = subparsers.add_parser("run-cell")
     run.add_argument("cell_id")
     run.add_argument(
         "--activation-path",
         type=Path,
-        default=Path(DEFAULT_ARTIFACT_ROOT) / "launch_activation_v5.json",
+        default=Path(DEFAULT_ARTIFACT_ROOT) / "launch_activation_v6.json",
     )
     return parser
 

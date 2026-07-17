@@ -19,6 +19,7 @@ from tools.human2robot_m5b_p2_matrix import (
     IO_SUCCESSOR_SHA256,
     LAG_VIEW_MANIFEST_SHA256,
     MEMORY_SUCCESSOR_SHA256,
+    LOGGING_SUCCESSOR_SHA256,
     PREPARED_MANIFEST_SHA256,
     PYTORCH_CUDA_ALLOC_CONF,
     SUPPLEMENT_SHA256,
@@ -76,7 +77,7 @@ def _command(binding: CellBinding) -> tuple[str, ...]:
             "run-cell",
             cell.cell_id,
             "--activation-path",
-            f"{DEFAULT_ARTIFACT_ROOT}/launch_activation_v5.json",
+            f"{DEFAULT_ARTIFACT_ROOT}/launch_activation_v6.json",
         )
     if cell.artifact_kind in {"nonlearned_method_artifact", "checkpoint_linked_evaluation"}:
         return (
@@ -91,7 +92,7 @@ def _command(binding: CellBinding) -> tuple[str, ...]:
             "--cell-id",
             cell.cell_id,
             "--activation-path",
-            f"{DEFAULT_ARTIFACT_ROOT}/launch_activation_v5.json",
+            f"{DEFAULT_ARTIFACT_ROOT}/launch_activation_v6.json",
             "--workspace-bounds-path",
             "/workspace/方案/v03/M5B_P2_workspace_bounds_v1.json",
         )
@@ -165,7 +166,7 @@ def require_formal_activation(
     matrix: ExecutionMatrix,
 ) -> None:
     expected = {
-        "schema_version": "human2robot-m5b-p2-launch-activation-v5",
+        "schema_version": "human2robot-m5b-p2-launch-activation-v6",
         "status": "approved",
         "launch_authorized": True,
         "formal_queue_allowed": True,
@@ -175,6 +176,7 @@ def require_formal_activation(
         "four_gpu_successor_sha256": FOUR_GPU_SUCCESSOR_SHA256,
         "memory_successor_sha256": MEMORY_SUCCESSOR_SHA256,
         "io_successor_sha256": IO_SUCCESSOR_SHA256,
+        "logging_successor_sha256": LOGGING_SUCCESSOR_SHA256,
         "indexed_hdf5_image_reads": True,
         "diagnostic_environment": IO_DIAGNOSTIC_ENV,
         "pytorch_cuda_alloc_conf": PYTORCH_CUDA_ALLOC_CONF,
@@ -213,7 +215,7 @@ def require_final_acceptance(
     terminal_report_sha256: str,
 ) -> None:
     expected = {
-        "schema_version": "human2robot-m5b-p2-final-acceptance-v5",
+        "schema_version": "human2robot-m5b-p2-final-acceptance-v6",
         "status": "passed",
         "formal_queue_allowed": True,
         "p2_acceptance_allowed": True,
@@ -226,6 +228,7 @@ def require_final_acceptance(
         "four_gpu_successor_sha256": FOUR_GPU_SUCCESSOR_SHA256,
         "memory_successor_sha256": MEMORY_SUCCESSOR_SHA256,
         "io_successor_sha256": IO_SUCCESSOR_SHA256,
+        "logging_successor_sha256": LOGGING_SUCCESSOR_SHA256,
         "indexed_hdf5_image_reads": True,
         "diagnostic_environment": IO_DIAGNOSTIC_ENV,
         "pytorch_cuda_alloc_conf": PYTORCH_CUDA_ALLOC_CONF,
