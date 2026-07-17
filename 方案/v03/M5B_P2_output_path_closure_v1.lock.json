@@ -1,0 +1,11 @@
+{
+  "candidate_code_sha256": "07fe5ee3a9b90037ed724a94da76d9d87476e6eaea554af8c3ddb420ff3da511",
+  "contains_new_model_result": false,
+  "dag_inventory_after_closure_sha256": "d628c2af7f80b7b8b101f5a26bafb41f90631030ad13541e53218a3c68231520",
+  "dcp_audit_closure_sha256": "958d1230b2da4314fc2da6c52bce470b207f03096369d54d0fe110cdb927697d",
+  "passes_p2": false,
+  "schema_version": "human2robot-m5b-p2-output-path-closure-lock-v1",
+  "status": "locked_closure_completed",
+  "successor_file_sha256": "8320e1113ad0e6794b7469bb4e7e9f7a7e8859955bc0c68f7e6757bae7cf3721",
+  "successor_path": "方案/v03/M5B_P2_output_path_closure_v1.json"
+}

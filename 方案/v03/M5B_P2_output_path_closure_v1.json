@@ -1,0 +1,55 @@
+{
+  "authorization": {
+    "basis": "user directive: 修复路径闭环并让首个 cell 变成正式的 1/203",
+    "frozen_at_utc": "2026-07-17T03:29:02Z"
+  },
+  "claim_boundary": {
+    "contains_new_model_result": false,
+    "m6_rollout_approved": false,
+    "p2_acceptance_allowed": false,
+    "reuses_existing_completed_step_7000": true
+  },
+  "frozen_invariants": {
+    "checkpoint_bytes_changed": false,
+    "data_or_split_changed": false,
+    "evaluation_or_checkpoint_selection_changed": false,
+    "model_or_optimizer_changed": false,
+    "seed_or_training_schedule_changed": false,
+    "source_snapshot_changed": false
+  },
+  "observed_failure_basis": {
+    "actual_checkpoint_group": "human2robot_m5b_p2_formal",
+    "cell_id": "learned_training_checkpoint__M5B-MAIN-01__frozen_main__no_retrieval__seed20260711",
+    "handler_expected_group": "human2robot_m5b_formal",
+    "latest_checkpoint": "iter_000007000",
+    "orchestrator_exit_code": 0,
+    "result": "training completed but audit failed before artifact materialization"
+  },
+  "parent_bindings": {
+    "candidate_code_sha256": "07fe5ee3a9b90037ed724a94da76d9d87476e6eaea554af8c3ddb420ff3da511",
+    "launch_activation_path": "/DATA1/wxs/ReCAP_M5B_P2_RUNS/launch_activation_v5.json",
+    "launch_activation_sha256": "3dfd5ab3133b4a7a8126a203ba2b10d1f358bd58eeac783dc42844196fc08e76",
+    "runtime_binding_sha256": "adca549f5690d4fcf795869e45b7345ef931ec40092f2e8b032c6a5c7bf2d251"
+  },
+  "repair_contract": {
+    "actual_group_path": "/DATA1/wxs/ReCAP_M5B_P2_RUNS/cosmos_policy/human2robot_m5b_p2_formal",
+    "alias_target": "human2robot_m5b_formal",
+    "collision_policy": "hard fail before moving any entry",
+    "expected_group_path": "/DATA1/wxs/ReCAP_M5B_P2_RUNS/cosmos_policy/human2robot_m5b_formal",
+    "future_cell_rule": "the trainer-facing group is a relative symbolic link to the handler-expected group",
+    "migration_scope": [
+      "DeviceMonitor",
+      "checkpoints",
+      "config.pkl",
+      "config.yaml",
+      "job_env.yaml",
+      "launch_info.yaml",
+      "wandb_id.txt"
+    ],
+    "operation": "same-filesystem rename of non-colliding run entries followed by group-level relative symbolic link",
+    "rollback_rule": "do not delete or overwrite checkpoint payloads; abort if any source entry or target collision differs from this contract"
+  },
+  "schema_version": "human2robot-m5b-p2-output-path-closure-v1",
+  "status": "frozen_approved_operational_path_closure",
+  "successor_id": "m5b_p2_output_group_alias_closure_v1"
+}

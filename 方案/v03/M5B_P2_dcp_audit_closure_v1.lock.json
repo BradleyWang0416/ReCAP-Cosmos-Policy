@@ -1,0 +1,12 @@
+{
+  "candidate_code_sha256": "07fe5ee3a9b90037ed724a94da76d9d87476e6eaea554af8c3ddb420ff3da511",
+  "cell_artifact_sha256": "3ddddef35e3c193ff1ed7ba332c54e164be047cdb46a64ebdf6057bbc79e2197",
+  "closure_receipt_sha256": "6d8bbd02d91133fa8f80a111cba1e6fb9d83a03768e6fdde79b24706c6b2caea",
+  "contains_new_model_result": false,
+  "model_payload_sha256": "6be4056171acc96c11bb85618feffb2e6dbabb78e29c2f74f0a6a3ce11ed787a",
+  "passes_p2": false,
+  "schema_version": "human2robot-m5b-p2-dcp-audit-closure-lock-v1",
+  "status": "locked_cell_materialized",
+  "successor_file_sha256": "958d1230b2da4314fc2da6c52bce470b207f03096369d54d0fe110cdb927697d",
+  "successor_path": "方案/v03/M5B_P2_dcp_audit_closure_v1.json"
+}

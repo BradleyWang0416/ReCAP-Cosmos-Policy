@@ -1,0 +1,80 @@
+{
+  "authorization": {
+    "basis": "user directive: 修复路径闭环并让首个 cell 变成正式的 1/203",
+    "frozen_at_utc": "2026-07-17T03:29:02Z"
+  },
+  "claim_boundary": {
+    "contains_new_model_result": false,
+    "m6_rollout_approved": false,
+    "p2_acceptance_allowed": false,
+    "reuses_existing_completed_step_7000": true
+  },
+  "corrected_validation_contract": {
+    "all_four_rank_files_required": true,
+    "all_metadata_storage_references_must_resolve": true,
+    "all_referenced_byte_ranges_must_be_in_bounds": true,
+    "empty_referenced_rank_file_allowed": false,
+    "empty_unreferenced_rank_file_allowed": true,
+    "metadata_must_be_nonempty_and_parseable_by_pytorch": true,
+    "required_components": [
+      "model",
+      "optim",
+      "scheduler",
+      "trainer"
+    ]
+  },
+  "frozen_invariants": {
+    "checkpoint_bytes_changed": false,
+    "data_or_split_changed": false,
+    "evaluation_or_checkpoint_selection_changed": false,
+    "model_or_optimizer_changed": false,
+    "seed_or_training_schedule_changed": false,
+    "training_source_snapshot_changed": false
+  },
+  "implementation_binding": {
+    "closure_script_path": "方案/v03/scripts/human2robot_m5b_p2_dcp_audit_closure.py",
+    "closure_script_sha256": "2d699b7eba5541e48c294feb5d5448a580da893a7bc123137dd8ee314fcad65b",
+    "regression_test_path": "方案/v03/scripts/human2robot_m5b_p2_dcp_audit_closure_test.py",
+    "regression_test_sha256": "17ada95fa687e4220653646553dfb5356c32031bddb2fb03a5934f0a6e27a265",
+    "regression_test_result": "2 passed in full Docker environment"
+  },
+  "observed_failure_basis": {
+    "cell_id": "learned_training_checkpoint__M5B-MAIN-01__frozen_main__no_retrieval__seed20260711",
+    "false_rejection": "Empty DCP shard in scheduler",
+    "layout_repeated_identically_at_steps": [
+      1000,
+      2000,
+      3000,
+      4000,
+      5000,
+      6000,
+      7000
+    ],
+    "model_referenced_rank_files": [
+      "__0_0.distcp",
+      "__1_0.distcp",
+      "__2_0.distcp",
+      "__3_0.distcp"
+    ],
+    "optim_referenced_rank_files": [
+      "__0_0.distcp",
+      "__1_0.distcp",
+      "__2_0.distcp",
+      "__3_0.distcp"
+    ],
+    "scheduler_referenced_rank_files": [
+      "__0_0.distcp"
+    ],
+    "trainer_referenced_rank_files": [
+      "__0_0.distcp"
+    ]
+  },
+  "parent_bindings": {
+    "candidate_code_sha256": "07fe5ee3a9b90037ed724a94da76d9d87476e6eaea554af8c3ddb420ff3da511",
+    "output_path_closure_path": "方案/v03/M5B_P2_output_path_closure_v1.json",
+    "output_path_closure_sha256": "8320e1113ad0e6794b7469bb4e7e9f7a7e8859955bc0c68f7e6757bae7cf3721"
+  },
+  "schema_version": "human2robot-m5b-p2-dcp-audit-closure-v1",
+  "status": "frozen_approved_metadata_aware_dcp_audit",
+  "successor_id": "m5b_p2_metadata_aware_dcp_audit_closure_v1"
+}

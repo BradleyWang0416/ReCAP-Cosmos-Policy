@@ -453,7 +453,7 @@ M4 验收标准继续要求 RECAP 优于 `No retrieval` 和 `Retrieval Only`，p
 
 ### M5-v03：机制消融与压力测试
 
-状态：**M5-A 已完成首轮数据/契约压力测试；M5B-P0-IMPLEMENTATION 与 M5B-P1-DATA 已通过；M5B-P2 的 v2 八卡门禁作为历史记录保留，当前 v3 四卡 successor、source snapshot、四卡 Docker receipt、launch activation、post-activation preflight 与 DAG plan 均已通过；正式执行尚未启动，模型结果仍 pending**。M5-A 启动报告为 `M5A_data_contract_stress_启动报告.md`，P0 报告为 `M5B_P0_IMPLEMENTATION_验收报告.md`，P1 报告为 `M5B_P1_DATA_验收报告.md`；P2 的 v1 prequeue 历史审计为 `M5B_P2_prequeue_closure_audit.md`，v2 successor 冻结依据为 `M5B_P2_successor_freeze_implementation_report.md`，四卡运行时冻结件为 `M5B_P2_4gpu_successor_v3.json`。
+状态：**M5-A 已完成首轮数据/契约压力测试；M5B-P0-IMPLEMENTATION 与 M5B-P1-DATA 已通过；M5B-P2 四卡正式执行已启动，首个 `no_retrieval/seed20260711` learned-training cell 已完成 step 7000、路径闭环和 metadata-aware DCP 审计，冻结 DAG 当前为 1/203（invalid=0、missing=202）；其余模型结果与最终验收仍 pending**。M5-A 启动报告为 `M5A_data_contract_stress_启动报告.md`，P0 报告为 `M5B_P0_IMPLEMENTATION_验收报告.md`，P1 报告为 `M5B_P1_DATA_验收报告.md`；P2 的 v1 prequeue 历史审计为 `M5B_P2_prequeue_closure_audit.md`，v2 successor 冻结依据为 `M5B_P2_successor_freeze_implementation_report.md`，四卡运行时冻结件为 `M5B_P2_4gpu_successor_v3.json`，首个正式 cell 的闭环证据见 `M5B_P2_首个正式cell路径闭环与1of203验收报告_20260717.md`。
 
 M5-A 绑定 M3 Gate B 与 M4 冻结契约，只验证错误 role、lag、scale、时间和分辨率处理能否被数据/契约检测器发现。首轮结果中四类 action stress、六种 time view、frame drop/jitter/pause/step jump 检测和 426↔424 crop/pad 契约均通过；所有 time view 和 temporal stress 的 gap crossing 均为 0。
 
@@ -467,7 +467,7 @@ P2 v2 successor 已补齐 48 learned checkpoint、3 个带完整 provenance/payl
 
 203 条 handler 命令均绑定显式单-cell 的 fail-closed dispatcher，不提供自动 `run all`。后继 sampler 固定为 native Rectified Flow：guidance 1.5、35 次采样调用（34 ODE steps 加 final clean x0）、shift 5.0、Karras sigma 开启、variance scale 关闭，禁止旧 `2ab` 参数。workspace guardrail 使用 16 个 train episode 的 canonical robot EE xyz 全局轴对齐范围并按各轴 range 扩 5%，只计越界、不裁剪，也不冒充 M6 物理安全边界。temporal stress 直接修改 tokenizer 前的 uint8 model video input；严重四档必须 pre-model reject 且 model-call count 为 0。resolution gate 使用同一冻结 WAN encoder、同一候选/seeded tie，保存逐 query visual top-k，以 mean Jaccard ≥0.90 为主门禁并报告 median/min/identical ratio。
 
-启动状态与验收状态已拆分。八卡 `M5B_P2_launch_activation_schema_v2.json`、旧 source snapshot、receipt 和 `launch_activation_v2.json` 只作为历史证据保留，不能授权新运行。当前 `M5B_P2_launch_activation_schema_v3.json` 要求恰好 4 GPU、`world_size=DP=fsdp_shard_size=4`、每 rank batch 25、gradient accumulation 2、有效全局 batch 200，并且 successor 哈希、当前源码 Docker suite、可写正式盘、本地权重和 source snapshot 全部通过后才可开启队列；它仍明确 `p2_acceptance_allowed=false`。当前 v3 候选源码 SHA256 为 `ebcaab2a3df0a14c4252fce5e34e8d0e2cbf402e1e665518d38492ef27107bd3`，四卡 Docker suite 为 148 passed；`launch_activation_v3.json`、post-activation preflight 和 DAG plan 均已通过，`formal_queue_allowed=true`、`formal_queue_started=false`、blockers=`[]`。`M5B_P2_final_acceptance_schema_v3.json` 只有在第 203 个终止报告通过后才能令 `p2_acceptance_allowed=true`。formal cell 仍为 **0/203**，四卡峰值显存、吞吐、首份四 rank DCP 大小及全部模型结果均继续标记 `NEEDS_EXPERIMENT`。详细证据见 `M5B_P2_4GPU_successor_冻结与启动前验收报告_20260714.md`。
+启动状态与验收状态已拆分。八卡 `M5B_P2_launch_activation_schema_v2.json` 及 v3/v4 历史 activation 只作为历史证据保留，不能授权当前运行。当前 v5 四卡 activation 绑定 source SHA256 `07fe5ee3a9b90037ed724a94da76d9d87476e6eaea554af8c3ddb420ff3da511`、I/O successor、memory successor、四卡运行时与完整 Docker receipt。首个正式 cell 完成后重新执行的 DAG plan 仍为 `formal_queue_allowed=true`、blockers=`[]`、activation=`approved`；DAG inventory 为 **1/203**（completed=1、invalid=0、missing=202）。只有第 203 个终止报告及全部统计门禁通过后，才能令 `p2_acceptance_allowed=true`；当前 M5B-P2、M5、Gate C 与 M6 rollout 仍全部 pending。
 
 保留 residual/absolute、future-state、retrieval modality、geometry/visual、top-k、pool-growth 和 temporal mismatch 消融。
 
