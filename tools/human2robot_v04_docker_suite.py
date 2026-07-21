@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run the frozen Human2Robot suite and emit a v04 stage-1 receipt."""
+"""Run the frozen Human2Robot suite and emit a v04 stage-2 receipt."""
 
 from __future__ import annotations
 
@@ -18,8 +18,8 @@ from typing import Any, Mapping
 import torch
 
 
-SCHEMA = "human2robot-v04-stage1-docker-suite-v1"
-MINIMUM_TEST_COUNT = 182
+SCHEMA = "human2robot-v04-stage2-docker-suite-v1"
+MINIMUM_TEST_COUNT = 194
 EXPECTED_OFFLINE_ENV = {
     "COSMOS_SKIP_HF_AUTO_DOWNLOAD": "1",
     "HF_HUB_OFFLINE": "1",
@@ -102,6 +102,7 @@ def run_suite(
         "cosmos_policy/datasets/human2robot_p2_contract_test.py",
         "cosmos_policy/datasets/human2robot_p2_dataset_test.py",
         "cosmos_policy/datasets/human2robot_v04_sampler_test.py",
+        "cosmos_policy/datasets/human2robot_v04_retrieval_test.py",
         "cosmos_policy/models/human2robot_adapter_test.py",
     ]
     tool_tests = [str(path.relative_to(workspace)) for path in sorted((workspace / "tools").glob("human2robot*_test.py"))]
@@ -124,8 +125,12 @@ def run_suite(
         workspace / "tools/human2robot_v04_test.py",
         workspace / "tools/human2robot_v04_data.py",
         workspace / "tools/human2robot_v04_data_test.py",
+        workspace / "tools/human2robot_v04_retrieval.py",
+        workspace / "tools/human2robot_v04_stage2_audit_test.py",
         workspace / "cosmos_policy/datasets/human2robot_v04_sampler.py",
         workspace / "cosmos_policy/datasets/human2robot_v04_sampler_test.py",
+        workspace / "cosmos_policy/datasets/human2robot_v04_retrieval.py",
+        workspace / "cosmos_policy/datasets/human2robot_v04_retrieval_test.py",
         workspace / "方案/v04/RECAP_Human2Robot_无泄漏单seed离线复现执行总计划.md",
         workspace / "docs/pusht_rag_docker_runbook.md",
     ]
@@ -142,11 +147,15 @@ def run_suite(
         workspace / "data/Human2Robot/derived/v04/source_split_manifest.json",
         workspace / "data/Human2Robot/derived/v04/source_split_manifest.lock.json",
         workspace / "data/Human2Robot/derived/v04/stage1_data_audit_report.json",
+        workspace / "data/Human2Robot/derived/v04/stage2_retrieval_contract_report.json",
     ]
     artifact_bindings = [bind_file(path) for path in artifact_paths]
     require(audit.get("manifest", {}).get("sha256") == artifact_bindings[0]["sha256"], "Audit manifest binding mismatch")
     require(audit.get("lock", {}).get("sha256") == artifact_bindings[1]["sha256"], "Audit lock binding mismatch")
     require(audit.get("report", {}).get("sha256") == artifact_bindings[2]["sha256"], "Audit report binding mismatch")
+    stage2 = read_json(artifact_paths[3])
+    require(stage2.get("status") == "VERIFIED_STAGE2", "Stage-2 retrieval contract is not verified")
+    require(stage2.get("future_stage_authorization", {}).get("training_allowed") is False, "Stage-2 report unexpectedly authorizes training")
 
     passed = process.returncode == 0 and passed_count >= MINIMUM_TEST_COUNT
     receipt = {
@@ -155,7 +164,8 @@ def run_suite(
         "created_at_utc": dt.datetime.now(dt.timezone.utc).isoformat(),
         "formal_result": False,
         "training_started": False,
-        "stage2_authorized_by_this_receipt": False,
+        "stage3_authorized_by_this_receipt": passed,
+        "training_allowed": False,
         "image": os.environ.get("HUMAN2ROBOT_V04_IMAGE"),
         "image_id": os.environ.get("HUMAN2ROBOT_V04_IMAGE_ID"),
         "host_gpu_devices": os.environ.get("HUMAN2ROBOT_V04_GPU_DEVICES"),

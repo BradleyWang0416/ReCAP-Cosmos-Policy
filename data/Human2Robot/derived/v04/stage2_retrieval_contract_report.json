@@ -1,0 +1,261 @@
+{
+  "code_bindings": [
+    {
+      "path": "/workspace/cosmos_policy/datasets/human2robot_v04_retrieval.py",
+      "sha256": "8afcb3ac85647a90b8e5dc6bebdec69d6d0d6d130865097f57002578684c9638",
+      "size_bytes": 22015
+    },
+    {
+      "path": "/workspace/cosmos_policy/datasets/human2robot_v04_retrieval_test.py",
+      "sha256": "d165985c7cd221a5fb72738c502cf6172bc109d5f9eef2cdd6a3d16860f74a4a",
+      "size_bytes": 10832
+    },
+    {
+      "path": "/workspace/tools/human2robot_v04_retrieval.py",
+      "sha256": "a88750febced45c9b87f4eeb5d620ed6ef7ac2cfc3c5f0cfb3381a0a34749b20",
+      "size_bytes": 18577
+    }
+  ],
+  "completed_at_utc": "2026-07-21T10:05:27.166255+00:00",
+  "deferred_to_stage4": [
+    "fit and freeze seen-train geometry statistics",
+    "materialize frozen WAN visual feature cache",
+    "run old-checkpoint read-only dev smoke"
+  ],
+  "feature_provenance_contract": {
+    "candidate_robot_fields_allowed": false,
+    "geometry_future_rows_allowed": false,
+    "record_fields": [
+      "query/candidate source_sha256",
+      "query/candidate source_relative_path",
+      "query/candidate source_partition",
+      "retrieval rank/distance/tie_sha256",
+      "geometry datasets/rows",
+      "visual dataset/current row/feature kind"
+    ],
+    "visual_future_frames_allowed": false
+  },
+  "features_generated": false,
+  "formal_result": false,
+  "future_stage_authorization": {
+    "stage3_allowed": true,
+    "training_allowed": false
+  },
+  "oracle_phase": {
+    "name": "oracle_phase",
+    "primary_allowed": false,
+    "requires_primary_completion_receipt": true
+  },
+  "pool_growth": {
+    "retraining_allowed": false,
+    "same_checkpoint_required": true,
+    "sizes": [
+      1,
+      2,
+      4,
+      8,
+      10
+    ],
+    "source_sha256_by_size_and_task": {
+      "1": {
+        "grab_cube2_v1": [
+          "0b7f529aaeb40ac39a5697107b0b51c0febcbeeb9fe0931ab7cea50fb777ee13"
+        ],
+        "grab_to_plate1_v1": [
+          "8695a7b35a5c104b5c5b44f7b54e58995956e06cfdaf9445096aedcb65650f84"
+        ],
+        "push_box_random_v1": [
+          "f1d00319db2dca3889df0431063236d60e57d882e04ef2788af8fe0e8facccd2"
+        ],
+        "push_plate_v1": [
+          "0af3625609b4612b198129a3734a1be9c5698cb547615fd27e1349d24d0ac74a"
+        ]
+      },
+      "2": {
+        "grab_cube2_v1": [
+          "0b7f529aaeb40ac39a5697107b0b51c0febcbeeb9fe0931ab7cea50fb777ee13",
+          "b84dff23bf00b817f19b5807f88c42fdc171c119f21e8c8c8e3313b0ec72ec26"
+        ],
+        "grab_to_plate1_v1": [
+          "8695a7b35a5c104b5c5b44f7b54e58995956e06cfdaf9445096aedcb65650f84",
+          "9e965910ed9715f4047bfb852aba77ac897db19cd0cf139b6371c5029e689cc3"
+        ],
+        "push_box_random_v1": [
+          "f1d00319db2dca3889df0431063236d60e57d882e04ef2788af8fe0e8facccd2",
+          "161a11a1e12defde3bb04bf443a69c67a104f4679dae9b42df37f7e6e1defddc"
+        ],
+        "push_plate_v1": [
+          "0af3625609b4612b198129a3734a1be9c5698cb547615fd27e1349d24d0ac74a",
+          "9d258641dbfa0ac53031ee7f5a0e3c09b7eff2e841d9fc5023a042e22bf2ef55"
+        ]
+      },
+      "4": {
+        "grab_cube2_v1": [
+          "0b7f529aaeb40ac39a5697107b0b51c0febcbeeb9fe0931ab7cea50fb777ee13",
+          "b84dff23bf00b817f19b5807f88c42fdc171c119f21e8c8c8e3313b0ec72ec26",
+          "3a52b172ec685f3e778901efb56644153a9745e50f39040e14b7485e89ce0aa0",
+          "903bc86b2e5bb037ca296a4bb59e5bdb895df1a702ac7f2d7f470004efc4f895"
+        ],
+        "grab_to_plate1_v1": [
+          "8695a7b35a5c104b5c5b44f7b54e58995956e06cfdaf9445096aedcb65650f84",
+          "9e965910ed9715f4047bfb852aba77ac897db19cd0cf139b6371c5029e689cc3",
+          "db9a741455ad9415689e2e0b3d3e71cdc82f9dfab6acbe4638cf61c79ba43df1",
+          "2f003a6ac5439134eb166fc39e226dad1e80278532fbdfa575e6e5f6110a1020"
+        ],
+        "push_box_random_v1": [
+          "f1d00319db2dca3889df0431063236d60e57d882e04ef2788af8fe0e8facccd2",
+          "161a11a1e12defde3bb04bf443a69c67a104f4679dae9b42df37f7e6e1defddc",
+          "67e873a9a0ea32baae03623fcecf6bbf8b551de8f015e60f5ae6dfcd21b95e0e",
+          "1426438fe3966482fde81b2ef241b72a3d62295229707d4a31f082a8a553d7a4"
+        ],
+        "push_plate_v1": [
+          "0af3625609b4612b198129a3734a1be9c5698cb547615fd27e1349d24d0ac74a",
+          "9d258641dbfa0ac53031ee7f5a0e3c09b7eff2e841d9fc5023a042e22bf2ef55",
+          "1818be3b334097bc725816524bc3c1f4bb0dbcf9d48ac7e1fdf64e99b9cf0792",
+          "4d695d51cdbda8a86b35dcd6bff1a44c4881496d76ac7dff5050a186ad8739ad"
+        ]
+      },
+      "8": {
+        "grab_cube2_v1": [
+          "0b7f529aaeb40ac39a5697107b0b51c0febcbeeb9fe0931ab7cea50fb777ee13",
+          "b84dff23bf00b817f19b5807f88c42fdc171c119f21e8c8c8e3313b0ec72ec26",
+          "3a52b172ec685f3e778901efb56644153a9745e50f39040e14b7485e89ce0aa0",
+          "903bc86b2e5bb037ca296a4bb59e5bdb895df1a702ac7f2d7f470004efc4f895",
+          "cea060b10ec19d2bc97c67e17c46b20a3faa4defc76094e1e44ea32fe45b3cab",
+          "e42940e32cb01c6b00de03a6c9eb36a356cd7a396112a14e6652f4066c10fb59",
+          "0205bf41c16eaf359145e635deb29621ab0dbb7a5bfe18a6b9a1481f37304c02",
+          "2d05dcccf9cb84a7301a81be9d4adbd5549c3c947e2e704217662d671a427a56"
+        ],
+        "grab_to_plate1_v1": [
+          "8695a7b35a5c104b5c5b44f7b54e58995956e06cfdaf9445096aedcb65650f84",
+          "9e965910ed9715f4047bfb852aba77ac897db19cd0cf139b6371c5029e689cc3",
+          "db9a741455ad9415689e2e0b3d3e71cdc82f9dfab6acbe4638cf61c79ba43df1",
+          "2f003a6ac5439134eb166fc39e226dad1e80278532fbdfa575e6e5f6110a1020",
+          "045c977d831538deef9a5035303b98d41a383ed149a3dd460e96a249032d5dcf",
+          "148e8edbd88c45d07952a57f2bdb51001e66acf673d944e0a36fc86476e168df",
+          "24ff547d4fe837860a75110ae58bcdbf19009279dbe4dfb559730bde446975de",
+          "5ca9dbaea93a3361845ad639fd63162528373294710fd09a15b15552c8b75463"
+        ],
+        "push_box_random_v1": [
+          "f1d00319db2dca3889df0431063236d60e57d882e04ef2788af8fe0e8facccd2",
+          "161a11a1e12defde3bb04bf443a69c67a104f4679dae9b42df37f7e6e1defddc",
+          "67e873a9a0ea32baae03623fcecf6bbf8b551de8f015e60f5ae6dfcd21b95e0e",
+          "1426438fe3966482fde81b2ef241b72a3d62295229707d4a31f082a8a553d7a4",
+          "10ecb9d7d836f32efabbe36d7e5d1bd49cdd628a6230fadbb5a1964cd64e078e",
+          "d11e86cc2d763d8054fe63f44b5131f797bf689155c2b5b3c7dff1a4f2b8613f",
+          "067f497f197345abb2a52953769b7da8544ec9e6600f5a9959879de90508b4c4",
+          "879f44d8f187eda1a7f5db04e56b85baf9572f6f4da21376d3f3eb5f737ab234"
+        ],
+        "push_plate_v1": [
+          "0af3625609b4612b198129a3734a1be9c5698cb547615fd27e1349d24d0ac74a",
+          "9d258641dbfa0ac53031ee7f5a0e3c09b7eff2e841d9fc5023a042e22bf2ef55",
+          "1818be3b334097bc725816524bc3c1f4bb0dbcf9d48ac7e1fdf64e99b9cf0792",
+          "4d695d51cdbda8a86b35dcd6bff1a44c4881496d76ac7dff5050a186ad8739ad",
+          "a0527d022e082c3f8e34b851c5ce593614970f3ede827bd51ec1e3beea5523f8",
+          "9e95c624a0a42cbc465adf89232f98aee3519cf01dc5c78b37a26f68d8ada8aa",
+          "7de50bf87cab1a58eef232ca7db6c3b2ab15f09dcf40690116623aae5a7b5be4",
+          "278368dcb482856bdfe514e9c85e93715ce86172279b7c9f94dc761312a6b3c4"
+        ]
+      },
+      "10": {
+        "grab_cube2_v1": [
+          "0b7f529aaeb40ac39a5697107b0b51c0febcbeeb9fe0931ab7cea50fb777ee13",
+          "b84dff23bf00b817f19b5807f88c42fdc171c119f21e8c8c8e3313b0ec72ec26",
+          "3a52b172ec685f3e778901efb56644153a9745e50f39040e14b7485e89ce0aa0",
+          "903bc86b2e5bb037ca296a4bb59e5bdb895df1a702ac7f2d7f470004efc4f895",
+          "cea060b10ec19d2bc97c67e17c46b20a3faa4defc76094e1e44ea32fe45b3cab",
+          "e42940e32cb01c6b00de03a6c9eb36a356cd7a396112a14e6652f4066c10fb59",
+          "0205bf41c16eaf359145e635deb29621ab0dbb7a5bfe18a6b9a1481f37304c02",
+          "2d05dcccf9cb84a7301a81be9d4adbd5549c3c947e2e704217662d671a427a56",
+          "edbc5404a46baf5f8b34587d8c3e25886862bf603d0f10a2fb01fd4e5deb7a8c",
+          "e42073eccc29e71075593a2669d6baf94bb0f8086e9b2c9b96b716f1a20a887e"
+        ],
+        "grab_to_plate1_v1": [
+          "8695a7b35a5c104b5c5b44f7b54e58995956e06cfdaf9445096aedcb65650f84",
+          "9e965910ed9715f4047bfb852aba77ac897db19cd0cf139b6371c5029e689cc3",
+          "db9a741455ad9415689e2e0b3d3e71cdc82f9dfab6acbe4638cf61c79ba43df1",
+          "2f003a6ac5439134eb166fc39e226dad1e80278532fbdfa575e6e5f6110a1020",
+          "045c977d831538deef9a5035303b98d41a383ed149a3dd460e96a249032d5dcf",
+          "148e8edbd88c45d07952a57f2bdb51001e66acf673d944e0a36fc86476e168df",
+          "24ff547d4fe837860a75110ae58bcdbf19009279dbe4dfb559730bde446975de",
+          "5ca9dbaea93a3361845ad639fd63162528373294710fd09a15b15552c8b75463",
+          "1815c5aed62620b97425e5d812063a790d515363cf73f292fe2a38622dc393a9",
+          "4f72a50e7c85dcfd8a53fff8a01485b27d92e485a00e744b6d37edef31984390"
+        ],
+        "push_box_random_v1": [
+          "f1d00319db2dca3889df0431063236d60e57d882e04ef2788af8fe0e8facccd2",
+          "161a11a1e12defde3bb04bf443a69c67a104f4679dae9b42df37f7e6e1defddc",
+          "67e873a9a0ea32baae03623fcecf6bbf8b551de8f015e60f5ae6dfcd21b95e0e",
+          "1426438fe3966482fde81b2ef241b72a3d62295229707d4a31f082a8a553d7a4",
+          "10ecb9d7d836f32efabbe36d7e5d1bd49cdd628a6230fadbb5a1964cd64e078e",
+          "d11e86cc2d763d8054fe63f44b5131f797bf689155c2b5b3c7dff1a4f2b8613f",
+          "067f497f197345abb2a52953769b7da8544ec9e6600f5a9959879de90508b4c4",
+          "879f44d8f187eda1a7f5db04e56b85baf9572f6f4da21376d3f3eb5f737ab234",
+          "a34a278a8213b034ea3948d0ad39fea130b19348abb44b27325f57daef02385e",
+          "398bd937477878a5d084d5d5efd31000d3d81cf7f89cf46ef785d95753326638"
+        ],
+        "push_plate_v1": [
+          "0af3625609b4612b198129a3734a1be9c5698cb547615fd27e1349d24d0ac74a",
+          "9d258641dbfa0ac53031ee7f5a0e3c09b7eff2e841d9fc5023a042e22bf2ef55",
+          "1818be3b334097bc725816524bc3c1f4bb0dbcf9d48ac7e1fdf64e99b9cf0792",
+          "4d695d51cdbda8a86b35dcd6bff1a44c4881496d76ac7dff5050a186ad8739ad",
+          "a0527d022e082c3f8e34b851c5ce593614970f3ede827bd51ec1e3beea5523f8",
+          "9e95c624a0a42cbc465adf89232f98aee3519cf01dc5c78b37a26f68d8ada8aa",
+          "7de50bf87cab1a58eef232ca7db6c3b2ab15f09dcf40690116623aae5a7b5be4",
+          "278368dcb482856bdfe514e9c85e93715ce86172279b7c9f94dc761312a6b3c4",
+          "f9ee57576ae2c8259bb3562020204a243aaffb0f8fc711c73f90f0b55939134b",
+          "e45e8899873f11b18de052594ec182a635d63dc37751f0e7ca54a086ef169651"
+        ]
+      }
+    },
+    "strictly_nested": true
+  },
+  "primary_retrieval": {
+    "fusion": "equal-weight concatenation with 1/sqrt(2)",
+    "geometry": "H8 relative-to-current 10D state; seen-train standardized; L2 normalized",
+    "modality": "geometry_plus_visual",
+    "pool_size": 10,
+    "seed": 20260711,
+    "tie_break": "SHA256(seed, query_id, human_content_sha256)",
+    "top_k": 3,
+    "visual": "current frame frozen WAN latent; L2 normalized"
+  },
+  "projection_audit": {
+    "active_pool10_candidate_count_max": 10,
+    "active_pool10_candidate_count_min": 10,
+    "future_row_read_count": 0,
+    "human_pool_episode_count": 40,
+    "opposite_role_field_read_count": 0,
+    "projection_count": 140,
+    "query_candidate_source_path_overlap_count": 0,
+    "query_candidate_source_sha256_overlap_count": 0,
+    "representative_window_count": 140,
+    "robot_dev_episode_count": 20,
+    "robot_final_episode_count": 80,
+    "robot_query_episode_count": 100,
+    "target_action_read_count": 0
+  },
+  "schema_version": "human2robot-v04-stage2-retrieval-v1",
+  "stage1_bindings": {
+    "audit_report": {
+      "path": "/workspace/data/Human2Robot/derived/v04/stage1_data_audit_report.json",
+      "sha256": "f17e797f5af5695a9ac6b036012d1efcc1d16afa8c49b250a7a8067d28bcb85d",
+      "size_bytes": 5831
+    },
+    "lock": {
+      "path": "/workspace/data/Human2Robot/derived/v04/source_split_manifest.lock.json",
+      "sha256": "69632457fcfc935c06413224382da914cd1e43607976ff3a7e44029572ee0577",
+      "size_bytes": 526
+    },
+    "manifest": {
+      "path": "/workspace/data/Human2Robot/derived/v04/source_split_manifest.json",
+      "sha256": "7869a078b19ba18aaa6a92c22bec26998a81d412165a02eb8cb6c6aec1c879ed",
+      "size_bytes": 1158215
+    },
+    "protocol_sha256": "55854766bb7a36468aa0db73bd3a99dfca941dead26a452d2e000ed7bec8d3c2",
+    "raw_inventory_sha256": "d9a2f361862d9266bbd101700f99e1a629c86786bab5a279b6c2df62a388ce43",
+    "split_sha256": "8ca7c8352e031292975779fd254db9591963b2cd3612b1f1b5ab65b6e79ebeaf"
+  },
+  "status": "VERIFIED_STAGE2",
+  "training_started": false
+}

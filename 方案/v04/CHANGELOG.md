@@ -68,3 +68,16 @@
 - 冻结产物：manifest SHA256 `7869a078b19ba18aaa6a92c22bec26998a81d412165a02eb8cb6c6aec1c879ed`；lock SHA256 `69632457fcfc935c06413224382da914cd1e43607976ff3a7e44029572ee0577`；audit report SHA256 `f17e797f5af5695a9ac6b036012d1efcc1d16afa8c49b250a7a8067d28bcb85d`，均为 `0444`。
 - 数据结果：seen train/validation 为 654/82；held-out quarantine/human/dev/final/reserve 为 30/40/20/80/88；21 个 partition pair 全部来源 SHA 零交集，且无 `.partial`。
 - 验收证据：`stage1_v04.1数据与来源身份协议验收报告_20260721.md`。
+
+## 2026-07-21 — 阶段 2 候选过滤与主检索验收通过
+
+- 结论：`VERIFIED_STAGE2 / PASSED`；阶段 3 最小实验接口可以开始，仍保持 `training_allowed=false`。
+- 新增 v04 专用 `human2robot_v04_retrieval.py`：`P2Window` 绑定 source SHA/path/partition/role；候选无条件执行来源、partition、role、字段白名单、active pool 和同任务过滤；主方法固定 `geometry_plus_visual`、top-k=3、pool10 与冻结 hash tie-break。
+- feature provenance：geometry 只读 H=8 history、visual 只读 current frame；每条 record 记录 query/candidate 来源、partition、rank、distance、tie 和精确 dataset/row provenance；future、target/action、opposite-role 读取均 hard-fail。
+- pool growth：每任务 rank 1～10 完整，pool1/2/4/8/10 严格嵌套；只允许同一 checkpoint 评估，不允许因 pool size 重训。
+- oracle：原 `phase` 主配置 hard-fail；诊断接口命名为 `oracle_phase`，必须绑定已经完成的 primary receipt SHA256。
+- 正式审计：完整离线四卡 preflight 通过，140/140 个 role-only projection、40 个 human pool 与 100 个 robot dev/final episode 通过；source SHA/path overlap、future-row、target/action、opposite-role read count 均为 0。
+- 正式 stage-2 report SHA256：`27eceb61565d01297d4ec4ff19d166b5ff5c8d5e9af7916d92d5d9837af651d9`；audit receipt SHA256：`80a1ba97679b404528110aa9917658dd6e5835fc4f5ce6d66dfb4dfd3215f919`。
+- 完整 Docker suite：194 passed、3 个第三方 deprecation warnings；receipt SHA256 `ee36ac7348e1d9a8269c21ba137f18fe6142587175deadd1e02e16cfbfb2e375`，明确 `stage3_authorized_by_this_receipt=true`、`training_allowed=false`。
+- 非正式偏差：一次宿主机纯静态 `py_compile` 未遵守 Docker-only 约束，未读实验数据、未写正式产物且不作为证据；随后全部语法/单测/正式审计均在冻结 Docker 重做。另有一次 pytest 同名文件收集错误和一次 HDF5 测试夹具广播错误，均无正式产物，最终已由 194 项完整套件覆盖。
+- 阶段边界：未生成实际 geometry statistics、WAN feature cache、checkpoint 或评估结果；这些仍分别属于阶段 4/5 及后续阶段。详见 `阶段2_候选过滤与主检索验收报告_20260721.md`。
