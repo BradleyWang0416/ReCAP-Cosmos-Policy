@@ -1,5 +1,7 @@
 # ReCAP-RAG-Policy — Retrieval-Augmented Cosmos Policy on PushT
 
+> **Human2Robot v03 status: `LEGACY_ORACLE_PHASE_PILOT`.** v03 使用 phase-oracle、单 robot episode 和已重复查看的 held-out queries，只保留为历史/诊断证据，不得用于新任务泛化结论，也不得继续其 203-cell 队列。新的无泄漏单-seed 离线复现使用独立的 [v04 执行计划](方案/v04/RECAP_Human2Robot_无泄漏单seed离线复现执行总计划.md)、`tools/human2robot_v04.py` 和 `/DATA1/wxs/ReCAP_M5B_V04_RUNS`。
+
 Retrieval-augmented visuomotor policy for the **PushT** benchmark, built on
 [Cosmos Policy](https://github.com/NVlabs/cosmos-policy) and the
 [Cosmos-Predict2.5](https://github.com/nvidia-cosmos/cosmos-predict2.5) video backbone.

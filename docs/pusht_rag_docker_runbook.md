@@ -341,6 +341,27 @@ v6 的每次训练尝试会写入独立日志：
 同目录的 `latest_log.json` 指向当前或最近一次 attempt。重试会创建
 `attempt_0002.log`，不会再向旧日志追加。
 
+### 4.4 Human2Robot v04 无泄漏离线复现容器
+
+v04 不复用 v03 activation、cell registry 或输出目录。宿主机显式选择四张稳定物理卡：
+
+```bash
+cd /home/wxs/ReCAP-Cosmos-Policy
+HUMAN2ROBOT_V04_GPU_DEVICES=0,1,2,3 bash start_human2robot_v04_docker.sh
+```
+
+launcher 绑定本地 `cosmos-policy:latest` 的 image ID，以读写方式挂载仓库、`/DATA1` 和两个缓存目录，设置 `--ipc=host` 与离线环境，并禁用容器网络。它只生成 Docker session/preflight 回执并打开 shell，不启动 prepare、train 或 evaluate。容器内所有 v04 Python 命令都从 `/workspace` 使用 `/workspace/.venv/bin/python tools/human2robot_v04.py ...`；禁止宿主机 Python、依赖同步和现场下载。
+
+阶段 0 命令顺序：
+
+```bash
+.venv/bin/python tools/human2robot_v04.py freeze-v03
+.venv/bin/python tools/human2robot_v04.py verify-v03
+.venv/bin/python tools/human2robot_v04.py preflight
+```
+
+每个命令在 `/DATA1/wxs/ReCAP_M5B_V04_RUNS/orchestrator_logs/<run_id>/` 创建不可覆盖的 attempt 日志、命令、runtime、status、progress 和 receipt。`preflight` 只有在镜像、挂载、Python 3.10、离线环境、四卡 CUDA/NCCL、编译扩展、数据、四个本地权重 SHA256、至少 300 GiB 可用空间、文档哈希和 v03 冻结验证全部通过时才返回 `PASSED`；否则返回退出码 2 和 `BLOCKED_ENVIRONMENT`，不得启动后续阶段。
+
 ## 5. 同步 Python 环境
 
 进入容器后执行：

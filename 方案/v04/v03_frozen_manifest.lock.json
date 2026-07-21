@@ -1,0 +1,7 @@
+{
+  "manifest_path": "方案/v04/v03_frozen_manifest.json",
+  "manifest_sha256": "d20eae44a2b1d0e1287dc8ae0973e2f713413aab904ef2dff1e304d927db1ab4",
+  "mutation_allowed": false,
+  "schema_version": "human2robot-v04-stage0-v1-v03-freeze-lock",
+  "status": "locked_read_only"
+}

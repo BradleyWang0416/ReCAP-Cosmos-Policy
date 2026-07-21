@@ -1,0 +1,196 @@
+{
+  "checkpoints": [
+    {
+      "artifact": {
+        "path": "/DATA1/wxs/ReCAP_M5B_P2_RUNS/cells/learned_training_checkpoint__M5B-MAIN-01__frozen_main__no_retrieval__seed20260711/artifact.json",
+        "sha256": "3ddddef35e3c193ff1ed7ba332c54e164be047cdb46a64ebdf6057bbc79e2197",
+        "size_bytes": 1559
+      },
+      "manifest": {
+        "path": "/DATA1/wxs/ReCAP_M5B_P2_RUNS/cosmos_policy/human2robot_m5b_formal/cosmos_predict2p5_2b_human2robot_no_retrieval_seed20260711/m5b_p2_cell_manifest.json",
+        "sha256": "233f86996b06d8338b1b1bef12b425e4bbd4429ca8bd06304e1005a9ea37e4f0",
+        "size_bytes": 17412
+      },
+      "method": "no_retrieval",
+      "optimizer_step": 7000,
+      "path": "/DATA1/wxs/ReCAP_M5B_P2_RUNS/cosmos_policy/human2robot_m5b_formal/cosmos_predict2p5_2b_human2robot_no_retrieval_seed20260711/checkpoints/iter_000007000",
+      "payload_sha256": "6be4056171acc96c11bb85618feffb2e6dbabb78e29c2f74f0a6a3ce11ed787a",
+      "seed": 20260711,
+      "tree": {
+        "file_count": 21,
+        "path": "/DATA1/wxs/ReCAP_M5B_P2_RUNS/cosmos_policy/human2robot_m5b_formal/cosmos_predict2p5_2b_human2robot_no_retrieval_seed20260711/checkpoints/iter_000007000",
+        "total_bytes": 11762557999
+      }
+    },
+    {
+      "artifact": {
+        "path": "/DATA1/wxs/ReCAP_M5B_P2_RUNS/cells/learned_training_checkpoint__M5B-MAIN-01__frozen_main__co_training__seed20260711/artifact.json",
+        "sha256": "d18397608c1fc59a6277ddb537aa844234a93735f4078de2fbc26d47f10191e0",
+        "size_bytes": 1554
+      },
+      "manifest": {
+        "path": "/DATA1/wxs/ReCAP_M5B_P2_RUNS/cosmos_policy/human2robot_m5b_formal/cosmos_predict2p5_2b_human2robot_co_training_seed20260711/m5b_p2_cell_manifest.json",
+        "sha256": "9b75d5e6160bf8070e1e54ac2624734073de31ee809c751430b07b58b5cb9859",
+        "size_bytes": 17465
+      },
+      "method": "co_training",
+      "optimizer_step": 7000,
+      "path": "/DATA1/wxs/ReCAP_M5B_P2_RUNS/cosmos_policy/human2robot_m5b_formal/cosmos_predict2p5_2b_human2robot_co_training_seed20260711/checkpoints/iter_000007000",
+      "payload_sha256": "a8a3d2da5b71c7efc21ec68435955b397476682c5ac62210451184ad1f244713",
+      "seed": 20260711,
+      "tree": {
+        "file_count": 21,
+        "path": "/DATA1/wxs/ReCAP_M5B_P2_RUNS/cosmos_policy/human2robot_m5b_formal/cosmos_predict2p5_2b_human2robot_co_training_seed20260711/checkpoints/iter_000007000",
+        "total_bytes": 11762558048
+      }
+    },
+    {
+      "artifact": {
+        "path": "/DATA1/wxs/ReCAP_M5B_P2_RUNS/cells/learned_training_checkpoint__M5B-MAIN-01__frozen_main__recap_hand_ret__seed20260711/artifact.json",
+        "sha256": "1003c38f43bfed31b4b11b7e7e8accb47ba0ac7d3bcf579578c7ca656b058c2e",
+        "size_bytes": 1569
+      },
+      "manifest": {
+        "path": "/DATA1/wxs/ReCAP_M5B_P2_RUNS/cosmos_policy/human2robot_m5b_formal/cosmos_predict2p5_2b_human2robot_recap_hand_ret_seed20260711/m5b_p2_cell_manifest.json",
+        "sha256": "1781c1a9f1fe8d4efdcda307c8801f44b21fb36c41bb181df908e9408082bb4b",
+        "size_bytes": 17501
+      },
+      "method": "recap_hand_ret",
+      "optimizer_step": 7000,
+      "path": "/DATA1/wxs/ReCAP_M5B_P2_RUNS/cosmos_policy/human2robot_m5b_formal/cosmos_predict2p5_2b_human2robot_recap_hand_ret_seed20260711/checkpoints/iter_000007000",
+      "payload_sha256": "06c5e0abf9c7507fce09a033772179f655f944e255be80130ab4252e5a6ef82b",
+      "seed": 20260711,
+      "tree": {
+        "file_count": 21,
+        "path": "/DATA1/wxs/ReCAP_M5B_P2_RUNS/cosmos_policy/human2robot_m5b_formal/cosmos_predict2p5_2b_human2robot_recap_hand_ret_seed20260711/checkpoints/iter_000007000",
+        "total_bytes": 11762558096
+      }
+    }
+  ],
+  "claim_boundary": "Historical phase-oracle pilot only; forbidden for new-task generalization claims.",
+  "data_protocol_code": [
+    {
+      "path": "/workspace/方案/v03/human2robot_task_split_manifest_v3.json",
+      "sha256": "21e241cef98ec1a470605d8e54b9560aff5aad7d571372e74d92b9d4939e876d",
+      "size_bytes": 4864
+    },
+    {
+      "path": "/workspace/data/Human2Robot/derived/m5b_v03/p1_human_only_pool/pool_manifest.json",
+      "sha256": "47e87be5800194de6e0ac99b47dbe23ef96a91298edbff3e9996b1484b489299",
+      "size_bytes": 60394
+    },
+    {
+      "path": "/workspace/data/Human2Robot/derived/m5b_v03/p1_human_only_pool/selection_manifest.json",
+      "sha256": "928c7af99a009f297f4310b197fcc39a02e6f6f0017d1f4c86a19eb62c18e54e",
+      "size_bytes": 14488
+    },
+    {
+      "path": "/workspace/方案/v03/M5B_formal_acceptance_protocol_v1.md",
+      "sha256": "c95cfa783476348f1e4055973aed12eb21874261eef63b7cd008b88b602bf24c",
+      "size_bytes": 8433
+    },
+    {
+      "path": "/workspace/方案/v03/M5B_formal_acceptance_protocol_v1.lock.json",
+      "sha256": "c71846dbc04ba0268c42148b018010759b804828c949b5f12bf5d8ccc3ed46f1",
+      "size_bytes": 1729
+    },
+    {
+      "path": "/workspace/方案/v03/M5B_P2_cell_registry_v2.json",
+      "sha256": "502cc57d41c7e4829e872ac95a258d7dc1e8d0d8a27ddfc3cf0315d4d31ef2d6",
+      "size_bytes": 130644
+    },
+    {
+      "path": "/workspace/方案/v03/M5B_P2_cell_registry_v2.lock.json",
+      "sha256": "e7c16b009348912654ef55ed2a6bf5e45a947762421dc5283b3b3dfaa66ef480",
+      "size_bytes": 985
+    },
+    {
+      "path": "/workspace/方案/v03/source_evidence_manifest_v3.json",
+      "sha256": "bc7e0af72e310df0dba6c51f19d774644365f6501f86ece84ca0447fa4f98ff8",
+      "size_bytes": 1757
+    },
+    {
+      "path": "/workspace/方案/v03/m2_v02_frozen_code_manifest.json",
+      "sha256": "a3ce2eb9952bf3516dcf49305f3458d15a6282c6537d4769700d4f8d9a737bc3",
+      "size_bytes": 1192
+    }
+  ],
+  "execution_state": {
+    "active_processes": [],
+    "automatic_resume_allowed": false,
+    "completed_cells": 4,
+    "completed_formal_evaluations": 0,
+    "completed_training_cells": 3,
+    "total_cells": 203,
+    "total_formal_evaluations": 147,
+    "total_training_cells": 48
+  },
+  "generated_at_utc": "2026-07-21T05:49:55.717658+00:00",
+  "git": {
+    "commit": "9a6aacaffcacdd71a5ff6fd3fc92bf30eb711f2a",
+    "tree": "daee165c61a2a94df11ede5467590cb5d3610164"
+  },
+  "latest_nonformal_full149": {
+    "files": [
+      {
+        "path": "/DATA1/wxs/ReCAP_M5B_P2_DIAGNOSTICS/nonformal_full149_recap_hand_ret_seed20260711_iter7000_20260721/iter_000007000.json",
+        "sha256": "9d37a6a73e9027dd2623de7a8ab56d8f353a1bc5f2112083069fd97a2da799a2",
+        "size_bytes": 764870
+      },
+      {
+        "path": "/DATA1/wxs/ReCAP_M5B_P2_DIAGNOSTICS/nonformal_full149_recap_hand_ret_seed20260711_iter7000_20260721/comparison_recap7000_vs_main_checkpoints.json",
+        "sha256": "9ea941c46f07275a0a0df347583c7cf8117d5091db58434849c94038226c8996",
+        "size_bytes": 21730
+      },
+      {
+        "path": "/DATA1/wxs/ReCAP_M5B_P2_DIAGNOSTICS/nonformal_full149_recap_hand_ret_seed20260711_iter7000_20260721/COMPARISON_REPORT_RECAP7000_VS_MAIN_CHECKPOINTS.md",
+        "sha256": "15b4a113148317f7a30a7e0a97f7de3daa5f15226c0f536627c197090850713f",
+        "size_bytes": 1634
+      }
+    ],
+    "formal_result": false,
+    "method": "recap_hand_ret",
+    "metrics_mean_lower_is_better": {
+      "canonical": 0.02380439,
+      "final_position": 0.01316358,
+      "gripper": 0.0168542,
+      "orientation": 0.0003952,
+      "position": 0.00779624,
+      "residual": 0.02380439
+    },
+    "optimizer_step": 7000,
+    "query_count": 149,
+    "rank_inference_count": 447,
+    "seed": 20260711
+  },
+  "mutation_allowed": false,
+  "retrieval_only": {
+    "artifact": {
+      "path": "/DATA1/wxs/ReCAP_M5B_P2_RUNS/cells/nonlearned_method_artifact__M5B-MAIN-01__retrieval_only_projection__retrieval_only__seed20260711/artifact.json",
+      "sha256": "8f95a9d05c5b4224e61d9264aa9a4ede47db0b585492dd2fab408a70a62be9a4",
+      "size_bytes": 770609
+    },
+    "artifact_payload_sha256": "54242b2de7fa2654dd58ad4bc4e84c1ede8b465bb61dbfab6b0eac9e14e77996",
+    "query_count": 149
+  },
+  "schema_version": "human2robot-v04-stage0-v1-v03-freeze",
+  "status": "LEGACY_ORACLE_PHASE_PILOT",
+  "storage_snapshot": {
+    "captured_at_utc": "2026-07-21T05:49:55.720798+00:00",
+    "filesystem": {
+      "free_bytes": 267946422272,
+      "total_bytes": 15714883563520,
+      "used_bytes": 14654875811840
+    },
+    "v03_diagnostic_root": {
+      "file_count": 117,
+      "path": "/DATA1/wxs/ReCAP_M5B_P2_DIAGNOSTICS",
+      "total_bytes": 14123999
+    },
+    "v03_run_root": {
+      "file_count": 11999,
+      "path": "/DATA1/wxs/ReCAP_M5B_P2_RUNS",
+      "total_bytes": 247173554384
+    }
+  }
+}
