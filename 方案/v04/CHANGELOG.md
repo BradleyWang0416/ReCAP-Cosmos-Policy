@@ -81,3 +81,14 @@
 - 完整 Docker suite：194 passed、3 个第三方 deprecation warnings；receipt SHA256 `ee36ac7348e1d9a8269c21ba137f18fe6142587175deadd1e02e16cfbfb2e375`，明确 `stage3_authorized_by_this_receipt=true`、`training_allowed=false`。
 - 非正式偏差：一次宿主机纯静态 `py_compile` 未遵守 Docker-only 约束，未读实验数据、未写正式产物且不作为证据；随后全部语法/单测/正式审计均在冻结 Docker 重做。另有一次 pytest 同名文件收集错误和一次 HDF5 测试夹具广播错误，均无正式产物，最终已由 194 项完整套件覆盖。
 - 阶段边界：未生成实际 geometry statistics、WAN feature cache、checkpoint 或评估结果；这些仍分别属于阶段 4/5 及后续阶段。详见 `阶段2_候选过滤与主检索验收报告_20260721.md`。
+
+## 2026-07-21 — 阶段 3 v04 最小实验接口验收通过
+
+- 结论：`VERIFIED_STAGE3 / PASSED`；阶段 4 可以开始，继续保持 `training_allowed=false`。
+- 冻结兼容：阶段 1 manifest 绑定的 `tools/human2robot_v04.py` SHA256 保持 `8cbf7f5f...` 不变；新增 `tools/human2robot_v04_experiment.py` 作为阶段 3 起唯一公开实验入口，旧文件只作阶段 0/1 冻结后端。
+- 接口：完整提供 `prepare-data`、`audit-data`、`prepare-features`、`preflight`、`train`、`evaluate`、`evaluate-oracle-phase`、`report`；全部默认 dry-run，真实操作必须显式 `--execute`。
+- 审计：每次调用独立生成 attempt manifest 与 immutable receipt；后续阶段未授权时返回 `BLOCKED_STAGE_GATE`，不启动 GPU 工作。v04 状态机固定为 prepare、preflight、三方法训练、dev、final、report 共八状态，不复用 203-cell registry。
+- 正式证据：preflight receipt SHA256 `3b9e03319...`；stage-3 contract SHA256 `10eab34a...`；完整 Docker suite 206 passed、3 warnings，receipt SHA256 `2717f2ff...`。
+- 行为探针：`prepare-features` 默认返回 `DRY_RUN`，receipt SHA256 `abcd94ce...`；`train --execute` 在阶段 5 前返回 `BLOCKED_STAGE_GATE` 且 `training_started=false`，receipt SHA256 `cfde108b...`。
+- 偏差：首次 contract 审计因阶段 1 lock 字段名适配错误在写产物前失败；按真实 `lock.manifest.sha256` 修正后通过。没有生成 partial、feature、checkpoint 或评估结果，科学语义不变。
+- 验收报告：`阶段3_v04最小实验接口验收报告_20260721.md`。

@@ -1,0 +1,243 @@
+{
+  "audit_guarantees": {
+    "all_public_commands_default_dry_run": true,
+    "each_invocation_has_immutable_receipt": true,
+    "each_invocation_has_independent_manifest": true,
+    "execute_required_for_mutation_or_gpu": true,
+    "later_stage_execute_fail_closed_until_authorized": true,
+    "primary_phase_configuration_allowed": false
+  },
+  "created_at_utc": "2026-07-21T10:29:05.862687+00:00",
+  "evaluation_started": false,
+  "features_generated": false,
+  "formal_result": false,
+  "frozen_stage1_entry": {
+    "path": "/workspace/tools/human2robot_v04.py",
+    "sha256": "8cbf7f5f3adbaa09c9bab4196c2b945289173064a0f50af7273bf15da9b26b00",
+    "size_bytes": 38179
+  },
+  "future_stage_authorization": {
+    "stage4_allowed": true,
+    "training_allowed": false
+  },
+  "inputs": {
+    "preflight_receipt": {
+      "path": "/DATA1/wxs/ReCAP_M5B_V04_RUNS/orchestrator_logs/stage3_preflight_20260721/attempt_0001.receipt.json",
+      "sha256": "3b9e03319dab997a527734cf7c49ac1ee469e4178566416bf102ce3c6c220cfd",
+      "size_bytes": 13984
+    },
+    "stage1_audit": {
+      "path": "/workspace/data/Human2Robot/derived/v04/stage1_data_audit_report.json",
+      "sha256": "f17e797f5af5695a9ac6b036012d1efcc1d16afa8c49b250a7a8067d28bcb85d",
+      "size_bytes": 5831
+    },
+    "stage1_lock": {
+      "path": "/workspace/data/Human2Robot/derived/v04/source_split_manifest.lock.json",
+      "sha256": "69632457fcfc935c06413224382da914cd1e43607976ff3a7e44029572ee0577",
+      "size_bytes": 526
+    },
+    "stage1_manifest": {
+      "path": "/workspace/data/Human2Robot/derived/v04/source_split_manifest.json",
+      "sha256": "7869a078b19ba18aaa6a92c22bec26998a81d412165a02eb8cb6c6aec1c879ed",
+      "size_bytes": 1158215
+    },
+    "stage2_audit_receipt": {
+      "path": "/DATA1/wxs/ReCAP_M5B_V04_RUNS/orchestrator_logs/stage2_retrieval_20260721/attempt_0001.receipt.json",
+      "sha256": "80a1ba97679b404528110aa9917658dd6e5835fc4f5ce6d66dfb4dfd3215f919",
+      "size_bytes": 14482
+    },
+    "stage2_contract": {
+      "path": "/workspace/data/Human2Robot/derived/v04/stage2_retrieval_contract_report.json",
+      "sha256": "27eceb61565d01297d4ec4ff19d166b5ff5c8d5e9af7916d92d5d9837af651d9",
+      "size_bytes": 12566
+    },
+    "stage2_suite_receipt": {
+      "path": "/DATA1/wxs/ReCAP_M5B_V04_RUNS/orchestrator_logs/stage2_full_suite_20260721/receipt.json",
+      "sha256": "ee36ac7348e1d9a8269c21ba137f18fe6142587175deadd1e02e16cfbfb2e375",
+      "size_bytes": 7933
+    }
+  },
+  "interface": {
+    "commands": {
+      "audit-data": {
+        "execute_stage": 1,
+        "gpu": false
+      },
+      "evaluate": {
+        "execute_stage": [
+          6,
+          7
+        ],
+        "gpu": true,
+        "methods": [
+          "no_retrieval",
+          "co_training",
+          "recap_hand_ret",
+          "retrieval_only"
+        ],
+        "pool_sizes": [
+          1,
+          2,
+          4,
+          8,
+          10
+        ],
+        "splits": [
+          "dev",
+          "final"
+        ]
+      },
+      "evaluate-oracle-phase": {
+        "diagnostic_only": true,
+        "execute_stage": 7,
+        "gpu": true,
+        "pool_size": 10,
+        "requires_completed_primary_receipt_sha256": true
+      },
+      "preflight": {
+        "execute_stage": 3,
+        "gpu": true
+      },
+      "prepare-data": {
+        "execute_stage": 1,
+        "gpu": false
+      },
+      "prepare-features": {
+        "execute_stage": 4,
+        "gpu": true
+      },
+      "report": {
+        "execute_stage": 7,
+        "gpu": false,
+        "requires_final_receipt": true
+      },
+      "train": {
+        "execute_stage": 5,
+        "gpu": true,
+        "methods": [
+          "no_retrieval",
+          "co_training",
+          "recap_hand_ret"
+        ]
+      }
+    },
+    "default_mode": "dry_run",
+    "entry_point": "tools/human2robot_v04_experiment.py",
+    "real_operation_requires_execute": true
+  },
+  "paths": {
+    "derived_root": "/workspace/data/Human2Robot/derived/v04",
+    "formal_run_root": "/DATA1/wxs/ReCAP_M5B_V04_RUNS",
+    "v03_artifact_write_allowed": false,
+    "v03_cell_registry_reuse_allowed": false
+  },
+  "protocol_sha256": "55854766bb7a36468aa0db73bd3a99dfca941dead26a452d2e000ed7bec8d3c2",
+  "raw_inventory_sha256": "d9a2f361862d9266bbd101700f99e1a629c86786bab5a279b6c2df62a388ce43",
+  "schema_version": "human2robot-v04-stage3-contract-v1",
+  "scientific_results_generated": false,
+  "source_bindings": [
+    {
+      "path": "/workspace/tools/human2robot_v04_experiment.py",
+      "sha256": "27c065bfc5308f3e79bdd87c01e77c4e0957cd6d5a27b8bbbae974a15292f0fa",
+      "size_bytes": 16640
+    },
+    {
+      "path": "/workspace/tools/human2robot_v04_stage3_audit.py",
+      "sha256": "6608dcf90d68d1a192e296d89b63fa1c6057c69ab028cf3ec78cb44916dd9640",
+      "size_bytes": 13653
+    },
+    {
+      "path": "/workspace/tools/human2robot_v04_stage3_test.py",
+      "sha256": "df5d70644c4cd98f94d223dde63b89b192a97a7687a9b1e00baeefb64a6b1187",
+      "size_bytes": 7060
+    },
+    {
+      "path": "/workspace/tools/human2robot_v04_stage3_suite.py",
+      "sha256": "833e6a7d0f06b44ee32ede583c0ea45ec9d7985c94ae39509bb96c4dc3d0960b",
+      "size_bytes": 8843
+    },
+    {
+      "path": "/workspace/方案/v04/RECAP_Human2Robot_无泄漏单seed离线复现执行总计划.md",
+      "sha256": "97231d10f63a0211a5a07bca02894babb0aec2131c29a4caf5c1055c3b3aaab9",
+      "size_bytes": 29412
+    },
+    {
+      "path": "/workspace/docs/pusht_rag_docker_runbook.md",
+      "sha256": "6010a49ceadca31812d12719fd6f3addb950e672167ee30bba0443cefd4f0c6a",
+      "size_bytes": 20894
+    }
+  ],
+  "source_bundle_sha256": "a5196bafcac65f884033731124c0dc1096e192369c214cdc790f1a29fa619ab8",
+  "split_sha256": "8ca7c8352e031292975779fd254db9591963b2cd3612b1f1b5ab65b6e79ebeaf",
+  "state_machine": {
+    "cell_registry": null,
+    "fixed_training_order": [
+      "no_retrieval",
+      "co_training",
+      "recap_hand_ret"
+    ],
+    "matrix_cell_count": null,
+    "oracle_phase_outside_primary_state_machine": true,
+    "state_count": 8,
+    "states": [
+      {
+        "command": "prepare-features",
+        "depends_on": [],
+        "id": "prepare"
+      },
+      {
+        "command": "preflight",
+        "depends_on": [
+          "prepare"
+        ],
+        "id": "preflight"
+      },
+      {
+        "command": "train --method no_retrieval",
+        "depends_on": [
+          "preflight"
+        ],
+        "id": "train_no_retrieval"
+      },
+      {
+        "command": "train --method co_training",
+        "depends_on": [
+          "train_no_retrieval"
+        ],
+        "id": "train_co_training"
+      },
+      {
+        "command": "train --method recap_hand_ret",
+        "depends_on": [
+          "train_co_training"
+        ],
+        "id": "train_recap_hand_ret"
+      },
+      {
+        "command": "evaluate --split dev",
+        "depends_on": [
+          "train_no_retrieval",
+          "train_co_training",
+          "train_recap_hand_ret"
+        ],
+        "id": "dev"
+      },
+      {
+        "command": "evaluate --split final",
+        "depends_on": [
+          "dev"
+        ],
+        "id": "final"
+      },
+      {
+        "command": "report",
+        "depends_on": [
+          "final"
+        ],
+        "id": "report"
+      }
+    ]
+  },
+  "status": "VERIFIED_STAGE3",
+  "training_started": false
+}
