@@ -1,0 +1,12 @@
+{
+  "created_at_utc": "2026-07-21T08:57:16.659667+00:00",
+  "manifest": {
+    "path": "/workspace/data/Human2Robot/derived/v04/source_split_manifest.json",
+    "sha256": "7246279618b6a3b847ed7af2229367c9d71c0fb3fd5d0480f020d04bfeebfc08",
+    "size_bytes": 1158183
+  },
+  "protocol_sha256": "55854766bb7a36468aa0db73bd3a99dfca941dead26a452d2e000ed7bec8d3c2",
+  "schema_version": "human2robot-v04-stage1-data-v2-lock",
+  "split_sha256": "8ca7c8352e031292975779fd254db9591963b2cd3612b1f1b5ab65b6e79ebeaf",
+  "status": "locked"
+}

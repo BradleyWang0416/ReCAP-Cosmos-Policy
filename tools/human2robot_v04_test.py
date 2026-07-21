@@ -36,7 +36,30 @@ def test_preflight_is_blocked_without_formal_bindings(monkeypatch: pytest.Monkey
     monkeypatch.setattr(v04, "_gpu_probe", lambda: {"status": "failed", "host_physical_indices": []})
     monkeypatch.setattr(v04, "_import_probe", lambda name: {"module": name, "status": "passed"})
     monkeypatch.setattr(v04, "bind_file", lambda path: {"path": str(path), "size_bytes": 1, "sha256": "0" * 64})
+    monkeypatch.setattr(v04.shutil, "disk_usage", lambda _: v04.shutil._ntuple_diskusage(1024, 0, 1024))
     receipt = v04.build_preflight(tmp_path)
     assert receipt["status"] == "BLOCKED_ENVIRONMENT"
     assert receipt["formal_v04_allowed"] is False
     assert "docker_image_identity_not_bound" in receipt["blockers"]
+
+
+def test_stage1_commands_default_to_dry_run() -> None:
+    args = v04.build_parser().parse_args(["prepare-data"])
+    assert args.execute is False
+    assert args.source_root == Path("/DATA1/wxs/DATASETS/Human2Robot/data/v1")
+    assert args.derived_root.name == "v04"
+
+
+def test_replacement_assessment_parser_accepts_multiple_candidates() -> None:
+    args = v04.build_parser().parse_args(
+        [
+            "assess-heldout-replacement",
+            "--candidate-task",
+            "push_plate_v1",
+            "--candidate-task",
+            "push_box_two_v1",
+        ]
+    )
+    assert args.execute is False
+    assert args.candidate_task == ["push_plate_v1", "push_box_two_v1"]
+    assert args.replaced_heldout_task == "grab_pencil1_v1"

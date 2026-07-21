@@ -1,0 +1,195 @@
+{
+  "accepted_source_hash_verified_count": 994,
+  "completed_at_utc": "2026-07-21T09:20:41.141209+00:00",
+  "future_stage_authorization": {
+    "stage2_allowed": true,
+    "training_allowed": false
+  },
+  "human_projection_count": 40,
+  "lock": {
+    "path": "/workspace/data/Human2Robot/derived/v04/source_split_manifest.lock.json",
+    "sha256": "69632457fcfc935c06413224382da914cd1e43607976ff3a7e44029572ee0577",
+    "size_bytes": 526
+  },
+  "manifest": {
+    "path": "/workspace/data/Human2Robot/derived/v04/source_split_manifest.json",
+    "sha256": "7869a078b19ba18aaa6a92c22bec26998a81d412165a02eb8cb6c6aec1c879ed",
+    "size_bytes": 1158215
+  },
+  "projection_count": 140,
+  "projection_dataset_allowlists": {
+    "human": [
+      "data/demo_0/human/images",
+      "data/demo_0/human/hand_action_7d",
+      "data/demo_0/human/hand_coords",
+      "data/demo_0/human/hand_frames",
+      "data/demo_0/time/gap_mask",
+      "data/demo_0/time/legal_window_start",
+      "data/demo_0/time/segment_id",
+      "data/demo_0/time/source_step",
+      "data/demo_0/time/source_timestamp"
+    ],
+    "robot": [
+      "data/demo_0/robot/gripper_state",
+      "data/demo_0/robot/images",
+      "data/demo_0/robot/observed_eef_pose_6d",
+      "data/demo_0/time/gap_mask",
+      "data/demo_0/time/legal_window_start",
+      "data/demo_0/time/segment_id",
+      "data/demo_0/time/source_step",
+      "data/demo_0/time/source_timestamp"
+    ]
+  },
+  "protocol_sha256": "55854766bb7a36468aa0db73bd3a99dfca941dead26a452d2e000ed7bec8d3c2",
+  "raw_data_open_mode": "read_only",
+  "raw_inventory_sha256": "d9a2f361862d9266bbd101700f99e1a629c86786bab5a279b6c2df62a388ce43",
+  "raw_source_hash_mismatch_count": 0,
+  "raw_source_hash_verified_count": 995,
+  "rejected_source_hash_verified_count": 1,
+  "robot_dev_projection_count": 20,
+  "robot_final_projection_count": 80,
+  "schema_version": "human2robot-v04-stage1-data-v2-audit",
+  "split_sha256": "8ca7c8352e031292975779fd254db9591963b2cd3612b1f1b5ab65b6e79ebeaf",
+  "status": "PASSED",
+  "validation": {
+    "all_accepted_files_have_finite_gap_safe_H8_K8_windows": true,
+    "pairwise_source_sha256_overlap": {
+      "legacy_quarantine__reserve": [],
+      "legacy_quarantine__v04_human_pool": [],
+      "legacy_quarantine__v04_robot_dev": [],
+      "legacy_quarantine__v04_robot_final": [],
+      "seen_train__legacy_quarantine": [],
+      "seen_train__reserve": [],
+      "seen_train__seen_validation": [],
+      "seen_train__v04_human_pool": [],
+      "seen_train__v04_robot_dev": [],
+      "seen_train__v04_robot_final": [],
+      "seen_validation__legacy_quarantine": [],
+      "seen_validation__reserve": [],
+      "seen_validation__v04_human_pool": [],
+      "seen_validation__v04_robot_dev": [],
+      "seen_validation__v04_robot_final": [],
+      "v04_human_pool__reserve": [],
+      "v04_human_pool__v04_robot_dev": [],
+      "v04_human_pool__v04_robot_final": [],
+      "v04_robot_dev__reserve": [],
+      "v04_robot_dev__v04_robot_final": [],
+      "v04_robot_final__reserve": []
+    },
+    "pairwise_source_sha256_overlap_count": 0,
+    "partition_counts": {
+      "legacy_quarantine": 30,
+      "reserve": 88,
+      "seen_train": 654,
+      "seen_validation": 82,
+      "v04_human_pool": 40,
+      "v04_robot_dev": 20,
+      "v04_robot_final": 80
+    },
+    "per_task": {
+      "cloth/cloth12": {
+        "seen_train": 4,
+        "seen_validation": 1
+      },
+      "cloth/cloth13": {
+        "seen_train": 4,
+        "seen_validation": 1
+      },
+      "cloth/cloth21": {
+        "seen_train": 4,
+        "seen_validation": 1
+      },
+      "cloth/cloth31": {
+        "seen_train": 4,
+        "seen_validation": 1
+      },
+      "grab_both_cubes_v1": {
+        "seen_train": 46,
+        "seen_validation": 6
+      },
+      "grab_cube2_v1": {
+        "legacy_quarantine": 10,
+        "reserve": 6,
+        "v04_human_pool": 10,
+        "v04_robot_dev": 5,
+        "v04_robot_final": 20
+      },
+      "grab_cup_v1": {
+        "seen_train": 91,
+        "seen_validation": 11
+      },
+      "grab_pencil2_v1": {
+        "seen_train": 45,
+        "seen_validation": 6
+      },
+      "grab_pencil_v1": {
+        "seen_train": 91,
+        "seen_validation": 11
+      },
+      "grab_to_plate1_and_back_v1": {
+        "seen_train": 45,
+        "seen_validation": 6
+      },
+      "grab_to_plate1_v1": {
+        "legacy_quarantine": 10,
+        "reserve": 52,
+        "v04_human_pool": 10,
+        "v04_robot_dev": 5,
+        "v04_robot_final": 20
+      },
+      "grab_to_plate2_and_back_v1": {
+        "seen_train": 46,
+        "seen_validation": 6
+      },
+      "grab_to_plate2_and_pull_v1": {
+        "seen_train": 49,
+        "seen_validation": 6
+      },
+      "grab_to_plate2_v1": {
+        "seen_train": 45,
+        "seen_validation": 5
+      },
+      "grab_two_cubes2_v1": {
+        "seen_train": 45,
+        "seen_validation": 5
+      },
+      "pull_plate_grab_cube": {
+        "seen_train": 45,
+        "seen_validation": 5
+      },
+      "pull_plate_v1": {
+        "seen_train": 46,
+        "seen_validation": 6
+      },
+      "push_box_common_v1": {
+        "seen_train": 44,
+        "seen_validation": 5
+      },
+      "push_box_random_v1": {
+        "legacy_quarantine": 10,
+        "reserve": 14,
+        "v04_human_pool": 10,
+        "v04_robot_dev": 5,
+        "v04_robot_final": 20
+      },
+      "push_plate_v1": {
+        "reserve": 16,
+        "v04_human_pool": 10,
+        "v04_robot_dev": 5,
+        "v04_robot_final": 20
+      }
+    },
+    "raw_candidate_count": 995,
+    "rejected_candidate_count": 1,
+    "total": 994,
+    "within_partition_duplicate_sha256_count": {
+      "legacy_quarantine": 0,
+      "reserve": 0,
+      "seen_train": 0,
+      "seen_validation": 0,
+      "v04_human_pool": 0,
+      "v04_robot_dev": 0,
+      "v04_robot_final": 0
+    }
+  }
+}

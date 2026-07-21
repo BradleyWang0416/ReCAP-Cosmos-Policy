@@ -17,6 +17,8 @@
 - 主检索为 geometry_plus_visual；phase 只作为 oracle 上界。
 - 采用严格统计门槛；失败时输出“未复现”，不进行事后 checkpoint 或超参数挑选。
 
+2026-07-21 经用户明确批准，阶段 1 协议修订为 v04.1：原 held-out `grab_pencil1_v1` 因 102/102 个来源与 seen `grab_pencil_v1` 字节相同而移除，替换为正式预审通过的 `push_plate_v1`。替代候选审计 attempt 0002 receipt SHA256 为 `6e6072ff085bc831010d9adb7a0a13edd143e6beed873e1d355acdbf7892d20d`。其余 seen 任务、seed、切分、角色隔离和验收规则不变。
+
 ## 二、统一运行、环境与可审计性规范
 
 本节适用于阶段 0～7 的所有数据处理、测试、训练、评估和报告命令。它是正式结果的前置门禁，不因某个脚本能在宿主机或不完整环境中启动而豁免。
@@ -236,13 +238,15 @@ SHA256("20260711:" + source_relative_path)
 固定四个 held-out 任务：
 
 - grab_cube2_v1
-- grab_pencil1_v1
+- push_plate_v1
 - grab_to_plate1_v1
 - push_box_random_v1
 
+四任务原始候选共 258 个。`push_plate_v1` 的 51/51 个来源通过字段、finite、时间 gap、H=8/K=8 与完整文件 SHA 独立性预审。
+
 每任务按以下顺序建立互斥集合：
 
-1. legacy_quarantine：v03 canonical 和 P1 pool 曾使用过的全部 source SHA，预计 10 个/任务；
+1. legacy_quarantine：严格取 v03 canonical 和 P1 pool 曾使用过的全部 source SHA；四任务计数依次为 10、0、10、10，总数 30，不为新任务伪造历史来源；
 2. v04_human_pool：10 个新的 human-only episode；
 3. v04_robot_dev：5 个新的 robot-only episode；
 4. v04_robot_final：20 个新的 robot-only episode；
@@ -599,7 +603,7 @@ NEEDS_REPRODUCTION — RECAP 未在 v04 单 seed 无泄漏离线协议下复现
 默认假设：
 
 - raw Human2Robot v1 保持只读；
-- 16 seen/4 held-out 任务定义不变；
+- 16 seen 与经 v04.1 修订后的 4 个 held-out 任务定义保持不变；
 - 当前 4 GPU 和本地 Cosmos 2B 权重继续可用；
 - seed 固定为 20260711；
 - 不启动 seed 20260712/20260713；
@@ -615,3 +619,4 @@ NEEDS_REPRODUCTION — RECAP 未在 v04 单 seed 无泄漏离线协议下复现
 | 日期 | 变更 | 影响判断 |
 |---|---|---|
 | 2026-07-21 | 新增统一 Docker、完整离线环境、权重路径、四卡映射、实时日志、状态判定、原子落盘、断点续跑和文档同步规范；同步扩充阶段 0、接口、测试与停止条件 | 属于运行与审计门禁增强；不改变 v04 的数据切分、模型方法、训练预算、评估规模或严格通过条件 |
+| 2026-07-21 | 用户批准 v04.1 held-out 修订：`grab_pencil1_v1` 替换为 `push_plate_v1`；legacy quarantine 改为真实历史并集 10/0/10/10 | 解除原任务与 seen 来源字节相同造成的硬 blocker；改变 held-out 任务身份与候选总数，但不改变每任务 10/5/20 新 episode 配额、seed、方法或验收门槛 |

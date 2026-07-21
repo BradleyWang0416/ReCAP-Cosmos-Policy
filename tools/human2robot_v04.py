@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Audited stage-0 entry point for the Human2Robot v04 experiment.
+"""Audited stage-0/1 entry point for the Human2Robot v04 experiment.
 
 This module deliberately uses only the standard library until the CUDA probe.  It
 can therefore emit a useful BLOCKED_ENVIRONMENT receipt even when the full ML
-stack is broken.  Formal prepare/train/evaluate commands will be added behind
-this gate in their respective stages; they must not bypass ``require_preflight``.
+stack is broken.  Stage-1 data commands import their HDF5 dependencies only
+after this entry point has established an immutable attempt and formal preflight.
 """
 
 from __future__ import annotations
@@ -81,6 +81,10 @@ V03_REPO_EVIDENCE = [
 V04_CONTROLLED_SOURCE = [
     Path("tools/human2robot_v04.py"),
     Path("tools/human2robot_v04_test.py"),
+    Path("tools/human2robot_v04_data.py"),
+    Path("tools/human2robot_v04_data_test.py"),
+    Path("cosmos_policy/datasets/human2robot_v04_sampler.py"),
+    Path("cosmos_policy/datasets/human2robot_v04_sampler_test.py"),
     Path("start_human2robot_v04_docker.sh"),
     ASSET_REGISTRY,
     PLAN_PATH,
@@ -663,10 +667,25 @@ def execute_with_audit(args: argparse.Namespace) -> int:
     write_json_atomic(paths["runtime"], runtime)
     running = {"status": "RUNNING", "run_id": run_id, "attempt": attempt, "updated_at_utc": started, "log_path": str(paths["log"])}
     write_json_atomic(paths["status"], running)
-    write_json_atomic(paths["progress"], {**running, "completed_units": 0, "total_units": 1})
+    progress_state: dict[str, Any] = {**running, "completed_units": 0, "total_units": 1, "current_unit": "startup"}
+    write_json_atomic(paths["progress"], progress_state)
     write_json_atomic(run_dir / "latest_log.json", {"run_id": run_id, "attempt": attempt, "log_path": str(paths["log"])})
     write_json_atomic(run_dir / "status.json", running)
-    write_json_atomic(run_dir / "progress.json", {**running, "completed_units": 0, "total_units": 1})
+    write_json_atomic(run_dir / "progress.json", progress_state)
+
+    def update_progress(completed: int, total: int, current: str) -> None:
+        progress_state.update(
+            {
+                "status": "RUNNING",
+                "completed_units": completed,
+                "total_units": total,
+                "current_unit": current,
+                "updated_at_utc": utc_now(),
+            }
+        )
+        write_json_atomic(paths["progress"], progress_state)
+        write_json_atomic(run_dir / "progress.json", progress_state)
+        print(json.dumps({"event": "progress", **progress_state}, ensure_ascii=False))
 
     exit_code = 1
     receipt: dict[str, Any] = {}
@@ -683,9 +702,64 @@ def execute_with_audit(args: argparse.Namespace) -> int:
                     receipt["status"] = "passed" if receipt["container"]["inside_docker"] else "blocked"
                 elif args.command == "preflight":
                     receipt = build_preflight(WORKSPACE)
+                elif args.command in ("prepare-data", "audit-data", "assess-heldout-replacement"):
+                    formal_preflight: dict[str, Any] | None = None
+                    if args.execute:
+                        formal_preflight = build_preflight(WORKSPACE)
+                        if formal_preflight.get("status") != "PASSED":
+                            receipt = {
+                                "schema_version": f"{SCHEMA}-stage1-blocked",
+                                "status": "BLOCKED_ENVIRONMENT",
+                                "formal_v04_allowed": False,
+                                "blockers": formal_preflight.get("blockers", []),
+                                "preflight": formal_preflight,
+                            }
+                        else:
+                            from tools import human2robot_v04_data as stage1
+
+                            if args.command == "assess-heldout-replacement":
+                                receipt = stage1.assess_heldout_replacements(
+                                    workspace=WORKSPACE,
+                                    source_root=args.source_root,
+                                    candidates=args.candidate_task or stage1.REPLACEMENT_CANDIDATES,
+                                    replaced_task=args.replaced_heldout_task,
+                                    execute=True,
+                                    progress=update_progress,
+                                )
+                            else:
+                                command = stage1.prepare_data if args.command == "prepare-data" else stage1.audit_data
+                                receipt = command(
+                                    workspace=WORKSPACE,
+                                    source_root=args.source_root,
+                                    derived_root=args.derived_root,
+                                    execute=True,
+                                    progress=update_progress,
+                                )
+                            receipt["preflight"] = formal_preflight
+                    else:
+                        from tools import human2robot_v04_data as stage1
+
+                        if args.command == "assess-heldout-replacement":
+                            receipt = stage1.assess_heldout_replacements(
+                                workspace=WORKSPACE,
+                                source_root=args.source_root,
+                                candidates=args.candidate_task or stage1.REPLACEMENT_CANDIDATES,
+                                replaced_task=args.replaced_heldout_task,
+                                execute=False,
+                                progress=update_progress,
+                            )
+                        else:
+                            command = stage1.prepare_data if args.command == "prepare-data" else stage1.audit_data
+                            receipt = command(
+                                workspace=WORKSPACE,
+                                source_root=args.source_root,
+                                derived_root=args.derived_root,
+                                execute=False,
+                                progress=update_progress,
+                            )
                 else:
                     raise V04Error(f"Unsupported command: {args.command}")
-                exit_code = 0 if receipt.get("status") in ("passed", "PASSED") else 2
+                exit_code = 0 if receipt.get("status") in ("passed", "PASSED", "DRY_RUN") else 2
                 print(json.dumps(receipt, ensure_ascii=False, sort_keys=True, indent=2))
             except Exception as error:
                 receipt = {"status": "FAILED", "error": f"{type(error).__name__}: {error}", "traceback": traceback.format_exc()}
@@ -704,7 +778,12 @@ def execute_with_audit(args: argparse.Namespace) -> int:
         "receipt_path": str(paths["receipt"]),
         "receipt_sha256": file_sha256(paths["receipt"]),
     }
-    progress = {**final_status, "completed_units": 1, "total_units": 1}
+    progress = {
+        **final_status,
+        "completed_units": progress_state.get("completed_units", 1),
+        "total_units": progress_state.get("total_units", 1),
+        "current_unit": progress_state.get("current_unit", "finished"),
+    }
     write_json_atomic(paths["status"], final_status)
     write_json_atomic(paths["progress"], progress)
     write_json_atomic(run_dir / "status.json", final_status)
@@ -715,8 +794,42 @@ def execute_with_audit(args: argparse.Namespace) -> int:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=("freeze-v03", "verify-v03", "session-receipt", "preflight"))
+    parser.add_argument(
+        "command",
+        choices=(
+            "freeze-v03",
+            "verify-v03",
+            "session-receipt",
+            "preflight",
+            "prepare-data",
+            "audit-data",
+            "assess-heldout-replacement",
+        ),
+    )
     parser.add_argument("--run-id", help="Reuse a run id to create the next immutable attempt")
+    parser.add_argument("--execute", action="store_true", help="Perform the command; stage-1 commands otherwise dry-run")
+    parser.add_argument(
+        "--source-root",
+        type=Path,
+        default=Path("/DATA1/wxs/DATASETS/Human2Robot/data/v1"),
+        help="Read-only raw Human2Robot v1 root",
+    )
+    parser.add_argument(
+        "--derived-root",
+        type=Path,
+        default=WORKSPACE / "data/Human2Robot/derived/v04",
+        help="v04 derived-data and manifest root",
+    )
+    parser.add_argument(
+        "--candidate-task",
+        action="append",
+        help="Candidate held-out task to assess; repeat for multiple tasks",
+    )
+    parser.add_argument(
+        "--replaced-heldout-task",
+        default="grab_pencil1_v1",
+        help="Frozen held-out task that a candidate would replace",
+    )
     return parser
 
 
