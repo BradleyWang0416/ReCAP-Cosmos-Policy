@@ -26,7 +26,7 @@ from typing import Any, Mapping, TextIO
 from tools import human2robot_v04 as frozen
 
 
-SCHEMA = "human2robot-v04-stage3-interface-v1"
+SCHEMA = "human2robot-v04-experiment-interface-v2"
 WORKSPACE = Path(os.environ.get("RECAP_WORKSPACE", "/workspace")).resolve()
 RUN_ROOT = Path(os.environ.get("HUMAN2ROBOT_V04_RUN_ROOT", "/DATA1/wxs/ReCAP_M5B_V04_RUNS")).resolve()
 LOG_ROOT = RUN_ROOT / "orchestrator_logs"
@@ -151,8 +151,14 @@ def build_parser() -> argparse.ArgumentParser:
         command.add_argument("--derived-root", type=Path, default=DERIVED_ROOT)
 
     command = _common_parser("prepare-features", commands)
+    command.add_argument(
+        "--source-root",
+        type=Path,
+        default=Path("/DATA1/wxs/DATASETS/Human2Robot/data/v1"),
+    )
     command.add_argument("--derived-root", type=Path, default=DERIVED_ROOT)
     command.add_argument("--feature-root", type=Path, default=FEATURE_ROOT)
+    command.add_argument("--visual-batch-size", type=int, default=32)
 
     _common_parser("preflight", commands)
 
@@ -189,6 +195,8 @@ def _is_sha256(value: str | None) -> bool:
 def validate_args(args: argparse.Namespace) -> None:
     if args.command not in PUBLIC_COMMANDS:
         raise Stage3InterfaceError(f"Unsupported public command: {args.command}")
+    if args.command == "prepare-features" and args.visual_batch_size <= 0:
+        raise Stage3InterfaceError("prepare-features visual batch size must be positive")
     if args.command == "evaluate":
         if args.method in ("no_retrieval", "co_training") and args.pool_size != 10:
             raise Stage3InterfaceError("Learning baselines must record the canonical pool-size 10 evaluation condition")
@@ -223,6 +231,11 @@ def _controlled_bindings(workspace: Path) -> list[dict[str, Any]]:
         workspace / "tools/human2robot_v04_experiment.py",
         workspace / "tools/human2robot_v04.py",
         workspace / "tools/human2robot_v04_data.py",
+        workspace / "tools/human2robot_v04_stage4.py",
+        workspace / "tools/human2robot_v04_stage4_feature_worker.py",
+        workspace / "tools/human2robot_v04_stage4_worker.py",
+        workspace / "tools/human2robot_m5b_p2_inference.py",
+        workspace / "tools/human2robot_m5b_p2_step_checkpoint_diagnostic.py",
         workspace / "方案/v04/RECAP_Human2Robot_无泄漏单seed离线复现执行总计划.md",
         workspace / "docs/pusht_rag_docker_runbook.md",
     ]
@@ -294,6 +307,29 @@ def dispatch(args: argparse.Namespace, *, workspace: Path) -> dict[str, Any]:
         return planned_result(args)
     if args.command == "preflight":
         return frozen.build_preflight(workspace)
+    if args.command == "prepare-features":
+        preflight = frozen.build_preflight(workspace)
+        if preflight.get("status") != "PASSED":
+            return {
+                "schema_version": f"{SCHEMA}-stage4-blocked",
+                "status": "BLOCKED_ENVIRONMENT",
+                "blockers": preflight.get("blockers", []),
+                "preflight": preflight,
+                "training_allowed": False,
+            }
+        from tools import human2robot_v04_stage4 as stage4
+
+        result = stage4.run_stage4(
+            workspace=workspace,
+            run_root=RUN_ROOT,
+            derived_root=args.derived_root,
+            feature_root=args.feature_root,
+            source_root=args.source_root,
+            visual_batch_size=args.visual_batch_size,
+            run_smoke=True,
+        )
+        result["preflight"] = preflight
+        return result
     if args.command in ("prepare-data", "audit-data"):
         preflight = frozen.build_preflight(workspace)
         if preflight.get("status") != "PASSED":

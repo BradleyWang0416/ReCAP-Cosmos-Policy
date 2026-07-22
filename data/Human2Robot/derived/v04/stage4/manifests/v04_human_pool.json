@@ -1,0 +1,1736 @@
+{
+  "episode_count": 40,
+  "legal_window_count": 13426,
+  "partition": "v04_human_pool",
+  "protocol_sha256": "55854766bb7a36468aa0db73bd3a99dfca941dead26a452d2e000ed7bec8d3c2",
+  "records": [
+    {
+      "episode_id": "grab_cube2_v1/episode_51",
+      "frame_count": 267,
+      "gap_count": 1,
+      "human_content_sha256": "84e967bdf30c8a50fa32766f437cb36ff0ba812ebd19b921e34dbd1eb6ee1f34",
+      "legal_window_count": 250,
+      "max_gap_safe_segment_frames": 265,
+      "partition_rank": 1,
+      "projection": {
+        "dataset_paths": [
+          "data/demo_0/human/hand_action_7d",
+          "data/demo_0/human/hand_coords",
+          "data/demo_0/human/hand_frames",
+          "data/demo_0/human/images",
+          "data/demo_0/time/gap_mask",
+          "data/demo_0/time/legal_window_start",
+          "data/demo_0/time/segment_id",
+          "data/demo_0/time/source_step",
+          "data/demo_0/time/source_timestamp"
+        ],
+        "path": "/workspace/data/Human2Robot/derived/v04/episodes/human_pool/grab_cube2_v1/01_episode_51.hdf5",
+        "sha256": "0b6bd37a34cde620f0c4a93fd38fb6bc3fabd52e25784cf7f7aba27354cf97c7",
+        "size_bytes": 28766527
+      },
+      "role": "human",
+      "segment_count": 2,
+      "source_partition": "v04_human_pool",
+      "source_relative_path": "grab_cube2_v1/episode_51.hdf5",
+      "source_sha256": "0b7f529aaeb40ac39a5697107b0b51c0febcbeeb9fe0931ab7cea50fb777ee13",
+      "source_sort_sha256": "27c1f447969a000017e715e3fcd1a6eec0c203d2459511c11bd9f73122be3ff2",
+      "task": "grab_cube2_v1",
+      "window_identity": {
+        "format": "<source_sha256>:<legal_window_start>:H8:K8",
+        "inherits": [
+          "source_relative_path",
+          "source_sha256",
+          "source_partition",
+          "task",
+          "episode_id",
+          "role"
+        ]
+      }
+    },
+    {
+      "episode_id": "grab_cube2_v1/episode_11",
+      "frame_count": 287,
+      "gap_count": 1,
+      "human_content_sha256": "f2089cbc8a72765b7a143552f986659e52ba90eb498885e90729f747b8e7ddf8",
+      "legal_window_count": 270,
+      "max_gap_safe_segment_frames": 285,
+      "partition_rank": 2,
+      "projection": {
+        "dataset_paths": [
+          "data/demo_0/human/hand_action_7d",
+          "data/demo_0/human/hand_coords",
+          "data/demo_0/human/hand_frames",
+          "data/demo_0/human/images",
+          "data/demo_0/time/gap_mask",
+          "data/demo_0/time/legal_window_start",
+          "data/demo_0/time/segment_id",
+          "data/demo_0/time/source_step",
+          "data/demo_0/time/source_timestamp"
+        ],
+        "path": "/workspace/data/Human2Robot/derived/v04/episodes/human_pool/grab_cube2_v1/02_episode_11.hdf5",
+        "sha256": "8535fa39d5013769a3c6927dc8b2debc1d95e692b28e97760927e555ef618c73",
+        "size_bytes": 31019186
+      },
+      "role": "human",
+      "segment_count": 2,
+      "source_partition": "v04_human_pool",
+      "source_relative_path": "grab_cube2_v1/episode_11.hdf5",
+      "source_sha256": "b84dff23bf00b817f19b5807f88c42fdc171c119f21e8c8c8e3313b0ec72ec26",
+      "source_sort_sha256": "28b55f2b38a6cf1e49d2a5abf7e0a585b127d19db398304a376ccdde2a02de26",
+      "task": "grab_cube2_v1",
+      "window_identity": {
+        "format": "<source_sha256>:<legal_window_start>:H8:K8",
+        "inherits": [
+          "source_relative_path",
+          "source_sha256",
+          "source_partition",
+          "task",
+          "episode_id",
+          "role"
+        ]
+      }
+    },
+    {
+      "episode_id": "grab_cube2_v1/episode_45",
+      "frame_count": 182,
+      "gap_count": 0,
+      "human_content_sha256": "e687f8c03212638606e6ca5421e1ba01f54ba10a89389fbea8f8fb7b51cbacbf",
+      "legal_window_count": 167,
+      "max_gap_safe_segment_frames": 182,
+      "partition_rank": 3,
+      "projection": {
+        "dataset_paths": [
+          "data/demo_0/human/hand_action_7d",
+          "data/demo_0/human/hand_coords",
+          "data/demo_0/human/hand_frames",
+          "data/demo_0/human/images",
+          "data/demo_0/time/gap_mask",
+          "data/demo_0/time/legal_window_start",
+          "data/demo_0/time/segment_id",
+          "data/demo_0/time/source_step",
+          "data/demo_0/time/source_timestamp"
+        ],
+        "path": "/workspace/data/Human2Robot/derived/v04/episodes/human_pool/grab_cube2_v1/03_episode_45.hdf5",
+        "sha256": "9bde766371bb6f2b78b60a6ada311a7c131e408aba7462cc0dfd00256b0c940e",
+        "size_bytes": 19827818
+      },
+      "role": "human",
+      "segment_count": 1,
+      "source_partition": "v04_human_pool",
+      "source_relative_path": "grab_cube2_v1/episode_45.hdf5",
+      "source_sha256": "3a52b172ec685f3e778901efb56644153a9745e50f39040e14b7485e89ce0aa0",
+      "source_sort_sha256": "29328b8d73ef4c6962a60f1abe8562685f2030b6dbff10d95695d258b5c0ffa6",
+      "task": "grab_cube2_v1",
+      "window_identity": {
+        "format": "<source_sha256>:<legal_window_start>:H8:K8",
+        "inherits": [
+          "source_relative_path",
+          "source_sha256",
+          "source_partition",
+          "task",
+          "episode_id",
+          "role"
+        ]
+      }
+    },
+    {
+      "episode_id": "grab_cube2_v1/episode_1",
+      "frame_count": 333,
+      "gap_count": 0,
+      "human_content_sha256": "66c28f9f0acbace1af5fa837c344b31fcc544a1395490dacadd64f8a911d051b",
+      "legal_window_count": 318,
+      "max_gap_safe_segment_frames": 333,
+      "partition_rank": 4,
+      "projection": {
+        "dataset_paths": [
+          "data/demo_0/human/hand_action_7d",
+          "data/demo_0/human/hand_coords",
+          "data/demo_0/human/hand_frames",
+          "data/demo_0/human/images",
+          "data/demo_0/time/gap_mask",
+          "data/demo_0/time/legal_window_start",
+          "data/demo_0/time/segment_id",
+          "data/demo_0/time/source_step",
+          "data/demo_0/time/source_timestamp"
+        ],
+        "path": "/workspace/data/Human2Robot/derived/v04/episodes/human_pool/grab_cube2_v1/04_episode_1.hdf5",
+        "sha256": "709f3cdd402101688880038b8c7612e68756eab6378ec31dd1f9d9a53894a39e",
+        "size_bytes": 34464307
+      },
+      "role": "human",
+      "segment_count": 1,
+      "source_partition": "v04_human_pool",
+      "source_relative_path": "grab_cube2_v1/episode_1.hdf5",
+      "source_sha256": "903bc86b2e5bb037ca296a4bb59e5bdb895df1a702ac7f2d7f470004efc4f895",
+      "source_sort_sha256": "2d6594d45eeb3dd43d964532bcf538757576ef57b3a1e1d37f836dc49f987cbc",
+      "task": "grab_cube2_v1",
+      "window_identity": {
+        "format": "<source_sha256>:<legal_window_start>:H8:K8",
+        "inherits": [
+          "source_relative_path",
+          "source_sha256",
+          "source_partition",
+          "task",
+          "episode_id",
+          "role"
+        ]
+      }
+    },
+    {
+      "episode_id": "grab_cube2_v1/episode_20",
+      "frame_count": 181,
+      "gap_count": 1,
+      "human_content_sha256": "3e740ab16f3f03a3480b94f6ced81aa59a71a74881300b1eaffabd86e9647de4",
+      "legal_window_count": 165,
+      "max_gap_safe_segment_frames": 180,
+      "partition_rank": 5,
+      "projection": {
+        "dataset_paths": [
+          "data/demo_0/human/hand_action_7d",
+          "data/demo_0/human/hand_coords",
+          "data/demo_0/human/hand_frames",
+          "data/demo_0/human/images",
+          "data/demo_0/time/gap_mask",
+          "data/demo_0/time/legal_window_start",
+          "data/demo_0/time/segment_id",
+          "data/demo_0/time/source_step",
+          "data/demo_0/time/source_timestamp"
+        ],
+        "path": "/workspace/data/Human2Robot/derived/v04/episodes/human_pool/grab_cube2_v1/05_episode_20.hdf5",
+        "sha256": "d5266d23ec20456b5b2731e4f23a051fef0f62c659474cb76217a5fb6665503c",
+        "size_bytes": 19621923
+      },
+      "role": "human",
+      "segment_count": 2,
+      "source_partition": "v04_human_pool",
+      "source_relative_path": "grab_cube2_v1/episode_20.hdf5",
+      "source_sha256": "cea060b10ec19d2bc97c67e17c46b20a3faa4defc76094e1e44ea32fe45b3cab",
+      "source_sort_sha256": "377bc7dffa5363c5258ccb4a8d0e933102d518ecd6568ae359b02426b735b59e",
+      "task": "grab_cube2_v1",
+      "window_identity": {
+        "format": "<source_sha256>:<legal_window_start>:H8:K8",
+        "inherits": [
+          "source_relative_path",
+          "source_sha256",
+          "source_partition",
+          "task",
+          "episode_id",
+          "role"
+        ]
+      }
+    },
+    {
+      "episode_id": "grab_cube2_v1/episode_23",
+      "frame_count": 248,
+      "gap_count": 0,
+      "human_content_sha256": "bd7a6a0452eb7b80b93d9bc7287d56e13800f324f32333a10293f0df09a8b13c",
+      "legal_window_count": 233,
+      "max_gap_safe_segment_frames": 248,
+      "partition_rank": 6,
+      "projection": {
+        "dataset_paths": [
+          "data/demo_0/human/hand_action_7d",
+          "data/demo_0/human/hand_coords",
+          "data/demo_0/human/hand_frames",
+          "data/demo_0/human/images",
+          "data/demo_0/time/gap_mask",
+          "data/demo_0/time/legal_window_start",
+          "data/demo_0/time/segment_id",
+          "data/demo_0/time/source_step",
+          "data/demo_0/time/source_timestamp"
+        ],
+        "path": "/workspace/data/Human2Robot/derived/v04/episodes/human_pool/grab_cube2_v1/06_episode_23.hdf5",
+        "sha256": "4fd3fa91a33c3e92dc0497c83bf916e8e77663967d7b9a5de4deaf6b6fd498fc",
+        "size_bytes": 27278379
+      },
+      "role": "human",
+      "segment_count": 1,
+      "source_partition": "v04_human_pool",
+      "source_relative_path": "grab_cube2_v1/episode_23.hdf5",
+      "source_sha256": "e42940e32cb01c6b00de03a6c9eb36a356cd7a396112a14e6652f4066c10fb59",
+      "source_sort_sha256": "37d239ce205a77590eadccc8e70a15e6b3102842f43811030b870c26d4774b87",
+      "task": "grab_cube2_v1",
+      "window_identity": {
+        "format": "<source_sha256>:<legal_window_start>:H8:K8",
+        "inherits": [
+          "source_relative_path",
+          "source_sha256",
+          "source_partition",
+          "task",
+          "episode_id",
+          "role"
+        ]
+      }
+    },
+    {
+      "episode_id": "grab_cube2_v1/episode_9",
+      "frame_count": 328,
+      "gap_count": 0,
+      "human_content_sha256": "690cdd5d82e360b774d1c255a81d7d93aa0389890c9d517779e2223966d4b104",
+      "legal_window_count": 313,
+      "max_gap_safe_segment_frames": 328,
+      "partition_rank": 7,
+      "projection": {
+        "dataset_paths": [
+          "data/demo_0/human/hand_action_7d",
+          "data/demo_0/human/hand_coords",
+          "data/demo_0/human/hand_frames",
+          "data/demo_0/human/images",
+          "data/demo_0/time/gap_mask",
+          "data/demo_0/time/legal_window_start",
+          "data/demo_0/time/segment_id",
+          "data/demo_0/time/source_step",
+          "data/demo_0/time/source_timestamp"
+        ],
+        "path": "/workspace/data/Human2Robot/derived/v04/episodes/human_pool/grab_cube2_v1/07_episode_9.hdf5",
+        "sha256": "74bd59d63f46627f64bd328b00b8f22713867a30b8af7192be1b7974bc062bf6",
+        "size_bytes": 35386609
+      },
+      "role": "human",
+      "segment_count": 1,
+      "source_partition": "v04_human_pool",
+      "source_relative_path": "grab_cube2_v1/episode_9.hdf5",
+      "source_sha256": "0205bf41c16eaf359145e635deb29621ab0dbb7a5bfe18a6b9a1481f37304c02",
+      "source_sort_sha256": "3b550ffa51764a61869510ea61b9ede49cccf65ad3e1797d11bdc867a42441e9",
+      "task": "grab_cube2_v1",
+      "window_identity": {
+        "format": "<source_sha256>:<legal_window_start>:H8:K8",
+        "inherits": [
+          "source_relative_path",
+          "source_sha256",
+          "source_partition",
+          "task",
+          "episode_id",
+          "role"
+        ]
+      }
+    },
+    {
+      "episode_id": "grab_cube2_v1/episode_33",
+      "frame_count": 207,
+      "gap_count": 0,
+      "human_content_sha256": "cf6ca016a1db18c27fad5367775527d053d4c1e5ee5079c96310657838cd9aa6",
+      "legal_window_count": 192,
+      "max_gap_safe_segment_frames": 207,
+      "partition_rank": 8,
+      "projection": {
+        "dataset_paths": [
+          "data/demo_0/human/hand_action_7d",
+          "data/demo_0/human/hand_coords",
+          "data/demo_0/human/hand_frames",
+          "data/demo_0/human/images",
+          "data/demo_0/time/gap_mask",
+          "data/demo_0/time/legal_window_start",
+          "data/demo_0/time/segment_id",
+          "data/demo_0/time/source_step",
+          "data/demo_0/time/source_timestamp"
+        ],
+        "path": "/workspace/data/Human2Robot/derived/v04/episodes/human_pool/grab_cube2_v1/08_episode_33.hdf5",
+        "sha256": "bcd20235c5b2c1f551d7d0a7e73aa7abece138241725c1f0fc00dbbe99de125f",
+        "size_bytes": 21843241
+      },
+      "role": "human",
+      "segment_count": 1,
+      "source_partition": "v04_human_pool",
+      "source_relative_path": "grab_cube2_v1/episode_33.hdf5",
+      "source_sha256": "2d05dcccf9cb84a7301a81be9d4adbd5549c3c947e2e704217662d671a427a56",
+      "source_sort_sha256": "3d55f2ac09d7940a27d20f60181dc3a09168cd4b588cb99dd9399b164f0c0dc6",
+      "task": "grab_cube2_v1",
+      "window_identity": {
+        "format": "<source_sha256>:<legal_window_start>:H8:K8",
+        "inherits": [
+          "source_relative_path",
+          "source_sha256",
+          "source_partition",
+          "task",
+          "episode_id",
+          "role"
+        ]
+      }
+    },
+    {
+      "episode_id": "grab_cube2_v1/episode_27",
+      "frame_count": 231,
+      "gap_count": 0,
+      "human_content_sha256": "c784a7399e68be1c5d5e9dbd7726d9265ca0c34194ba3a8f92808c5f26a46e23",
+      "legal_window_count": 216,
+      "max_gap_safe_segment_frames": 231,
+      "partition_rank": 9,
+      "projection": {
+        "dataset_paths": [
+          "data/demo_0/human/hand_action_7d",
+          "data/demo_0/human/hand_coords",
+          "data/demo_0/human/hand_frames",
+          "data/demo_0/human/images",
+          "data/demo_0/time/gap_mask",
+          "data/demo_0/time/legal_window_start",
+          "data/demo_0/time/segment_id",
+          "data/demo_0/time/source_step",
+          "data/demo_0/time/source_timestamp"
+        ],
+        "path": "/workspace/data/Human2Robot/derived/v04/episodes/human_pool/grab_cube2_v1/09_episode_27.hdf5",
+        "sha256": "da04c0a513e785467a15c3c56e18ae523cdfa53d650ba80c2d8991e9b73735b1",
+        "size_bytes": 25423107
+      },
+      "role": "human",
+      "segment_count": 1,
+      "source_partition": "v04_human_pool",
+      "source_relative_path": "grab_cube2_v1/episode_27.hdf5",
+      "source_sha256": "edbc5404a46baf5f8b34587d8c3e25886862bf603d0f10a2fb01fd4e5deb7a8c",
+      "source_sort_sha256": "4147ba524946b6bb14267828ed2595fe439f01299f2fd9cd7c61ca45ef6530b8",
+      "task": "grab_cube2_v1",
+      "window_identity": {
+        "format": "<source_sha256>:<legal_window_start>:H8:K8",
+        "inherits": [
+          "source_relative_path",
+          "source_sha256",
+          "source_partition",
+          "task",
+          "episode_id",
+          "role"
+        ]
+      }
+    },
+    {
+      "episode_id": "grab_cube2_v1/episode_4",
+      "frame_count": 345,
+      "gap_count": 0,
+      "human_content_sha256": "f5c4caf0aabefdf22ff9fa5ee0bd16df147b193d874462e84c8eb932e5c7a2c4",
+      "legal_window_count": 330,
+      "max_gap_safe_segment_frames": 345,
+      "partition_rank": 10,
+      "projection": {
+        "dataset_paths": [
+          "data/demo_0/human/hand_action_7d",
+          "data/demo_0/human/hand_coords",
+          "data/demo_0/human/hand_frames",
+          "data/demo_0/human/images",
+          "data/demo_0/time/gap_mask",
+          "data/demo_0/time/legal_window_start",
+          "data/demo_0/time/segment_id",
+          "data/demo_0/time/source_step",
+          "data/demo_0/time/source_timestamp"
+        ],
+        "path": "/workspace/data/Human2Robot/derived/v04/episodes/human_pool/grab_cube2_v1/10_episode_4.hdf5",
+        "sha256": "07b917e39728efe2488c2683e7664be167b3720dcd3e475a19662083b75f69b8",
+        "size_bytes": 37006109
+      },
+      "role": "human",
+      "segment_count": 1,
+      "source_partition": "v04_human_pool",
+      "source_relative_path": "grab_cube2_v1/episode_4.hdf5",
+      "source_sha256": "e42073eccc29e71075593a2669d6baf94bb0f8086e9b2c9b96b716f1a20a887e",
+      "source_sort_sha256": "42424e6589528a379d3324452d0230fc128028eaec6f216cf22972fb6ed88441",
+      "task": "grab_cube2_v1",
+      "window_identity": {
+        "format": "<source_sha256>:<legal_window_start>:H8:K8",
+        "inherits": [
+          "source_relative_path",
+          "source_sha256",
+          "source_partition",
+          "task",
+          "episode_id",
+          "role"
+        ]
+      }
+    },
+    {
+      "episode_id": "grab_to_plate1_v1/episode_2",
+      "frame_count": 433,
+      "gap_count": 0,
+      "human_content_sha256": "c7bdf064ba75879bd3acf3113b961c72a2edb276bf9723651a450a2ef193d99c",
+      "legal_window_count": 418,
+      "max_gap_safe_segment_frames": 433,
+      "partition_rank": 1,
+      "projection": {
+        "dataset_paths": [
+          "data/demo_0/human/hand_action_7d",
+          "data/demo_0/human/hand_coords",
+          "data/demo_0/human/hand_frames",
+          "data/demo_0/human/images",
+          "data/demo_0/time/gap_mask",
+          "data/demo_0/time/legal_window_start",
+          "data/demo_0/time/segment_id",
+          "data/demo_0/time/source_step",
+          "data/demo_0/time/source_timestamp"
+        ],
+        "path": "/workspace/data/Human2Robot/derived/v04/episodes/human_pool/grab_to_plate1_v1/01_episode_2.hdf5",
+        "sha256": "a093c481489a72b34238ba6bb0ebcae42952d20f93357c0edcfa532ab1f0e4ae",
+        "size_bytes": 49954413
+      },
+      "role": "human",
+      "segment_count": 1,
+      "source_partition": "v04_human_pool",
+      "source_relative_path": "grab_to_plate1_v1/episode_2.hdf5",
+      "source_sha256": "8695a7b35a5c104b5c5b44f7b54e58995956e06cfdaf9445096aedcb65650f84",
+      "source_sort_sha256": "10d846c9929e3db4aa2f83eb458b329f73743c1fae0df330658dfe0f87388be0",
+      "task": "grab_to_plate1_v1",
+      "window_identity": {
+        "format": "<source_sha256>:<legal_window_start>:H8:K8",
+        "inherits": [
+          "source_relative_path",
+          "source_sha256",
+          "source_partition",
+          "task",
+          "episode_id",
+          "role"
+        ]
+      }
+    },
+    {
+      "episode_id": "grab_to_plate1_v1/episode_70",
+      "frame_count": 382,
+      "gap_count": 0,
+      "human_content_sha256": "8c1f5e84f2d58f5a04dd389cf8d8a30270c5ba708799b6ebbc4581f7bbad5267",
+      "legal_window_count": 367,
+      "max_gap_safe_segment_frames": 382,
+      "partition_rank": 2,
+      "projection": {
+        "dataset_paths": [
+          "data/demo_0/human/hand_action_7d",
+          "data/demo_0/human/hand_coords",
+          "data/demo_0/human/hand_frames",
+          "data/demo_0/human/images",
+          "data/demo_0/time/gap_mask",
+          "data/demo_0/time/legal_window_start",
+          "data/demo_0/time/segment_id",
+          "data/demo_0/time/source_step",
+          "data/demo_0/time/source_timestamp"
+        ],
+        "path": "/workspace/data/Human2Robot/derived/v04/episodes/human_pool/grab_to_plate1_v1/02_episode_70.hdf5",
+        "sha256": "dc532c96cd5029a44ef7d5db430577b40ec04c44b524dc09b59effbf67954778",
+        "size_bytes": 43586455
+      },
+      "role": "human",
+      "segment_count": 1,
+      "source_partition": "v04_human_pool",
+      "source_relative_path": "grab_to_plate1_v1/episode_70.hdf5",
+      "source_sha256": "9e965910ed9715f4047bfb852aba77ac897db19cd0cf139b6371c5029e689cc3",
+      "source_sort_sha256": "11c79de56427f1109a05259e379c2b2c3eca45c10adafa4d8568358705ccd68a",
+      "task": "grab_to_plate1_v1",
+      "window_identity": {
+        "format": "<source_sha256>:<legal_window_start>:H8:K8",
+        "inherits": [
+          "source_relative_path",
+          "source_sha256",
+          "source_partition",
+          "task",
+          "episode_id",
+          "role"
+        ]
+      }
+    },
+    {
+      "episode_id": "grab_to_plate1_v1/episode_67",
+      "frame_count": 430,
+      "gap_count": 0,
+      "human_content_sha256": "6ebbbad83a0aab76fc32b3bddc815d2fab52ab86fca5b976a52d6dbde78270c4",
+      "legal_window_count": 415,
+      "max_gap_safe_segment_frames": 430,
+      "partition_rank": 3,
+      "projection": {
+        "dataset_paths": [
+          "data/demo_0/human/hand_action_7d",
+          "data/demo_0/human/hand_coords",
+          "data/demo_0/human/hand_frames",
+          "data/demo_0/human/images",
+          "data/demo_0/time/gap_mask",
+          "data/demo_0/time/legal_window_start",
+          "data/demo_0/time/segment_id",
+          "data/demo_0/time/source_step",
+          "data/demo_0/time/source_timestamp"
+        ],
+        "path": "/workspace/data/Human2Robot/derived/v04/episodes/human_pool/grab_to_plate1_v1/03_episode_67.hdf5",
+        "sha256": "bf8516ec68addb416a456376d3f284a52d50021104f236039bc2505ded9d0768",
+        "size_bytes": 50683231
+      },
+      "role": "human",
+      "segment_count": 1,
+      "source_partition": "v04_human_pool",
+      "source_relative_path": "grab_to_plate1_v1/episode_67.hdf5",
+      "source_sha256": "db9a741455ad9415689e2e0b3d3e71cdc82f9dfab6acbe4638cf61c79ba43df1",
+      "source_sort_sha256": "13fe87902e614959178f050f1c1100916143936ed8c3098537ba5f73d7832a04",
+      "task": "grab_to_plate1_v1",
+      "window_identity": {
+        "format": "<source_sha256>:<legal_window_start>:H8:K8",
+        "inherits": [
+          "source_relative_path",
+          "source_sha256",
+          "source_partition",
+          "task",
+          "episode_id",
+          "role"
+        ]
+      }
+    },
+    {
+      "episode_id": "grab_to_plate1_v1/episode_85",
+      "frame_count": 401,
+      "gap_count": 0,
+      "human_content_sha256": "809d449448eace72a3cc3d792a9aa79f86037daddda0af5c586136a32604ce18",
+      "legal_window_count": 386,
+      "max_gap_safe_segment_frames": 401,
+      "partition_rank": 4,
+      "projection": {
+        "dataset_paths": [
+          "data/demo_0/human/hand_action_7d",
+          "data/demo_0/human/hand_coords",
+          "data/demo_0/human/hand_frames",
+          "data/demo_0/human/images",
+          "data/demo_0/time/gap_mask",
+          "data/demo_0/time/legal_window_start",
+          "data/demo_0/time/segment_id",
+          "data/demo_0/time/source_step",
+          "data/demo_0/time/source_timestamp"
+        ],
+        "path": "/workspace/data/Human2Robot/derived/v04/episodes/human_pool/grab_to_plate1_v1/04_episode_85.hdf5",
+        "sha256": "dfb8ab15bc60068f4b35faf98087f6e5e8bd354f0b0b9bcfcbb4a4a0055fc483",
+        "size_bytes": 46778474
+      },
+      "role": "human",
+      "segment_count": 1,
+      "source_partition": "v04_human_pool",
+      "source_relative_path": "grab_to_plate1_v1/episode_85.hdf5",
+      "source_sha256": "2f003a6ac5439134eb166fc39e226dad1e80278532fbdfa575e6e5f6110a1020",
+      "source_sort_sha256": "1c9a65915bc3079ddea2c427b79be0bee69fe451c2717a26e7783c9d6a2de7d9",
+      "task": "grab_to_plate1_v1",
+      "window_identity": {
+        "format": "<source_sha256>:<legal_window_start>:H8:K8",
+        "inherits": [
+          "source_relative_path",
+          "source_sha256",
+          "source_partition",
+          "task",
+          "episode_id",
+          "role"
+        ]
+      }
+    },
+    {
+      "episode_id": "grab_to_plate1_v1/episode_49",
+      "frame_count": 409,
+      "gap_count": 0,
+      "human_content_sha256": "1e4695cc82f7d13fa796b8a271cc498cabd8a98a030e020a68ca0c0fd0c2fedc",
+      "legal_window_count": 394,
+      "max_gap_safe_segment_frames": 409,
+      "partition_rank": 5,
+      "projection": {
+        "dataset_paths": [
+          "data/demo_0/human/hand_action_7d",
+          "data/demo_0/human/hand_coords",
+          "data/demo_0/human/hand_frames",
+          "data/demo_0/human/images",
+          "data/demo_0/time/gap_mask",
+          "data/demo_0/time/legal_window_start",
+          "data/demo_0/time/segment_id",
+          "data/demo_0/time/source_step",
+          "data/demo_0/time/source_timestamp"
+        ],
+        "path": "/workspace/data/Human2Robot/derived/v04/episodes/human_pool/grab_to_plate1_v1/05_episode_49.hdf5",
+        "sha256": "9890967e07cba1474bb733af8de208a51fc3714f8c717177eefab105699e30b1",
+        "size_bytes": 48111580
+      },
+      "role": "human",
+      "segment_count": 1,
+      "source_partition": "v04_human_pool",
+      "source_relative_path": "grab_to_plate1_v1/episode_49.hdf5",
+      "source_sha256": "045c977d831538deef9a5035303b98d41a383ed149a3dd460e96a249032d5dcf",
+      "source_sort_sha256": "1eee5029ad3e4527582969f9fadadb4c7602a7e3ef650b9b7f1092bd57c62096",
+      "task": "grab_to_plate1_v1",
+      "window_identity": {
+        "format": "<source_sha256>:<legal_window_start>:H8:K8",
+        "inherits": [
+          "source_relative_path",
+          "source_sha256",
+          "source_partition",
+          "task",
+          "episode_id",
+          "role"
+        ]
+      }
+    },
+    {
+      "episode_id": "grab_to_plate1_v1/episode_68",
+      "frame_count": 457,
+      "gap_count": 0,
+      "human_content_sha256": "99b6f6e1a59b26fedf5a77214a12bb4cb6e4fa4dc7a8aee327954f467dc3df91",
+      "legal_window_count": 442,
+      "max_gap_safe_segment_frames": 457,
+      "partition_rank": 6,
+      "projection": {
+        "dataset_paths": [
+          "data/demo_0/human/hand_action_7d",
+          "data/demo_0/human/hand_coords",
+          "data/demo_0/human/hand_frames",
+          "data/demo_0/human/images",
+          "data/demo_0/time/gap_mask",
+          "data/demo_0/time/legal_window_start",
+          "data/demo_0/time/segment_id",
+          "data/demo_0/time/source_step",
+          "data/demo_0/time/source_timestamp"
+        ],
+        "path": "/workspace/data/Human2Robot/derived/v04/episodes/human_pool/grab_to_plate1_v1/06_episode_68.hdf5",
+        "sha256": "bd8c548a46c18b5d25e97b30c35070768cea700e34ae35c2f701caa26e257615",
+        "size_bytes": 54125597
+      },
+      "role": "human",
+      "segment_count": 1,
+      "source_partition": "v04_human_pool",
+      "source_relative_path": "grab_to_plate1_v1/episode_68.hdf5",
+      "source_sha256": "148e8edbd88c45d07952a57f2bdb51001e66acf673d944e0a36fc86476e168df",
+      "source_sort_sha256": "21bdf4f29f985d9cda96c66a290cbefa8928ad863dbd487f90a5924722c3754b",
+      "task": "grab_to_plate1_v1",
+      "window_identity": {
+        "format": "<source_sha256>:<legal_window_start>:H8:K8",
+        "inherits": [
+          "source_relative_path",
+          "source_sha256",
+          "source_partition",
+          "task",
+          "episode_id",
+          "role"
+        ]
+      }
+    },
+    {
+      "episode_id": "grab_to_plate1_v1/episode_24",
+      "frame_count": 478,
+      "gap_count": 0,
+      "human_content_sha256": "518f923d1f183e598f8b5341732f3baa0d7f34a478868c54a0977892c164992c",
+      "legal_window_count": 463,
+      "max_gap_safe_segment_frames": 478,
+      "partition_rank": 7,
+      "projection": {
+        "dataset_paths": [
+          "data/demo_0/human/hand_action_7d",
+          "data/demo_0/human/hand_coords",
+          "data/demo_0/human/hand_frames",
+          "data/demo_0/human/images",
+          "data/demo_0/time/gap_mask",
+          "data/demo_0/time/legal_window_start",
+          "data/demo_0/time/segment_id",
+          "data/demo_0/time/source_step",
+          "data/demo_0/time/source_timestamp"
+        ],
+        "path": "/workspace/data/Human2Robot/derived/v04/episodes/human_pool/grab_to_plate1_v1/07_episode_24.hdf5",
+        "sha256": "75c31b57eab28750f6d6352cdad2113ecc3ea54e5206d9dea9ce5ded94aa4695",
+        "size_bytes": 55542355
+      },
+      "role": "human",
+      "segment_count": 1,
+      "source_partition": "v04_human_pool",
+      "source_relative_path": "grab_to_plate1_v1/episode_24.hdf5",
+      "source_sha256": "24ff547d4fe837860a75110ae58bcdbf19009279dbe4dfb559730bde446975de",
+      "source_sort_sha256": "22a9857f499ed5e8f4bef59cab40a1e81bcd5c0bec4e3a26d660f12b6bfcc829",
+      "task": "grab_to_plate1_v1",
+      "window_identity": {
+        "format": "<source_sha256>:<legal_window_start>:H8:K8",
+        "inherits": [
+          "source_relative_path",
+          "source_sha256",
+          "source_partition",
+          "task",
+          "episode_id",
+          "role"
+        ]
+      }
+    },
+    {
+      "episode_id": "grab_to_plate1_v1/episode_43",
+      "frame_count": 439,
+      "gap_count": 0,
+      "human_content_sha256": "cdc3b294153e6812d6049dca7b3038c074ec081f9fd91fa5007594d06661c5cd",
+      "legal_window_count": 424,
+      "max_gap_safe_segment_frames": 439,
+      "partition_rank": 8,
+      "projection": {
+        "dataset_paths": [
+          "data/demo_0/human/hand_action_7d",
+          "data/demo_0/human/hand_coords",
+          "data/demo_0/human/hand_frames",
+          "data/demo_0/human/images",
+          "data/demo_0/time/gap_mask",
+          "data/demo_0/time/legal_window_start",
+          "data/demo_0/time/segment_id",
+          "data/demo_0/time/source_step",
+          "data/demo_0/time/source_timestamp"
+        ],
+        "path": "/workspace/data/Human2Robot/derived/v04/episodes/human_pool/grab_to_plate1_v1/08_episode_43.hdf5",
+        "sha256": "44cb372ce8698df3a697955926f4961cb99f1fdf675c51811cd9f17d2d680da5",
+        "size_bytes": 51223865
+      },
+      "role": "human",
+      "segment_count": 1,
+      "source_partition": "v04_human_pool",
+      "source_relative_path": "grab_to_plate1_v1/episode_43.hdf5",
+      "source_sha256": "5ca9dbaea93a3361845ad639fd63162528373294710fd09a15b15552c8b75463",
+      "source_sort_sha256": "23205780325c407175d35b0036aff3a6d260d321e9b7d2235b2430b80e994c45",
+      "task": "grab_to_plate1_v1",
+      "window_identity": {
+        "format": "<source_sha256>:<legal_window_start>:H8:K8",
+        "inherits": [
+          "source_relative_path",
+          "source_sha256",
+          "source_partition",
+          "task",
+          "episode_id",
+          "role"
+        ]
+      }
+    },
+    {
+      "episode_id": "grab_to_plate1_v1/episode_56",
+      "frame_count": 400,
+      "gap_count": 0,
+      "human_content_sha256": "249b7daa3049df0b075e51af42c5d21a2ffef76976a92c726f908cc221e7191a",
+      "legal_window_count": 385,
+      "max_gap_safe_segment_frames": 400,
+      "partition_rank": 9,
+      "projection": {
+        "dataset_paths": [
+          "data/demo_0/human/hand_action_7d",
+          "data/demo_0/human/hand_coords",
+          "data/demo_0/human/hand_frames",
+          "data/demo_0/human/images",
+          "data/demo_0/time/gap_mask",
+          "data/demo_0/time/legal_window_start",
+          "data/demo_0/time/segment_id",
+          "data/demo_0/time/source_step",
+          "data/demo_0/time/source_timestamp"
+        ],
+        "path": "/workspace/data/Human2Robot/derived/v04/episodes/human_pool/grab_to_plate1_v1/09_episode_56.hdf5",
+        "sha256": "70666dc641816b354d949dddd19c51bf1b988a030e3bf8eae0208f4ade459227",
+        "size_bytes": 46701998
+      },
+      "role": "human",
+      "segment_count": 1,
+      "source_partition": "v04_human_pool",
+      "source_relative_path": "grab_to_plate1_v1/episode_56.hdf5",
+      "source_sha256": "1815c5aed62620b97425e5d812063a790d515363cf73f292fe2a38622dc393a9",
+      "source_sort_sha256": "242899cf1dd9d2ff15cea2c7aae56073e6ff03b0633277c24b1a3cdb85c614b7",
+      "task": "grab_to_plate1_v1",
+      "window_identity": {
+        "format": "<source_sha256>:<legal_window_start>:H8:K8",
+        "inherits": [
+          "source_relative_path",
+          "source_sha256",
+          "source_partition",
+          "task",
+          "episode_id",
+          "role"
+        ]
+      }
+    },
+    {
+      "episode_id": "grab_to_plate1_v1/episode_32",
+      "frame_count": 386,
+      "gap_count": 0,
+      "human_content_sha256": "7952eae45dd85471bdcc0f1b3a5dd07c5f8f7f26da0e3758646396852b80ee04",
+      "legal_window_count": 371,
+      "max_gap_safe_segment_frames": 386,
+      "partition_rank": 10,
+      "projection": {
+        "dataset_paths": [
+          "data/demo_0/human/hand_action_7d",
+          "data/demo_0/human/hand_coords",
+          "data/demo_0/human/hand_frames",
+          "data/demo_0/human/images",
+          "data/demo_0/time/gap_mask",
+          "data/demo_0/time/legal_window_start",
+          "data/demo_0/time/segment_id",
+          "data/demo_0/time/source_step",
+          "data/demo_0/time/source_timestamp"
+        ],
+        "path": "/workspace/data/Human2Robot/derived/v04/episodes/human_pool/grab_to_plate1_v1/10_episode_32.hdf5",
+        "sha256": "f73af53c21bce364d5f77cd1fc75c1dd403ce05c03a25a82359b6fcb6f55151f",
+        "size_bytes": 44541267
+      },
+      "role": "human",
+      "segment_count": 1,
+      "source_partition": "v04_human_pool",
+      "source_relative_path": "grab_to_plate1_v1/episode_32.hdf5",
+      "source_sha256": "4f72a50e7c85dcfd8a53fff8a01485b27d92e485a00e744b6d37edef31984390",
+      "source_sort_sha256": "2878df420e144b6f2e1584e3199ffb43090ae478b169c4c8df3b6bf95fbe2680",
+      "task": "grab_to_plate1_v1",
+      "window_identity": {
+        "format": "<source_sha256>:<legal_window_start>:H8:K8",
+        "inherits": [
+          "source_relative_path",
+          "source_sha256",
+          "source_partition",
+          "task",
+          "episode_id",
+          "role"
+        ]
+      }
+    },
+    {
+      "episode_id": "push_box_random_v1/episode_36",
+      "frame_count": 170,
+      "gap_count": 0,
+      "human_content_sha256": "4691bab36232a5a5cbadbe66cb88568a065e849bcc0a1fe718223aee34960947",
+      "legal_window_count": 155,
+      "max_gap_safe_segment_frames": 170,
+      "partition_rank": 1,
+      "projection": {
+        "dataset_paths": [
+          "data/demo_0/human/hand_action_7d",
+          "data/demo_0/human/hand_coords",
+          "data/demo_0/human/hand_frames",
+          "data/demo_0/human/images",
+          "data/demo_0/time/gap_mask",
+          "data/demo_0/time/legal_window_start",
+          "data/demo_0/time/segment_id",
+          "data/demo_0/time/source_step",
+          "data/demo_0/time/source_timestamp"
+        ],
+        "path": "/workspace/data/Human2Robot/derived/v04/episodes/human_pool/push_box_random_v1/01_episode_36.hdf5",
+        "sha256": "442ac5bceaa7e030a963acdfb5e0b09ca0f7eebe396a6f9e679acf07c01bb332",
+        "size_bytes": 19097925
+      },
+      "role": "human",
+      "segment_count": 1,
+      "source_partition": "v04_human_pool",
+      "source_relative_path": "push_box_random_v1/episode_36.hdf5",
+      "source_sha256": "f1d00319db2dca3889df0431063236d60e57d882e04ef2788af8fe0e8facccd2",
+      "source_sort_sha256": "2157a855c6e67193f501db4b46ccbe2e205edbf395b4ac41014e75e8b896e208",
+      "task": "push_box_random_v1",
+      "window_identity": {
+        "format": "<source_sha256>:<legal_window_start>:H8:K8",
+        "inherits": [
+          "source_relative_path",
+          "source_sha256",
+          "source_partition",
+          "task",
+          "episode_id",
+          "role"
+        ]
+      }
+    },
+    {
+      "episode_id": "push_box_random_v1/episode_43",
+      "frame_count": 303,
+      "gap_count": 0,
+      "human_content_sha256": "1775bf8660dc798dc9d3983b2098006d297fe39f972dc3606bd2c38132facb60",
+      "legal_window_count": 288,
+      "max_gap_safe_segment_frames": 303,
+      "partition_rank": 2,
+      "projection": {
+        "dataset_paths": [
+          "data/demo_0/human/hand_action_7d",
+          "data/demo_0/human/hand_coords",
+          "data/demo_0/human/hand_frames",
+          "data/demo_0/human/images",
+          "data/demo_0/time/gap_mask",
+          "data/demo_0/time/legal_window_start",
+          "data/demo_0/time/segment_id",
+          "data/demo_0/time/source_step",
+          "data/demo_0/time/source_timestamp"
+        ],
+        "path": "/workspace/data/Human2Robot/derived/v04/episodes/human_pool/push_box_random_v1/02_episode_43.hdf5",
+        "sha256": "4f3c5b980dca91ed0429af31120bbc9bcb1381c43b4d8eff3af5539e7c6f708a",
+        "size_bytes": 33394942
+      },
+      "role": "human",
+      "segment_count": 1,
+      "source_partition": "v04_human_pool",
+      "source_relative_path": "push_box_random_v1/episode_43.hdf5",
+      "source_sha256": "161a11a1e12defde3bb04bf443a69c67a104f4679dae9b42df37f7e6e1defddc",
+      "source_sort_sha256": "29b6dbb35a34cd3b0ed984e63aadd0636aaddc9aecc13872568b1d381f09fb9a",
+      "task": "push_box_random_v1",
+      "window_identity": {
+        "format": "<source_sha256>:<legal_window_start>:H8:K8",
+        "inherits": [
+          "source_relative_path",
+          "source_sha256",
+          "source_partition",
+          "task",
+          "episode_id",
+          "role"
+        ]
+      }
+    },
+    {
+      "episode_id": "push_box_random_v1/episode_50",
+      "frame_count": 236,
+      "gap_count": 0,
+      "human_content_sha256": "511619aaf2018ba431b9be2f3c2c95e1c4b1386e183b5bee82c11e3ac5e16e92",
+      "legal_window_count": 221,
+      "max_gap_safe_segment_frames": 236,
+      "partition_rank": 3,
+      "projection": {
+        "dataset_paths": [
+          "data/demo_0/human/hand_action_7d",
+          "data/demo_0/human/hand_coords",
+          "data/demo_0/human/hand_frames",
+          "data/demo_0/human/images",
+          "data/demo_0/time/gap_mask",
+          "data/demo_0/time/legal_window_start",
+          "data/demo_0/time/segment_id",
+          "data/demo_0/time/source_step",
+          "data/demo_0/time/source_timestamp"
+        ],
+        "path": "/workspace/data/Human2Robot/derived/v04/episodes/human_pool/push_box_random_v1/03_episode_50.hdf5",
+        "sha256": "34086d70ec98ab7670b7517a783298ec62ab5fe8458077dc9fb88cba92d13cf2",
+        "size_bytes": 26899787
+      },
+      "role": "human",
+      "segment_count": 1,
+      "source_partition": "v04_human_pool",
+      "source_relative_path": "push_box_random_v1/episode_50.hdf5",
+      "source_sha256": "67e873a9a0ea32baae03623fcecf6bbf8b551de8f015e60f5ae6dfcd21b95e0e",
+      "source_sort_sha256": "2fd26408a6ea7f678137e747e1df1ae83f9b689190ecbe8fca18486d02aaaf9a",
+      "task": "push_box_random_v1",
+      "window_identity": {
+        "format": "<source_sha256>:<legal_window_start>:H8:K8",
+        "inherits": [
+          "source_relative_path",
+          "source_sha256",
+          "source_partition",
+          "task",
+          "episode_id",
+          "role"
+        ]
+      }
+    },
+    {
+      "episode_id": "push_box_random_v1/episode_30",
+      "frame_count": 162,
+      "gap_count": 0,
+      "human_content_sha256": "4a650514dd781ad131ab032caef88520d90ec4d043bbeced3f2e2c10572047c3",
+      "legal_window_count": 147,
+      "max_gap_safe_segment_frames": 162,
+      "partition_rank": 4,
+      "projection": {
+        "dataset_paths": [
+          "data/demo_0/human/hand_action_7d",
+          "data/demo_0/human/hand_coords",
+          "data/demo_0/human/hand_frames",
+          "data/demo_0/human/images",
+          "data/demo_0/time/gap_mask",
+          "data/demo_0/time/legal_window_start",
+          "data/demo_0/time/segment_id",
+          "data/demo_0/time/source_step",
+          "data/demo_0/time/source_timestamp"
+        ],
+        "path": "/workspace/data/Human2Robot/derived/v04/episodes/human_pool/push_box_random_v1/04_episode_30.hdf5",
+        "sha256": "0f89177764c87dfc0719627a8bc1900a6f872c79c24e8abcf3b207d226ebc545",
+        "size_bytes": 17577493
+      },
+      "role": "human",
+      "segment_count": 1,
+      "source_partition": "v04_human_pool",
+      "source_relative_path": "push_box_random_v1/episode_30.hdf5",
+      "source_sha256": "1426438fe3966482fde81b2ef241b72a3d62295229707d4a31f082a8a553d7a4",
+      "source_sort_sha256": "3cf5165dbfcbd653c4e449dd364f8baeabbe4fd58d4dbbe5a1a4130a2b78200a",
+      "task": "push_box_random_v1",
+      "window_identity": {
+        "format": "<source_sha256>:<legal_window_start>:H8:K8",
+        "inherits": [
+          "source_relative_path",
+          "source_sha256",
+          "source_partition",
+          "task",
+          "episode_id",
+          "role"
+        ]
+      }
+    },
+    {
+      "episode_id": "push_box_random_v1/episode_49",
+      "frame_count": 249,
+      "gap_count": 0,
+      "human_content_sha256": "fa5a861f0fcc8848af49c61ea39fb0bc3b6a38e34eee28bb890fc812d5671a24",
+      "legal_window_count": 234,
+      "max_gap_safe_segment_frames": 249,
+      "partition_rank": 5,
+      "projection": {
+        "dataset_paths": [
+          "data/demo_0/human/hand_action_7d",
+          "data/demo_0/human/hand_coords",
+          "data/demo_0/human/hand_frames",
+          "data/demo_0/human/images",
+          "data/demo_0/time/gap_mask",
+          "data/demo_0/time/legal_window_start",
+          "data/demo_0/time/segment_id",
+          "data/demo_0/time/source_step",
+          "data/demo_0/time/source_timestamp"
+        ],
+        "path": "/workspace/data/Human2Robot/derived/v04/episodes/human_pool/push_box_random_v1/05_episode_49.hdf5",
+        "sha256": "1cc233a7c801b0b7bfeede7943610437d4605856586c75a7a55c4cf403007497",
+        "size_bytes": 27817413
+      },
+      "role": "human",
+      "segment_count": 1,
+      "source_partition": "v04_human_pool",
+      "source_relative_path": "push_box_random_v1/episode_49.hdf5",
+      "source_sha256": "10ecb9d7d836f32efabbe36d7e5d1bd49cdd628a6230fadbb5a1964cd64e078e",
+      "source_sort_sha256": "440c999a715f8c9eae094719e57e0ac2ae7674df4920c91edf5aa13a630108cc",
+      "task": "push_box_random_v1",
+      "window_identity": {
+        "format": "<source_sha256>:<legal_window_start>:H8:K8",
+        "inherits": [
+          "source_relative_path",
+          "source_sha256",
+          "source_partition",
+          "task",
+          "episode_id",
+          "role"
+        ]
+      }
+    },
+    {
+      "episode_id": "push_box_random_v1/episode_31",
+      "frame_count": 117,
+      "gap_count": 0,
+      "human_content_sha256": "28f796d40acdae7053f78bf1a77e474088f3b9feb42f0772482421de7a811737",
+      "legal_window_count": 102,
+      "max_gap_safe_segment_frames": 117,
+      "partition_rank": 6,
+      "projection": {
+        "dataset_paths": [
+          "data/demo_0/human/hand_action_7d",
+          "data/demo_0/human/hand_coords",
+          "data/demo_0/human/hand_frames",
+          "data/demo_0/human/images",
+          "data/demo_0/time/gap_mask",
+          "data/demo_0/time/legal_window_start",
+          "data/demo_0/time/segment_id",
+          "data/demo_0/time/source_step",
+          "data/demo_0/time/source_timestamp"
+        ],
+        "path": "/workspace/data/Human2Robot/derived/v04/episodes/human_pool/push_box_random_v1/06_episode_31.hdf5",
+        "sha256": "233ef2d1311ca83df17da2de55f4afbf322c704a052e6d8ebdb1da09c4f6b324",
+        "size_bytes": 12927935
+      },
+      "role": "human",
+      "segment_count": 1,
+      "source_partition": "v04_human_pool",
+      "source_relative_path": "push_box_random_v1/episode_31.hdf5",
+      "source_sha256": "d11e86cc2d763d8054fe63f44b5131f797bf689155c2b5b3c7dff1a4f2b8613f",
+      "source_sort_sha256": "49278d701b097462cc980333758c5f892583d63e8f87120041ec7ebafc7448d4",
+      "task": "push_box_random_v1",
+      "window_identity": {
+        "format": "<source_sha256>:<legal_window_start>:H8:K8",
+        "inherits": [
+          "source_relative_path",
+          "source_sha256",
+          "source_partition",
+          "task",
+          "episode_id",
+          "role"
+        ]
+      }
+    },
+    {
+      "episode_id": "push_box_random_v1/episode_38",
+      "frame_count": 145,
+      "gap_count": 0,
+      "human_content_sha256": "d14afa11f80a52353e1bbf518476b4f5ea1e7bd45a028b35324db46f0e5e92fc",
+      "legal_window_count": 130,
+      "max_gap_safe_segment_frames": 145,
+      "partition_rank": 7,
+      "projection": {
+        "dataset_paths": [
+          "data/demo_0/human/hand_action_7d",
+          "data/demo_0/human/hand_coords",
+          "data/demo_0/human/hand_frames",
+          "data/demo_0/human/images",
+          "data/demo_0/time/gap_mask",
+          "data/demo_0/time/legal_window_start",
+          "data/demo_0/time/segment_id",
+          "data/demo_0/time/source_step",
+          "data/demo_0/time/source_timestamp"
+        ],
+        "path": "/workspace/data/Human2Robot/derived/v04/episodes/human_pool/push_box_random_v1/07_episode_38.hdf5",
+        "sha256": "97735943cdd34d512d77595d78e698cc75404021b31440a40aeb6e573b18046c",
+        "size_bytes": 16818948
+      },
+      "role": "human",
+      "segment_count": 1,
+      "source_partition": "v04_human_pool",
+      "source_relative_path": "push_box_random_v1/episode_38.hdf5",
+      "source_sha256": "067f497f197345abb2a52953769b7da8544ec9e6600f5a9959879de90508b4c4",
+      "source_sort_sha256": "4aad4722d7d29ccfde610dc23559407cc812cbf084d368fb7b54571bb2d556db",
+      "task": "push_box_random_v1",
+      "window_identity": {
+        "format": "<source_sha256>:<legal_window_start>:H8:K8",
+        "inherits": [
+          "source_relative_path",
+          "source_sha256",
+          "source_partition",
+          "task",
+          "episode_id",
+          "role"
+        ]
+      }
+    },
+    {
+      "episode_id": "push_box_random_v1/episode_46",
+      "frame_count": 232,
+      "gap_count": 0,
+      "human_content_sha256": "7f68232509b9d7368460908ac9e13bcf623d667b0dc07e373ec5d25730f7cf21",
+      "legal_window_count": 217,
+      "max_gap_safe_segment_frames": 232,
+      "partition_rank": 8,
+      "projection": {
+        "dataset_paths": [
+          "data/demo_0/human/hand_action_7d",
+          "data/demo_0/human/hand_coords",
+          "data/demo_0/human/hand_frames",
+          "data/demo_0/human/images",
+          "data/demo_0/time/gap_mask",
+          "data/demo_0/time/legal_window_start",
+          "data/demo_0/time/segment_id",
+          "data/demo_0/time/source_step",
+          "data/demo_0/time/source_timestamp"
+        ],
+        "path": "/workspace/data/Human2Robot/derived/v04/episodes/human_pool/push_box_random_v1/08_episode_46.hdf5",
+        "sha256": "e59afcd46ce7281f8e60e673e027037c9234ef21ee1624691e6378583a8faf33",
+        "size_bytes": 26105761
+      },
+      "role": "human",
+      "segment_count": 1,
+      "source_partition": "v04_human_pool",
+      "source_relative_path": "push_box_random_v1/episode_46.hdf5",
+      "source_sha256": "879f44d8f187eda1a7f5db04e56b85baf9572f6f4da21376d3f3eb5f737ab234",
+      "source_sort_sha256": "4c503aad4832f6eccc3c5a3ca0542ab8774f124d34965deedcfcd3856412fde3",
+      "task": "push_box_random_v1",
+      "window_identity": {
+        "format": "<source_sha256>:<legal_window_start>:H8:K8",
+        "inherits": [
+          "source_relative_path",
+          "source_sha256",
+          "source_partition",
+          "task",
+          "episode_id",
+          "role"
+        ]
+      }
+    },
+    {
+      "episode_id": "push_box_random_v1/episode_57",
+      "frame_count": 367,
+      "gap_count": 0,
+      "human_content_sha256": "f76328ca839ff3997588efe0386f6bd54b93f45b42712c905ac389aa7336751c",
+      "legal_window_count": 352,
+      "max_gap_safe_segment_frames": 367,
+      "partition_rank": 9,
+      "projection": {
+        "dataset_paths": [
+          "data/demo_0/human/hand_action_7d",
+          "data/demo_0/human/hand_coords",
+          "data/demo_0/human/hand_frames",
+          "data/demo_0/human/images",
+          "data/demo_0/time/gap_mask",
+          "data/demo_0/time/legal_window_start",
+          "data/demo_0/time/segment_id",
+          "data/demo_0/time/source_step",
+          "data/demo_0/time/source_timestamp"
+        ],
+        "path": "/workspace/data/Human2Robot/derived/v04/episodes/human_pool/push_box_random_v1/09_episode_57.hdf5",
+        "sha256": "9fd6d93eda05c1034df21e9d41c769229a59b58b2e749efe58b26dabe1ab11fe",
+        "size_bytes": 41563899
+      },
+      "role": "human",
+      "segment_count": 1,
+      "source_partition": "v04_human_pool",
+      "source_relative_path": "push_box_random_v1/episode_57.hdf5",
+      "source_sha256": "a34a278a8213b034ea3948d0ad39fea130b19348abb44b27325f57daef02385e",
+      "source_sort_sha256": "52923efa6af4624f5f6a24fc26ec37808af4f3417330467996d3d5970db758cd",
+      "task": "push_box_random_v1",
+      "window_identity": {
+        "format": "<source_sha256>:<legal_window_start>:H8:K8",
+        "inherits": [
+          "source_relative_path",
+          "source_sha256",
+          "source_partition",
+          "task",
+          "episode_id",
+          "role"
+        ]
+      }
+    },
+    {
+      "episode_id": "push_box_random_v1/episode_56",
+      "frame_count": 637,
+      "gap_count": 0,
+      "human_content_sha256": "6d64da3598013ec695e4df64f8ee0a8987c5ce33d44dca0f840466da9e196267",
+      "legal_window_count": 622,
+      "max_gap_safe_segment_frames": 637,
+      "partition_rank": 10,
+      "projection": {
+        "dataset_paths": [
+          "data/demo_0/human/hand_action_7d",
+          "data/demo_0/human/hand_coords",
+          "data/demo_0/human/hand_frames",
+          "data/demo_0/human/images",
+          "data/demo_0/time/gap_mask",
+          "data/demo_0/time/legal_window_start",
+          "data/demo_0/time/segment_id",
+          "data/demo_0/time/source_step",
+          "data/demo_0/time/source_timestamp"
+        ],
+        "path": "/workspace/data/Human2Robot/derived/v04/episodes/human_pool/push_box_random_v1/10_episode_56.hdf5",
+        "sha256": "96b2f0195b5c3e3c8bde08f14bd1a3f12e80069f36ec140ced862c1a9c14d85e",
+        "size_bytes": 69453745
+      },
+      "role": "human",
+      "segment_count": 1,
+      "source_partition": "v04_human_pool",
+      "source_relative_path": "push_box_random_v1/episode_56.hdf5",
+      "source_sha256": "398bd937477878a5d084d5d5efd31000d3d81cf7f89cf46ef785d95753326638",
+      "source_sort_sha256": "5e6706f29de8cd3c34e54e8dc52893c2a7d40d810dd84f5716ab3bf43d1dc00e",
+      "task": "push_box_random_v1",
+      "window_identity": {
+        "format": "<source_sha256>:<legal_window_start>:H8:K8",
+        "inherits": [
+          "source_relative_path",
+          "source_sha256",
+          "source_partition",
+          "task",
+          "episode_id",
+          "role"
+        ]
+      }
+    },
+    {
+      "episode_id": "push_plate_v1/episode_61",
+      "frame_count": 584,
+      "gap_count": 0,
+      "human_content_sha256": "2d02d138180c73f588a649699c7e14e89101c54731d8d3dcddba93a66fc3c9b7",
+      "legal_window_count": 569,
+      "max_gap_safe_segment_frames": 584,
+      "partition_rank": 1,
+      "projection": {
+        "dataset_paths": [
+          "data/demo_0/human/hand_action_7d",
+          "data/demo_0/human/hand_coords",
+          "data/demo_0/human/hand_frames",
+          "data/demo_0/human/images",
+          "data/demo_0/time/gap_mask",
+          "data/demo_0/time/legal_window_start",
+          "data/demo_0/time/segment_id",
+          "data/demo_0/time/source_step",
+          "data/demo_0/time/source_timestamp"
+        ],
+        "path": "/workspace/data/Human2Robot/derived/v04/episodes/human_pool/push_plate_v1/01_episode_61.hdf5",
+        "sha256": "0a9956bd2f6559e591c915fa30341c4a7e11d9128e5ddfced9fc325819aec782",
+        "size_bytes": 59669674
+      },
+      "role": "human",
+      "segment_count": 1,
+      "source_partition": "v04_human_pool",
+      "source_relative_path": "push_plate_v1/episode_61.hdf5",
+      "source_sha256": "0af3625609b4612b198129a3734a1be9c5698cb547615fd27e1349d24d0ac74a",
+      "source_sort_sha256": "025e92879d5a0506203f4c8025b7cf23c070d3771877282acf1a282807840bb5",
+      "task": "push_plate_v1",
+      "window_identity": {
+        "format": "<source_sha256>:<legal_window_start>:H8:K8",
+        "inherits": [
+          "source_relative_path",
+          "source_sha256",
+          "source_partition",
+          "task",
+          "episode_id",
+          "role"
+        ]
+      }
+    },
+    {
+      "episode_id": "push_plate_v1/episode_83",
+      "frame_count": 386,
+      "gap_count": 1,
+      "human_content_sha256": "9888c8fd8298922bd69ead0edd23ef4d9d9d7fc3f52c089d9edd965a9a20d4b0",
+      "legal_window_count": 370,
+      "max_gap_safe_segment_frames": 385,
+      "partition_rank": 2,
+      "projection": {
+        "dataset_paths": [
+          "data/demo_0/human/hand_action_7d",
+          "data/demo_0/human/hand_coords",
+          "data/demo_0/human/hand_frames",
+          "data/demo_0/human/images",
+          "data/demo_0/time/gap_mask",
+          "data/demo_0/time/legal_window_start",
+          "data/demo_0/time/segment_id",
+          "data/demo_0/time/source_step",
+          "data/demo_0/time/source_timestamp"
+        ],
+        "path": "/workspace/data/Human2Robot/derived/v04/episodes/human_pool/push_plate_v1/02_episode_83.hdf5",
+        "sha256": "3fc903e7b582b49a44d4877f1efe012cf8f0620ecc5b50e71e4729f9953a9f6a",
+        "size_bytes": 38746973
+      },
+      "role": "human",
+      "segment_count": 2,
+      "source_partition": "v04_human_pool",
+      "source_relative_path": "push_plate_v1/episode_83.hdf5",
+      "source_sha256": "9d258641dbfa0ac53031ee7f5a0e3c09b7eff2e841d9fc5023a042e22bf2ef55",
+      "source_sort_sha256": "081a9ff23b564e73fd99fb34ad12123e7ab472482afeb96166b377559d4754db",
+      "task": "push_plate_v1",
+      "window_identity": {
+        "format": "<source_sha256>:<legal_window_start>:H8:K8",
+        "inherits": [
+          "source_relative_path",
+          "source_sha256",
+          "source_partition",
+          "task",
+          "episode_id",
+          "role"
+        ]
+      }
+    },
+    {
+      "episode_id": "push_plate_v1/episode_15",
+      "frame_count": 480,
+      "gap_count": 0,
+      "human_content_sha256": "ca16385ee8ca34a36da43e8e164c8c925a3f405cb7155b1de2cc2a004f0f4834",
+      "legal_window_count": 465,
+      "max_gap_safe_segment_frames": 480,
+      "partition_rank": 3,
+      "projection": {
+        "dataset_paths": [
+          "data/demo_0/human/hand_action_7d",
+          "data/demo_0/human/hand_coords",
+          "data/demo_0/human/hand_frames",
+          "data/demo_0/human/images",
+          "data/demo_0/time/gap_mask",
+          "data/demo_0/time/legal_window_start",
+          "data/demo_0/time/segment_id",
+          "data/demo_0/time/source_step",
+          "data/demo_0/time/source_timestamp"
+        ],
+        "path": "/workspace/data/Human2Robot/derived/v04/episodes/human_pool/push_plate_v1/03_episode_15.hdf5",
+        "sha256": "612a0ec1b770a2429240d408a5deea7680dcf3db25064758e74ab69b636f5e27",
+        "size_bytes": 50243125
+      },
+      "role": "human",
+      "segment_count": 1,
+      "source_partition": "v04_human_pool",
+      "source_relative_path": "push_plate_v1/episode_15.hdf5",
+      "source_sha256": "1818be3b334097bc725816524bc3c1f4bb0dbcf9d48ac7e1fdf64e99b9cf0792",
+      "source_sort_sha256": "0a40303ba9ae2fe57b8771294cab37e3e25d5146a90479658585724006cf75a1",
+      "task": "push_plate_v1",
+      "window_identity": {
+        "format": "<source_sha256>:<legal_window_start>:H8:K8",
+        "inherits": [
+          "source_relative_path",
+          "source_sha256",
+          "source_partition",
+          "task",
+          "episode_id",
+          "role"
+        ]
+      }
+    },
+    {
+      "episode_id": "push_plate_v1/episode_5",
+      "frame_count": 447,
+      "gap_count": 0,
+      "human_content_sha256": "5e02df49e040a2f01908598c940ab5a5c4277605f5319397bdfc37bdd3d3b86b",
+      "legal_window_count": 432,
+      "max_gap_safe_segment_frames": 447,
+      "partition_rank": 4,
+      "projection": {
+        "dataset_paths": [
+          "data/demo_0/human/hand_action_7d",
+          "data/demo_0/human/hand_coords",
+          "data/demo_0/human/hand_frames",
+          "data/demo_0/human/images",
+          "data/demo_0/time/gap_mask",
+          "data/demo_0/time/legal_window_start",
+          "data/demo_0/time/segment_id",
+          "data/demo_0/time/source_step",
+          "data/demo_0/time/source_timestamp"
+        ],
+        "path": "/workspace/data/Human2Robot/derived/v04/episodes/human_pool/push_plate_v1/04_episode_5.hdf5",
+        "sha256": "bf6ea4796ffa8041f6fa34cfe05880f2c024e0e9dcea2e00e5cf7470634cf3e8",
+        "size_bytes": 43726619
+      },
+      "role": "human",
+      "segment_count": 1,
+      "source_partition": "v04_human_pool",
+      "source_relative_path": "push_plate_v1/episode_5.hdf5",
+      "source_sha256": "4d695d51cdbda8a86b35dcd6bff1a44c4881496d76ac7dff5050a186ad8739ad",
+      "source_sort_sha256": "1157d34aafdb58188b094780b515bf57241c1ad5974e6fb233eacf90b926a027",
+      "task": "push_plate_v1",
+      "window_identity": {
+        "format": "<source_sha256>:<legal_window_start>:H8:K8",
+        "inherits": [
+          "source_relative_path",
+          "source_sha256",
+          "source_partition",
+          "task",
+          "episode_id",
+          "role"
+        ]
+      }
+    },
+    {
+      "episode_id": "push_plate_v1/episode_79",
+      "frame_count": 484,
+      "gap_count": 0,
+      "human_content_sha256": "223ab2d8be1c276ef9fa601a2aecd7111ae11113c520cce7890118fbf6a007a5",
+      "legal_window_count": 469,
+      "max_gap_safe_segment_frames": 484,
+      "partition_rank": 5,
+      "projection": {
+        "dataset_paths": [
+          "data/demo_0/human/hand_action_7d",
+          "data/demo_0/human/hand_coords",
+          "data/demo_0/human/hand_frames",
+          "data/demo_0/human/images",
+          "data/demo_0/time/gap_mask",
+          "data/demo_0/time/legal_window_start",
+          "data/demo_0/time/segment_id",
+          "data/demo_0/time/source_step",
+          "data/demo_0/time/source_timestamp"
+        ],
+        "path": "/workspace/data/Human2Robot/derived/v04/episodes/human_pool/push_plate_v1/05_episode_79.hdf5",
+        "sha256": "5e05a278a7c57b700f13680377262303122c483d807e948d6379ac12d9b1ca1d",
+        "size_bytes": 47960540
+      },
+      "role": "human",
+      "segment_count": 1,
+      "source_partition": "v04_human_pool",
+      "source_relative_path": "push_plate_v1/episode_79.hdf5",
+      "source_sha256": "a0527d022e082c3f8e34b851c5ce593614970f3ede827bd51ec1e3beea5523f8",
+      "source_sort_sha256": "153ccfaf2db03e6c97a352efd29633bd3d9383859cbf343289dcda77ddb8284d",
+      "task": "push_plate_v1",
+      "window_identity": {
+        "format": "<source_sha256>:<legal_window_start>:H8:K8",
+        "inherits": [
+          "source_relative_path",
+          "source_sha256",
+          "source_partition",
+          "task",
+          "episode_id",
+          "role"
+        ]
+      }
+    },
+    {
+      "episode_id": "push_plate_v1/episode_11",
+      "frame_count": 488,
+      "gap_count": 1,
+      "human_content_sha256": "5efe240ccb544490ca90263821216ef4de61b64d747aa023631f531bbaaec774",
+      "legal_window_count": 458,
+      "max_gap_safe_segment_frames": 453,
+      "partition_rank": 6,
+      "projection": {
+        "dataset_paths": [
+          "data/demo_0/human/hand_action_7d",
+          "data/demo_0/human/hand_coords",
+          "data/demo_0/human/hand_frames",
+          "data/demo_0/human/images",
+          "data/demo_0/time/gap_mask",
+          "data/demo_0/time/legal_window_start",
+          "data/demo_0/time/segment_id",
+          "data/demo_0/time/source_step",
+          "data/demo_0/time/source_timestamp"
+        ],
+        "path": "/workspace/data/Human2Robot/derived/v04/episodes/human_pool/push_plate_v1/06_episode_11.hdf5",
+        "sha256": "b8f6de5e500755660e3c6232433237da100f56d301376786c96eb922f8024a8b",
+        "size_bytes": 51240571
+      },
+      "role": "human",
+      "segment_count": 2,
+      "source_partition": "v04_human_pool",
+      "source_relative_path": "push_plate_v1/episode_11.hdf5",
+      "source_sha256": "9e95c624a0a42cbc465adf89232f98aee3519cf01dc5c78b37a26f68d8ada8aa",
+      "source_sort_sha256": "180a696c14c19e4dc8f322784c897fb62494233831f8f108c2bfe8212c081244",
+      "task": "push_plate_v1",
+      "window_identity": {
+        "format": "<source_sha256>:<legal_window_start>:H8:K8",
+        "inherits": [
+          "source_relative_path",
+          "source_sha256",
+          "source_partition",
+          "task",
+          "episode_id",
+          "role"
+        ]
+      }
+    },
+    {
+      "episode_id": "push_plate_v1/episode_51",
+      "frame_count": 373,
+      "gap_count": 0,
+      "human_content_sha256": "bdf0d66910d2f97cefe7cbc8683e471ad28a842f80c3c23ef4e6248d8ba1f8f2",
+      "legal_window_count": 358,
+      "max_gap_safe_segment_frames": 373,
+      "partition_rank": 7,
+      "projection": {
+        "dataset_paths": [
+          "data/demo_0/human/hand_action_7d",
+          "data/demo_0/human/hand_coords",
+          "data/demo_0/human/hand_frames",
+          "data/demo_0/human/images",
+          "data/demo_0/time/gap_mask",
+          "data/demo_0/time/legal_window_start",
+          "data/demo_0/time/segment_id",
+          "data/demo_0/time/source_step",
+          "data/demo_0/time/source_timestamp"
+        ],
+        "path": "/workspace/data/Human2Robot/derived/v04/episodes/human_pool/push_plate_v1/07_episode_51.hdf5",
+        "sha256": "da74b101071b3a64dbe11725cb215da3831716435d2ca3e476336e913f014400",
+        "size_bytes": 38650640
+      },
+      "role": "human",
+      "segment_count": 1,
+      "source_partition": "v04_human_pool",
+      "source_relative_path": "push_plate_v1/episode_51.hdf5",
+      "source_sha256": "7de50bf87cab1a58eef232ca7db6c3b2ab15f09dcf40690116623aae5a7b5be4",
+      "source_sort_sha256": "35e2c56d2295bb180c11aa7a94954981a8f5e83559a60bd618ff2ec22410f60f",
+      "task": "push_plate_v1",
+      "window_identity": {
+        "format": "<source_sha256>:<legal_window_start>:H8:K8",
+        "inherits": [
+          "source_relative_path",
+          "source_sha256",
+          "source_partition",
+          "task",
+          "episode_id",
+          "role"
+        ]
+      }
+    },
+    {
+      "episode_id": "push_plate_v1/episode_57",
+      "frame_count": 379,
+      "gap_count": 0,
+      "human_content_sha256": "23b451b4fb60a5249675d0140ea1a00a1203846ce3f637804f0f62d28b697533",
+      "legal_window_count": 364,
+      "max_gap_safe_segment_frames": 379,
+      "partition_rank": 8,
+      "projection": {
+        "dataset_paths": [
+          "data/demo_0/human/hand_action_7d",
+          "data/demo_0/human/hand_coords",
+          "data/demo_0/human/hand_frames",
+          "data/demo_0/human/images",
+          "data/demo_0/time/gap_mask",
+          "data/demo_0/time/legal_window_start",
+          "data/demo_0/time/segment_id",
+          "data/demo_0/time/source_step",
+          "data/demo_0/time/source_timestamp"
+        ],
+        "path": "/workspace/data/Human2Robot/derived/v04/episodes/human_pool/push_plate_v1/08_episode_57.hdf5",
+        "sha256": "b3ecafe12bdb7256f8e2489dd5cfda5214f677755111c41aed1e02edb368df78",
+        "size_bytes": 38992264
+      },
+      "role": "human",
+      "segment_count": 1,
+      "source_partition": "v04_human_pool",
+      "source_relative_path": "push_plate_v1/episode_57.hdf5",
+      "source_sha256": "278368dcb482856bdfe514e9c85e93715ce86172279b7c9f94dc761312a6b3c4",
+      "source_sort_sha256": "3aaf217f159b73715a11551f25755b1b7098ddf2536e9089bd8f975ef19b1e60",
+      "task": "push_plate_v1",
+      "window_identity": {
+        "format": "<source_sha256>:<legal_window_start>:H8:K8",
+        "inherits": [
+          "source_relative_path",
+          "source_sha256",
+          "source_partition",
+          "task",
+          "episode_id",
+          "role"
+        ]
+      }
+    },
+    {
+      "episode_id": "push_plate_v1/episode_25",
+      "frame_count": 542,
+      "gap_count": 0,
+      "human_content_sha256": "4dbfb30aefa6f74aa92ff015a76d85a67e6c25fee9f4c45b3db78791c4f138d7",
+      "legal_window_count": 527,
+      "max_gap_safe_segment_frames": 542,
+      "partition_rank": 9,
+      "projection": {
+        "dataset_paths": [
+          "data/demo_0/human/hand_action_7d",
+          "data/demo_0/human/hand_coords",
+          "data/demo_0/human/hand_frames",
+          "data/demo_0/human/images",
+          "data/demo_0/time/gap_mask",
+          "data/demo_0/time/legal_window_start",
+          "data/demo_0/time/segment_id",
+          "data/demo_0/time/source_step",
+          "data/demo_0/time/source_timestamp"
+        ],
+        "path": "/workspace/data/Human2Robot/derived/v04/episodes/human_pool/push_plate_v1/09_episode_25.hdf5",
+        "sha256": "8a10af0a37563d8f0f8d80f55f16710c0c320518030760d70010fde008436d81",
+        "size_bytes": 54579022
+      },
+      "role": "human",
+      "segment_count": 1,
+      "source_partition": "v04_human_pool",
+      "source_relative_path": "push_plate_v1/episode_25.hdf5",
+      "source_sha256": "f9ee57576ae2c8259bb3562020204a243aaffb0f8fc711c73f90f0b55939134b",
+      "source_sort_sha256": "3dba29d98c1f49b155de1e047c317c34aec284328442cd26d735bd8e2e64124e",
+      "task": "push_plate_v1",
+      "window_identity": {
+        "format": "<source_sha256>:<legal_window_start>:H8:K8",
+        "inherits": [
+          "source_relative_path",
+          "source_sha256",
+          "source_partition",
+          "task",
+          "episode_id",
+          "role"
+        ]
+      }
+    },
+    {
+      "episode_id": "push_plate_v1/episode_109",
+      "frame_count": 459,
+      "gap_count": 3,
+      "human_content_sha256": "57bf6d1826bf63c374760fe0baa3fe3b0f4747d6ec0fd0f3e4c192e50eb7f0b3",
+      "legal_window_count": 427,
+      "max_gap_safe_segment_frames": 415,
+      "partition_rank": 10,
+      "projection": {
+        "dataset_paths": [
+          "data/demo_0/human/hand_action_7d",
+          "data/demo_0/human/hand_coords",
+          "data/demo_0/human/hand_frames",
+          "data/demo_0/human/images",
+          "data/demo_0/time/gap_mask",
+          "data/demo_0/time/legal_window_start",
+          "data/demo_0/time/segment_id",
+          "data/demo_0/time/source_step",
+          "data/demo_0/time/source_timestamp"
+        ],
+        "path": "/workspace/data/Human2Robot/derived/v04/episodes/human_pool/push_plate_v1/10_episode_109.hdf5",
+        "sha256": "5dc6e7ac27ed601bb599c013ebc80526e72fef0f9d4b9dbb69ae3bf0ee28c29a",
+        "size_bytes": 46748993
+      },
+      "role": "human",
+      "segment_count": 4,
+      "source_partition": "v04_human_pool",
+      "source_relative_path": "push_plate_v1/episode_109.hdf5",
+      "source_sha256": "e45e8899873f11b18de052594ec182a635d63dc37751f0e7ca54a086ef169651",
+      "source_sort_sha256": "3f9a843d3501f923162fedc22013487d2f416db7630d57b678ff710b76c3aa6d",
+      "task": "push_plate_v1",
+      "window_identity": {
+        "format": "<source_sha256>:<legal_window_start>:H8:K8",
+        "inherits": [
+          "source_relative_path",
+          "source_sha256",
+          "source_partition",
+          "task",
+          "episode_id",
+          "role"
+        ]
+      }
+    }
+  ],
+  "schema_version": "human2robot-v04-stage4-v1-partition-manifest",
+  "source_split_manifest": {
+    "path": "/workspace/data/Human2Robot/derived/v04/source_split_manifest.json",
+    "sha256": "7869a078b19ba18aaa6a92c22bec26998a81d412165a02eb8cb6c6aec1c879ed",
+    "size_bytes": 1158215
+  },
+  "split_sha256": "8ca7c8352e031292975779fd254db9591963b2cd3612b1f1b5ab65b6e79ebeaf",
+  "status": "FROZEN"
+}

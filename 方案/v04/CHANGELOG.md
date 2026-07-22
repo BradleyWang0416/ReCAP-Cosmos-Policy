@@ -92,3 +92,15 @@
 - 行为探针：`prepare-features` 默认返回 `DRY_RUN`，receipt SHA256 `abcd94ce...`；`train --execute` 在阶段 5 前返回 `BLOCKED_STAGE_GATE` 且 `training_started=false`，receipt SHA256 `cfde108b...`。
 - 偏差：首次 contract 审计因阶段 1 lock 字段名适配错误在写产物前失败；按真实 `lock.manifest.sha256` 修正后通过。没有生成 partial、feature、checkpoint 或评估结果，科学语义不变。
 - 验收报告：`阶段3_v04最小实验接口验收报告_20260721.md`。
+
+## 2026-07-22 — 阶段 4 预检与旧 checkpoint 冒烟验收通过
+
+- 结论：`VERIFIED_STAGE4 / PASSED`；五项 fail-closed guardrail 全部为 0，`training_allowed=true`、`stage5_allowed=true`。
+- 实现：公开入口的 `prepare-features --execute` 接入阶段 4 orchestrator；新增四卡 WAN feature worker、三个旧 checkpoint 的 strict-adapter smoke worker、协议锁和 5 项 synthetic/协议测试。
+- 分区物化：seen-train/validation、held-out human-pool/robot-dev/robot-final 分别为 654/82/40/20/80 episode，manifest 全部 `FROZEN`、`0444`。
+- geometry：seen-train human+robot 共 3,909,952 条 relative 10D row，全部有限且非退化；SHA256 `d16fda28986f4860a237fabfb598792fb4630764bc3766735a97d94198e630eb`。
+- WAN cache：绑定 tokenizer SHA256 `38071ab...`，生成 1,612 个只读 shard、597,043 个 current-frame feature，future/target read 均为 0；index SHA256 `48e895a1c664790cab85d837506e63facf7c97eca207e3d15f20d4e55c589d17`。
+- 旧 checkpoint smoke：每方法 4 task × 5 episode × 8 query × top3 = 480 receipt；三方法合计 1,440/1,440 `PASSED`，实际浮点逐条复核全部有限，0 缺失、0 provenance、0 gap、0 `.partial`，全部 receipt/summary 为 `0444`。
+- 正式证据：attempt 0005 manifest/receipt SHA256 为 `56f07e50...` / `00a15f9a...`；protocol lock SHA256 `834fe271...`；冻结四卡离线全量 suite 为 211 passed、3 个第三方 deprecation warnings，receipt SHA256 `d024e50c4628946ba1e810c79c9ff45fb4d9ac5180c52d1eb322d29d02b03afa`。
+- 偏差：attempt 0001 的离线 torchrun hostname、attempt 0002 的 Hydra 绝对 config、attempt 0003 的 GPU 映射环境变量、attempt 0004 的 strict adapter metadata 均在最终 attempt 前暴露并修正；失败/阻断收据保留，未作为正式结论。三个 worker 退出有 PyTorch process-group 清理 warning，但退出码、全部收据和独立 bundle 审计均通过。
+- 科学边界：所有 smoke 均为 `formal_result=false`、`performance_claim_allowed=false`；不用于模型选择、方法排序或 RECAP 优越性结论。详见 `阶段4_预检与旧checkpoint冒烟验收报告_20260722.md`。

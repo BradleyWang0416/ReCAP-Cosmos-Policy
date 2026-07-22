@@ -1,0 +1,148 @@
+{
+  "created_at_utc": "2026-07-22T05:19:18.504621+00:00",
+  "data_protocol": {
+    "partition_manifests": {
+      "seen_train": {
+        "path": "/workspace/data/Human2Robot/derived/v04/stage4/manifests/seen_train.json",
+        "sha256": "fc368ed780d0ff7fa055e83246cbaf1c5d4dc561aa30ffcede38a8b87d557cb5",
+        "size_bytes": 702515
+      },
+      "seen_validation": {
+        "path": "/workspace/data/Human2Robot/derived/v04/stage4/manifests/seen_validation.json",
+        "sha256": "d0940bb38da5cc248b05e5ae2748968c8d3489c4c3b8ffa01d22907c37ebf98f",
+        "size_bytes": 88938
+      },
+      "v04_human_pool": {
+        "path": "/workspace/data/Human2Robot/derived/v04/stage4/manifests/v04_human_pool.json",
+        "sha256": "02557a497e25d44794188f27026ca73d21120cef63cee1c3032dd3bf9998d0b7",
+        "size_bytes": 66910
+      },
+      "v04_robot_dev": {
+        "path": "/workspace/data/Human2Robot/derived/v04/stage4/manifests/v04_robot_dev.json",
+        "sha256": "bbad7bb3a9fdd89f5e7d8d6087be6ca8b0937e460aed5a4df8cf45710ae3c959",
+        "size_bytes": 33009
+      },
+      "v04_robot_final": {
+        "path": "/workspace/data/Human2Robot/derived/v04/stage4/manifests/v04_robot_final.json",
+        "sha256": "cbec468f1a33efca9d45057099484c94489aa5d00f39d60ebfd169d0fa70ddd9",
+        "size_bytes": 130625
+      }
+    },
+    "protocol_sha256": "55854766bb7a36468aa0db73bd3a99dfca941dead26a452d2e000ed7bec8d3c2",
+    "source_split_manifest_sha256": "7869a078b19ba18aaa6a92c22bec26998a81d412165a02eb8cb6c6aec1c879ed",
+    "split_sha256": "8ca7c8352e031292975779fd254db9591963b2cd3612b1f1b5ab65b6e79ebeaf"
+  },
+  "data_protocol_sha256": "8c214c6612bd70bff05b51747d6ebeed0d60d334715c88587ca51a3cac899525",
+  "final_evaluation_protocol": {
+    "bootstrap_replicates": 10000,
+    "bootstrap_seed": 20260711,
+    "dev": {
+      "episodes": 20,
+      "queries": 160,
+      "queries_per_episode": 8
+    },
+    "final": {
+      "episodes_per_task": 20,
+      "queries": 640,
+      "queries_per_episode": 8,
+      "tasks": 4
+    },
+    "oracle_phase_after_primary_only": true,
+    "pool_curve": [
+      1,
+      2,
+      4,
+      8,
+      10
+    ],
+    "primary_pool_size": 10,
+    "top_k": 3
+  },
+  "final_evaluation_protocol_sha256": "12d6d89efc873bfb8c384ebd5af0a0d3ec6fa4b0972c84211295b49b39d8fafd",
+  "formal_performance_result": false,
+  "future_target_independence_violation_count": 0,
+  "gap_crossing_count": 0,
+  "missing_receipt_count": 0,
+  "nonfinite_count": 0,
+  "performance_claim_allowed": false,
+  "provenance_violation_count": 0,
+  "retrieval_protocol": {
+    "H_steps": 8,
+    "K_steps": 8,
+    "fusion": "equal_weight_concatenation_1_over_sqrt2",
+    "geometry": {
+      "path": "/DATA1/wxs/ReCAP_M5B_V04_RUNS/features/geometry_statistics.json",
+      "sha256": "d16fda28986f4860a237fabfb598792fb4630764bc3766735a97d94198e630eb",
+      "size_bytes": 1105
+    },
+    "modality": "geometry_plus_visual",
+    "pool_size": 10,
+    "seed": 20260711,
+    "tie_break": "SHA256(seed,query_id,human_content_sha256)",
+    "top_k": 3,
+    "visual_cache": {
+      "path": "/DATA1/wxs/ReCAP_M5B_V04_RUNS/features/wan_cache_index.json",
+      "sha256": "48e895a1c664790cab85d837506e63facf7c97eca207e3d15f20d4e55c589d17",
+      "size_bytes": 573808
+    }
+  },
+  "retrieval_protocol_sha256": "fd255610265f55bec6347d512a6b031c7ff9235257fa5e1a4e43efa7b3c147be",
+  "schema_version": "human2robot-v04-stage4-v1-protocol-lock",
+  "smoke_plan": {
+    "path": "/workspace/data/Human2Robot/derived/v04/stage4_smoke_plan.json",
+    "sha256": "3a2c123da9c3f08bc9c6a0ab8cba2e75f0668a46d9ed0744c4cd5197cf4a47e6",
+    "size_bytes": 2618108
+  },
+  "smoke_summaries": [
+    {
+      "path": "/DATA1/wxs/ReCAP_M5B_V04_RUNS/stage4/smoke/no_retrieval/summary.json",
+      "sha256": "ed02522d9f3ef1b90326f3b90a5bf88772da45b0b5b8aec926569706355f8974",
+      "size_bytes": 1280
+    },
+    {
+      "path": "/DATA1/wxs/ReCAP_M5B_V04_RUNS/stage4/smoke/co_training/summary.json",
+      "sha256": "b34a71adeb08044920bd5fb0e65f5d04cd2be753204daba3ffcbc03a9e295649",
+      "size_bytes": 1277
+    },
+    {
+      "path": "/DATA1/wxs/ReCAP_M5B_V04_RUNS/stage4/smoke/recap_hand_ret/summary.json",
+      "sha256": "7926c3eb48cb1dede52e2da7d32e05579bd8cf283568339fd7cc44ec47622387",
+      "size_bytes": 1286
+    }
+  ],
+  "stage5_allowed": true,
+  "status": "VERIFIED_STAGE4",
+  "training_allowed": true,
+  "training_protocol": {
+    "H_steps": 8,
+    "K_steps": 8,
+    "action_loss_multiplier": 16,
+    "batch_per_gpu": 25,
+    "checkpoint_selection": "fixed_step_7000",
+    "effective_batch": 200,
+    "gpu_count": 4,
+    "gradient_accumulation": 2,
+    "heldout_training_or_selection_allowed": false,
+    "initialization": "/DATA1/wxs/_HUGGINGFACE/nvidia/Cosmos-Predict2.5-2B/base/post-trained/81edfebe-bd6a-4039-8c1d-737df1a790bf_ema_bf16.pt",
+    "learning_rate": 0.0001,
+    "methods": [
+      "no_retrieval",
+      "co_training",
+      "recap_hand_ret"
+    ],
+    "optimizer_steps": 7000,
+    "order": [
+      "no_retrieval",
+      "co_training",
+      "recap_hand_ret"
+    ],
+    "resolution": [
+      224,
+      224
+    ],
+    "seed": 20260711,
+    "text_conditioning": "disabled_zero_embedding",
+    "top_k": 3
+  },
+  "training_protocol_sha256": "c3667592906de61afebeaf56559c65d6e580c1a5a175bda773e9d277b15c884f"
+}
