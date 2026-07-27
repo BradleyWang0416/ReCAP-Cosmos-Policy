@@ -234,8 +234,14 @@ def _controlled_bindings(workspace: Path) -> list[dict[str, Any]]:
         workspace / "tools/human2robot_v04_stage4.py",
         workspace / "tools/human2robot_v04_stage4_feature_worker.py",
         workspace / "tools/human2robot_v04_stage4_worker.py",
+        workspace / "tools/human2robot_v04_stage5.py",
         workspace / "tools/human2robot_m5b_p2_inference.py",
         workspace / "tools/human2robot_m5b_p2_step_checkpoint_diagnostic.py",
+        workspace / "cosmos_policy/datasets/human2robot_v04_dataset.py",
+        workspace / "cosmos_policy/datasets/human2robot_v04_sampler.py",
+        workspace / "cosmos_policy/config/experiment/human2robot_v04_experiment_configs.py",
+        workspace / "cosmos_policy/scripts/train_human2robot_v04.py",
+        workspace / "cosmos_policy/trainer_human2robot_v04.py",
         workspace / "方案/v04/RECAP_Human2Robot_无泄漏单seed离线复现执行总计划.md",
         workspace / "docs/pusht_rag_docker_runbook.md",
     ]
@@ -348,6 +354,28 @@ def dispatch(args: argparse.Namespace, *, workspace: Path) -> dict[str, Any]:
             derived_root=args.derived_root,
             execute=True,
             progress=None,
+        )
+        result["preflight"] = preflight
+        return result
+    if args.command == "train":
+        preflight = frozen.build_preflight(workspace)
+        if preflight.get("status") != "PASSED":
+            return {
+                "schema_version": f"{SCHEMA}-stage5-blocked",
+                "status": "BLOCKED_ENVIRONMENT",
+                "blockers": preflight.get("blockers", []),
+                "preflight": preflight,
+                "training_allowed": False,
+                "training_started": False,
+                "features_generated": False,
+                "evaluation_started": False,
+            }
+        from tools import human2robot_v04_stage5 as stage5
+
+        result = stage5.run_stage5(
+            args.method,
+            workspace=workspace,
+            run_root=RUN_ROOT,
         )
         result["preflight"] = preflight
         return result

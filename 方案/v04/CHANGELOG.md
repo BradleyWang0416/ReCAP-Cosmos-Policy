@@ -104,3 +104,12 @@
 - 正式证据：attempt 0005 manifest/receipt SHA256 为 `56f07e50...` / `00a15f9a...`；protocol lock SHA256 `834fe271...`；冻结四卡离线全量 suite 为 211 passed、3 个第三方 deprecation warnings，receipt SHA256 `d024e50c4628946ba1e810c79c9ff45fb4d9ac5180c52d1eb322d29d02b03afa`。
 - 偏差：attempt 0001 的离线 torchrun hostname、attempt 0002 的 Hydra 绝对 config、attempt 0003 的 GPU 映射环境变量、attempt 0004 的 strict adapter metadata 均在最终 attempt 前暴露并修正；失败/阻断收据保留，未作为正式结论。三个 worker 退出有 PyTorch process-group 清理 warning，但退出码、全部收据和独立 bundle 审计均通过。
 - 科学边界：所有 smoke 均为 `formal_result=false`、`performance_claim_allowed=false`；不用于模型选择、方法排序或 RECAP 优越性结论。详见 `阶段4_预检与旧checkpoint冒烟验收报告_20260722.md`。
+
+## 2026-07-22 — 阶段 5 双四卡并行调度与启动前实现
+
+- 用户资源授权：物理 GPU `0,1,2,3` 可运行一个实验，物理 GPU `4,5,6,7` 可同时运行另一个实验。
+- 调度解释：保持科学方法和启动顺序 `no_retrieval → co_training → recap_hand_ret`；允许前两种方法先后启动后在互不重叠的四卡组上并行，不要求 no-retrieval 完成后才启动 co-training。RECAP 仍为第三个启动的方法。
+- 新增：v04 stage-5 seen-train 数据适配、task-balanced sampler 的训练入口接线、三方法冻结配置、方法级训练输入/统计物化、阶段 4 锁与 stage-5 suite 门禁、loss finite 集体门禁、每 10 optimizer step 结构化进度、滚动 checkpoint 保留及 step-7000 独立审计。
+- 运行隔离：两方法使用独立容器、日志、training input、训练输出、checkpoint 和回执目录；容器内逻辑 GPU 均为 `0,1,2,3`，回执额外绑定宿主机物理 GPU 编号。
+- 科学影响：并发只改变墙钟调度，不改变 seed、seen split、task-balanced sampling、batch、gradient accumulation、optimizer step、LR、H/K、top-k、分辨率、loss multiplier、初始化权重或 fixed-step checkpoint 选择。
+- 当前边界：本条记录发生在 stage-5 Docker 全量 suite 和正式训练启动之前；实际 suite/容器/attempt/启动证据必须由后续追加记录给出，不能以本条代替。

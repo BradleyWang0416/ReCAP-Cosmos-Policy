@@ -80,11 +80,15 @@ def test_oracle_phase_requires_primary_receipt_sha_and_pool10() -> None:
         interface.validate_args(args)
 
 
-def test_later_stage_execute_is_fail_closed_without_starting_work() -> None:
+def test_later_stage_execute_is_fail_closed_without_passing_preflight(monkeypatch: pytest.MonkeyPatch) -> None:
     args = interface.build_parser().parse_args(["train", "--method", "recap_hand_ret", "--execute"])
+    monkeypatch.setattr(
+        interface.frozen,
+        "build_preflight",
+        lambda workspace: {"status": "BLOCKED_ENVIRONMENT", "blockers": ["synthetic_test_blocker"]},
+    )
     result = interface.dispatch(args, workspace=Path("/workspace"))
-    assert result["status"] == "BLOCKED_STAGE_GATE"
-    assert result["required_stage"] == 5
+    assert result["status"] == "BLOCKED_ENVIRONMENT"
     assert result["training_started"] is False
     assert result["features_generated"] is False
     assert result["evaluation_started"] is False

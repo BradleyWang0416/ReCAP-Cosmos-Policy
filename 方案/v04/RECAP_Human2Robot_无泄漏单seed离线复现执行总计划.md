@@ -406,7 +406,7 @@ data/Human2Robot/derived/v04/
 | RECAP | geometry+visual human retrieval | robot future − aligned human plan |
 | retrieval-only | 不训练 | aligned human plan |
 
-训练顺序固定为 no-retrieval → co-training → RECAP。
+科学方法顺序和启动顺序固定为 no-retrieval → co-training → RECAP。经用户于 2026-07-22 明确提供两组四卡资源后，阶段 5 允许 no-retrieval 在物理 GPU 0–3、co-training 在物理 GPU 4–7 上先后启动并并行运行；“先后启动”不要求前一方法训练完成。两方法必须使用不同容器、日志、运行目录和 checkpoint 目录，且配置除预注册方法差异外完全一致。RECAP 仍排在第三位，只能在任一完整四卡组释放后启动。该调度只改变墙钟并发，不改变 seed、数据、batch、step、优化器、checkpoint 选择或任何科学语义。
 
 Checkpoint 保存策略：
 

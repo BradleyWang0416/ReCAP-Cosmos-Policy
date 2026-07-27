@@ -23,6 +23,9 @@ from cosmos_policy._src.imaginaire.lazy_config import LazyDict
 from cosmos_policy._src.imaginaire.utils import log
 from cosmos_policy._src.imaginaire.utils.checkpoint_db import get_checkpoint_path  # noqa: F401
 from cosmos_policy.config.experiment.human2robot_experiment_configs import ALL_HUMAN2ROBOT_CONFIGS  # noqa: F401
+from cosmos_policy.config.experiment.human2robot_v04_experiment_configs import (  # noqa: F401
+    ALL_HUMAN2ROBOT_V04_CONFIGS,
+)
 from cosmos_policy.config.experiment.pusht_experiment_configs import ALL_PUSHT_CONFIGS  # noqa: F401
 from cosmos_policy.datasets.aloha_dataset import ALOHADataset
 from cosmos_policy.datasets.libero_dataset import LIBERODataset
@@ -1093,6 +1096,7 @@ def register_configs():
         cosmos_predict2_2b_480p_aloha_185_demos_4_tasks_mixture_foldshirt15_candiesinbowl45_candyinbag45_eggplantchickenonplate80__resumeFrom50K_648_rollouts_Vsprime_value_func__inference_only,
         *ALL_PUSHT_CONFIGS,
         *ALL_HUMAN2ROBOT_CONFIGS,
+        *ALL_HUMAN2ROBOT_V04_CONFIGS,
     ]:
         experiment_name = _item["job"]["name"]
         log.info(f"Registering experiment: {experiment_name}")
