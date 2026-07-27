@@ -26,7 +26,7 @@ pilot_log_root="${pilot_run_root}/orchestrator_logs"
 pilot_image="cosmos-policy:latest"
 # 总计划 §2.1 登记的镜像 ID。变更必须在 PILOT_LOG 登记后用 V05_PILOT_ACK_IMAGE_CHANGE=1 放行。
 pilot_pinned_image_id="sha256:4fc8db9f70eeb96fee271ef282385163ec1da220dfed35da9c832fb6769891e8"
-pilot_min_free_bytes=$((300 * 1024 * 1024 * 1024))
+pilot_min_free_bytes=$((100 * 1024 * 1024 * 1024))
 pilot_poll_seconds="${V05_PILOT_GPU_POLL_SECONDS:-30}"
 pilot_wait_seconds="${V05_PILOT_GPU_WAIT_SECONDS:-0}"
 
@@ -79,10 +79,10 @@ pilot_free_gib=$((pilot_free_bytes / 1024 / 1024 / 1024))
 pilot_storage_status="passed"
 if (( pilot_free_bytes < pilot_min_free_bytes )); then
   pilot_storage_status="failed"
-  pilot_warn "/DATA1 可用 ${pilot_free_gib} GiB < 300 GiB 门槛；容器内 preflight 将返回 BLOCKED_ENVIRONMENT"
+  pilot_warn "/DATA1 可用 ${pilot_free_gib} GiB < 100 GiB 门槛；容器内 preflight 将返回 BLOCKED_ENVIRONMENT"
 elif (( pilot_free_bytes < pilot_min_free_bytes + 50 * 1024 * 1024 * 1024 )); then
-  pilot_warn "/DATA1 可用 ${pilot_free_gib} GiB，余量不足 50 GiB。E4 短训每方法约需 11 GiB checkpoint，"
-  pilot_warn "  按总计划 §四 E0.2，启动 E4 前必须先从非本课题目录追加清理。"
+  pilot_warn "/DATA1 可用 ${pilot_free_gib} GiB，高出 100 GiB 门槛不足 50 GiB。"
+  pilot_warn "  E4 短训每方法约需 11 GiB checkpoint；按总计划 §四 E0.2 应先追加清理。"
 else
   pilot_info "/DATA1 可用 ${pilot_free_gib} GiB"
 fi

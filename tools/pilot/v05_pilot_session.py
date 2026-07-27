@@ -27,7 +27,9 @@ from pathlib import Path
 from typing import Any
 
 SCHEMA = "human2robot-v05-pilot"
-MIN_FREE_BYTES = 300 * 1024**3
+# 探索期磁盘门槛。2026-07-27 由 300 GiB 下调为 100 GiB（用户决定）。
+# v04 的 tools/human2robot_v04.py:43 仍为 300 GiB，未改动——见 §四 E0.2 的说明。
+MIN_FREE_BYTES = 100 * 1024**3
 PINNED_IMAGE_ID = "sha256:4fc8db9f70eeb96fee271ef282385163ec1da220dfed35da9c832fb6769891e8"
 
 # 总计划 §2.2 的容器环境。与 v04 的 OFFLINE_ENV 有两处**有意不同**：
@@ -268,7 +270,7 @@ def build_preflight(workspace: Path) -> dict[str, Any]:
     elif disk.free < MIN_FREE_BYTES + 50 * 1024**3:
         warnings.append(
             f"free_space_margin_below_50GiB:{disk.free // 1024**3}GiB:"
-            "E4 前必须按总计划 §四 E0.2 从非本课题目录追加清理"
+            "E4 短训每方法约需 11 GiB checkpoint，应按总计划 §四 E0.2 先追加清理"
         )
 
     assets: dict[str, Any] = {}

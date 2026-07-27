@@ -297,13 +297,13 @@ V05_PILOT_GPU_DEVICES=2,3,6,7 bash start_v05_pilot_docker.sh
 | 编号 | 内容 | 判据 | 状态 |
 |---|---|---|---|
 | E0.1 | 诊断脚本归档进 `tools/pilot/`，建立 `PILOT_LOG.md` | 脚本可重跑并复现记录中的数字 | ✅ **已完成**（2026-07-27，commit `d85425a`；随后完成并行化与 GEMM 改造，输出逐位不变） |
-| E0.2 | `/DATA1` 清理至 ≥ 300 GiB | 正式 preflight 不再 `BLOCKED_ENVIRONMENT` | ✅ **已完成**（2026-07-27，171 → **302 GiB**）。经用户显式批准执行次选路径，删除 v03 的 12 个中间 checkpoint，释放 141,150,732,820 B（131.5 GiB）。**余量仅 2 GiB，见下方警告** |
+| E0.2 | `/DATA1` 清理至 ≥ **100 GiB**（2026-07-27 由 300 GiB 下调，见下） | 探索期 preflight 不再 `BLOCKED_ENVIRONMENT` | ✅ **已完成**（2026-07-27，171 → **302 GiB**）。经用户显式批准执行次选路径，删除 v03 的 12 个中间 checkpoint，释放 141,150,732,820 B（131.5 GiB）。**余量仅 2 GiB，见下方警告** |
 | E0.3 | 明确 GPU 可用时间窗 | E3 能拿到 1 张卡、E4 能拿到 4 张卡 | 🟡 **判据当前已满足**（2026-07-27 复核：GPU 0–3 空闲 0 MiB，4–7 为本人 LlamaFactory 作业）。仍需 E0.4 才能实际占用 |
 | E0.4 | 交付 `start_v05_pilot_docker.sh`（按张数自动选卡，见 §2.4） | 能以 `V05_PILOT_GPU_COUNT=N` 启动并在回执写出实际 GPU UUID | ✅ **已完成**（2026-07-27）。交付 `start_v05_pilot_docker.sh` + `tools/pilot/v05_pilot_session.py`；四条路径实测通过，见下 |
 
 **E0.2 执行记录**（2026-07-27，用户显式批准次选路径）
 
-原冲突：E0.2 要求清理至 ≥ 300 GiB，而 §六 默认假设为「v03/v04 全部产物保持只读、不删除」，成文时无解冲突路径。
+原冲突：E0.2 当时要求清理至 ≥ 300 GiB，而 §六 默认假设为「v03/v04 全部产物保持只读、不删除」，成文时无解冲突路径。
 
 已执行内容：删除 v03 运行根 `/DATA1/wxs/ReCAP_M5B_P2_RUNS/cosmos_policy/human2robot_m5b_formal/` 下 3 方法 × 4 个中间 checkpoint 目录（`iter_000001000` / `000002000` / `000004000` / `000006000`），各 20 文件。
 
@@ -324,7 +324,19 @@ V05_PILOT_GPU_DEVICES=2,3,6,7 bash start_v05_pilot_docker.sh
 
 依据：v03 已于 commit `ec8aeeb` 正式中断，其中间滚动点不是任何结论的证据，也不具备续训价值。
 
-> ⚠️ **余量警告：302 GiB 仅高出门槛 2 GiB。**E4 短训两个方法各写约 11 GiB checkpoint，加上 B5/E3 的特征缓存与日志，**必然再次跌破 300 GiB**。在启动 E4 之前必须追加清理，来源限定为 `/DATA1/wxs` 下非本课题目录（`UniMotion_Skel` 543 GiB、`Human_in_Context_TPAMI` 578 GiB、`Show-o` 215 GiB、`MTVCrafter` 147 GiB、`cs` 115 GiB）。**已无更多 ReCAP 侧可删内容**——v03 只剩三个受 manifest 绑定的 `iter_7000`，v04 产物一律禁止删除。
+**门槛下调（2026-07-27，用户决定）**：探索期磁盘门槛由 300 GiB 改为 **100 GiB**。
+
+300 GiB 这个数字继承自 v04 的 `tools/human2robot_v04.py:43`，是为 v04 完整七阶段（三方法 × 多 checkpoint × 全量特征缓存）设定的；探索期的实际写入量小得多——B5/E3 的特征缓存为 GB 量级，E4 短训两方法各约 11 GiB checkpoint。按 300 GiB 卡门槛属于用错了量纲。
+
+| 项 | 值 |
+|---|---|
+| 探索期门槛（本文件、`start_v05_pilot_docker.sh`、`tools/pilot/v05_pilot_session.py`） | **100 GiB** |
+| 当前 `/DATA1` 可用 | 302 GiB → 余量 **202 GiB** |
+| 余量警告线 | 门槛 + 50 GiB = 150 GiB（低于此值 preflight 记 warning，不 block） |
+
+**v04 的 `tools/human2robot_v04.py:43` 仍为 300 GiB，未改动。** 该文件在 `tools/human2robot_v04_experiment.py::_controlled_bindings()` 的哈希绑定列表内，改动它会使 v04 已签发 receipt 中记录的源码哈希失配，按 v04 总计划 §2.7 需升级协议版本并作废下游产物。v04 当前处于 `BLOCKED_PREMISE` 暂停状态，改它没有收益。若日后 v05 冻结协议复用该 preflight，须在 v05 计划中一并处理。
+
+> 余量仍需留意：E4 启动前若可用空间低于 150 GiB，preflight 会记 warning，应从 `/DATA1/wxs` 下非本课题目录追加清理（`UniMotion_Skel` 543 GiB、`Human_in_Context_TPAMI` 578 GiB、`Show-o` 215 GiB、`MTVCrafter` 147 GiB、`cs` 115 GiB）。**ReCAP 侧已无可删内容**——v03 只剩三个受 manifest 绑定的 `iter_7000`，v04 产物一律禁止删除。
 
 **仍然禁止**：删除或改写 v04 的任何产物、v03 的三个 `iter_000007000`、以及原始 Human2Robot 数据。
 
@@ -353,7 +365,7 @@ V05_PILOT_GPU_DEVICES=2,3,6,7 bash start_v05_pilot_docker.sh
 | 只读挂载 | 四个路径全部判定为不可写；原始数据集零探针残留 |
 | 镜像 ID | 实测 `sha256:4fc8db9f70ee…`，与 §2.1 登记值一致 |
 
-preflight 当前 warnings（均非 blocker）：`/DATA1` 余量 301 GiB 不足 50 GiB、`dinov3` 缺失、`dinov2` 缺失。
+preflight 当前 warnings（均非 blocker）：`dinov3` 缺失、`dinov2` 缺失。（门槛下调为 100 GiB 后，磁盘余量警告不再触发。）
 
 ### E1 — 锁定 K 与检索规则（GPU 0 张）
 
@@ -506,7 +518,7 @@ preflight 当前 warnings（均非 blocker）：`/DATA1` 余量 301 GiB 不足 5
 | 环节 | GPU | 状态 | 关键数字 |
 |---|---:|---|---|
 | E0.1 脚本归档 | 0 | ✅ 完成 | 16 脚本 + `_pilot_util.py`；`d14` 约 9 min → 29.5 s、`d15` 27.3 → 4.9 s、`d16` 33.9 → 5.5 s，输出全部逐位不变 |
-| E0.2 存储 | — | ✅ 完成 | 171 → **302 GiB**（删 v03 中间 ckpt 131.5 GiB，用户批准）。⚠️ 余量仅 2 GiB，E4 前必须再清理 |
+| E0.2 存储 | — | ✅ 完成 | 171 → **302 GiB**（删 v03 中间 ckpt 131.5 GiB，用户批准）；门槛由 300 下调为 **100 GiB**，余量 202 GiB |
 | E0.3 GPU 窗口 | — | 🟡 判据已满足 | GPU 0–3 空闲（2026-07-27 复核），4–7 为本人 LlamaFactory 作业 |
 | E0.4 pilot launcher | 0 | ✅ 完成 | `start_v05_pilot_docker.sh` + `tools/pilot/v05_pilot_session.py`；0/1/4 卡与"资源不足则等待"四条路径实测通过 |
 | E1 K 与检索规则 | 0 | 🟡 首轮完成，**判据未满足** | human-only 侧最佳 0.95–0.96，未达 0.75。A 通道（upper reference，不可采）K=8/16/32/64 现配置 1.19 / 1.03 / 0.84 / 0.74，各 K 最佳 0.96 / 0.91 / 0.78 / 0.68 |
@@ -558,6 +570,7 @@ GPU 分配：B5 与 E3 各需一张卡、各约半小时，可共用同一次容
 
 | 日期 | 变更 | 影响判断 |
 |---|---|---|
+| 2026-07-27 | **探索期磁盘门槛由 300 GiB 下调为 100 GiB**（用户决定）。落点：本文件 §四 E0.2 判据与执行记录、§五 进度表、`start_v05_pilot_docker.sh`、`tools/pilot/v05_pilot_session.py`。理由：300 GiB 继承自 v04 为完整七阶段设定的 `MIN_FREE_BYTES`，而探索期实际写入量（B5/E3 特征缓存 GB 量级、E4 两方法各约 11 GiB checkpoint）远低于此。余量警告线随之变为 150 GiB。**v04 的 `tools/human2robot_v04.py:43` 未改动**——该文件在 `_controlled_bindings()` 哈希绑定内，改动会使已签发 receipt 的源码哈希失配 | 放宽探索期环境门禁。当前 `/DATA1` 可用 302 GiB，余量由 2 GiB 变为 202 GiB，磁盘不再是 E4 的实际约束。不改变任何科学判据、否决条件或已记录数字；v04 门禁与冻结链完全不受影响 |
 | 2026-07-27 | **E0.4 交付**：`start_v05_pilot_docker.sh`（宿主机 launcher）+ `tools/pilot/v05_pilot_session.py`（容器内回执与 preflight）。三处超出成文规范的加强：(1) 把 §2.3 声明为只读的四个路径以 `:ro` 覆盖挂载，preflight 实际尝试写入来验证，可写即 BLOCKED——只读边界由文档约定变为内核级强制；(2) 镜像 ID 与 §2.1 登记值不符时默认拒绝启动，须先登记 PILOT_LOG 再显式放行；(3) 新增 `V05_PILOT_NONINTERACTIVE=1` 自检模式，不改变任何检查项。实测四条路径通过：0/1/4 卡 preflight `PASSED`、GPU UUID 与 host→container 映射正确落盘、申请 8 卡（仅 4 张空闲）持续 HEARTBEAT 等待后 `exit=2` 而**未降级** | **E0.4 由 ⬜ 转 ✅，E0 四项全部完成，探索期不再有工程阻塞项。**§五 关键路径由「E0.4 → E2-B5」简化为「E2-B5」。不改变任何判据、否决条件或已记录数字 |
 | 2026-07-27 | **用户决定落地（2 项）**：(1) E0.2 走次选路径——经显式批准删除 v03 的 12 个中间 checkpoint，释放 131.5 GiB，`/DATA1` 171 → 302 GiB；前置检查（manifest 未绑定、测试为 tmp_path fixture、latest_checkpoint 指向 7000）与删除后完整性验证（三个 `iter_7000` 的 file_count/total_bytes 与冻结 manifest 完全一致）均通过。(2) E6 第 6 问选定 **(a) 离线降级声明**——课题仍以 Human2Robot 为主且必须保留人手，(b) 转 RoboTwin、(c) 双轨 因不含人手排除 | **E0.2 由 ⬜ 转 ✅，但余量仅 2 GiB，E4 前必须再清理且 ReCAP 侧已无可删内容。**E6 决定改变科学语义：人手成为不可协商项，`action` 通道在候选侧永久不可采；**E2 否决后的出路由「换数据集 或 重新定位为同具身检索」收缩为「只能换含人手的数据集」**，使 E2-B5 成为整条路线的单点依赖。不改变任何已记录数字 |
 | 2026-07-27 | **检索设计与论文对齐的修订（7 项）**：(1) 新增 §3.4「与论文检索设计的逐条对齐」，登记论文两级检索的每个成分及其复现状态，并写死两条判读规则（"当前帧外观 ≠ 物体状态"、"论文没有人手→机器人坐标映射这一步"）；(2) E2 新增 **B5 物体状态通道**（论文 ψ0 与帧级距离的核心项，此前完全缺失）并列为最高优先级，新增 E2.0 时间平移对照前置；(3) **E2 否决条件收紧**——须自研映射档 B1–B3 与论文成分档 B5/B4 同时失败才成立，B1–B3 单独失败不再构成否决；(4) E1 判据补上「候选侧只读 human-only 字段」限定，E1.2 网格补入通道维度，A 通道降为 upper reference；(5) E4 标题由「离线指标能否反映策略性能」收窄为「ρ 的改善能否传导到训练后的策略」，并明确本路线无法测量闭环成功率，判据新增一个非同族次级指标；(6) E6 新增第 6 问「最终科学声明的形式」，给出 (a) 离线降级声明 / (b) 转 RoboTwin 求闭环 / (c) 双轨 三个选项；(7) E3 的证伪范围精确化为「整帧外观描述子」，DINOv2 更正为论文实际使用的 **DINOv3** | **改变判据与否决条件，不改变任何已记录数字。**最重要的后果：按原否决条件，B1–B3 全部失败即可判定「Human2Robot 不适合」，而被否的方法集里没有一档是论文实际使用的——这会在错误前提下终止路线。修订后 B5 成为决定路线生死的单点。§五 关键路径相应由「E1 → E2」改为「E0.4 → E2-B5，E1/E2.0 并行」，E0.4 升为最高优先级工程项 |

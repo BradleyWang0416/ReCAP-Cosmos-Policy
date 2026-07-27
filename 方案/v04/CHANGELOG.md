@@ -255,3 +255,22 @@
   另：`bash -n` 与 `py_compile` 通过。preflight 当前 warnings（非 blocker）：`/DATA1` 余量 301 GiB 不足 50 GiB、`dinov3` 缺失、`dinov2` 缺失。
 - 科学影响：**无。**本条只交付运行基建，不产生任何数据、特征、checkpoint 或评估结果，不改变任何判据、否决条件或已记录数字。
 - 门禁状态：**E0 四项全部完成**，探索期不再有工程阻塞项。关键路径由「E0.4 → E2-B5」简化为「E2-B5」，E1/E2.0 并行。v04 侧不变——`recap_hand_ret` 仍暂停，阶段 6/7 仍不实现。
+
+## 2026-07-27 — 探索期磁盘门槛由 300 GiB 下调为 100 GiB
+
+- 原因：用户决定。300 GiB 继承自 v04 的 `tools/human2robot_v04.py:43` `MIN_FREE_BYTES`，是为 v04 完整七阶段（三方法 × 多 checkpoint × 全量特征缓存）设定的；探索期实际写入量远低于此——B5/E3 特征缓存为 GB 量级，E4 短训两方法各约 11 GiB checkpoint。按 300 GiB 卡门槛属于用错量纲。
+- 提出者：用户；实施者：Claude。代码基线：分支 `codex/recap-v04-offline-clean`。
+- 修改前后值：
+
+  | 位置 | 前 | 后 |
+  |---|---|---|
+  | `start_v05_pilot_docker.sh` `pilot_min_free_bytes` | `300 * 1024^3` | `100 * 1024^3` |
+  | `tools/pilot/v05_pilot_session.py` `MIN_FREE_BYTES` | `300 * 1024**3` | `100 * 1024**3` |
+  | 总计划 §四 E0.2 判据 | 清理至 ≥ 300 GiB | 清理至 ≥ **100 GiB** |
+  | 余量警告线（门槛 + 50 GiB） | 350 GiB | **150 GiB** |
+
+- **未改动 `tools/human2robot_v04.py:43`（仍为 300 GiB）**：该文件在 `tools/human2robot_v04_experiment.py::_controlled_bindings()` 的哈希绑定列表内（第 232 行），改动会使 v04 已签发 receipt 中记录的源码哈希失配，按 v04 总计划 §2.7 需升级协议版本并作废下游产物。v04 当前为 `BLOCKED_PREMISE` 暂停状态，改它无收益。若日后 v05 冻结协议复用该 preflight，须在 v05 计划中一并处理并显式升级协议版本。
+- 影响：`/DATA1` 当前可用 302 GiB，余量由 2 GiB 变为 **202 GiB**，磁盘不再是 E4 的实际约束。探索期 preflight 的磁盘 warning 不再触发。
+- 是否改变科学语义：**否。**仅放宽环境门禁阈值，不涉及任何数据、特征、split、判据、否决条件或已记录数字。v04 门禁与冻结链完全不受影响。
+- 已执行验证：`bash -n`、`py_compile` 通过；容器内 preflight 复跑，`minimum_free_bytes` 记录为 107374182400，`status=PASSED`，warnings 仅剩 `dinov3`/`dinov2` 缺失。
+- 门禁状态：不变。`recap_hand_ret` 仍暂停，阶段 6/7 仍不实现。
