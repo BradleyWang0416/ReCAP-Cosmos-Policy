@@ -11,6 +11,8 @@
 
 依赖：`h5py`、`numpy`、`scipy`。不需要 GPU、不需要 torch。
 
+`_pilot_util.py` 是共享工具模块（进程池 map、GEMM 距离、向量化窗口合法性掩码），不单独执行。
+
 结论与数字记录在 `方案/v05_pilot/PILOT_LOG.md`。
 
 ## 执行顺序
@@ -56,3 +58,19 @@ bash tools/pilot/run_all.sh
 ```
 
 `d09` 及其下游读取 `stage4_smoke_plan.json`，因此对照使用的是**管线真实使用过的那 160 个 query**，而非重新抽样。
+
+## 性能
+
+`d14`/`d15`/`d16` 相对最初的串行版本做过优化，**输出逐位不变**（已用 `max abs diff = 0` 与逐行 diff 验证）：
+
+| 脚本 | 优化前 | 优化后 | 说明 |
+|---|---:|---:|---|
+| `d14_ablation_pixel` | 约 9 min（串行，按运行起止推算） | **29.5 s** | 按 episode 进程池并行；`imgs.mean(-1, dtype=np.float32)` 免去每 episode 约 330 MB 临时数组 |
+| `d15_ablation_run` | 27.3 s | **4.9 s** | 候选表按 (task, K, channel) 缓存（1280 次重建 → 32 次）；距离改为每特征一次 GEMM；`seg_ok` 逐窗口 Python 调用（约 420 万次）改为向量化掩码 |
+| `d16_ablation_run_pixel` | 33.9 s | **5.5 s** | 同上；576 维像素特征上 GEMM 收益最大 |
+
+`d12`（0.94 s）与 `d13`（1.45 s）实测已足够快，**未做改动**——它们读的是 9 KB 量级的运动学字段。
+
+并发度：本机实测**读取**可扩展到 16+ worker（10.7×，2149 MB/s 解压吞吐），但 block-mean 描述子是内存/缓存受限，超过约 6–8 worker 后反而变慢，故 `default_workers()` 上限取 8。用 `PILOT_WORKERS=<n>` 覆盖。
+
+注意：本机为共享节点（数十用户、load 波动大），同一配置的绝对耗时可在数倍范围内波动，上表仅供量级参考。
