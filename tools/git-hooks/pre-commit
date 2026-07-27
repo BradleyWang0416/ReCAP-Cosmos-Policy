@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+# 自动把仓库内的软链接加入 .gitignore，并确保它们不被 Git 跟踪。
+#
+# 本 hook 纳入版本控制，通过 core.hooksPath 生效：
+#     git config core.hooksPath tools/git-hooks
+# 安装见 tools/sync/README.md。
+#
+# 与旧版（.git/hooks/pre-commit）的差异：
+#   1. 旧版用 `grep -qS`，而 -S 不是合法的 grep 选项，每次都返回 exit 2，
+#      取反后恒为真，导致每次 commit 都重复追加一遍条目（.gitignore 曾涨到 293 行）。
+#      现改用 `git check-ignore`，它是 Git 自身的忽略判定，能识别 `.venv/` 这类
+#      父目录规则，因此已被覆盖的软链接不会再被冗余写入。
+#   2. 旧版 `for link in $SYMLINKS` 会在含空格的路径上按词拆分；现用 -print0 读取，
+#      对中文和空格路径均安全。
+
+set -uo pipefail
+
+git_root=$(git rev-parse --show-toplevel) || exit 0
+cd "$git_root" || exit 0
+
+ignore_file=".gitignore"
+[ -f "$ignore_file" ] || touch "$ignore_file"
+
+changed=0
+
+# 1) 扫描软链接；已被现有规则忽略的跳过，其余追加到 .gitignore
+while IFS= read -r -d '' link; do
+    path=${link#./}
+    [ -n "$path" ] || continue
+
+    if git check-ignore -q -- "$path"; then
+        continue
+    fi
+    # 二次保险：逐行精确比对，避免 check-ignore 未覆盖时写重复
+    if grep -qxF -- "$path" "$ignore_file"; then
+        continue
+    fi
+
+    echo "发现新的软链接: $path，正在加入 .gitignore..."
+    printf '%s\n' "$path" >> "$ignore_file"
+    changed=1
+done < <(find . -type l -not -path './.git/*' -print0)
+
+if [ "$changed" -eq 1 ]; then
+    git add -- "$ignore_file"
+fi
+
+# 2) 已进入索引的软链接一律取消跟踪（保留本地文件）
+while IFS= read -r tracked_link; do
+    [ -n "$tracked_link" ] || continue
+    git rm --cached --quiet -- "$tracked_link" 2>/dev/null || true
+done < <(git ls-files -s | awk '/^120000/ {sub(/^[^\t]*\t/, ""); print}')
+
+exit 0

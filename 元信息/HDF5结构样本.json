@@ -1,0 +1,86 @@
+{
+  "sample": "/DATA1/wxs/DATASETS/Human2Robot/data/v1/push_box_common_v1/episode_2.hdf5",
+  "datasets": {
+    "action": {
+      "shape": [
+        368,
+        7
+      ],
+      "dtype": "float32"
+    },
+    "cam_data/human_camera": {
+      "shape": [
+        368,
+        240,
+        426,
+        3
+      ],
+      "dtype": "uint16"
+    },
+    "cam_data/robot_camera": {
+      "shape": [
+        368,
+        240,
+        426,
+        3
+      ],
+      "dtype": "uint16"
+    },
+    "end_position": {
+      "shape": [
+        368,
+        6
+      ],
+      "dtype": "float32"
+    },
+    "gripper_state": {
+      "shape": [
+        368
+      ],
+      "dtype": "float32"
+    },
+    "qpos": {
+      "shape": [
+        368,
+        7
+      ],
+      "dtype": "float32"
+    },
+    "qvel": {
+      "shape": [
+        368,
+        7
+      ],
+      "dtype": "float32"
+    },
+    "step": {
+      "shape": [
+        368
+      ],
+      "dtype": "int64"
+    },
+    "timestamp": {
+      "shape": [
+        368
+      ],
+      "dtype": "int64"
+    },
+    "transformed_hand_coords": {
+      "shape": [
+        368,
+        24,
+        3
+      ],
+      "dtype": "float32"
+    },
+    "transformed_hand_frames": {
+      "shape": [
+        368,
+        4,
+        3
+      ],
+      "dtype": "float32"
+    }
+  },
+  "attrs": {}
+}
