@@ -113,3 +113,52 @@
 - 运行隔离：两方法使用独立容器、日志、training input、训练输出、checkpoint 和回执目录；容器内逻辑 GPU 均为 `0,1,2,3`，回执额外绑定宿主机物理 GPU 编号。
 - 科学影响：并发只改变墙钟调度，不改变 seed、seen split、task-balanced sampling、batch、gradient accumulation、optimizer step、LR、H/K、top-k、分辨率、loss multiplier、初始化权重或 fixed-step checkpoint 选择。
 - 当前边界：本条记录发生在 stage-5 Docker 全量 suite 和正式训练启动之前；实际 suite/容器/attempt/启动证据必须由后续追加记录给出，不能以本条代替。
+
+## 2026-07-24 — 阶段 5 前两方法运行事实补记（补记于 2026-07-27）
+
+- 补记原因：2026-07-22「阶段 5 双四卡并行调度与启动前实现」条目自述「实际 suite/容器/attempt/启动证据必须由后续追加记录给出」，该记录此前缺失，违反总计划 §2.7「不允许运行事实长期领先于文档」。本条按实际落盘证据补齐，不改写既有记录。
+- 代码基线：Git HEAD `d5c2dc6d38e5cf339304959c4a5ea54bd8052318`，分支 `codex/recap-v04-offline-clean`。
+- 阶段 5 门禁套件：`stage5_full_suite_20260722` attempt 0002 为 215 passed、attempt 0003 为 217 passed（门槛 215），均 `returncode=0`、`formal_result=false`、`performance_claim_allowed=false`；attempt 0003 receipt 文件 SHA256 `c4c856ed5a654d7a768efef64a14cb5f64db2a27f87efda91dcc34712c5df7b3`。
+- `no_retrieval`：run id `stage5_train_no_retrieval_20260722`，attempt 0001 `BLOCKED_ENVIRONMENT`（`offline_env_mismatch` 系列）、attempt 0002/0003 `FAILED`（receipt 仅记录 `Stage-5 training exited with code 1`，未捕获根因——该点属日志缺口）、attempt 0004 `COMPLETED`。容器 `recap-v04-stage5-no-retrieval-20260722-a4`，宿主机物理 GPU `0,1,2,3`，2026-07-22T08:42:43Z 起、2026-07-23T21:19:04Z 止，耗时 131,222.999 s（约 36.45 h），退出码 0。
+- `co_training`：run id `stage5_train_co_training_20260722`，attempt 0001 `BLOCKED_ENVIRONMENT`、attempt 0002 `FAILED`（同上，根因未捕获）、attempt 0003 `COMPLETED`。容器 `recap-v04-stage5-co-training-20260722-a3`，宿主机物理 GPU `4,5,6,7`，2026-07-22T07:11:58Z 起、2026-07-23T19:56:55Z 止，耗时 131,836.088 s（约 36.62 h），退出码 0。
+- 训练结果：两方法均 `optimizer_step=7000`、`loss_finite=true`、`checkpoint_selection=fixed_step_7000`、`heldout_training_or_selection_used=false`、`status=PASSED`。末步 loss 分别为 `no_retrieval` 0.0012434、`co_training` 0.00093679。
+- checkpoint：各 20 个文件、11,762,540,695 / 11,762,540,691 bytes；bundle SHA256 `16d4f007b8190b5869fd8e6e0c4fc56481fcbd56dad50366645864d9d5ec0b79`（no_retrieval）、`52c7197129091be0a93c2824dcc4b87653ab638ea93e02c9fb9332e6d7dacbc5`（co_training）。`iter_000007000` 已置只读，滚动点保留 `iter_000005000`、`iter_000006000`，符合冻结的保留策略。
+- 训练 receipt SHA256：`c88074dcd5d84d7d7d6244f377e15cfd873444b8f441186f33faebc40d24cc74`（no_retrieval attempt 0004）、`cd3ea95d70622f00f1a0c9ff08fe9f88d3a1f985dfef05cb1310e49e3940f172`（co_training attempt 0003）。
+- 科学影响：不改变 seed、split、batch、step、优化器或 checkpoint 选择语义；两次训练均为 `formal_result=false`，不构成性能声明。`recap_hand_ret` 未启动，`stage5/training_inputs/` 下无该方法目录。
+
+## 2026-07-27 — 阶段 5 后科学前提偏差登记，暂停阶段 5 剩余方法与后续阶段
+
+- 原因：只读诊断发现四项使「v04 正在测量人手到机器人跨具身迁移」这一前提不成立的偏差。按总计划 §2.7 暂停新正式任务并生成偏差记录。
+- 提出者：用户；实施者：Claude（只读诊断）。代码基线同上，工作区干净。
+- 诊断合规性：`NONFORMAL_DIAGNOSTIC`。使用宿主机 `anaconda` Python 执行，**不满足 §2.2 的 Docker-only 约束**，特此披露；全程只读，未占 GPU，未写入正式运行根或 `data/Human2Robot/derived`，未签发 receipt，不解除任何 preflight blocker。
+- P0-1：`tools/human2robot_v04_data.py:776` 把原始 `action` 映射为 `human/hand_action_7d`，而 `action` 经验证为机器人末端指令（与 `end_position` 同轴相关性 0.940/0.960/0.797，相似变换 R²=0.913，中位残差 6.4 mm）。真实人手数据 `transformed_hand_frames`（已验证为合法 SE(3)）与 `transformed_hand_coords` 虽在投影白名单内，但从未参与几何计算。该错误使检索几何退化为同具身跨 episode 匹配。`方案/v01/data_inventory_human2robot.md:76-77,83` 当时判断正确，认知在 v01→v04 间丢失且无变更记录。
+- P0-2：`cosmos_policy/datasets/human2robot_v04_dataset.py:269-274` 的 co_training 使用同 episode 自身的 `action[future]` 作为上下文，与论文「jointly trains a single policy on the union of target and pool trajectories」定义不符；夹爪通道误差因此被压低 5–8 倍（同 episode 0.018–0.029 vs 跨 episode 0.141–0.152）。同时 `tools/human2robot_v04_stage4_worker.py:111-126` 表明评估时改用跨 episode 检索候选，训练/评估口径不一致。
+- P0-3：`tools/human2robot_v04_stage4.py:491,544` 与 `tools/human2robot_v04_stage5.py:260,313` 在主结果路径上使用 phase 选择候选时间窗，违反 §2.2「phase primary hard-fail」与 §五测试要求。该路径绕过 `validate_primary_config()`/`rank_oracle_phase()`，217 项测试无法触发；且 `phase` 依赖 `frame_count`（HDF5 attribute），五项 guardrail 只统计行读取，结构上检测不到。
+- P0-4：在阶段 4 冻结的同一批 160 个 dev query 上，现生产配置（A / phase / geometry_plus_visual）的对齐残差为 13.2 mm，劣于「不检索」基线 11.1 mm（1.19×），夹爪 0.0578 vs 0.0289；随机候选 16.0 mm，oracle 上界 4.1 mm。36 格消融显示：K=8/16/32/64 下现配置为 1.19×/1.03×/0.84×/0.74×，**K=8 下无任何配置取得实质正收益**；`geom+vis` 与 `geom+pix` 在每个 K 上均劣于 `geom` 单独使用，16 维 WAN 均值特征单独使用为全表最差（1.59–1.70×），替换为 576 维稠密灰度亦未改善。
+- 科学影响：改变前提判定。阶段 1/2/4 的 `PASSED` 由「通过」降级为「形式通过、语义未验证」——SHA 不交、receipt 完整、guardrail 归零等形式检查仍然有效，字段语义与检索有效性从未被审计。
+- 产物影响：不撤回任何科学结论（v04 全程 `formal_result=false`，阶段 6/7 未实现）。阶段 5 两个 step-7000 checkpoint 保留且 `status=PASSED` 不撤销，但不得用于原定主效应对比。阶段 1 投影/manifest、geometry 统计、WAN cache、smoke plan 保留为历史证据；一旦 K、人手通道或主检索模态变更即全部失效（`legal_window_start` 按 H8/K8 计算）。
+- 门禁状态：`recap_hand_ret` 训练暂停；阶段 6/7 暂不实现。剩余环境 blocker：`/DATA1` 可用 171 GiB 低于 `tools/human2robot_v04.py:43` 的 300 GiB 门槛；8 张 GPU 全部占用。
+- 已执行测试：本次未执行测试套件（只读诊断，未改代码）。阶段 5 门禁套件结论沿用 2026-07-24 补记条目。
+- 证据：`方案/v04/阶段5后_科学前提偏差记录_20260727.md`。
+
+## 2026-07-27 — 探索期脚本归档与 P0-1 数字口径更正
+
+- 原因：(1) 偏差记录所依据的诊断脚本此前仅存于 `/tmp`，不可复现；(2) 归档时把 P0-1 的主证据重写为可复现脚本 `tools/pilot/d02_action_is_robot_command.py` 并实际执行后，发现同日 P0-1 条目引用的部分数字取自不同抽样（单 episode 或 held-out 子集），与 48 个 seen-train episode 的汇总口径不一致。本条按只追加规则更正，不改写既有条目。
+- 新增：`tools/pilot/`（16 个只读诊断脚本 + `README.md` + `run_all.sh`）与 `方案/v05_pilot/PILOT_LOG.md`（探索期流水账，条目 001）。脚本**不**纳入 `_controlled_bindings()` 哈希绑定，不签发 receipt，中间产物仅写 `/tmp`；其宿主机 Python 运行方式不满足总计划 §2.2，已在 `tools/pilot/README.md` 中显式披露。
+- 验证：16 个脚本全部 `py_compile` 通过，`run_all.sh` 通过 `bash -n`；新写的 `d02` 与编辑过的 `d07`（删除一处无效 print）实际执行通过，`d07` 输出与归档前一致。
+- P0-1 数字更正（以 `d02` 的 48 episode / 16 任务汇总为准）：
+
+  | 量 | 同日条目原值 | 更正值 |
+  |---|---|---|
+  | `action` 与 `end_position` 同轴相关性 | 0.940 / 0.960 / 0.797（单 episode） | **0.971 / 0.975 / 0.880** |
+  | 平均逐轴 \|action − end_position\| | 10.5 / 10.6 / 11.0 mm（单 episode） | **9.8 / 11.2 / 9.4 mm**（对应轴 std 78.8 / 104.1 / 39.6 mm） |
+  | `action` → `end_position` | R² = 0.913（逐 episode 拟合均值，量纲不同） | 恒等映射 **R² = 0.930**；残差 mean 20.5 / median 6.4 / p90 65.6 mm |
+  | `action[:,6]` 与 `gripper_state` | 均值 0.005–0.028（held-out 逐任务） | 均值差 **0.0309**，96.9% 帧完全相同 |
+  | `action` 逐步位移相关性 | ≈ 0.000 | **0.018 / 0.023 / 0.012**（幅度 2.40 vs 2.41 mm） |
+  | `action` K=8 位移相关性 | 0.328 / 0.383 / 0.307 | **0.317 / 0.375 / 0.298** |
+  | 与人手腕位置的最大相关性 | 误记为 0.82（该值实为 `hand_coords` 指尖点对与 `gripper_state` 的相关性） | **0.613**（需换轴） |
+
+- 姿态列范围更正：原表述「四个 held-out 任务全程恒定 `(180, 0, 90)`」仅对 held-out 抽查 episode 成立；16 个 seen 任务整体并不恒定（`action` 178 个唯一值、`end_position` 1567 个）。held-out 集上 orientation 次要指标接近退化这一推论保留，须在 v05 评估设计时复核。
+- 结论方向未变：更正后的相关性（0.971 / 0.975 / 0.880）与恒等映射 R²（0.930）比原值更强地支持「`action` 是机器人末端指令而非人手信号」。P0-2、P0-3、P0-4 的数字未受影响。
+- 同步更新：`方案/v04/阶段5后_科学前提偏差记录_20260727.md` §3 与 `方案/v05_pilot/PILOT_LOG.md` §001.1/§001.2 已按上表改写（两者非只追加文档，直接更正并在此登记）。
+- 门禁状态：不变。`recap_hand_ret` 仍暂停，阶段 6/7 仍不实现。
