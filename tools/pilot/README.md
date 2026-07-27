@@ -1,6 +1,38 @@
-# tools/pilot — v05 探索期只读诊断脚本
+# tools/pilot — v05 探索期脚本
 
-本目录是 **探索期（pilot）** 脚本，不是 v04 正式管线的一部分：
+本目录含**两类**文件，规则不同，不要混用：
+
+| 类别 | 文件 | 运行位置 | 写入位置 |
+|---|---|---|---|
+| **类别 A：只读诊断** | `d01`–`d16`、`_pilot_util.py` | 宿主机 Python | `/tmp` |
+| **探索期运行基建** | `v05_pilot_session.py` | **仅容器内** | 探索期运行根 `/DATA1/wxs/ReCAP_M5B_V05_PILOT` |
+
+## `v05_pilot_session.py`（E0.4 的容器侧部分）
+
+由 `start_v05_pilot_docker.sh` 在容器内自动调用，**不需要手工执行**：
+
+```bash
+.venv/bin/python tools/pilot/v05_pilot_session.py session-receipt --run-id <id>
+.venv/bin/python tools/pilot/v05_pilot_session.py preflight --run-id <id>
+```
+
+它按总计划 §2.5 建立 `attempt_000N.{log,command.txt,runtime.json,status.json,progress.json}` 与 run 级
+`latest_log.json` / `status.json` / `progress.json`，落盘走 `.partial` + 原子 `rename`（§2.6）。
+
+preflight 的 blocker 覆盖：是否在容器内、镜像身份绑定、`/workspace` 与 `.venv`、Python 3.10、
+§2.2 离线环境变量、workspace 与探索期运行根可写、**§2.3 声明为只读的四个路径是否真的不可写**、
+`/DATA1` ≥ 300 GiB、必需模型资产存在。DINOv3/DINOv2 缺失记 warning 而非 blocker——B5 只需 SAM，E3 才需要它们。
+
+它**不复用** `tools/human2robot_v04.py` 的 `session-receipt` / `preflight`：后者把回执写进
+`/DATA1/wxs/ReCAP_M5B_V04_RUNS`，而该路径在探索期声明为只读（§2.3）。
+
+---
+
+## 类别 A：只读诊断脚本（`d01`–`d16`）
+
+以下内容只适用于 `d01`–`d16` 与 `_pilot_util.py`，不适用于 `v05_pilot_session.py`。
+
+它们不是 v04 正式管线的一部分：
 
 - **不**纳入 `tools/human2robot_v04_experiment.py` 的 `_controlled_bindings()` 哈希绑定；
 - **不**签发 receipt，**不**产生正式产物，**不**解除任何 preflight blocker；

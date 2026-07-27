@@ -227,3 +227,31 @@
 - PILOT_LOG：「待回答问题」表 E6 行标为已定；E2 否决说明补入单点依赖风险。
 - 本条为运行事实与判据变更的正式登记，按只追加规则写入。
 - 门禁状态：不变。`recap_hand_ret` 仍暂停，阶段 6/7 仍不实现。
+
+## 2026-07-27 — E0.4 交付：v05 探索期 Docker launcher 与容器内 preflight
+
+- 原因：E0.4 是 E2-B5 / E3 / E4 的共同前置，且 B5 已成为整条路线的单点依赖（见同日 E6 决定条目）。
+- 提出者：用户；实施者：Claude。代码基线：分支 `codex/recap-v04-offline-clean`。
+- 新增文件（**均不纳入** `tools/human2robot_v04_experiment.py::_controlled_bindings()` 哈希绑定）：
+  - `start_v05_pilot_docker.sh` — 宿主机 launcher。按张数选空闲卡、绑定镜像身份、检查磁盘、建立 run/attempt 记录、启动容器并开 shell；**不启动任何计算**（§2.1）。
+  - `tools/pilot/v05_pilot_session.py` — 容器内 session 回执与 preflight。**不复用** `tools/human2robot_v04.py` 的同名命令，因为后者写入 `/DATA1/wxs/ReCAP_M5B_V04_RUNS`，而该路径在探索期声明为只读（总计划 §2.3）。仅依赖标准库。
+- 相对成文规范的三处加强（均为收紧，不放宽任何约束）：
+  1. **只读边界由文档约定变为内核级强制**：`/DATA1` 整体 rw 挂载，但 §2.3 声明为只读的四个路径（`DATASETS/Human2Robot/data/v1`、`ReCAP_M5B_P2_RUNS`、`ReCAP_M5B_V04_RUNS`、`_HUGGINGFACE`）以 `:ro` 覆盖挂载在其上；preflight **实际尝试写入**来验证约束生效（`os.access` 在 bind mount 上给出错误答案），任一路径可写即 `BLOCKED_ENVIRONMENT`。
+  2. **镜像 ID 不符默认拒启动**：与 §2.1 登记值 `sha256:4fc8db9f70ee…` 不一致时直接 exit 2，须先登记进 PILOT_LOG 再用 `V05_PILOT_ACK_IMAGE_CHANGE=1` 放行。
+  3. 新增 `V05_PILOT_NONINTERACTIVE=1` 自检模式（只跑回执与 preflight 后退出、不开 shell、不分配 TTY）。**不改变任何检查项或判定阈值**，仅用于自检与远程非交互调用。
+- 空闲 GPU 判定按 §2.4 实现：该卡无其他用户的 compute process **且** 已用显存 < 总显存 10%（后者同时挡住本人的大作业）；不足声明张数时持续输出 HEARTBEAT 等待，**不降级为更少卡数或改用 CPU**。
+- 落盘遵循 §2.5/§2.6：`attempt_000N.{log,command.txt,runtime.json,status.json,progress.json}` + run 级 `latest_log.json`/`status.json`/`progress.json`；重试新建整套 attempt，不覆盖旧 attempt；写入走 `.partial` + flush + fsync + 原子 `rename`。容器内两个命令使用独立 run_id（`<session>_session_receipt` / `<session>_preflight`），避免覆盖 session run 目录的汇总文件。
+- 已执行验证（2026-07-27，`NONFORMAL_DIAGNOSTIC`；宿主机 GPU 0–3 空闲、4–7 为本人 LlamaFactory 作业）：
+
+  | 路径 | 结果 |
+  |---|---|
+  | `V05_PILOT_GPU_COUNT=0` | preflight `PASSED` |
+  | `V05_PILOT_GPU_COUNT=1` | 自动选中 GPU 0，回执写出 UUID `GPU-d56d0e2b-e242-8f0e-5463-1bb3ffbbf823`；preflight `PASSED` |
+  | `V05_PILOT_GPU_COUNT=4` | 选中 0–3，host→container 映射 0→0 / 1→1 / 2→2 / 3→3 |
+  | `V05_PILOT_GPU_COUNT=8`（仅 4 张空闲） | 持续 HEARTBEAT 等待，达上限后 `exit=2`，**未降级** |
+  | 只读挂载 | 四个路径全部判定 `writable=false`；原始数据集零探针残留 |
+  | 镜像 ID | 实测与 §2.1 登记值一致 |
+
+  另：`bash -n` 与 `py_compile` 通过。preflight 当前 warnings（非 blocker）：`/DATA1` 余量 301 GiB 不足 50 GiB、`dinov3` 缺失、`dinov2` 缺失。
+- 科学影响：**无。**本条只交付运行基建，不产生任何数据、特征、checkpoint 或评估结果，不改变任何判据、否决条件或已记录数字。
+- 门禁状态：**E0 四项全部完成**，探索期不再有工程阻塞项。关键路径由「E0.4 → E2-B5」简化为「E2-B5」，E1/E2.0 并行。v04 侧不变——`recap_hand_ret` 仍暂停，阶段 6/7 仍不实现。
